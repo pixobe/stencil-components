@@ -6,56 +6,54 @@
  */
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
 export namespace Components {
-    interface MyComponent {
-        /**
-          * The first name
-         */
-        "first": string;
-        /**
-          * The last name
-         */
-        "last": string;
-        /**
-          * The middle name
-         */
-        "middle": string;
+    interface DropdownMenu {
+        "options": Array<string | number>;
+        "tooltip"?: string;
+        "value": string | number;
     }
 }
+export interface DropdownMenuCustomEvent<T> extends CustomEvent<T> {
+    detail: T;
+    target: HTMLDropdownMenuElement;
+}
 declare global {
-    interface HTMLMyComponentElement extends Components.MyComponent, HTMLStencilElement {
+    interface HTMLDropdownMenuElementEventMap {
+        "valueChanged": string;
     }
-    var HTMLMyComponentElement: {
-        prototype: HTMLMyComponentElement;
-        new (): HTMLMyComponentElement;
+    interface HTMLDropdownMenuElement extends Components.DropdownMenu, HTMLStencilElement {
+        addEventListener<K extends keyof HTMLDropdownMenuElementEventMap>(type: K, listener: (this: HTMLDropdownMenuElement, ev: DropdownMenuCustomEvent<HTMLDropdownMenuElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLDropdownMenuElementEventMap>(type: K, listener: (this: HTMLDropdownMenuElement, ev: DropdownMenuCustomEvent<HTMLDropdownMenuElementEventMap[K]>) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
+    }
+    var HTMLDropdownMenuElement: {
+        prototype: HTMLDropdownMenuElement;
+        new (): HTMLDropdownMenuElement;
     };
     interface HTMLElementTagNameMap {
-        "my-component": HTMLMyComponentElement;
+        "dropdown-menu": HTMLDropdownMenuElement;
     }
 }
 declare namespace LocalJSX {
-    interface MyComponent {
-        /**
-          * The first name
-         */
-        "first"?: string;
-        /**
-          * The last name
-         */
-        "last"?: string;
-        /**
-          * The middle name
-         */
-        "middle"?: string;
+    interface DropdownMenu {
+        "onValueChanged"?: (event: DropdownMenuCustomEvent<string>) => void;
+        "options"?: Array<string | number>;
+        "tooltip"?: string;
+        "value"?: string | number;
     }
     interface IntrinsicElements {
-        "my-component": MyComponent;
+        "dropdown-menu": DropdownMenu;
     }
 }
 export { LocalJSX as JSX };
 declare module "@stencil/core" {
     export namespace JSX {
         interface IntrinsicElements {
-            "my-component": LocalJSX.MyComponent & JSXBase.HTMLAttributes<HTMLMyComponentElement>;
+            "dropdown-menu": LocalJSX.DropdownMenu & JSXBase.HTMLAttributes<HTMLDropdownMenuElement>;
         }
     }
 }
