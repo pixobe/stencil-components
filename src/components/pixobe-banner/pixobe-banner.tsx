@@ -23,20 +23,23 @@ export class PixobeBanner {
           </p>
         </div>
         <div class="app-footer">
-          <div class="icon">
-            <a href="https://facebook.com/pixobe" target="_blank" title="contact pixobe on facebook">
-              <IconFacebook></IconFacebook>
-            </a>
-          </div>
-          <div class="icon">
-            <a href="https://www.youtube.com/@pixobe" target="_blank" title="watch videos by pixobe">
-              <IconYoutube></IconYoutube>
-            </a>
-          </div>
-          <div class="icon">
-            <a href="mailto:email@pixobe.com" title="email@pixobe.com" target="_blank">
-              <IconEnvelope></IconEnvelope>
-            </a>
+          <div>Copyright © {new Date().getFullYear()} - All right reserved</div>
+          <div class="social">
+            <div class="icon">
+              <a href="https://facebook.com/pixobe" target="_blank" title="contact pixobe on facebook">
+                <IconFacebook></IconFacebook>
+              </a>
+            </div>
+            <div class="icon">
+              <a href="https://www.youtube.com/@pixobe" target="_blank" title="watch videos by pixobe">
+                <IconYoutube></IconYoutube>
+              </a>
+            </div>
+            <div class="icon">
+              <a href="mailto:email@pixobe.com" title="email@pixobe.com" target="_blank">
+                <IconEnvelope></IconEnvelope>
+              </a>
+            </div>
           </div>
         </div>
       </Host>
