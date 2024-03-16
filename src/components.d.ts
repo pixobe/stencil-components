@@ -11,6 +11,9 @@ export namespace Components {
         "tooltip"?: string;
         "value": string | number;
     }
+    interface PixobeBanner {
+        "name": string;
+    }
 }
 export interface DropdownMenuCustomEvent<T> extends CustomEvent<T> {
     detail: T;
@@ -34,8 +37,15 @@ declare global {
         prototype: HTMLDropdownMenuElement;
         new (): HTMLDropdownMenuElement;
     };
+    interface HTMLPixobeBannerElement extends Components.PixobeBanner, HTMLStencilElement {
+    }
+    var HTMLPixobeBannerElement: {
+        prototype: HTMLPixobeBannerElement;
+        new (): HTMLPixobeBannerElement;
+    };
     interface HTMLElementTagNameMap {
         "dropdown-menu": HTMLDropdownMenuElement;
+        "pixobe-banner": HTMLPixobeBannerElement;
     }
 }
 declare namespace LocalJSX {
@@ -45,8 +55,12 @@ declare namespace LocalJSX {
         "tooltip"?: string;
         "value"?: string | number;
     }
+    interface PixobeBanner {
+        "name"?: string;
+    }
     interface IntrinsicElements {
         "dropdown-menu": DropdownMenu;
+        "pixobe-banner": PixobeBanner;
     }
 }
 export { LocalJSX as JSX };
@@ -54,6 +68,7 @@ declare module "@stencil/core" {
     export namespace JSX {
         interface IntrinsicElements {
             "dropdown-menu": LocalJSX.DropdownMenu & JSXBase.HTMLAttributes<HTMLDropdownMenuElement>;
+            "pixobe-banner": LocalJSX.PixobeBanner & JSXBase.HTMLAttributes<HTMLPixobeBannerElement>;
         }
     }
 }
