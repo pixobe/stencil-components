@@ -8,7 +8,7 @@ const createElement = args => {
   // Create dropdown-menu element
   const dropdownMenu = document.createElement('div') as HTMLDivElement;
   // Create content to be distributed to the slot
-  dropdownMenu.innerHTML = `<dropdown-menu><div slot="icon">${args.icon}</div></dropdown-menu>`;
+  dropdownMenu.innerHTML = `<dropdown-menu><div slot="menu-icon">${args.icon}</div></dropdown-menu>`;
   const menu = dropdownMenu.querySelector('dropdown-menu');
   menu.options = args.options;
   menu.value = args.value;
@@ -21,16 +21,16 @@ const createSlotted = args => {
   const dropdownMenu = document.createElement('div') as HTMLDivElement;
   
   dropdownMenu.innerHTML = `<dropdown-menu>
-  <div slot="icon">${args.icon}</div>
-  <div  slot="menu-list-items">
-      <div class="menu-list-item" id="item_first" data-value="First">First</div>
-      <div class="menu-list-item" id="item_second" data-value="Second">Second</div>
-      <div class="menu-list-item" id="item_third" data-value="Third">Third</div>
+  <div slot="menu-icon">${args.icon}</div>
+  <div slot="menu-items">
+      <div class="menu-item" id="item_First" data-value="First">First</div>
+      <div class="menu-item" id="item_Second" data-value="Second">Second</div>
+      <div class="menu-item" id="item_Third" data-value="Third">Third</div>
   </div>
   </dropdown-menu>`;
   const menu = dropdownMenu.querySelector('dropdown-menu');
   menu.tooltip = args.tooltip;
-  menu.value="second"
+  menu.value="Third"
   return dropdownMenu;
 };
 
@@ -39,12 +39,12 @@ const createSlottedWitLabel = args => {
   const dropdownMenu = document.createElement('div') as HTMLDivElement;
   
   dropdownMenu.innerHTML = `<dropdown-menu>
-  <div slot="menu-label"> Custom Label</div>
-  <div slot="icon">${args.icon}</div>
-  <div class="menu-list" slot="menu-list-items">
-      <div class="menu-list-item" id="item_first" data-value="First">First</div>
-      <div class="menu-list-item" id="item_second" data-value="Second">Second</div>
-      <div class="menu-list-item" id="item_third" data-value="Third">Third</div>
+  <div slot="menu-text"> Custom Label</div>
+  <div slot="menu-icon">${args.icon}</div>
+  <div slot="menu-items">
+      <div class="menu-item" id="item_First" data-value="First">First</div>
+      <div class="menu-item" id="item_Second" data-value="Second">Second</div>
+      <div class="menu-item" id="item_Third" data-value="Third">Third</div>
   </div>
   </dropdown-menu>`;
   const menu = dropdownMenu.querySelector('dropdown-menu');

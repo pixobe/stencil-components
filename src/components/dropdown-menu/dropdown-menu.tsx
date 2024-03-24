@@ -22,58 +22,83 @@ export class DropdownMenu {
   @Event() valueChanged: EventEmitter<string>;
 
   checkbox: HTMLInputElement;
+  menu: HTMLDivElement;
 
-  onSelect(val: any) {
+  items: NodeList;
+  currentSelectedItem: HTMLElement;
+
+  onSelect = (e: Event) => {
+    const target = e.currentTarget as HTMLElement;
+    const value = target.dataset.value;
+    this.valueChanged.emit(value);
     this.checkbox.checked = false;
-    this.value = val;
-    this.valueChanged.emit(val);
+    this.value = value;
+    this.activateItem(target);
   }
 
-  onSlotchangeEvent = (e) => {
-    const slot = e.target;
-    const assignedNodes = slot.assignedNodes({ flatten: true });
-    const menuList = assignedNodes[0];
-    const items = menuList.querySelectorAll(".menu-list-item");
-    items.forEach((item: HTMLElement) => {
-      item.addEventListener("click", (e: any) => {
-        const dataset = e.target.dataset;
-        this.onSelect(dataset.value);
+  onSlotChange = (e) => {
+    const slot = e.target as HTMLSlotElement;
+    this.onSelectListeners(slot.assignedElements()[0] as HTMLElement)
+  }
+
+  componentDidLoad() {
+    this.onSelectListeners(this.el.shadowRoot);
+  }
+
+  onSelectListeners = (container: HTMLElement | ShadowRoot) => {
+    const menuItems = container.querySelectorAll(".menu-item") as NodeListOf<HTMLDivElement>;
+    if (menuItems.length > 0) {
+      menuItems.forEach(item => {
+        const dataset = item.dataset;
+        if (dataset.value === this.value) {
+          item.classList.add("active");
+          this.currentSelectedItem = item;
+        }
+        item.addEventListener("click", this.onSelect);
       });
-    })
+      this.items = menuItems;
+    }
+  }
+
+  activateItem(target: HTMLElement): void {
+    if (this.currentSelectedItem) {
+      this.currentSelectedItem.classList.remove("active");
+    }
+    target.classList.add("active");
+    this.currentSelectedItem = target;
   }
 
   scrollTo = (e) => {
     if (e.target.checked) {
-      const container = this.el.shadowRoot.querySelector(".menu-list") as HTMLDivElement;
-      const targetItem = this.el.shadowRoot.querySelector(`#item_${this.value}`) as HTMLDivElement;
-      if (targetItem && container) {
-        container.scrollTop = targetItem.offsetTop - container.offsetTop;
-      }
+
     }
+  }
+
+  getMenuItems() {
+    if (this.options) {
+      return this.options?.map(option => {
+        const id = `item_${option.value}`
+        return (
+          <div class="menu-item" id={id} key={id} data-value={option.value}>
+            {option.label}
+          </div>
+        );
+      })
+    }
+    return <slot name="menu-items" onSlotchange={this.onSlotChange}></slot>;
   }
 
   render() {
     return (
       <Host>
         <div class="dropdown">
-          <label class="menu" htmlFor="checkedbox">
-            <div class="display"> <slot name="menu-label" >{this.value}</slot></div>
-            <div class="icon"><slot name="icon" /></div>
+          <label class="menu-label" htmlFor="checkedbox">
+            <div class="text"><slot name="menu-text">{this.value}</slot></div>
+            <div class="icon"><slot name="menu-icon" /></div>
           </label>
           <input type="checkbox" id="checkedbox" ref={el => (this.checkbox = el)} onInput={this.scrollTo} />
-          <div class="menu-list">
-            <slot name="menu-list-items" onSlotchange={this.onSlotchangeEvent}>
-              {this.options?.map(option => {
-                return (
-                  <div class={{ "menu-list-item": true, selected: option.value === this.value }}
-                    id={`item_${option.value}`}
-                    onClick={() => this.onSelect(option.value)}
-                    key={`item_${option.value}`}>
-                    {option.label}
-                  </div>
-                );
-              })}
-            </slot>
+          <div class="menu" ref={el => (this.menu = el)}>
+            {this.getMenuItems()}
           </div>
         </div>
       </Host>
