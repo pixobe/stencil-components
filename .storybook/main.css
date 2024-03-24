@@ -10,3 +10,18 @@
   gap: 16px;
   background-color: #e9e9e9;
 }
+
+.menu-list {
+  display: flex;
+  flex-direction: column;
+}
+.menu-list-item {
+  text-indent: 8px;
+  padding: 8px;
+  border-bottom: 1px solid #e9e9e9;
+  cursor: pointer;
+  height: 20px;
+  &.selected {
+    background-color: #d9d9d9;
+  }
+}

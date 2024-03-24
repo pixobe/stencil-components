@@ -5,11 +5,13 @@
  * It contains typing information for all components that exist in this project.
  */
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
+import { DropdownOption } from "./components/dropdown-menu/dropdown-utils";
+export { DropdownOption } from "./components/dropdown-menu/dropdown-utils";
 export namespace Components {
     interface DropdownMenu {
-        "options": Array<string | number>;
+        "options"?: DropdownOption[];
         "tooltip"?: string;
-        "value": string | number;
+        "value": any;
     }
     interface PixobeBanner {
         "name": string;
@@ -51,9 +53,9 @@ declare global {
 declare namespace LocalJSX {
     interface DropdownMenu {
         "onValueChanged"?: (event: DropdownMenuCustomEvent<string>) => void;
-        "options"?: Array<string | number>;
+        "options"?: DropdownOption[];
         "tooltip"?: string;
-        "value"?: string | number;
+        "value"?: any;
     }
     interface PixobeBanner {
         "name"?: string;
