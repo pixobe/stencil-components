@@ -1,6 +1,6 @@
 {
   "name": "@pixobe/stencil-components",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Stencil Component Starter",
   "main": "dist/index.cjs.js",
   "module": "dist/index.js",
@@ -10,6 +10,16 @@
   "collection": "dist/collection/collection-manifest.json",
   "collection:main": "dist/collection/index.js",
   "unpkg": "dist/stencil-components/stencil-components.esm.js",
+  "exports": {
+    ".": {
+      "import": "./dist/stencil-components/stencil-components.esm.js",
+      "require": "./dist/stencil-components/stencil-components.cjs.js"
+    },
+    "./my-component": {
+      "import": "./dist/components/stencil-components.js",
+      "types": "./dist/components/stencil-components.d.js"
+    }
+  },
   "repository": {
     "type": "git",
     "url": "git@github.com:pixobe/stencil-components.git"
@@ -28,7 +38,7 @@
     "build-storybook": "storybook build"
   },
   "dependencies": {
-    "@stencil/core": "^4.7.0"
+    "@stencil/core": "^4.14.1"
   },
   "devDependencies": {
     "@chromatic-com/storybook": "^1.2.20",

@@ -1,5 +1,4 @@
 import { Component, Host, h, Prop } from '@stencil/core';
-import { IconEnvelope, IconFacebook, IconPixobe, IconYoutube } from '../icons';
 
 @Component({
   tag: 'pixobe-banner',
@@ -15,7 +14,7 @@ export class PixobeBanner {
       <Host>
         <div class="banner">
           <div class="banner__icon">
-            <IconPixobe></IconPixobe>
+             <icon-pixobe></icon-pixobe>
           </div>
           <h2 class="banner__header">Pixobe</h2>
           <p>
@@ -27,17 +26,17 @@ export class PixobeBanner {
           <div class="social">
             <div class="icon">
               <a href="https://facebook.com/pixobe" target="_blank" title="contact pixobe on facebook">
-                <IconFacebook></IconFacebook>
+                 <icon-facebook></icon-facebook>
               </a>
             </div>
             <div class="icon">
               <a href="https://www.youtube.com/@pixobe" target="_blank" title="watch videos by pixobe">
-                <IconYoutube></IconYoutube>
+                 <icon-youtube></icon-youtube>
               </a>
             </div>
             <div class="icon">
               <a href="mailto:email@pixobe.com" title="email@pixobe.com" target="_blank">
-                <IconEnvelope></IconEnvelope>
+                 <icon-envelope></icon-envelope>
               </a>
             </div>
           </div>
