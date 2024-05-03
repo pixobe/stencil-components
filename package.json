@@ -15,9 +15,18 @@
       "import": "./dist/stencil-components/stencil-components.esm.js",
       "require": "./dist/stencil-components/stencil-components.cjs.js"
     },
-    "./my-component": {
-      "import": "./dist/components/stencil-components.js",
-      "types": "./dist/components/stencil-components.d.js"
+    "./dropdown-menu": {
+      "import": "./dist/components/dropdown-menu.js",
+      "types": "./dist/components/dropdown-menu.d.ts"
+    },
+    "./loader": {
+      "import": "./loader/index.js",
+      "require": "./loader/index.cjs",
+      "types": "./loader/index.d.ts"
+    },
+    "./icon-move": {
+      "import": "./dist/components/icon-move.js",
+      "types": "./dist/components/icon-move.d.ts"
     }
   },
   "repository": {
