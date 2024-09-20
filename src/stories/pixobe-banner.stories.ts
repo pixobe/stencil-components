@@ -1,3 +1,5 @@
+import { wrapSmall } from './story.utils';
+
 /**
  *
  * @param args
@@ -14,9 +16,19 @@ export default {
   render: () => {
     return createElement();
   },
+  parameters: {
+    layout: 'centered',
+  },
   argTypes: {},
 };
 
 export const Banner = {
   args: {},
+};
+
+export const SmallScreen = {
+  args: {},
+  render: () => {
+    return wrapSmall(createElement());
+  },
 };

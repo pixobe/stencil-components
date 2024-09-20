@@ -1,4 +1,4 @@
-import { Component, Host, h, Prop } from '@stencil/core';
+import { Component, h, Host, Prop } from '@stencil/core';
 
 @Component({
   tag: 'pixobe-banner',
@@ -12,31 +12,24 @@ export class PixobeBanner {
   render() {
     return (
       <Host>
-        <div class="banner">
-          <div class="banner__icon">
-             <icon-pixobe></icon-pixobe>
+        <div class="flex flex-col gap has-base-background">
+          <div class="flex gap item-center justify-center  box-sizing p-1">
+            <pixobe-icon icon="pixobe"></pixobe-icon>
+            <h2>Pixobe</h2>
           </div>
-          <h2 class="banner__header">Pixobe</h2>
-          <p>
-            Visit <a href="https://pixobe.com">pixobe.com</a> to explore more applications and plugins
-          </p>
-        </div>
-        <div class="app-footer">
-          <div>Copyright © {new Date().getFullYear()} - All right reserved</div>
-          <div class="social">
-            <div class="icon">
-              <a href="https://facebook.com/pixobe" target="_blank" title="contact pixobe on facebook">
-                 <icon-facebook></icon-facebook>
-              </a>
+          <div class="flex flex-col item-center justify-between box-sizing p-1  bg-blur ">
+            <div>
+              <p>Explore a wide range of plugins at <a href="https://pixobe.com" title="Pixobe - WordPress Plugins and Themes">Pixobe</a> to convert more visitors on your website.</p>
             </div>
-            <div class="icon">
-              <a href="https://www.youtube.com/@pixobe" target="_blank" title="watch videos by pixobe">
-                 <icon-youtube></icon-youtube>
+            <div class="flex  gap-1 item-center justify-center icon-sm ">
+              <a href="https://facebook.com/pixobe" target="_blank" title="Follow Pixobe on Facebook for WordPress, Wix, and Shopify custom apps and plugins">
+                <pixobe-icon icon="facebook" aria-label="Pixobe Facebook"></pixobe-icon>
               </a>
-            </div>
-            <div class="icon">
-              <a href="mailto:email@pixobe.com" title="email@pixobe.com" target="_blank">
-                 <icon-envelope></icon-envelope>
+              <a href="https://youtube.com/pixobe" target="_blank" title="Subscribe to Pixobe on YouTube for tutorials on WordPress, Wix, and Shopify custom apps">
+                <pixobe-icon icon="youtube" aria-label="Pixobe YouTube"></pixobe-icon>
+              </a>
+              <a href="mailto:email@pixobe.com" title="Email Pixobe for inquiries about WordPress, Wix, and Shopify custom apps">
+                <pixobe-icon icon="envelope" aria-label="Email Pixobe"></pixobe-icon>
               </a>
             </div>
           </div>

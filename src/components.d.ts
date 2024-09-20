@@ -13,24 +13,13 @@ export namespace Components {
         "tooltip"?: string;
         "value": any;
     }
-    interface IconEnvelope {
-    }
-    interface IconFacebook {
-    }
-    interface IconImageupload {
-    }
-    interface IconMove {
-    }
-    interface IconPixobe {
-    }
-    interface IconThickness {
-    }
-    interface IconUpload {
-    }
-    interface IconYoutube {
-    }
     interface PixobeBanner {
         "name": string;
+    }
+    interface PixobeIcon {
+        "icon": string;
+    }
+    interface PixobeWatermark {
     }
 }
 export interface DropdownMenuCustomEvent<T> extends CustomEvent<T> {
@@ -55,71 +44,29 @@ declare global {
         prototype: HTMLDropdownMenuElement;
         new (): HTMLDropdownMenuElement;
     };
-    interface HTMLIconEnvelopeElement extends Components.IconEnvelope, HTMLStencilElement {
-    }
-    var HTMLIconEnvelopeElement: {
-        prototype: HTMLIconEnvelopeElement;
-        new (): HTMLIconEnvelopeElement;
-    };
-    interface HTMLIconFacebookElement extends Components.IconFacebook, HTMLStencilElement {
-    }
-    var HTMLIconFacebookElement: {
-        prototype: HTMLIconFacebookElement;
-        new (): HTMLIconFacebookElement;
-    };
-    interface HTMLIconImageuploadElement extends Components.IconImageupload, HTMLStencilElement {
-    }
-    var HTMLIconImageuploadElement: {
-        prototype: HTMLIconImageuploadElement;
-        new (): HTMLIconImageuploadElement;
-    };
-    interface HTMLIconMoveElement extends Components.IconMove, HTMLStencilElement {
-    }
-    var HTMLIconMoveElement: {
-        prototype: HTMLIconMoveElement;
-        new (): HTMLIconMoveElement;
-    };
-    interface HTMLIconPixobeElement extends Components.IconPixobe, HTMLStencilElement {
-    }
-    var HTMLIconPixobeElement: {
-        prototype: HTMLIconPixobeElement;
-        new (): HTMLIconPixobeElement;
-    };
-    interface HTMLIconThicknessElement extends Components.IconThickness, HTMLStencilElement {
-    }
-    var HTMLIconThicknessElement: {
-        prototype: HTMLIconThicknessElement;
-        new (): HTMLIconThicknessElement;
-    };
-    interface HTMLIconUploadElement extends Components.IconUpload, HTMLStencilElement {
-    }
-    var HTMLIconUploadElement: {
-        prototype: HTMLIconUploadElement;
-        new (): HTMLIconUploadElement;
-    };
-    interface HTMLIconYoutubeElement extends Components.IconYoutube, HTMLStencilElement {
-    }
-    var HTMLIconYoutubeElement: {
-        prototype: HTMLIconYoutubeElement;
-        new (): HTMLIconYoutubeElement;
-    };
     interface HTMLPixobeBannerElement extends Components.PixobeBanner, HTMLStencilElement {
     }
     var HTMLPixobeBannerElement: {
         prototype: HTMLPixobeBannerElement;
         new (): HTMLPixobeBannerElement;
     };
+    interface HTMLPixobeIconElement extends Components.PixobeIcon, HTMLStencilElement {
+    }
+    var HTMLPixobeIconElement: {
+        prototype: HTMLPixobeIconElement;
+        new (): HTMLPixobeIconElement;
+    };
+    interface HTMLPixobeWatermarkElement extends Components.PixobeWatermark, HTMLStencilElement {
+    }
+    var HTMLPixobeWatermarkElement: {
+        prototype: HTMLPixobeWatermarkElement;
+        new (): HTMLPixobeWatermarkElement;
+    };
     interface HTMLElementTagNameMap {
         "dropdown-menu": HTMLDropdownMenuElement;
-        "icon-envelope": HTMLIconEnvelopeElement;
-        "icon-facebook": HTMLIconFacebookElement;
-        "icon-imageupload": HTMLIconImageuploadElement;
-        "icon-move": HTMLIconMoveElement;
-        "icon-pixobe": HTMLIconPixobeElement;
-        "icon-thickness": HTMLIconThicknessElement;
-        "icon-upload": HTMLIconUploadElement;
-        "icon-youtube": HTMLIconYoutubeElement;
         "pixobe-banner": HTMLPixobeBannerElement;
+        "pixobe-icon": HTMLPixobeIconElement;
+        "pixobe-watermark": HTMLPixobeWatermarkElement;
     }
 }
 declare namespace LocalJSX {
@@ -129,36 +76,19 @@ declare namespace LocalJSX {
         "tooltip"?: string;
         "value"?: any;
     }
-    interface IconEnvelope {
-    }
-    interface IconFacebook {
-    }
-    interface IconImageupload {
-    }
-    interface IconMove {
-    }
-    interface IconPixobe {
-    }
-    interface IconThickness {
-    }
-    interface IconUpload {
-    }
-    interface IconYoutube {
-    }
     interface PixobeBanner {
         "name"?: string;
     }
+    interface PixobeIcon {
+        "icon"?: string;
+    }
+    interface PixobeWatermark {
+    }
     interface IntrinsicElements {
         "dropdown-menu": DropdownMenu;
-        "icon-envelope": IconEnvelope;
-        "icon-facebook": IconFacebook;
-        "icon-imageupload": IconImageupload;
-        "icon-move": IconMove;
-        "icon-pixobe": IconPixobe;
-        "icon-thickness": IconThickness;
-        "icon-upload": IconUpload;
-        "icon-youtube": IconYoutube;
         "pixobe-banner": PixobeBanner;
+        "pixobe-icon": PixobeIcon;
+        "pixobe-watermark": PixobeWatermark;
     }
 }
 export { LocalJSX as JSX };
@@ -166,15 +96,9 @@ declare module "@stencil/core" {
     export namespace JSX {
         interface IntrinsicElements {
             "dropdown-menu": LocalJSX.DropdownMenu & JSXBase.HTMLAttributes<HTMLDropdownMenuElement>;
-            "icon-envelope": LocalJSX.IconEnvelope & JSXBase.HTMLAttributes<HTMLIconEnvelopeElement>;
-            "icon-facebook": LocalJSX.IconFacebook & JSXBase.HTMLAttributes<HTMLIconFacebookElement>;
-            "icon-imageupload": LocalJSX.IconImageupload & JSXBase.HTMLAttributes<HTMLIconImageuploadElement>;
-            "icon-move": LocalJSX.IconMove & JSXBase.HTMLAttributes<HTMLIconMoveElement>;
-            "icon-pixobe": LocalJSX.IconPixobe & JSXBase.HTMLAttributes<HTMLIconPixobeElement>;
-            "icon-thickness": LocalJSX.IconThickness & JSXBase.HTMLAttributes<HTMLIconThicknessElement>;
-            "icon-upload": LocalJSX.IconUpload & JSXBase.HTMLAttributes<HTMLIconUploadElement>;
-            "icon-youtube": LocalJSX.IconYoutube & JSXBase.HTMLAttributes<HTMLIconYoutubeElement>;
             "pixobe-banner": LocalJSX.PixobeBanner & JSXBase.HTMLAttributes<HTMLPixobeBannerElement>;
+            "pixobe-icon": LocalJSX.PixobeIcon & JSXBase.HTMLAttributes<HTMLPixobeIconElement>;
+            "pixobe-watermark": LocalJSX.PixobeWatermark & JSXBase.HTMLAttributes<HTMLPixobeWatermarkElement>;
         }
     }
 }
