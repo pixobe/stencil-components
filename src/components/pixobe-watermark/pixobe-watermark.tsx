@@ -10,7 +10,7 @@ export class PixobeWatermark {
     return (
       <Host>
         <pixobe-icon icon="pixobe"></pixobe-icon>
-        <div>Pixobe</div>
+        <div><a href="https://pixobe.com" title="Pixobe - Software Development & WordPress Plugins"><span class="tag">pixobe.com</span></a> | <span class="description">Expert solutions for your business needs.</span></div>
       </Host>
     );
   }

@@ -15,12 +15,10 @@ export class PixobeBanner {
         <div class="flex flex-col gap has-base-background">
           <div class="flex gap item-center justify-center  box-sizing p-1">
             <pixobe-icon icon="pixobe"></pixobe-icon>
-            <h2>Pixobe</h2>
+            <h2>PIXOBE</h2>
           </div>
           <div class="flex flex-col item-center justify-between box-sizing p-1  bg-blur ">
-            <div>
-              <p>Explore a wide range of plugins at <a href="https://pixobe.com" title="Pixobe - WordPress Plugins and Themes">Pixobe</a> to convert more visitors on your website.</p>
-            </div>
+            <div><p><a href="https://pixobe.com" title="Pixobe - Software Development and consultancy"><span class="tag">Explore Plugins and Apps</span></a> | <span>Software for your business needs</span></p></div>
             <div class="flex  gap-1 item-center justify-center icon-sm ">
               <a href="https://facebook.com/pixobe" target="_blank" title="Follow Pixobe on Facebook for WordPress, Wix, and Shopify custom apps and plugins">
                 <pixobe-icon icon="facebook" aria-label="Pixobe Facebook"></pixobe-icon>

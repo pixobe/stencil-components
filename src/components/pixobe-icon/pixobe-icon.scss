@@ -2,5 +2,8 @@
   display: block;
   height: var(--icon-size, 24px);
   width: var(--icon-size, 24px);
-  color: var(--primary-color, #353535);
+  color: var(--primary-color, #454545);
+  :hover {
+    color: var(--primary-hover-color, #232323);
+  }
 }
