@@ -13,6 +13,37 @@ export namespace Components {
         "tooltip"?: string;
         "value": any;
     }
+    interface IconAligncenter {
+    }
+    interface IconAlignleft {
+    }
+    interface IconAlignright {
+    }
+    interface IconCircle {
+    }
+    interface IconClose {
+    }
+    interface IconEnvelope {
+    }
+    interface IconHelp {
+    }
+    interface IconImage {
+    }
+    interface IconInfo {
+    }
+    interface IconMonogram {
+    }
+    interface IconPixobe {
+    }
+    interface IconText {
+    }
+    interface IconUpload {
+    }
+    interface IcontextGroup {
+        "icon": string;
+        "label": string;
+        "rounded": boolean;
+    }
     interface PixobeBanner {
         "name": string;
     }
@@ -44,6 +75,90 @@ declare global {
         prototype: HTMLDropdownMenuElement;
         new (): HTMLDropdownMenuElement;
     };
+    interface HTMLIconAligncenterElement extends Components.IconAligncenter, HTMLStencilElement {
+    }
+    var HTMLIconAligncenterElement: {
+        prototype: HTMLIconAligncenterElement;
+        new (): HTMLIconAligncenterElement;
+    };
+    interface HTMLIconAlignleftElement extends Components.IconAlignleft, HTMLStencilElement {
+    }
+    var HTMLIconAlignleftElement: {
+        prototype: HTMLIconAlignleftElement;
+        new (): HTMLIconAlignleftElement;
+    };
+    interface HTMLIconAlignrightElement extends Components.IconAlignright, HTMLStencilElement {
+    }
+    var HTMLIconAlignrightElement: {
+        prototype: HTMLIconAlignrightElement;
+        new (): HTMLIconAlignrightElement;
+    };
+    interface HTMLIconCircleElement extends Components.IconCircle, HTMLStencilElement {
+    }
+    var HTMLIconCircleElement: {
+        prototype: HTMLIconCircleElement;
+        new (): HTMLIconCircleElement;
+    };
+    interface HTMLIconCloseElement extends Components.IconClose, HTMLStencilElement {
+    }
+    var HTMLIconCloseElement: {
+        prototype: HTMLIconCloseElement;
+        new (): HTMLIconCloseElement;
+    };
+    interface HTMLIconEnvelopeElement extends Components.IconEnvelope, HTMLStencilElement {
+    }
+    var HTMLIconEnvelopeElement: {
+        prototype: HTMLIconEnvelopeElement;
+        new (): HTMLIconEnvelopeElement;
+    };
+    interface HTMLIconHelpElement extends Components.IconHelp, HTMLStencilElement {
+    }
+    var HTMLIconHelpElement: {
+        prototype: HTMLIconHelpElement;
+        new (): HTMLIconHelpElement;
+    };
+    interface HTMLIconImageElement extends Components.IconImage, HTMLStencilElement {
+    }
+    var HTMLIconImageElement: {
+        prototype: HTMLIconImageElement;
+        new (): HTMLIconImageElement;
+    };
+    interface HTMLIconInfoElement extends Components.IconInfo, HTMLStencilElement {
+    }
+    var HTMLIconInfoElement: {
+        prototype: HTMLIconInfoElement;
+        new (): HTMLIconInfoElement;
+    };
+    interface HTMLIconMonogramElement extends Components.IconMonogram, HTMLStencilElement {
+    }
+    var HTMLIconMonogramElement: {
+        prototype: HTMLIconMonogramElement;
+        new (): HTMLIconMonogramElement;
+    };
+    interface HTMLIconPixobeElement extends Components.IconPixobe, HTMLStencilElement {
+    }
+    var HTMLIconPixobeElement: {
+        prototype: HTMLIconPixobeElement;
+        new (): HTMLIconPixobeElement;
+    };
+    interface HTMLIconTextElement extends Components.IconText, HTMLStencilElement {
+    }
+    var HTMLIconTextElement: {
+        prototype: HTMLIconTextElement;
+        new (): HTMLIconTextElement;
+    };
+    interface HTMLIconUploadElement extends Components.IconUpload, HTMLStencilElement {
+    }
+    var HTMLIconUploadElement: {
+        prototype: HTMLIconUploadElement;
+        new (): HTMLIconUploadElement;
+    };
+    interface HTMLIcontextGroupElement extends Components.IcontextGroup, HTMLStencilElement {
+    }
+    var HTMLIcontextGroupElement: {
+        prototype: HTMLIcontextGroupElement;
+        new (): HTMLIcontextGroupElement;
+    };
     interface HTMLPixobeBannerElement extends Components.PixobeBanner, HTMLStencilElement {
     }
     var HTMLPixobeBannerElement: {
@@ -64,6 +179,20 @@ declare global {
     };
     interface HTMLElementTagNameMap {
         "dropdown-menu": HTMLDropdownMenuElement;
+        "icon-aligncenter": HTMLIconAligncenterElement;
+        "icon-alignleft": HTMLIconAlignleftElement;
+        "icon-alignright": HTMLIconAlignrightElement;
+        "icon-circle": HTMLIconCircleElement;
+        "icon-close": HTMLIconCloseElement;
+        "icon-envelope": HTMLIconEnvelopeElement;
+        "icon-help": HTMLIconHelpElement;
+        "icon-image": HTMLIconImageElement;
+        "icon-info": HTMLIconInfoElement;
+        "icon-monogram": HTMLIconMonogramElement;
+        "icon-pixobe": HTMLIconPixobeElement;
+        "icon-text": HTMLIconTextElement;
+        "icon-upload": HTMLIconUploadElement;
+        "icontext-group": HTMLIcontextGroupElement;
         "pixobe-banner": HTMLPixobeBannerElement;
         "pixobe-icon": HTMLPixobeIconElement;
         "pixobe-watermark": HTMLPixobeWatermarkElement;
@@ -76,6 +205,37 @@ declare namespace LocalJSX {
         "tooltip"?: string;
         "value"?: any;
     }
+    interface IconAligncenter {
+    }
+    interface IconAlignleft {
+    }
+    interface IconAlignright {
+    }
+    interface IconCircle {
+    }
+    interface IconClose {
+    }
+    interface IconEnvelope {
+    }
+    interface IconHelp {
+    }
+    interface IconImage {
+    }
+    interface IconInfo {
+    }
+    interface IconMonogram {
+    }
+    interface IconPixobe {
+    }
+    interface IconText {
+    }
+    interface IconUpload {
+    }
+    interface IcontextGroup {
+        "icon"?: string;
+        "label"?: string;
+        "rounded"?: boolean;
+    }
     interface PixobeBanner {
         "name"?: string;
     }
@@ -86,6 +246,20 @@ declare namespace LocalJSX {
     }
     interface IntrinsicElements {
         "dropdown-menu": DropdownMenu;
+        "icon-aligncenter": IconAligncenter;
+        "icon-alignleft": IconAlignleft;
+        "icon-alignright": IconAlignright;
+        "icon-circle": IconCircle;
+        "icon-close": IconClose;
+        "icon-envelope": IconEnvelope;
+        "icon-help": IconHelp;
+        "icon-image": IconImage;
+        "icon-info": IconInfo;
+        "icon-monogram": IconMonogram;
+        "icon-pixobe": IconPixobe;
+        "icon-text": IconText;
+        "icon-upload": IconUpload;
+        "icontext-group": IcontextGroup;
         "pixobe-banner": PixobeBanner;
         "pixobe-icon": PixobeIcon;
         "pixobe-watermark": PixobeWatermark;
@@ -96,6 +270,20 @@ declare module "@stencil/core" {
     export namespace JSX {
         interface IntrinsicElements {
             "dropdown-menu": LocalJSX.DropdownMenu & JSXBase.HTMLAttributes<HTMLDropdownMenuElement>;
+            "icon-aligncenter": LocalJSX.IconAligncenter & JSXBase.HTMLAttributes<HTMLIconAligncenterElement>;
+            "icon-alignleft": LocalJSX.IconAlignleft & JSXBase.HTMLAttributes<HTMLIconAlignleftElement>;
+            "icon-alignright": LocalJSX.IconAlignright & JSXBase.HTMLAttributes<HTMLIconAlignrightElement>;
+            "icon-circle": LocalJSX.IconCircle & JSXBase.HTMLAttributes<HTMLIconCircleElement>;
+            "icon-close": LocalJSX.IconClose & JSXBase.HTMLAttributes<HTMLIconCloseElement>;
+            "icon-envelope": LocalJSX.IconEnvelope & JSXBase.HTMLAttributes<HTMLIconEnvelopeElement>;
+            "icon-help": LocalJSX.IconHelp & JSXBase.HTMLAttributes<HTMLIconHelpElement>;
+            "icon-image": LocalJSX.IconImage & JSXBase.HTMLAttributes<HTMLIconImageElement>;
+            "icon-info": LocalJSX.IconInfo & JSXBase.HTMLAttributes<HTMLIconInfoElement>;
+            "icon-monogram": LocalJSX.IconMonogram & JSXBase.HTMLAttributes<HTMLIconMonogramElement>;
+            "icon-pixobe": LocalJSX.IconPixobe & JSXBase.HTMLAttributes<HTMLIconPixobeElement>;
+            "icon-text": LocalJSX.IconText & JSXBase.HTMLAttributes<HTMLIconTextElement>;
+            "icon-upload": LocalJSX.IconUpload & JSXBase.HTMLAttributes<HTMLIconUploadElement>;
+            "icontext-group": LocalJSX.IcontextGroup & JSXBase.HTMLAttributes<HTMLIcontextGroupElement>;
             "pixobe-banner": LocalJSX.PixobeBanner & JSXBase.HTMLAttributes<HTMLPixobeBannerElement>;
             "pixobe-icon": LocalJSX.PixobeIcon & JSXBase.HTMLAttributes<HTMLPixobeIconElement>;
             "pixobe-watermark": LocalJSX.PixobeWatermark & JSXBase.HTMLAttributes<HTMLPixobeWatermarkElement>;
