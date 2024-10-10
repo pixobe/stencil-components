@@ -1,4 +1,4 @@
-import { Component, h, Host, Prop } from '@stencil/core';
+import { Component, Fragment, h, Host, Prop } from '@stencil/core';
 
 @Component({
   tag: 'icontext-group',
@@ -23,7 +23,7 @@ export class IcontextGroup {
         <div class={{ "rounded": this.rounded, "icontext": true }}>
           <Icon></Icon>
         </div>
-        <div>{this.label}</div>
+        {this.label ? <div>{this.label}</div> : <></>}
       </Host >
     );
   }

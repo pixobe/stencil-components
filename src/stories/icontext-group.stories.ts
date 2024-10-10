@@ -33,3 +33,10 @@ export const RoundedIcon = {
     label: 'Bottle color and dimensions',
   },
 };
+
+export const NoLabel = {
+  args: {
+    icon: 'icon-info',
+    rounded: true,
+  },
+};
