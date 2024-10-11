@@ -52,8 +52,14 @@
   --primary-color: #ffffff;
 }
 .light {
-  background-color: #f9f9f9;
   --primary-color: #3d3d3d;
+  background-color: #f9f9f9;
+  color: var(--primary-color);
+}
+
+.blue {
+  --primary-color: #0000ff;
+  background-color: #f9f9f9;
   color: var(--primary-color);
 }
 

@@ -13,6 +13,8 @@ export namespace Components {
         "tooltip"?: string;
         "value": any;
     }
+    interface IconAdd {
+    }
     interface IconAligncenter {
     }
     interface IconAlignleft {
@@ -22,6 +24,8 @@ export namespace Components {
     interface IconCircle {
     }
     interface IconClose {
+    }
+    interface IconEdit {
     }
     interface IconEnvelope {
     }
@@ -75,6 +79,12 @@ declare global {
         prototype: HTMLDropdownMenuElement;
         new (): HTMLDropdownMenuElement;
     };
+    interface HTMLIconAddElement extends Components.IconAdd, HTMLStencilElement {
+    }
+    var HTMLIconAddElement: {
+        prototype: HTMLIconAddElement;
+        new (): HTMLIconAddElement;
+    };
     interface HTMLIconAligncenterElement extends Components.IconAligncenter, HTMLStencilElement {
     }
     var HTMLIconAligncenterElement: {
@@ -104,6 +114,12 @@ declare global {
     var HTMLIconCloseElement: {
         prototype: HTMLIconCloseElement;
         new (): HTMLIconCloseElement;
+    };
+    interface HTMLIconEditElement extends Components.IconEdit, HTMLStencilElement {
+    }
+    var HTMLIconEditElement: {
+        prototype: HTMLIconEditElement;
+        new (): HTMLIconEditElement;
     };
     interface HTMLIconEnvelopeElement extends Components.IconEnvelope, HTMLStencilElement {
     }
@@ -179,11 +195,13 @@ declare global {
     };
     interface HTMLElementTagNameMap {
         "dropdown-menu": HTMLDropdownMenuElement;
+        "icon-add": HTMLIconAddElement;
         "icon-aligncenter": HTMLIconAligncenterElement;
         "icon-alignleft": HTMLIconAlignleftElement;
         "icon-alignright": HTMLIconAlignrightElement;
         "icon-circle": HTMLIconCircleElement;
         "icon-close": HTMLIconCloseElement;
+        "icon-edit": HTMLIconEditElement;
         "icon-envelope": HTMLIconEnvelopeElement;
         "icon-help": HTMLIconHelpElement;
         "icon-image": HTMLIconImageElement;
@@ -205,6 +223,8 @@ declare namespace LocalJSX {
         "tooltip"?: string;
         "value"?: any;
     }
+    interface IconAdd {
+    }
     interface IconAligncenter {
     }
     interface IconAlignleft {
@@ -214,6 +234,8 @@ declare namespace LocalJSX {
     interface IconCircle {
     }
     interface IconClose {
+    }
+    interface IconEdit {
     }
     interface IconEnvelope {
     }
@@ -246,11 +268,13 @@ declare namespace LocalJSX {
     }
     interface IntrinsicElements {
         "dropdown-menu": DropdownMenu;
+        "icon-add": IconAdd;
         "icon-aligncenter": IconAligncenter;
         "icon-alignleft": IconAlignleft;
         "icon-alignright": IconAlignright;
         "icon-circle": IconCircle;
         "icon-close": IconClose;
+        "icon-edit": IconEdit;
         "icon-envelope": IconEnvelope;
         "icon-help": IconHelp;
         "icon-image": IconImage;
@@ -270,11 +294,13 @@ declare module "@stencil/core" {
     export namespace JSX {
         interface IntrinsicElements {
             "dropdown-menu": LocalJSX.DropdownMenu & JSXBase.HTMLAttributes<HTMLDropdownMenuElement>;
+            "icon-add": LocalJSX.IconAdd & JSXBase.HTMLAttributes<HTMLIconAddElement>;
             "icon-aligncenter": LocalJSX.IconAligncenter & JSXBase.HTMLAttributes<HTMLIconAligncenterElement>;
             "icon-alignleft": LocalJSX.IconAlignleft & JSXBase.HTMLAttributes<HTMLIconAlignleftElement>;
             "icon-alignright": LocalJSX.IconAlignright & JSXBase.HTMLAttributes<HTMLIconAlignrightElement>;
             "icon-circle": LocalJSX.IconCircle & JSXBase.HTMLAttributes<HTMLIconCircleElement>;
             "icon-close": LocalJSX.IconClose & JSXBase.HTMLAttributes<HTMLIconCloseElement>;
+            "icon-edit": LocalJSX.IconEdit & JSXBase.HTMLAttributes<HTMLIconEditElement>;
             "icon-envelope": LocalJSX.IconEnvelope & JSXBase.HTMLAttributes<HTMLIconEnvelopeElement>;
             "icon-help": LocalJSX.IconHelp & JSXBase.HTMLAttributes<HTMLIconHelpElement>;
             "icon-image": LocalJSX.IconImage & JSXBase.HTMLAttributes<HTMLIconImageElement>;

@@ -1,4 +1,4 @@
-const icons = ['envelope', 'pixobe', 'image', 'text', 'help', 'monogram', 'alignleft', 'aligncenter', 'alignright'];
+const icons = ['envelope', 'pixobe', 'help', 'monogram', 'alignleft', 'aligncenter', 'alignright', 'circle', 'image', 'text', 'close', 'info', 'upload', 'add', 'edit'];
 
 /**
  *
@@ -22,5 +22,17 @@ export default {
 export const Light = {
   args: {
     theme: 'light',
+  },
+};
+
+export const Dark = {
+  args: {
+    theme: 'dark',
+  },
+};
+
+export const Blue = {
+  args: {
+    theme: 'blue',
   },
 };
