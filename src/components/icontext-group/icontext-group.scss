@@ -6,8 +6,6 @@
   align-items: center;
   font-size: 1rem;
 
-  --rounded-icon-bg: #f9fafb;
-  --rounded-icon-border: #e5e7eb;
   .icontext {
     block-size: 1.2rem;
     svg {
@@ -21,8 +19,9 @@
     height: 2rem;
     width: 2rem;
     padding: 0.5rem;
-    background-color: var(--rounded-icon-bg);
-    border: 1px solid var(--rounded-icon-border);
+    background-color: var(--icon-bg, #f9fafb);
+    border: 1px solid var(--icon-border, #e5e7eb);
+    color: var(--icon-color, inherit);
     border-radius: 50%;
   }
 }
