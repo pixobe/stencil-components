@@ -29,6 +29,10 @@ export namespace Components {
     }
     interface IconEnvelope {
     }
+    interface IconFliph {
+    }
+    interface IconFlipv {
+    }
     interface IconHelp {
     }
     interface IconImage {
@@ -127,6 +131,18 @@ declare global {
         prototype: HTMLIconEnvelopeElement;
         new (): HTMLIconEnvelopeElement;
     };
+    interface HTMLIconFliphElement extends Components.IconFliph, HTMLStencilElement {
+    }
+    var HTMLIconFliphElement: {
+        prototype: HTMLIconFliphElement;
+        new (): HTMLIconFliphElement;
+    };
+    interface HTMLIconFlipvElement extends Components.IconFlipv, HTMLStencilElement {
+    }
+    var HTMLIconFlipvElement: {
+        prototype: HTMLIconFlipvElement;
+        new (): HTMLIconFlipvElement;
+    };
     interface HTMLIconHelpElement extends Components.IconHelp, HTMLStencilElement {
     }
     var HTMLIconHelpElement: {
@@ -203,6 +219,8 @@ declare global {
         "icon-close": HTMLIconCloseElement;
         "icon-edit": HTMLIconEditElement;
         "icon-envelope": HTMLIconEnvelopeElement;
+        "icon-fliph": HTMLIconFliphElement;
+        "icon-flipv": HTMLIconFlipvElement;
         "icon-help": HTMLIconHelpElement;
         "icon-image": HTMLIconImageElement;
         "icon-info": HTMLIconInfoElement;
@@ -238,6 +256,10 @@ declare namespace LocalJSX {
     interface IconEdit {
     }
     interface IconEnvelope {
+    }
+    interface IconFliph {
+    }
+    interface IconFlipv {
     }
     interface IconHelp {
     }
@@ -276,6 +298,8 @@ declare namespace LocalJSX {
         "icon-close": IconClose;
         "icon-edit": IconEdit;
         "icon-envelope": IconEnvelope;
+        "icon-fliph": IconFliph;
+        "icon-flipv": IconFlipv;
         "icon-help": IconHelp;
         "icon-image": IconImage;
         "icon-info": IconInfo;
@@ -302,6 +326,8 @@ declare module "@stencil/core" {
             "icon-close": LocalJSX.IconClose & JSXBase.HTMLAttributes<HTMLIconCloseElement>;
             "icon-edit": LocalJSX.IconEdit & JSXBase.HTMLAttributes<HTMLIconEditElement>;
             "icon-envelope": LocalJSX.IconEnvelope & JSXBase.HTMLAttributes<HTMLIconEnvelopeElement>;
+            "icon-fliph": LocalJSX.IconFliph & JSXBase.HTMLAttributes<HTMLIconFliphElement>;
+            "icon-flipv": LocalJSX.IconFlipv & JSXBase.HTMLAttributes<HTMLIconFlipvElement>;
             "icon-help": LocalJSX.IconHelp & JSXBase.HTMLAttributes<HTMLIconHelpElement>;
             "icon-image": LocalJSX.IconImage & JSXBase.HTMLAttributes<HTMLIconImageElement>;
             "icon-info": LocalJSX.IconInfo & JSXBase.HTMLAttributes<HTMLIconInfoElement>;

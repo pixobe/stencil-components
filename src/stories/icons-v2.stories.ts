@@ -1,4 +1,22 @@
-const icons = ['envelope', 'pixobe', 'help', 'monogram', 'alignleft', 'aligncenter', 'alignright', 'circle', 'image', 'text', 'close', 'info', 'upload', 'add', 'edit'];
+const icons = [
+  'envelope',
+  'pixobe',
+  'help',
+  'monogram',
+  'alignleft',
+  'aligncenter',
+  'alignright',
+  'circle',
+  'image',
+  'text',
+  'close',
+  'info',
+  'upload',
+  'add',
+  'edit',
+  'fliph',
+  'flipv',
+];
 
 /**
  *
