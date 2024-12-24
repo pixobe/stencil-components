@@ -21,6 +21,8 @@ export namespace Components {
     }
     interface IconAlignright {
     }
+    interface IconCart {
+    }
     interface IconCircle {
     }
     interface IconClose {
@@ -106,6 +108,12 @@ declare global {
     var HTMLIconAlignrightElement: {
         prototype: HTMLIconAlignrightElement;
         new (): HTMLIconAlignrightElement;
+    };
+    interface HTMLIconCartElement extends Components.IconCart, HTMLStencilElement {
+    }
+    var HTMLIconCartElement: {
+        prototype: HTMLIconCartElement;
+        new (): HTMLIconCartElement;
     };
     interface HTMLIconCircleElement extends Components.IconCircle, HTMLStencilElement {
     }
@@ -215,6 +223,7 @@ declare global {
         "icon-aligncenter": HTMLIconAligncenterElement;
         "icon-alignleft": HTMLIconAlignleftElement;
         "icon-alignright": HTMLIconAlignrightElement;
+        "icon-cart": HTMLIconCartElement;
         "icon-circle": HTMLIconCircleElement;
         "icon-close": HTMLIconCloseElement;
         "icon-edit": HTMLIconEditElement;
@@ -248,6 +257,8 @@ declare namespace LocalJSX {
     interface IconAlignleft {
     }
     interface IconAlignright {
+    }
+    interface IconCart {
     }
     interface IconCircle {
     }
@@ -294,6 +305,7 @@ declare namespace LocalJSX {
         "icon-aligncenter": IconAligncenter;
         "icon-alignleft": IconAlignleft;
         "icon-alignright": IconAlignright;
+        "icon-cart": IconCart;
         "icon-circle": IconCircle;
         "icon-close": IconClose;
         "icon-edit": IconEdit;
@@ -322,6 +334,7 @@ declare module "@stencil/core" {
             "icon-aligncenter": LocalJSX.IconAligncenter & JSXBase.HTMLAttributes<HTMLIconAligncenterElement>;
             "icon-alignleft": LocalJSX.IconAlignleft & JSXBase.HTMLAttributes<HTMLIconAlignleftElement>;
             "icon-alignright": LocalJSX.IconAlignright & JSXBase.HTMLAttributes<HTMLIconAlignrightElement>;
+            "icon-cart": LocalJSX.IconCart & JSXBase.HTMLAttributes<HTMLIconCartElement>;
             "icon-circle": LocalJSX.IconCircle & JSXBase.HTMLAttributes<HTMLIconCircleElement>;
             "icon-close": LocalJSX.IconClose & JSXBase.HTMLAttributes<HTMLIconCloseElement>;
             "icon-edit": LocalJSX.IconEdit & JSXBase.HTMLAttributes<HTMLIconEditElement>;

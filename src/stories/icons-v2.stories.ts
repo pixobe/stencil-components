@@ -16,6 +16,7 @@ const icons = [
   'edit',
   'fliph',
   'flipv',
+  'cart',
 ];
 
 /**
