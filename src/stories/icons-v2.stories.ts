@@ -17,6 +17,8 @@ const icons = [
   'fliph',
   'flipv',
   'cart',
+  'support',
+  'whatsapp',
 ];
 
 /**

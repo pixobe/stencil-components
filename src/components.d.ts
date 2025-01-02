@@ -45,9 +45,13 @@ export namespace Components {
     }
     interface IconPixobe {
     }
+    interface IconSupport {
+    }
     interface IconText {
     }
     interface IconUpload {
+    }
+    interface IconWhatsapp {
     }
     interface IcontextGroup {
         "icon": string;
@@ -181,6 +185,12 @@ declare global {
         prototype: HTMLIconPixobeElement;
         new (): HTMLIconPixobeElement;
     };
+    interface HTMLIconSupportElement extends Components.IconSupport, HTMLStencilElement {
+    }
+    var HTMLIconSupportElement: {
+        prototype: HTMLIconSupportElement;
+        new (): HTMLIconSupportElement;
+    };
     interface HTMLIconTextElement extends Components.IconText, HTMLStencilElement {
     }
     var HTMLIconTextElement: {
@@ -192,6 +202,12 @@ declare global {
     var HTMLIconUploadElement: {
         prototype: HTMLIconUploadElement;
         new (): HTMLIconUploadElement;
+    };
+    interface HTMLIconWhatsappElement extends Components.IconWhatsapp, HTMLStencilElement {
+    }
+    var HTMLIconWhatsappElement: {
+        prototype: HTMLIconWhatsappElement;
+        new (): HTMLIconWhatsappElement;
     };
     interface HTMLIcontextGroupElement extends Components.IcontextGroup, HTMLStencilElement {
     }
@@ -235,8 +251,10 @@ declare global {
         "icon-info": HTMLIconInfoElement;
         "icon-monogram": HTMLIconMonogramElement;
         "icon-pixobe": HTMLIconPixobeElement;
+        "icon-support": HTMLIconSupportElement;
         "icon-text": HTMLIconTextElement;
         "icon-upload": HTMLIconUploadElement;
+        "icon-whatsapp": HTMLIconWhatsappElement;
         "icontext-group": HTMLIcontextGroupElement;
         "pixobe-banner": HTMLPixobeBannerElement;
         "pixobe-icon": HTMLPixobeIconElement;
@@ -282,9 +300,13 @@ declare namespace LocalJSX {
     }
     interface IconPixobe {
     }
+    interface IconSupport {
+    }
     interface IconText {
     }
     interface IconUpload {
+    }
+    interface IconWhatsapp {
     }
     interface IcontextGroup {
         "icon"?: string;
@@ -317,8 +339,10 @@ declare namespace LocalJSX {
         "icon-info": IconInfo;
         "icon-monogram": IconMonogram;
         "icon-pixobe": IconPixobe;
+        "icon-support": IconSupport;
         "icon-text": IconText;
         "icon-upload": IconUpload;
+        "icon-whatsapp": IconWhatsapp;
         "icontext-group": IcontextGroup;
         "pixobe-banner": PixobeBanner;
         "pixobe-icon": PixobeIcon;
@@ -346,8 +370,10 @@ declare module "@stencil/core" {
             "icon-info": LocalJSX.IconInfo & JSXBase.HTMLAttributes<HTMLIconInfoElement>;
             "icon-monogram": LocalJSX.IconMonogram & JSXBase.HTMLAttributes<HTMLIconMonogramElement>;
             "icon-pixobe": LocalJSX.IconPixobe & JSXBase.HTMLAttributes<HTMLIconPixobeElement>;
+            "icon-support": LocalJSX.IconSupport & JSXBase.HTMLAttributes<HTMLIconSupportElement>;
             "icon-text": LocalJSX.IconText & JSXBase.HTMLAttributes<HTMLIconTextElement>;
             "icon-upload": LocalJSX.IconUpload & JSXBase.HTMLAttributes<HTMLIconUploadElement>;
+            "icon-whatsapp": LocalJSX.IconWhatsapp & JSXBase.HTMLAttributes<HTMLIconWhatsappElement>;
             "icontext-group": LocalJSX.IcontextGroup & JSXBase.HTMLAttributes<HTMLIcontextGroupElement>;
             "pixobe-banner": LocalJSX.PixobeBanner & JSXBase.HTMLAttributes<HTMLPixobeBannerElement>;
             "pixobe-icon": LocalJSX.PixobeIcon & JSXBase.HTMLAttributes<HTMLPixobeIconElement>;
