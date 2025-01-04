@@ -31,6 +31,8 @@ export namespace Components {
     }
     interface IconEnvelope {
     }
+    interface IconFacebook {
+    }
     interface IconFliph {
     }
     interface IconFlipv {
@@ -40,6 +42,8 @@ export namespace Components {
     interface IconImage {
     }
     interface IconInfo {
+    }
+    interface IconInstagram {
     }
     interface IconMonogram {
     }
@@ -143,6 +147,12 @@ declare global {
         prototype: HTMLIconEnvelopeElement;
         new (): HTMLIconEnvelopeElement;
     };
+    interface HTMLIconFacebookElement extends Components.IconFacebook, HTMLStencilElement {
+    }
+    var HTMLIconFacebookElement: {
+        prototype: HTMLIconFacebookElement;
+        new (): HTMLIconFacebookElement;
+    };
     interface HTMLIconFliphElement extends Components.IconFliph, HTMLStencilElement {
     }
     var HTMLIconFliphElement: {
@@ -172,6 +182,12 @@ declare global {
     var HTMLIconInfoElement: {
         prototype: HTMLIconInfoElement;
         new (): HTMLIconInfoElement;
+    };
+    interface HTMLIconInstagramElement extends Components.IconInstagram, HTMLStencilElement {
+    }
+    var HTMLIconInstagramElement: {
+        prototype: HTMLIconInstagramElement;
+        new (): HTMLIconInstagramElement;
     };
     interface HTMLIconMonogramElement extends Components.IconMonogram, HTMLStencilElement {
     }
@@ -244,11 +260,13 @@ declare global {
         "icon-close": HTMLIconCloseElement;
         "icon-edit": HTMLIconEditElement;
         "icon-envelope": HTMLIconEnvelopeElement;
+        "icon-facebook": HTMLIconFacebookElement;
         "icon-fliph": HTMLIconFliphElement;
         "icon-flipv": HTMLIconFlipvElement;
         "icon-help": HTMLIconHelpElement;
         "icon-image": HTMLIconImageElement;
         "icon-info": HTMLIconInfoElement;
+        "icon-instagram": HTMLIconInstagramElement;
         "icon-monogram": HTMLIconMonogramElement;
         "icon-pixobe": HTMLIconPixobeElement;
         "icon-support": HTMLIconSupportElement;
@@ -286,6 +304,8 @@ declare namespace LocalJSX {
     }
     interface IconEnvelope {
     }
+    interface IconFacebook {
+    }
     interface IconFliph {
     }
     interface IconFlipv {
@@ -295,6 +315,8 @@ declare namespace LocalJSX {
     interface IconImage {
     }
     interface IconInfo {
+    }
+    interface IconInstagram {
     }
     interface IconMonogram {
     }
@@ -332,11 +354,13 @@ declare namespace LocalJSX {
         "icon-close": IconClose;
         "icon-edit": IconEdit;
         "icon-envelope": IconEnvelope;
+        "icon-facebook": IconFacebook;
         "icon-fliph": IconFliph;
         "icon-flipv": IconFlipv;
         "icon-help": IconHelp;
         "icon-image": IconImage;
         "icon-info": IconInfo;
+        "icon-instagram": IconInstagram;
         "icon-monogram": IconMonogram;
         "icon-pixobe": IconPixobe;
         "icon-support": IconSupport;
@@ -363,11 +387,13 @@ declare module "@stencil/core" {
             "icon-close": LocalJSX.IconClose & JSXBase.HTMLAttributes<HTMLIconCloseElement>;
             "icon-edit": LocalJSX.IconEdit & JSXBase.HTMLAttributes<HTMLIconEditElement>;
             "icon-envelope": LocalJSX.IconEnvelope & JSXBase.HTMLAttributes<HTMLIconEnvelopeElement>;
+            "icon-facebook": LocalJSX.IconFacebook & JSXBase.HTMLAttributes<HTMLIconFacebookElement>;
             "icon-fliph": LocalJSX.IconFliph & JSXBase.HTMLAttributes<HTMLIconFliphElement>;
             "icon-flipv": LocalJSX.IconFlipv & JSXBase.HTMLAttributes<HTMLIconFlipvElement>;
             "icon-help": LocalJSX.IconHelp & JSXBase.HTMLAttributes<HTMLIconHelpElement>;
             "icon-image": LocalJSX.IconImage & JSXBase.HTMLAttributes<HTMLIconImageElement>;
             "icon-info": LocalJSX.IconInfo & JSXBase.HTMLAttributes<HTMLIconInfoElement>;
+            "icon-instagram": LocalJSX.IconInstagram & JSXBase.HTMLAttributes<HTMLIconInstagramElement>;
             "icon-monogram": LocalJSX.IconMonogram & JSXBase.HTMLAttributes<HTMLIconMonogramElement>;
             "icon-pixobe": LocalJSX.IconPixobe & JSXBase.HTMLAttributes<HTMLIconPixobeElement>;
             "icon-support": LocalJSX.IconSupport & JSXBase.HTMLAttributes<HTMLIconSupportElement>;

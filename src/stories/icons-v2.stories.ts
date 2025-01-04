@@ -19,6 +19,8 @@ const icons = [
   'cart',
   'support',
   'whatsapp',
+  'facebook',
+  'instagram',
 ];
 
 /**
