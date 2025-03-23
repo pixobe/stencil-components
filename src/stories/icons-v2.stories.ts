@@ -17,6 +17,7 @@ const icons = [
   'fliph',
   'flipv',
   'cart',
+  'rotate',
   'support',
   'whatsapp',
   'facebook',

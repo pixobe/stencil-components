@@ -49,6 +49,8 @@ export namespace Components {
     }
     interface IconPixobe {
     }
+    interface IconRotate {
+    }
     interface IconSupport {
     }
     interface IconText {
@@ -201,6 +203,12 @@ declare global {
         prototype: HTMLIconPixobeElement;
         new (): HTMLIconPixobeElement;
     };
+    interface HTMLIconRotateElement extends Components.IconRotate, HTMLStencilElement {
+    }
+    var HTMLIconRotateElement: {
+        prototype: HTMLIconRotateElement;
+        new (): HTMLIconRotateElement;
+    };
     interface HTMLIconSupportElement extends Components.IconSupport, HTMLStencilElement {
     }
     var HTMLIconSupportElement: {
@@ -269,6 +277,7 @@ declare global {
         "icon-instagram": HTMLIconInstagramElement;
         "icon-monogram": HTMLIconMonogramElement;
         "icon-pixobe": HTMLIconPixobeElement;
+        "icon-rotate": HTMLIconRotateElement;
         "icon-support": HTMLIconSupportElement;
         "icon-text": HTMLIconTextElement;
         "icon-upload": HTMLIconUploadElement;
@@ -322,6 +331,8 @@ declare namespace LocalJSX {
     }
     interface IconPixobe {
     }
+    interface IconRotate {
+    }
     interface IconSupport {
     }
     interface IconText {
@@ -363,6 +374,7 @@ declare namespace LocalJSX {
         "icon-instagram": IconInstagram;
         "icon-monogram": IconMonogram;
         "icon-pixobe": IconPixobe;
+        "icon-rotate": IconRotate;
         "icon-support": IconSupport;
         "icon-text": IconText;
         "icon-upload": IconUpload;
@@ -396,6 +408,7 @@ declare module "@stencil/core" {
             "icon-instagram": LocalJSX.IconInstagram & JSXBase.HTMLAttributes<HTMLIconInstagramElement>;
             "icon-monogram": LocalJSX.IconMonogram & JSXBase.HTMLAttributes<HTMLIconMonogramElement>;
             "icon-pixobe": LocalJSX.IconPixobe & JSXBase.HTMLAttributes<HTMLIconPixobeElement>;
+            "icon-rotate": LocalJSX.IconRotate & JSXBase.HTMLAttributes<HTMLIconRotateElement>;
             "icon-support": LocalJSX.IconSupport & JSXBase.HTMLAttributes<HTMLIconSupportElement>;
             "icon-text": LocalJSX.IconText & JSXBase.HTMLAttributes<HTMLIconTextElement>;
             "icon-upload": LocalJSX.IconUpload & JSXBase.HTMLAttributes<HTMLIconUploadElement>;
