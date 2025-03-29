@@ -59,6 +59,8 @@ export namespace Components {
     }
     interface IconWhatsapp {
     }
+    interface IconWrench {
+    }
     interface IcontextGroup {
         "icon": string;
         "label": string;
@@ -233,6 +235,12 @@ declare global {
         prototype: HTMLIconWhatsappElement;
         new (): HTMLIconWhatsappElement;
     };
+    interface HTMLIconWrenchElement extends Components.IconWrench, HTMLStencilElement {
+    }
+    var HTMLIconWrenchElement: {
+        prototype: HTMLIconWrenchElement;
+        new (): HTMLIconWrenchElement;
+    };
     interface HTMLIcontextGroupElement extends Components.IcontextGroup, HTMLStencilElement {
     }
     var HTMLIcontextGroupElement: {
@@ -282,6 +290,7 @@ declare global {
         "icon-text": HTMLIconTextElement;
         "icon-upload": HTMLIconUploadElement;
         "icon-whatsapp": HTMLIconWhatsappElement;
+        "icon-wrench": HTMLIconWrenchElement;
         "icontext-group": HTMLIcontextGroupElement;
         "pixobe-banner": HTMLPixobeBannerElement;
         "pixobe-icon": HTMLPixobeIconElement;
@@ -341,6 +350,8 @@ declare namespace LocalJSX {
     }
     interface IconWhatsapp {
     }
+    interface IconWrench {
+    }
     interface IcontextGroup {
         "icon"?: string;
         "label"?: string;
@@ -379,6 +390,7 @@ declare namespace LocalJSX {
         "icon-text": IconText;
         "icon-upload": IconUpload;
         "icon-whatsapp": IconWhatsapp;
+        "icon-wrench": IconWrench;
         "icontext-group": IcontextGroup;
         "pixobe-banner": PixobeBanner;
         "pixobe-icon": PixobeIcon;
@@ -413,6 +425,7 @@ declare module "@stencil/core" {
             "icon-text": LocalJSX.IconText & JSXBase.HTMLAttributes<HTMLIconTextElement>;
             "icon-upload": LocalJSX.IconUpload & JSXBase.HTMLAttributes<HTMLIconUploadElement>;
             "icon-whatsapp": LocalJSX.IconWhatsapp & JSXBase.HTMLAttributes<HTMLIconWhatsappElement>;
+            "icon-wrench": LocalJSX.IconWrench & JSXBase.HTMLAttributes<HTMLIconWrenchElement>;
             "icontext-group": LocalJSX.IcontextGroup & JSXBase.HTMLAttributes<HTMLIcontextGroupElement>;
             "pixobe-banner": LocalJSX.PixobeBanner & JSXBase.HTMLAttributes<HTMLPixobeBannerElement>;
             "pixobe-icon": LocalJSX.PixobeIcon & JSXBase.HTMLAttributes<HTMLPixobeIconElement>;

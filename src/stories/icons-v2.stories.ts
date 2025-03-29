@@ -22,6 +22,7 @@ const icons = [
   'whatsapp',
   'facebook',
   'instagram',
+  'wrench',
 ];
 
 /**

@@ -12,7 +12,8 @@
     "noUnusedParameters": true,
     "jsx": "react",
     "jsxFactory": "h",
-    "jsxFragmentFactory": "Fragment"
+    "jsxFragmentFactory": "Fragment",
+    "types": ["node", "jest"]
   },
   "include": ["src"],
   "exclude": ["node_modules"]

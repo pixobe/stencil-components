@@ -6,7 +6,9 @@ const config = {
     name: '@storybook/html-vite',
     options: {},
   },
-  docs: {},
+  docs: {
+    autodocs: true
+  },
   staticDirs: ['../dist','../www/build'],
 };
 export default config;
