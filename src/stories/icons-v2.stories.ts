@@ -23,6 +23,7 @@ const icons = [
   'facebook',
   'instagram',
   'wrench',
+  'done',
 ];
 
 /**

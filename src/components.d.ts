@@ -27,6 +27,8 @@ export namespace Components {
     }
     interface IconClose {
     }
+    interface IconDone {
+    }
     interface IconEdit {
     }
     interface IconEnvelope {
@@ -138,6 +140,12 @@ declare global {
     var HTMLIconCloseElement: {
         prototype: HTMLIconCloseElement;
         new (): HTMLIconCloseElement;
+    };
+    interface HTMLIconDoneElement extends Components.IconDone, HTMLStencilElement {
+    }
+    var HTMLIconDoneElement: {
+        prototype: HTMLIconDoneElement;
+        new (): HTMLIconDoneElement;
     };
     interface HTMLIconEditElement extends Components.IconEdit, HTMLStencilElement {
     }
@@ -274,6 +282,7 @@ declare global {
         "icon-cart": HTMLIconCartElement;
         "icon-circle": HTMLIconCircleElement;
         "icon-close": HTMLIconCloseElement;
+        "icon-done": HTMLIconDoneElement;
         "icon-edit": HTMLIconEditElement;
         "icon-envelope": HTMLIconEnvelopeElement;
         "icon-facebook": HTMLIconFacebookElement;
@@ -317,6 +326,8 @@ declare namespace LocalJSX {
     interface IconCircle {
     }
     interface IconClose {
+    }
+    interface IconDone {
     }
     interface IconEdit {
     }
@@ -374,6 +385,7 @@ declare namespace LocalJSX {
         "icon-cart": IconCart;
         "icon-circle": IconCircle;
         "icon-close": IconClose;
+        "icon-done": IconDone;
         "icon-edit": IconEdit;
         "icon-envelope": IconEnvelope;
         "icon-facebook": IconFacebook;
@@ -409,6 +421,7 @@ declare module "@stencil/core" {
             "icon-cart": LocalJSX.IconCart & JSXBase.HTMLAttributes<HTMLIconCartElement>;
             "icon-circle": LocalJSX.IconCircle & JSXBase.HTMLAttributes<HTMLIconCircleElement>;
             "icon-close": LocalJSX.IconClose & JSXBase.HTMLAttributes<HTMLIconCloseElement>;
+            "icon-done": LocalJSX.IconDone & JSXBase.HTMLAttributes<HTMLIconDoneElement>;
             "icon-edit": LocalJSX.IconEdit & JSXBase.HTMLAttributes<HTMLIconEditElement>;
             "icon-envelope": LocalJSX.IconEnvelope & JSXBase.HTMLAttributes<HTMLIconEnvelopeElement>;
             "icon-facebook": LocalJSX.IconFacebook & JSXBase.HTMLAttributes<HTMLIconFacebookElement>;
