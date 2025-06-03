@@ -23,7 +23,11 @@ const icons = [
   'facebook',
   'instagram',
   'wrench',
+  'add-cart',
   'done',
+  'redo',
+  'arrow',
+  'magic',
 ];
 
 /**

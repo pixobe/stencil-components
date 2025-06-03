@@ -15,11 +15,15 @@ export namespace Components {
     }
     interface IconAdd {
     }
+    interface IconAddCart {
+    }
     interface IconAligncenter {
     }
     interface IconAlignleft {
     }
     interface IconAlignright {
+    }
+    interface IconArrow {
     }
     interface IconCart {
     }
@@ -47,9 +51,13 @@ export namespace Components {
     }
     interface IconInstagram {
     }
+    interface IconMagic {
+    }
     interface IconMonogram {
     }
     interface IconPixobe {
+    }
+    interface IconRedo {
     }
     interface IconRotate {
     }
@@ -105,6 +113,12 @@ declare global {
         prototype: HTMLIconAddElement;
         new (): HTMLIconAddElement;
     };
+    interface HTMLIconAddCartElement extends Components.IconAddCart, HTMLStencilElement {
+    }
+    var HTMLIconAddCartElement: {
+        prototype: HTMLIconAddCartElement;
+        new (): HTMLIconAddCartElement;
+    };
     interface HTMLIconAligncenterElement extends Components.IconAligncenter, HTMLStencilElement {
     }
     var HTMLIconAligncenterElement: {
@@ -122,6 +136,12 @@ declare global {
     var HTMLIconAlignrightElement: {
         prototype: HTMLIconAlignrightElement;
         new (): HTMLIconAlignrightElement;
+    };
+    interface HTMLIconArrowElement extends Components.IconArrow, HTMLStencilElement {
+    }
+    var HTMLIconArrowElement: {
+        prototype: HTMLIconArrowElement;
+        new (): HTMLIconArrowElement;
     };
     interface HTMLIconCartElement extends Components.IconCart, HTMLStencilElement {
     }
@@ -201,6 +221,12 @@ declare global {
         prototype: HTMLIconInstagramElement;
         new (): HTMLIconInstagramElement;
     };
+    interface HTMLIconMagicElement extends Components.IconMagic, HTMLStencilElement {
+    }
+    var HTMLIconMagicElement: {
+        prototype: HTMLIconMagicElement;
+        new (): HTMLIconMagicElement;
+    };
     interface HTMLIconMonogramElement extends Components.IconMonogram, HTMLStencilElement {
     }
     var HTMLIconMonogramElement: {
@@ -212,6 +238,12 @@ declare global {
     var HTMLIconPixobeElement: {
         prototype: HTMLIconPixobeElement;
         new (): HTMLIconPixobeElement;
+    };
+    interface HTMLIconRedoElement extends Components.IconRedo, HTMLStencilElement {
+    }
+    var HTMLIconRedoElement: {
+        prototype: HTMLIconRedoElement;
+        new (): HTMLIconRedoElement;
     };
     interface HTMLIconRotateElement extends Components.IconRotate, HTMLStencilElement {
     }
@@ -276,9 +308,11 @@ declare global {
     interface HTMLElementTagNameMap {
         "dropdown-menu": HTMLDropdownMenuElement;
         "icon-add": HTMLIconAddElement;
+        "icon-add-cart": HTMLIconAddCartElement;
         "icon-aligncenter": HTMLIconAligncenterElement;
         "icon-alignleft": HTMLIconAlignleftElement;
         "icon-alignright": HTMLIconAlignrightElement;
+        "icon-arrow": HTMLIconArrowElement;
         "icon-cart": HTMLIconCartElement;
         "icon-circle": HTMLIconCircleElement;
         "icon-close": HTMLIconCloseElement;
@@ -292,8 +326,10 @@ declare global {
         "icon-image": HTMLIconImageElement;
         "icon-info": HTMLIconInfoElement;
         "icon-instagram": HTMLIconInstagramElement;
+        "icon-magic": HTMLIconMagicElement;
         "icon-monogram": HTMLIconMonogramElement;
         "icon-pixobe": HTMLIconPixobeElement;
+        "icon-redo": HTMLIconRedoElement;
         "icon-rotate": HTMLIconRotateElement;
         "icon-support": HTMLIconSupportElement;
         "icon-text": HTMLIconTextElement;
@@ -315,11 +351,15 @@ declare namespace LocalJSX {
     }
     interface IconAdd {
     }
+    interface IconAddCart {
+    }
     interface IconAligncenter {
     }
     interface IconAlignleft {
     }
     interface IconAlignright {
+    }
+    interface IconArrow {
     }
     interface IconCart {
     }
@@ -347,9 +387,13 @@ declare namespace LocalJSX {
     }
     interface IconInstagram {
     }
+    interface IconMagic {
+    }
     interface IconMonogram {
     }
     interface IconPixobe {
+    }
+    interface IconRedo {
     }
     interface IconRotate {
     }
@@ -379,9 +423,11 @@ declare namespace LocalJSX {
     interface IntrinsicElements {
         "dropdown-menu": DropdownMenu;
         "icon-add": IconAdd;
+        "icon-add-cart": IconAddCart;
         "icon-aligncenter": IconAligncenter;
         "icon-alignleft": IconAlignleft;
         "icon-alignright": IconAlignright;
+        "icon-arrow": IconArrow;
         "icon-cart": IconCart;
         "icon-circle": IconCircle;
         "icon-close": IconClose;
@@ -395,8 +441,10 @@ declare namespace LocalJSX {
         "icon-image": IconImage;
         "icon-info": IconInfo;
         "icon-instagram": IconInstagram;
+        "icon-magic": IconMagic;
         "icon-monogram": IconMonogram;
         "icon-pixobe": IconPixobe;
+        "icon-redo": IconRedo;
         "icon-rotate": IconRotate;
         "icon-support": IconSupport;
         "icon-text": IconText;
@@ -415,9 +463,11 @@ declare module "@stencil/core" {
         interface IntrinsicElements {
             "dropdown-menu": LocalJSX.DropdownMenu & JSXBase.HTMLAttributes<HTMLDropdownMenuElement>;
             "icon-add": LocalJSX.IconAdd & JSXBase.HTMLAttributes<HTMLIconAddElement>;
+            "icon-add-cart": LocalJSX.IconAddCart & JSXBase.HTMLAttributes<HTMLIconAddCartElement>;
             "icon-aligncenter": LocalJSX.IconAligncenter & JSXBase.HTMLAttributes<HTMLIconAligncenterElement>;
             "icon-alignleft": LocalJSX.IconAlignleft & JSXBase.HTMLAttributes<HTMLIconAlignleftElement>;
             "icon-alignright": LocalJSX.IconAlignright & JSXBase.HTMLAttributes<HTMLIconAlignrightElement>;
+            "icon-arrow": LocalJSX.IconArrow & JSXBase.HTMLAttributes<HTMLIconArrowElement>;
             "icon-cart": LocalJSX.IconCart & JSXBase.HTMLAttributes<HTMLIconCartElement>;
             "icon-circle": LocalJSX.IconCircle & JSXBase.HTMLAttributes<HTMLIconCircleElement>;
             "icon-close": LocalJSX.IconClose & JSXBase.HTMLAttributes<HTMLIconCloseElement>;
@@ -431,8 +481,10 @@ declare module "@stencil/core" {
             "icon-image": LocalJSX.IconImage & JSXBase.HTMLAttributes<HTMLIconImageElement>;
             "icon-info": LocalJSX.IconInfo & JSXBase.HTMLAttributes<HTMLIconInfoElement>;
             "icon-instagram": LocalJSX.IconInstagram & JSXBase.HTMLAttributes<HTMLIconInstagramElement>;
+            "icon-magic": LocalJSX.IconMagic & JSXBase.HTMLAttributes<HTMLIconMagicElement>;
             "icon-monogram": LocalJSX.IconMonogram & JSXBase.HTMLAttributes<HTMLIconMonogramElement>;
             "icon-pixobe": LocalJSX.IconPixobe & JSXBase.HTMLAttributes<HTMLIconPixobeElement>;
+            "icon-redo": LocalJSX.IconRedo & JSXBase.HTMLAttributes<HTMLIconRedoElement>;
             "icon-rotate": LocalJSX.IconRotate & JSXBase.HTMLAttributes<HTMLIconRotateElement>;
             "icon-support": LocalJSX.IconSupport & JSXBase.HTMLAttributes<HTMLIconSupportElement>;
             "icon-text": LocalJSX.IconText & JSXBase.HTMLAttributes<HTMLIconTextElement>;
