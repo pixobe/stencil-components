@@ -8,6 +8,7 @@ const icons = [
   'alignright',
   'circle',
   'image',
+  'imageupload',
   'text',
   'close',
   'info',

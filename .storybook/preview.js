@@ -1,4 +1,4 @@
-/** @type { import('@storybook/html').Preview } */
+/** @type { import('@storybook/html-vite').Preview } */
 import './main.css';
 const preview = {
   parameters: {
@@ -9,6 +9,8 @@ const preview = {
       },
     },
   },
+
+  tags: ['autodocs']
 };
 
 export default preview;

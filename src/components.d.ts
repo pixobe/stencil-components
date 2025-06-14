@@ -47,6 +47,8 @@ export namespace Components {
     }
     interface IconImage {
     }
+    interface IconImageupload {
+    }
     interface IconInfo {
     }
     interface IconInstagram {
@@ -74,9 +76,15 @@ export namespace Components {
     interface IcontextGroup {
         "icon": string;
         "label": string;
+        /**
+          * @default false
+         */
         "rounded": boolean;
     }
     interface PixobeBanner {
+        /**
+          * @default 'Pixobe'
+         */
         "name": string;
     }
     interface PixobeIcon {
@@ -209,6 +217,12 @@ declare global {
         prototype: HTMLIconImageElement;
         new (): HTMLIconImageElement;
     };
+    interface HTMLIconImageuploadElement extends Components.IconImageupload, HTMLStencilElement {
+    }
+    var HTMLIconImageuploadElement: {
+        prototype: HTMLIconImageuploadElement;
+        new (): HTMLIconImageuploadElement;
+    };
     interface HTMLIconInfoElement extends Components.IconInfo, HTMLStencilElement {
     }
     var HTMLIconInfoElement: {
@@ -324,6 +338,7 @@ declare global {
         "icon-flipv": HTMLIconFlipvElement;
         "icon-help": HTMLIconHelpElement;
         "icon-image": HTMLIconImageElement;
+        "icon-imageupload": HTMLIconImageuploadElement;
         "icon-info": HTMLIconInfoElement;
         "icon-instagram": HTMLIconInstagramElement;
         "icon-magic": HTMLIconMagicElement;
@@ -383,6 +398,8 @@ declare namespace LocalJSX {
     }
     interface IconImage {
     }
+    interface IconImageupload {
+    }
     interface IconInfo {
     }
     interface IconInstagram {
@@ -410,9 +427,15 @@ declare namespace LocalJSX {
     interface IcontextGroup {
         "icon"?: string;
         "label"?: string;
+        /**
+          * @default false
+         */
         "rounded"?: boolean;
     }
     interface PixobeBanner {
+        /**
+          * @default 'Pixobe'
+         */
         "name"?: string;
     }
     interface PixobeIcon {
@@ -439,6 +462,7 @@ declare namespace LocalJSX {
         "icon-flipv": IconFlipv;
         "icon-help": IconHelp;
         "icon-image": IconImage;
+        "icon-imageupload": IconImageupload;
         "icon-info": IconInfo;
         "icon-instagram": IconInstagram;
         "icon-magic": IconMagic;
@@ -479,6 +503,7 @@ declare module "@stencil/core" {
             "icon-flipv": LocalJSX.IconFlipv & JSXBase.HTMLAttributes<HTMLIconFlipvElement>;
             "icon-help": LocalJSX.IconHelp & JSXBase.HTMLAttributes<HTMLIconHelpElement>;
             "icon-image": LocalJSX.IconImage & JSXBase.HTMLAttributes<HTMLIconImageElement>;
+            "icon-imageupload": LocalJSX.IconImageupload & JSXBase.HTMLAttributes<HTMLIconImageuploadElement>;
             "icon-info": LocalJSX.IconInfo & JSXBase.HTMLAttributes<HTMLIconInfoElement>;
             "icon-instagram": LocalJSX.IconInstagram & JSXBase.HTMLAttributes<HTMLIconInstagramElement>;
             "icon-magic": LocalJSX.IconMagic & JSXBase.HTMLAttributes<HTMLIconMagicElement>;
