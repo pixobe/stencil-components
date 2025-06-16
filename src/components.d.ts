@@ -57,6 +57,8 @@ export namespace Components {
     }
     interface IconMonogram {
     }
+    interface IconPdf {
+    }
     interface IconPixobe {
     }
     interface IconRedo {
@@ -87,8 +89,7 @@ export namespace Components {
          */
         "name": string;
     }
-    interface PixobeIcon {
-        "icon": string;
+    interface PixobeSpinner {
     }
     interface PixobeWatermark {
     }
@@ -247,6 +248,12 @@ declare global {
         prototype: HTMLIconMonogramElement;
         new (): HTMLIconMonogramElement;
     };
+    interface HTMLIconPdfElement extends Components.IconPdf, HTMLStencilElement {
+    }
+    var HTMLIconPdfElement: {
+        prototype: HTMLIconPdfElement;
+        new (): HTMLIconPdfElement;
+    };
     interface HTMLIconPixobeElement extends Components.IconPixobe, HTMLStencilElement {
     }
     var HTMLIconPixobeElement: {
@@ -307,11 +314,11 @@ declare global {
         prototype: HTMLPixobeBannerElement;
         new (): HTMLPixobeBannerElement;
     };
-    interface HTMLPixobeIconElement extends Components.PixobeIcon, HTMLStencilElement {
+    interface HTMLPixobeSpinnerElement extends Components.PixobeSpinner, HTMLStencilElement {
     }
-    var HTMLPixobeIconElement: {
-        prototype: HTMLPixobeIconElement;
-        new (): HTMLPixobeIconElement;
+    var HTMLPixobeSpinnerElement: {
+        prototype: HTMLPixobeSpinnerElement;
+        new (): HTMLPixobeSpinnerElement;
     };
     interface HTMLPixobeWatermarkElement extends Components.PixobeWatermark, HTMLStencilElement {
     }
@@ -343,6 +350,7 @@ declare global {
         "icon-instagram": HTMLIconInstagramElement;
         "icon-magic": HTMLIconMagicElement;
         "icon-monogram": HTMLIconMonogramElement;
+        "icon-pdf": HTMLIconPdfElement;
         "icon-pixobe": HTMLIconPixobeElement;
         "icon-redo": HTMLIconRedoElement;
         "icon-rotate": HTMLIconRotateElement;
@@ -353,7 +361,7 @@ declare global {
         "icon-wrench": HTMLIconWrenchElement;
         "icontext-group": HTMLIcontextGroupElement;
         "pixobe-banner": HTMLPixobeBannerElement;
-        "pixobe-icon": HTMLPixobeIconElement;
+        "pixobe-spinner": HTMLPixobeSpinnerElement;
         "pixobe-watermark": HTMLPixobeWatermarkElement;
     }
 }
@@ -408,6 +416,8 @@ declare namespace LocalJSX {
     }
     interface IconMonogram {
     }
+    interface IconPdf {
+    }
     interface IconPixobe {
     }
     interface IconRedo {
@@ -438,8 +448,7 @@ declare namespace LocalJSX {
          */
         "name"?: string;
     }
-    interface PixobeIcon {
-        "icon"?: string;
+    interface PixobeSpinner {
     }
     interface PixobeWatermark {
     }
@@ -467,6 +476,7 @@ declare namespace LocalJSX {
         "icon-instagram": IconInstagram;
         "icon-magic": IconMagic;
         "icon-monogram": IconMonogram;
+        "icon-pdf": IconPdf;
         "icon-pixobe": IconPixobe;
         "icon-redo": IconRedo;
         "icon-rotate": IconRotate;
@@ -477,7 +487,7 @@ declare namespace LocalJSX {
         "icon-wrench": IconWrench;
         "icontext-group": IcontextGroup;
         "pixobe-banner": PixobeBanner;
-        "pixobe-icon": PixobeIcon;
+        "pixobe-spinner": PixobeSpinner;
         "pixobe-watermark": PixobeWatermark;
     }
 }
@@ -508,6 +518,7 @@ declare module "@stencil/core" {
             "icon-instagram": LocalJSX.IconInstagram & JSXBase.HTMLAttributes<HTMLIconInstagramElement>;
             "icon-magic": LocalJSX.IconMagic & JSXBase.HTMLAttributes<HTMLIconMagicElement>;
             "icon-monogram": LocalJSX.IconMonogram & JSXBase.HTMLAttributes<HTMLIconMonogramElement>;
+            "icon-pdf": LocalJSX.IconPdf & JSXBase.HTMLAttributes<HTMLIconPdfElement>;
             "icon-pixobe": LocalJSX.IconPixobe & JSXBase.HTMLAttributes<HTMLIconPixobeElement>;
             "icon-redo": LocalJSX.IconRedo & JSXBase.HTMLAttributes<HTMLIconRedoElement>;
             "icon-rotate": LocalJSX.IconRotate & JSXBase.HTMLAttributes<HTMLIconRotateElement>;
@@ -518,7 +529,7 @@ declare module "@stencil/core" {
             "icon-wrench": LocalJSX.IconWrench & JSXBase.HTMLAttributes<HTMLIconWrenchElement>;
             "icontext-group": LocalJSX.IcontextGroup & JSXBase.HTMLAttributes<HTMLIcontextGroupElement>;
             "pixobe-banner": LocalJSX.PixobeBanner & JSXBase.HTMLAttributes<HTMLPixobeBannerElement>;
-            "pixobe-icon": LocalJSX.PixobeIcon & JSXBase.HTMLAttributes<HTMLPixobeIconElement>;
+            "pixobe-spinner": LocalJSX.PixobeSpinner & JSXBase.HTMLAttributes<HTMLPixobeSpinnerElement>;
             "pixobe-watermark": LocalJSX.PixobeWatermark & JSXBase.HTMLAttributes<HTMLPixobeWatermarkElement>;
         }
     }

@@ -29,13 +29,14 @@ const icons = [
   'redo',
   'arrow',
   'magic',
+  'pdf',
 ];
 
 /**
  *
  */
 export default {
-  title: 'IconsV2',
+  title: 'Icons',
   render: ({ ...args }) => {
     const div = document.createElement('div');
     div.classList.add('container', 'flex', 'flex-wrap', 'gap-1', args.theme);
