@@ -61,6 +61,12 @@ export namespace Components {
     }
     interface IconPixobe {
     }
+    interface IconPreview {
+        /**
+          * @default true
+         */
+        "on": boolean;
+    }
     interface IconRedo {
     }
     interface IconRotate {
@@ -260,6 +266,12 @@ declare global {
         prototype: HTMLIconPixobeElement;
         new (): HTMLIconPixobeElement;
     };
+    interface HTMLIconPreviewElement extends Components.IconPreview, HTMLStencilElement {
+    }
+    var HTMLIconPreviewElement: {
+        prototype: HTMLIconPreviewElement;
+        new (): HTMLIconPreviewElement;
+    };
     interface HTMLIconRedoElement extends Components.IconRedo, HTMLStencilElement {
     }
     var HTMLIconRedoElement: {
@@ -352,6 +364,7 @@ declare global {
         "icon-monogram": HTMLIconMonogramElement;
         "icon-pdf": HTMLIconPdfElement;
         "icon-pixobe": HTMLIconPixobeElement;
+        "icon-preview": HTMLIconPreviewElement;
         "icon-redo": HTMLIconRedoElement;
         "icon-rotate": HTMLIconRotateElement;
         "icon-support": HTMLIconSupportElement;
@@ -420,6 +433,12 @@ declare namespace LocalJSX {
     }
     interface IconPixobe {
     }
+    interface IconPreview {
+        /**
+          * @default true
+         */
+        "on"?: boolean;
+    }
     interface IconRedo {
     }
     interface IconRotate {
@@ -478,6 +497,7 @@ declare namespace LocalJSX {
         "icon-monogram": IconMonogram;
         "icon-pdf": IconPdf;
         "icon-pixobe": IconPixobe;
+        "icon-preview": IconPreview;
         "icon-redo": IconRedo;
         "icon-rotate": IconRotate;
         "icon-support": IconSupport;
@@ -520,6 +540,7 @@ declare module "@stencil/core" {
             "icon-monogram": LocalJSX.IconMonogram & JSXBase.HTMLAttributes<HTMLIconMonogramElement>;
             "icon-pdf": LocalJSX.IconPdf & JSXBase.HTMLAttributes<HTMLIconPdfElement>;
             "icon-pixobe": LocalJSX.IconPixobe & JSXBase.HTMLAttributes<HTMLIconPixobeElement>;
+            "icon-preview": LocalJSX.IconPreview & JSXBase.HTMLAttributes<HTMLIconPreviewElement>;
             "icon-redo": LocalJSX.IconRedo & JSXBase.HTMLAttributes<HTMLIconRedoElement>;
             "icon-rotate": LocalJSX.IconRotate & JSXBase.HTMLAttributes<HTMLIconRotateElement>;
             "icon-support": LocalJSX.IconSupport & JSXBase.HTMLAttributes<HTMLIconSupportElement>;

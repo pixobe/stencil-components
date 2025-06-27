@@ -30,7 +30,21 @@ const icons = [
   'arrow',
   'magic',
   'pdf',
+  'preview',
 ];
+
+const props = {
+  'icon-preview': [
+    {
+      key: 'on',
+      value: true,
+    },
+    {
+      key: 'on',
+      value: false,
+    },
+  ],
+};
 
 /**
  *
@@ -40,11 +54,19 @@ export default {
   render: ({ ...args }) => {
     const div = document.createElement('div');
     div.classList.add('container', 'flex', 'flex-wrap', 'gap-1', args.theme);
-
     icons.forEach(icon => {
       const name = `icon-${icon}`;
-      const el = document.createElement(name);
-      div.append(el);
+      const configuredProps = props[name];
+      if (configuredProps) {
+        configuredProps.forEach(c => {
+          const el = document.createElement(name);
+          el[c.key] = c.value;
+          div.append(el);
+        });
+      } else {
+        const el = document.createElement(name);
+        div.append(el);
+      }
     });
     return div;
   },
