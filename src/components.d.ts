@@ -104,7 +104,7 @@ export namespace Components {
     }
     interface SelectMenu {
         /**
-          * @default 'Menu'
+          * @default 'Menus'
          */
         "label": string;
         /**
@@ -501,7 +501,7 @@ declare namespace LocalJSX {
     }
     interface SelectMenu {
         /**
-          * @default 'Menu'
+          * @default 'Menus'
          */
         "label"?: string;
         /**

@@ -1,7 +1,7 @@
 /** @type { import('@storybook/html-vite').Preview } */
 import './main.css';
 // .storybook/preview.tsx
-import { defineCustomElements } from '../loader/index.js';
+import { defineCustomElements } from '../loader';
 
 /**
  * Registers all custom elements in the Storybook preview.

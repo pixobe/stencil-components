@@ -13,7 +13,7 @@ export interface OptionItem {
 })
 export class SelectMenu {
   @Prop()
-  label: string = 'Menu';
+  label: string = 'Menus';
 
   @Prop()
   options: OptionItem[] = []
