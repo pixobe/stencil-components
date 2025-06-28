@@ -31,6 +31,7 @@ const icons = [
   'magic',
   'pdf',
   'preview',
+  'trash',
 ];
 
 const props = {
