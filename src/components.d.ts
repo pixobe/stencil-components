@@ -5,15 +5,11 @@
  * It contains typing information for all components that exist in this project.
  */
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
-import { DropdownOption } from "./components/dropdown-menu/dropdown-menu";
-import { OptionItem } from "./components/select-menu/select-menu";
-export { DropdownOption } from "./components/dropdown-menu/dropdown-menu";
-export { OptionItem } from "./components/select-menu/select-menu";
+import { DropdownOption } from "./components/html/menu-icon/menu-icon";
+import { OptionItem } from "./components/html/select-menu/select-menu";
+export { DropdownOption } from "./components/html/menu-icon/menu-icon";
+export { OptionItem } from "./components/html/select-menu/select-menu";
 export namespace Components {
-    interface DropdownMenu {
-        "options"?: DropdownOption[];
-        "value": any;
-    }
     interface IconAdd {
     }
     interface IconAddCart {
@@ -92,6 +88,10 @@ export namespace Components {
          */
         "rounded": boolean;
     }
+    interface MenuIcon {
+        "options"?: DropdownOption[];
+        "value": any;
+    }
     interface PixobeBanner {
         /**
           * @default 'Pixobe'
@@ -113,28 +113,11 @@ export namespace Components {
         "options": OptionItem[];
     }
 }
-export interface DropdownMenuCustomEvent<T> extends CustomEvent<T> {
+export interface MenuIconCustomEvent<T> extends CustomEvent<T> {
     detail: T;
-    target: HTMLDropdownMenuElement;
+    target: HTMLMenuIconElement;
 }
 declare global {
-    interface HTMLDropdownMenuElementEventMap {
-        "valueChanged": string;
-    }
-    interface HTMLDropdownMenuElement extends Components.DropdownMenu, HTMLStencilElement {
-        addEventListener<K extends keyof HTMLDropdownMenuElementEventMap>(type: K, listener: (this: HTMLDropdownMenuElement, ev: DropdownMenuCustomEvent<HTMLDropdownMenuElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
-        addEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
-        addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
-        addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
-        removeEventListener<K extends keyof HTMLDropdownMenuElementEventMap>(type: K, listener: (this: HTMLDropdownMenuElement, ev: DropdownMenuCustomEvent<HTMLDropdownMenuElementEventMap[K]>) => any, options?: boolean | EventListenerOptions): void;
-        removeEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
-        removeEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
-        removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
-    }
-    var HTMLDropdownMenuElement: {
-        prototype: HTMLDropdownMenuElement;
-        new (): HTMLDropdownMenuElement;
-    };
     interface HTMLIconAddElement extends Components.IconAdd, HTMLStencilElement {
     }
     var HTMLIconAddElement: {
@@ -339,6 +322,23 @@ declare global {
         prototype: HTMLIcontextGroupElement;
         new (): HTMLIcontextGroupElement;
     };
+    interface HTMLMenuIconElementEventMap {
+        "valueChanged": string;
+    }
+    interface HTMLMenuIconElement extends Components.MenuIcon, HTMLStencilElement {
+        addEventListener<K extends keyof HTMLMenuIconElementEventMap>(type: K, listener: (this: HTMLMenuIconElement, ev: MenuIconCustomEvent<HTMLMenuIconElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLMenuIconElementEventMap>(type: K, listener: (this: HTMLMenuIconElement, ev: MenuIconCustomEvent<HTMLMenuIconElementEventMap[K]>) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
+    }
+    var HTMLMenuIconElement: {
+        prototype: HTMLMenuIconElement;
+        new (): HTMLMenuIconElement;
+    };
     interface HTMLPixobeBannerElement extends Components.PixobeBanner, HTMLStencilElement {
     }
     var HTMLPixobeBannerElement: {
@@ -364,7 +364,6 @@ declare global {
         new (): HTMLSelectMenuElement;
     };
     interface HTMLElementTagNameMap {
-        "dropdown-menu": HTMLDropdownMenuElement;
         "icon-add": HTMLIconAddElement;
         "icon-add-cart": HTMLIconAddCartElement;
         "icon-aligncenter": HTMLIconAligncenterElement;
@@ -399,6 +398,7 @@ declare global {
         "icon-whatsapp": HTMLIconWhatsappElement;
         "icon-wrench": HTMLIconWrenchElement;
         "icontext-group": HTMLIcontextGroupElement;
+        "menu-icon": HTMLMenuIconElement;
         "pixobe-banner": HTMLPixobeBannerElement;
         "pixobe-spinner": HTMLPixobeSpinnerElement;
         "pixobe-watermark": HTMLPixobeWatermarkElement;
@@ -406,11 +406,6 @@ declare global {
     }
 }
 declare namespace LocalJSX {
-    interface DropdownMenu {
-        "onValueChanged"?: (event: DropdownMenuCustomEvent<string>) => void;
-        "options"?: DropdownOption[];
-        "value"?: any;
-    }
     interface IconAdd {
     }
     interface IconAddCart {
@@ -489,6 +484,11 @@ declare namespace LocalJSX {
          */
         "rounded"?: boolean;
     }
+    interface MenuIcon {
+        "onValueChanged"?: (event: MenuIconCustomEvent<string>) => void;
+        "options"?: DropdownOption[];
+        "value"?: any;
+    }
     interface PixobeBanner {
         /**
           * @default 'Pixobe'
@@ -510,7 +510,6 @@ declare namespace LocalJSX {
         "options"?: OptionItem[];
     }
     interface IntrinsicElements {
-        "dropdown-menu": DropdownMenu;
         "icon-add": IconAdd;
         "icon-add-cart": IconAddCart;
         "icon-aligncenter": IconAligncenter;
@@ -545,6 +544,7 @@ declare namespace LocalJSX {
         "icon-whatsapp": IconWhatsapp;
         "icon-wrench": IconWrench;
         "icontext-group": IcontextGroup;
+        "menu-icon": MenuIcon;
         "pixobe-banner": PixobeBanner;
         "pixobe-spinner": PixobeSpinner;
         "pixobe-watermark": PixobeWatermark;
@@ -555,7 +555,6 @@ export { LocalJSX as JSX };
 declare module "@stencil/core" {
     export namespace JSX {
         interface IntrinsicElements {
-            "dropdown-menu": LocalJSX.DropdownMenu & JSXBase.HTMLAttributes<HTMLDropdownMenuElement>;
             "icon-add": LocalJSX.IconAdd & JSXBase.HTMLAttributes<HTMLIconAddElement>;
             "icon-add-cart": LocalJSX.IconAddCart & JSXBase.HTMLAttributes<HTMLIconAddCartElement>;
             "icon-aligncenter": LocalJSX.IconAligncenter & JSXBase.HTMLAttributes<HTMLIconAligncenterElement>;
@@ -590,6 +589,7 @@ declare module "@stencil/core" {
             "icon-whatsapp": LocalJSX.IconWhatsapp & JSXBase.HTMLAttributes<HTMLIconWhatsappElement>;
             "icon-wrench": LocalJSX.IconWrench & JSXBase.HTMLAttributes<HTMLIconWrenchElement>;
             "icontext-group": LocalJSX.IcontextGroup & JSXBase.HTMLAttributes<HTMLIcontextGroupElement>;
+            "menu-icon": LocalJSX.MenuIcon & JSXBase.HTMLAttributes<HTMLMenuIconElement>;
             "pixobe-banner": LocalJSX.PixobeBanner & JSXBase.HTMLAttributes<HTMLPixobeBannerElement>;
             "pixobe-spinner": LocalJSX.PixobeSpinner & JSXBase.HTMLAttributes<HTMLPixobeSpinnerElement>;
             "pixobe-watermark": LocalJSX.PixobeWatermark & JSXBase.HTMLAttributes<HTMLPixobeWatermarkElement>;

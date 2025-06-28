@@ -1,13 +1,17 @@
 import { h } from '@stencil/core';
 import type { Meta, StoryObj } from '@stencil/storybook-plugin';
+import { fn } from 'storybook/test';
 import { SelectMenu } from './select-menu';
 
 const meta: Meta<SelectMenu> = {
   title: 'SelectMenu',
   component: SelectMenu,
-  argTypes: {},
-  args: {},
-  render: () => { return <select-menu></select-menu> },
+  argTypes: {
+  },
+  args: {
+    onSelectMenu: fn()
+  },
+  render: (props) => { return <select-menu {...props}></select-menu> },
 };
 
 export default meta;
@@ -19,5 +23,17 @@ export const Primary: Story = {
 };
 
 export const Secondary: Story = {
-  args: {},
+  args: {
+    label: "Fonts",
+    options: [
+      {
+        label: "Roboto",
+        value: "Roboto"
+      },
+      {
+        label: "Times New Roman",
+        value: "Times New Roman"
+      }
+    ]
+  },
 };

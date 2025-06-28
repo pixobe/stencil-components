@@ -84,3 +84,71 @@
 .width-md {
   max-width: 80dvw;
 }
+
+:root {
+  //new variables
+  --text-primary: oklch(0.12 0 0); /* near black for headlines */
+  --text-secondary: oklch(0.35 0 0); /* muted for labels, meta info */
+  --text-tertiary: oklch(0.5 0 0); /* placeholder or disabled text */
+
+  --primary-background: oklch(0.98 0 0);
+  --secondary-background: oklch(0.95 0 0);
+  --tertiary-background: oklch(0.92 0 0);
+
+  --button-primary: oklch(60.9% 0.126 221.723);
+  --button-text-primary: oklch(98.5% 0 0);
+  --button-secondary: oklch(77.2% 0 0);
+  --button-text-secondary: oklch(30% 0 0);
+  --box-shadow: rgba(0, 0, 0, 0.3);
+
+  --icon-bg: var(--tertiary-background);
+  --icon-border: var(--tertiary-background);
+  --icon-color: var(--primary-secondary);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --text-primary: oklch(0.98 0 0);
+    --text-secondary: oklch(0.75 0 0);
+    --text-tertiary: oklch(0.55 0 0);
+    --primary-background: oklch(0.15 0 0);
+    --secondary-background: oklch(0.25 0 0);
+    --tertiary-background: oklch(0.3 0 0);
+    --box-shadow: rgba(255, 255, 255, 0.5);
+  }
+}
+
+.dark,
+.light,
+.color {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+}
+
+.dark {
+  padding: 8px;
+  border-radius: 4px;
+  background-color: #3d3d3d;
+  .icon {
+    color: #f9f9f9;
+  }
+}
+
+.light {
+  padding: 8px;
+  border-radius: 4px;
+  background-color: #f9f9f9;
+  .icon {
+    color: #3d3d3d;
+  }
+}
+
+.color {
+  padding: 8px;
+  border-radius: 4px;
+  background-color: oklch(44.4% 0.011 73.639);
+  .icon {
+    color: oklch(87.9% 0.169 91.605);
+  }
+}

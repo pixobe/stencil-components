@@ -9,9 +9,10 @@ export interface DropdownOption {
 }
 
 @Component({
-  tag: 'dropdown-menu',
-  styleUrl: 'dropdown-menu.scss',
+  tag: 'menu-icon',
+  styleUrl: 'menu-icon.scss',
   shadow: true,
+  formAssociated: true
 })
 export class DropdownMenu {
   @Element()
@@ -72,12 +73,6 @@ export class DropdownMenu {
     this.currentSelectedItem = target;
   }
 
-  scrollTo = (e) => {
-    if (e.target.checked) {
-
-    }
-  }
-
   getMenuItems() {
     if (this.options) {
       return this.options?.map(option => {
@@ -100,7 +95,7 @@ export class DropdownMenu {
             <div class="text"><slot name="menu-text">{this.value}</slot></div>
             <div class="icon"><slot name="menu-icon" /></div>
           </label>
-          <input type="checkbox" id="checkedbox" ref={el => (this.checkbox = el)} onInput={this.scrollTo} />
+          <input type="checkbox" id="checkedbox" ref={el => (this.checkbox = el)} />
           <div class="menu" ref={el => (this.menu = el)}>
             {this.getMenuItems()}
           </div>
