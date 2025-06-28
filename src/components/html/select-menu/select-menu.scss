@@ -3,6 +3,7 @@
     font-weight: bold;
     display: inline-block;
     margin: 0.5rem 0;
+    color: var(--text-primary);
   }
   .custom-dropdown {
     position: relative;
@@ -42,6 +43,9 @@
   .custom-dropdown-item {
     padding: 10px;
     cursor: pointer;
+    &.active {
+      background-color: var(--tertiary-background);
+    }
   }
 
   .custom-dropdown-item:hover {

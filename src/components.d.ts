@@ -10,6 +10,22 @@ import { OptionItem } from "./components/html/select-menu/select-menu";
 export { DropdownOption } from "./components/html/menu-icon/menu-icon";
 export { OptionItem } from "./components/html/select-menu/select-menu";
 export namespace Components {
+    interface ColorPicker {
+        /**
+          * @default false
+         */
+        "addMore": boolean;
+        "colors": string | string[];
+        "name": string;
+        /**
+          * @default ''
+         */
+        "value": string;
+        /**
+          * @default false
+         */
+        "withPicker": boolean;
+    }
     interface IconAdd {
     }
     interface IconAddCart {
@@ -88,6 +104,13 @@ export namespace Components {
          */
         "rounded": boolean;
     }
+    interface InputText {
+        "name": string;
+        /**
+          * @default ''
+         */
+        "value": string;
+    }
     interface MenuIcon {
         "options"?: DropdownOption[];
         "value": any;
@@ -104,13 +127,18 @@ export namespace Components {
     }
     interface SelectMenu {
         /**
-          * @default 'Menus'
+          * @default false
          */
-        "label": string;
+        "fontSelector": boolean;
+        "name": string;
         /**
           * @default []
          */
         "options": OptionItem[];
+        /**
+          * @default ''
+         */
+        "value": string;
     }
 }
 export interface MenuIconCustomEvent<T> extends CustomEvent<T> {
@@ -118,6 +146,12 @@ export interface MenuIconCustomEvent<T> extends CustomEvent<T> {
     target: HTMLMenuIconElement;
 }
 declare global {
+    interface HTMLColorPickerElement extends Components.ColorPicker, HTMLStencilElement {
+    }
+    var HTMLColorPickerElement: {
+        prototype: HTMLColorPickerElement;
+        new (): HTMLColorPickerElement;
+    };
     interface HTMLIconAddElement extends Components.IconAdd, HTMLStencilElement {
     }
     var HTMLIconAddElement: {
@@ -322,6 +356,12 @@ declare global {
         prototype: HTMLIcontextGroupElement;
         new (): HTMLIcontextGroupElement;
     };
+    interface HTMLInputTextElement extends Components.InputText, HTMLStencilElement {
+    }
+    var HTMLInputTextElement: {
+        prototype: HTMLInputTextElement;
+        new (): HTMLInputTextElement;
+    };
     interface HTMLMenuIconElementEventMap {
         "valueChanged": string;
     }
@@ -364,6 +404,7 @@ declare global {
         new (): HTMLSelectMenuElement;
     };
     interface HTMLElementTagNameMap {
+        "color-picker": HTMLColorPickerElement;
         "icon-add": HTMLIconAddElement;
         "icon-add-cart": HTMLIconAddCartElement;
         "icon-aligncenter": HTMLIconAligncenterElement;
@@ -398,6 +439,7 @@ declare global {
         "icon-whatsapp": HTMLIconWhatsappElement;
         "icon-wrench": HTMLIconWrenchElement;
         "icontext-group": HTMLIcontextGroupElement;
+        "input-text": HTMLInputTextElement;
         "menu-icon": HTMLMenuIconElement;
         "pixobe-banner": HTMLPixobeBannerElement;
         "pixobe-spinner": HTMLPixobeSpinnerElement;
@@ -406,6 +448,22 @@ declare global {
     }
 }
 declare namespace LocalJSX {
+    interface ColorPicker {
+        /**
+          * @default false
+         */
+        "addMore"?: boolean;
+        "colors"?: string | string[];
+        "name"?: string;
+        /**
+          * @default ''
+         */
+        "value"?: string;
+        /**
+          * @default false
+         */
+        "withPicker"?: boolean;
+    }
     interface IconAdd {
     }
     interface IconAddCart {
@@ -484,6 +542,13 @@ declare namespace LocalJSX {
          */
         "rounded"?: boolean;
     }
+    interface InputText {
+        "name"?: string;
+        /**
+          * @default ''
+         */
+        "value"?: string;
+    }
     interface MenuIcon {
         "onValueChanged"?: (event: MenuIconCustomEvent<string>) => void;
         "options"?: DropdownOption[];
@@ -501,15 +566,21 @@ declare namespace LocalJSX {
     }
     interface SelectMenu {
         /**
-          * @default 'Menus'
+          * @default false
          */
-        "label"?: string;
+        "fontSelector"?: boolean;
+        "name"?: string;
         /**
           * @default []
          */
         "options"?: OptionItem[];
+        /**
+          * @default ''
+         */
+        "value"?: string;
     }
     interface IntrinsicElements {
+        "color-picker": ColorPicker;
         "icon-add": IconAdd;
         "icon-add-cart": IconAddCart;
         "icon-aligncenter": IconAligncenter;
@@ -544,6 +615,7 @@ declare namespace LocalJSX {
         "icon-whatsapp": IconWhatsapp;
         "icon-wrench": IconWrench;
         "icontext-group": IcontextGroup;
+        "input-text": InputText;
         "menu-icon": MenuIcon;
         "pixobe-banner": PixobeBanner;
         "pixobe-spinner": PixobeSpinner;
@@ -555,6 +627,7 @@ export { LocalJSX as JSX };
 declare module "@stencil/core" {
     export namespace JSX {
         interface IntrinsicElements {
+            "color-picker": LocalJSX.ColorPicker & JSXBase.HTMLAttributes<HTMLColorPickerElement>;
             "icon-add": LocalJSX.IconAdd & JSXBase.HTMLAttributes<HTMLIconAddElement>;
             "icon-add-cart": LocalJSX.IconAddCart & JSXBase.HTMLAttributes<HTMLIconAddCartElement>;
             "icon-aligncenter": LocalJSX.IconAligncenter & JSXBase.HTMLAttributes<HTMLIconAligncenterElement>;
@@ -589,6 +662,7 @@ declare module "@stencil/core" {
             "icon-whatsapp": LocalJSX.IconWhatsapp & JSXBase.HTMLAttributes<HTMLIconWhatsappElement>;
             "icon-wrench": LocalJSX.IconWrench & JSXBase.HTMLAttributes<HTMLIconWrenchElement>;
             "icontext-group": LocalJSX.IcontextGroup & JSXBase.HTMLAttributes<HTMLIcontextGroupElement>;
+            "input-text": LocalJSX.InputText & JSXBase.HTMLAttributes<HTMLInputTextElement>;
             "menu-icon": LocalJSX.MenuIcon & JSXBase.HTMLAttributes<HTMLMenuIconElement>;
             "pixobe-banner": LocalJSX.PixobeBanner & JSXBase.HTMLAttributes<HTMLPixobeBannerElement>;
             "pixobe-spinner": LocalJSX.PixobeSpinner & JSXBase.HTMLAttributes<HTMLPixobeSpinnerElement>;

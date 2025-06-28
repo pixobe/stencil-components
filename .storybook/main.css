@@ -99,7 +99,7 @@
   --button-text-primary: oklch(98.5% 0 0);
   --button-secondary: oklch(77.2% 0 0);
   --button-text-secondary: oklch(30% 0 0);
-  --box-shadow: rgba(0, 0, 0, 0.3);
+  --box-shadow: oklch(92.2% 0 0);
 
   --icon-bg: var(--tertiary-background);
   --icon-border: var(--tertiary-background);
@@ -111,10 +111,11 @@
     --text-primary: oklch(0.98 0 0);
     --text-secondary: oklch(0.75 0 0);
     --text-tertiary: oklch(0.55 0 0);
+
     --primary-background: oklch(0.15 0 0);
     --secondary-background: oklch(0.25 0 0);
     --tertiary-background: oklch(0.3 0 0);
-    --box-shadow: rgba(255, 255, 255, 0.5);
+    --box-shadow: oklch(55.6% 0 0);
   }
 }
 

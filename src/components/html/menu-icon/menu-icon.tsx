@@ -82,7 +82,7 @@ export class DropdownMenu {
             {option.label}
           </div>
         );
-      })
+      });
     }
     return <slot name="menu-items" onSlotchange={this.onSlotChange}></slot>;
   }
