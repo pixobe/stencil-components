@@ -1,5 +1,12 @@
-import { Component, Host, h, Event, EventEmitter, Prop, Element } from '@stencil/core';
-import { DropdownOption } from './dropdown-utils';
+import { Component, Element, Event, EventEmitter, Host, Prop, h } from '@stencil/core';
+
+/**
+ * 
+ */
+export interface DropdownOption {
+  value: string | number;
+  label: any;
+}
 
 @Component({
   tag: 'dropdown-menu',
@@ -9,9 +16,6 @@ import { DropdownOption } from './dropdown-utils';
 export class DropdownMenu {
   @Element()
   el: HTMLElement;
-
-  @Prop()
-  tooltip?: string;
 
   @Prop()
   options?: DropdownOption[];

@@ -2,17 +2,12 @@
 const config = {
   stories: ['../src/**/*.mdx', '../src/**/*.stories.@(js|jsx|mjs|ts|tsx)'],
 
-  addons: [
-    '@storybook/addon-links',
-    '@chromatic-com/storybook',
-    '@storybook/addon-docs'
-  ],
+  addons: ['@storybook/addon-links', '@chromatic-com/storybook', '@storybook/addon-docs', '@storybook/addon-interactions'],
 
   framework: {
-    name: '@storybook/html-vite',
-    options: {},
+    name: '@stencil/storybook-plugin',
   },
 
-  staticDirs: ['../dist','../www/build']
+  staticDirs: ['../dist', '../www/build'],
 };
 export default config;

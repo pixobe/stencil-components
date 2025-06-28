@@ -5,12 +5,13 @@
  * It contains typing information for all components that exist in this project.
  */
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
-import { DropdownOption } from "./components/dropdown-menu/dropdown-utils";
-export { DropdownOption } from "./components/dropdown-menu/dropdown-utils";
+import { DropdownOption } from "./components/dropdown-menu/dropdown-menu";
+import { OptionItem } from "./components/select-menu/select-menu";
+export { DropdownOption } from "./components/dropdown-menu/dropdown-menu";
+export { OptionItem } from "./components/select-menu/select-menu";
 export namespace Components {
     interface DropdownMenu {
         "options"?: DropdownOption[];
-        "tooltip"?: string;
         "value": any;
     }
     interface IconAdd {
@@ -100,6 +101,16 @@ export namespace Components {
     interface PixobeSpinner {
     }
     interface PixobeWatermark {
+    }
+    interface SelectMenu {
+        /**
+          * @default 'Menu'
+         */
+        "label": string;
+        /**
+          * @default []
+         */
+        "options": OptionItem[];
     }
 }
 export interface DropdownMenuCustomEvent<T> extends CustomEvent<T> {
@@ -346,6 +357,12 @@ declare global {
         prototype: HTMLPixobeWatermarkElement;
         new (): HTMLPixobeWatermarkElement;
     };
+    interface HTMLSelectMenuElement extends Components.SelectMenu, HTMLStencilElement {
+    }
+    var HTMLSelectMenuElement: {
+        prototype: HTMLSelectMenuElement;
+        new (): HTMLSelectMenuElement;
+    };
     interface HTMLElementTagNameMap {
         "dropdown-menu": HTMLDropdownMenuElement;
         "icon-add": HTMLIconAddElement;
@@ -385,13 +402,13 @@ declare global {
         "pixobe-banner": HTMLPixobeBannerElement;
         "pixobe-spinner": HTMLPixobeSpinnerElement;
         "pixobe-watermark": HTMLPixobeWatermarkElement;
+        "select-menu": HTMLSelectMenuElement;
     }
 }
 declare namespace LocalJSX {
     interface DropdownMenu {
         "onValueChanged"?: (event: DropdownMenuCustomEvent<string>) => void;
         "options"?: DropdownOption[];
-        "tooltip"?: string;
         "value"?: any;
     }
     interface IconAdd {
@@ -482,6 +499,16 @@ declare namespace LocalJSX {
     }
     interface PixobeWatermark {
     }
+    interface SelectMenu {
+        /**
+          * @default 'Menu'
+         */
+        "label"?: string;
+        /**
+          * @default []
+         */
+        "options"?: OptionItem[];
+    }
     interface IntrinsicElements {
         "dropdown-menu": DropdownMenu;
         "icon-add": IconAdd;
@@ -521,6 +548,7 @@ declare namespace LocalJSX {
         "pixobe-banner": PixobeBanner;
         "pixobe-spinner": PixobeSpinner;
         "pixobe-watermark": PixobeWatermark;
+        "select-menu": SelectMenu;
     }
 }
 export { LocalJSX as JSX };
@@ -565,6 +593,7 @@ declare module "@stencil/core" {
             "pixobe-banner": LocalJSX.PixobeBanner & JSXBase.HTMLAttributes<HTMLPixobeBannerElement>;
             "pixobe-spinner": LocalJSX.PixobeSpinner & JSXBase.HTMLAttributes<HTMLPixobeSpinnerElement>;
             "pixobe-watermark": LocalJSX.PixobeWatermark & JSXBase.HTMLAttributes<HTMLPixobeWatermarkElement>;
+            "select-menu": LocalJSX.SelectMenu & JSXBase.HTMLAttributes<HTMLSelectMenuElement>;
         }
     }
 }

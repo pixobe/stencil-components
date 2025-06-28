@@ -1,4 +1,3 @@
-
 /**
  *
  * @param args
@@ -19,7 +18,7 @@ const createElement = args => {
 const createSlotted = args => {
   // Create dropdown-menu element
   const dropdownMenu = document.createElement('div') as HTMLDivElement;
-  
+
   dropdownMenu.innerHTML = `<dropdown-menu>
   <div slot="menu-icon">${args.icon}</div>
   <div slot="menu-items">
@@ -30,14 +29,14 @@ const createSlotted = args => {
   </dropdown-menu>`;
   const menu = dropdownMenu.querySelector('dropdown-menu');
   menu.tooltip = args.tooltip;
-  menu.value="Third"
+  menu.value = 'Third';
   return dropdownMenu;
 };
 
 const createSlottedWitLabel = args => {
   // Create dropdown-menu element
   const dropdownMenu = document.createElement('div') as HTMLDivElement;
-  
+
   dropdownMenu.innerHTML = `<dropdown-menu>
   <div slot="menu-text"> Custom Label</div>
   <div slot="menu-icon">${args.icon}</div>
@@ -49,7 +48,7 @@ const createSlottedWitLabel = args => {
   </dropdown-menu>`;
   const menu = dropdownMenu.querySelector('dropdown-menu');
   menu.tooltip = args.tooltip;
-  menu.value="second"
+  menu.value = 'second';
   return dropdownMenu;
 };
 
@@ -70,7 +69,7 @@ export const WithIcon = {
     </svg>`,
     options: getShortList(),
     value: 3,
-    tooltip: "Brightness"
+    tooltip: 'Brightness',
   },
 };
 
@@ -81,7 +80,7 @@ export const LongList = {
     </svg>`,
     options: getLongList(),
     value: 16,
-    tooltip: "Brightness"
+    tooltip: 'Brightness',
   },
 };
 
@@ -95,7 +94,7 @@ export const Slotted = {
     </svg>`,
     options: getLongList(),
     value: 16,
-    tooltip: "Brightness"
+    tooltip: 'Brightness',
   },
 };
 
@@ -109,18 +108,24 @@ export const SlottedCustomLabel = {
     </svg>`,
     options: getLongList(),
     value: 16,
-    tooltip: "Brightness"
+    tooltip: 'Brightness',
+  },
+};
+
+export const WithoutIcon = {
+  args: {
+    options: getShortList(),
+    tooltip: 'Brightness',
   },
 };
 
 function getLongList() {
   const items = [];
   for (let i = 1; i < 20; i++) {
-    items.push(
-      {
-        label: `${i}`,
-        value: i
-      })
+    items.push({
+      label: `${i}`,
+      value: i,
+    });
   }
   return items;
 }
@@ -128,16 +133,16 @@ function getLongList() {
 function getShortList() {
   return [
     {
-      label: "3",
-      value: 3
+      label: '3',
+      value: 3,
     },
     {
-      label: "4",
-      value: 4
+      label: '4',
+      value: 4,
     },
     {
-      label: "5",
-      value: 5
-    }
+      label: '5',
+      value: 5,
+    },
   ];
 }
