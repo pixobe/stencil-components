@@ -22,63 +22,6 @@ export default meta;
 
 type Story = StoryObj<SelectMenu>;
 
-export const FontSelector: Story = {
-  args: {
-    name: "Fonts",
-    fontSelector: true,
-    options: [
-      {
-        label: "Roboto",
-        value: "https://roboto.wot"
-      },
-      {
-        label: "Times New Roman",
-        value: "Times New Roman"
-      },
-      {
-        label: "Arial",
-        value: "Arial"
-      },
-      {
-        label: "Georgia",
-        value: "Georgia"
-      },
-      {
-        label: "Apple Chancery",
-        value: "Apple Chancery"
-      },
-    ]
-  },
-};
-export const FontSelectorValueSet: Story = {
-  args: {
-    name: "Fonts",
-    fontSelector: true,
-    value: "Apple Chancery",
-    options: [
-      {
-        label: "Roboto",
-        value: "https://roboto.wot"
-      },
-      {
-        label: "Times New Roman",
-        value: "Times New Roman"
-      },
-      {
-        label: "Arial",
-        value: "Arial"
-      },
-      {
-        label: "Georgia",
-        value: "Georgia"
-      },
-      {
-        label: "Apple Chancery",
-        value: "Apple Chancery"
-      },
-    ]
-  },
-};
 
 export const DefaultMenu: Story = {
   args: {

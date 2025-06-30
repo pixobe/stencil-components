@@ -5,8 +5,10 @@
  * It contains typing information for all components that exist in this project.
  */
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
+import { FontItem } from "./components/html/font-picker/font-picker";
 import { DropdownOption } from "./components/html/menu-icon/menu-icon";
 import { OptionItem } from "./components/html/select-menu/select-menu";
+export { FontItem } from "./components/html/font-picker/font-picker";
 export { DropdownOption } from "./components/html/menu-icon/menu-icon";
 export { OptionItem } from "./components/html/select-menu/select-menu";
 export namespace Components {
@@ -25,6 +27,20 @@ export namespace Components {
           * @default false
          */
         "withPicker": boolean;
+    }
+    interface FontPicker {
+        /**
+          * @default "Fonts"
+         */
+        "name": string;
+        /**
+          * @default []
+         */
+        "options": FontItem[];
+        /**
+          * @default ''
+         */
+        "value": string;
     }
     interface IconAdd {
     }
@@ -130,10 +146,6 @@ export namespace Components {
     interface PixobeWatermark {
     }
     interface SelectMenu {
-        /**
-          * @default false
-         */
-        "fontSelector": boolean;
         "name": string;
         /**
           * @default []
@@ -155,6 +167,12 @@ declare global {
     var HTMLColorPickerElement: {
         prototype: HTMLColorPickerElement;
         new (): HTMLColorPickerElement;
+    };
+    interface HTMLFontPickerElement extends Components.FontPicker, HTMLStencilElement {
+    }
+    var HTMLFontPickerElement: {
+        prototype: HTMLFontPickerElement;
+        new (): HTMLFontPickerElement;
     };
     interface HTMLIconAddElement extends Components.IconAdd, HTMLStencilElement {
     }
@@ -409,6 +427,7 @@ declare global {
     };
     interface HTMLElementTagNameMap {
         "color-picker": HTMLColorPickerElement;
+        "font-picker": HTMLFontPickerElement;
         "icon-add": HTMLIconAddElement;
         "icon-add-cart": HTMLIconAddCartElement;
         "icon-aligncenter": HTMLIconAligncenterElement;
@@ -467,6 +486,20 @@ declare namespace LocalJSX {
           * @default false
          */
         "withPicker"?: boolean;
+    }
+    interface FontPicker {
+        /**
+          * @default "Fonts"
+         */
+        "name"?: string;
+        /**
+          * @default []
+         */
+        "options"?: FontItem[];
+        /**
+          * @default ''
+         */
+        "value"?: string;
     }
     interface IconAdd {
     }
@@ -573,10 +606,6 @@ declare namespace LocalJSX {
     interface PixobeWatermark {
     }
     interface SelectMenu {
-        /**
-          * @default false
-         */
-        "fontSelector"?: boolean;
         "name"?: string;
         /**
           * @default []
@@ -589,6 +618,7 @@ declare namespace LocalJSX {
     }
     interface IntrinsicElements {
         "color-picker": ColorPicker;
+        "font-picker": FontPicker;
         "icon-add": IconAdd;
         "icon-add-cart": IconAddCart;
         "icon-aligncenter": IconAligncenter;
@@ -636,6 +666,7 @@ declare module "@stencil/core" {
     export namespace JSX {
         interface IntrinsicElements {
             "color-picker": LocalJSX.ColorPicker & JSXBase.HTMLAttributes<HTMLColorPickerElement>;
+            "font-picker": LocalJSX.FontPicker & JSXBase.HTMLAttributes<HTMLFontPickerElement>;
             "icon-add": LocalJSX.IconAdd & JSXBase.HTMLAttributes<HTMLIconAddElement>;
             "icon-add-cart": LocalJSX.IconAddCart & JSXBase.HTMLAttributes<HTMLIconAddCartElement>;
             "icon-aligncenter": LocalJSX.IconAligncenter & JSXBase.HTMLAttributes<HTMLIconAligncenterElement>;
