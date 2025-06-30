@@ -15,17 +15,20 @@ export class InputText {
   @Prop({ reflect: true })
   name: string;
 
+  @Prop({ mutable: true })
+  value: string = '';
+
   @Prop()
-  value: string = ''
+  required: boolean = true;
 
   @AttachInternals()
   internals: ElementInternals;
 
   onInputFn = (e) => {
-    this.value = e.target.value;
-    this.internals.setFormValue(this.value);
+    const value = e.target.value;
+    this.internals.setFormValue(value);
     const event = new CustomEvent('input', {
-      detail: { value: this.value },
+      detail: { value },
       bubbles: true,
       cancelable: true,
       composed: true,
@@ -41,7 +44,7 @@ export class InputText {
             {this.name}
           </label>
           <div>
-            <input type="text" name={this.name} onInput={this.onInputFn} id={this.name} value={this.value} />
+            <input type="text" name={this.name} onInput={this.onInputFn} id={this.name} value={this.value} required={this.required} />
           </div>
         </div>
       </Host>

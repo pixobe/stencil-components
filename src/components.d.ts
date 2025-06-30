@@ -107,6 +107,10 @@ export namespace Components {
     interface InputText {
         "name": string;
         /**
+          * @default true
+         */
+        "required": boolean;
+        /**
           * @default ''
          */
         "value": string;
@@ -544,6 +548,10 @@ declare namespace LocalJSX {
     }
     interface InputText {
         "name"?: string;
+        /**
+          * @default true
+         */
+        "required"?: boolean;
         /**
           * @default ''
          */

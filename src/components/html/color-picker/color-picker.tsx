@@ -13,7 +13,7 @@ export class ColorPicker {
   @Prop({ reflect: true })
   name: string;
 
-  @Prop()
+  @Prop({ mutable: true })
   value: string = ''
 
   @Prop()

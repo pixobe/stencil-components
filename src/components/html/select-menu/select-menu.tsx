@@ -21,9 +21,7 @@ export class SelectMenu {
   @Prop()
   options: OptionItem[] = []
 
-  @Prop(
-    { mutable: true }
-  )
+  @Prop({ mutable: true })
   value: string = ''
 
   @Prop()
@@ -33,7 +31,7 @@ export class SelectMenu {
   internals: ElementInternals;
 
   @State()
-  open = false
+  open = false;
 
   toggleDropdown = () => {
     this.open = !this.open;
