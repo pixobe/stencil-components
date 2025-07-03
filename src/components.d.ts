@@ -30,13 +30,13 @@ export namespace Components {
     }
     interface FontPicker {
         /**
+          * @default []
+         */
+        "fonts": FontItem[];
+        /**
           * @default "Fonts"
          */
         "name": string;
-        /**
-          * @default []
-         */
-        "options": FontItem[];
         /**
           * @default ''
          */
@@ -121,6 +121,7 @@ export namespace Components {
         "rounded": boolean;
     }
     interface InputText {
+        "label"?: string;
         "name": string;
         /**
           * @default true
@@ -135,6 +136,22 @@ export namespace Components {
         "options"?: DropdownOption[];
         "value": any;
     }
+    interface MultiLine {
+        "label"?: string;
+        "name": string;
+        /**
+          * @default true
+         */
+        "required": boolean;
+        /**
+          * @default 5
+         */
+        "rows": number;
+        /**
+          * @default ''
+         */
+        "value": string;
+    }
     interface PixobeBanner {
         /**
           * @default 'Pixobe'
@@ -146,11 +163,16 @@ export namespace Components {
     interface PixobeWatermark {
     }
     interface SelectMenu {
+        "label"?: string;
         "name": string;
         /**
           * @default []
          */
         "options": OptionItem[];
+        /**
+          * @default true
+         */
+        "required": boolean;
         /**
           * @default ''
          */
@@ -401,6 +423,12 @@ declare global {
         prototype: HTMLMenuIconElement;
         new (): HTMLMenuIconElement;
     };
+    interface HTMLMultiLineElement extends Components.MultiLine, HTMLStencilElement {
+    }
+    var HTMLMultiLineElement: {
+        prototype: HTMLMultiLineElement;
+        new (): HTMLMultiLineElement;
+    };
     interface HTMLPixobeBannerElement extends Components.PixobeBanner, HTMLStencilElement {
     }
     var HTMLPixobeBannerElement: {
@@ -464,6 +492,7 @@ declare global {
         "icontext-group": HTMLIcontextGroupElement;
         "input-text": HTMLInputTextElement;
         "menu-icon": HTMLMenuIconElement;
+        "multi-line": HTMLMultiLineElement;
         "pixobe-banner": HTMLPixobeBannerElement;
         "pixobe-spinner": HTMLPixobeSpinnerElement;
         "pixobe-watermark": HTMLPixobeWatermarkElement;
@@ -476,8 +505,8 @@ declare namespace LocalJSX {
           * @default false
          */
         "addMore"?: boolean;
-        "colors"?: string | string[];
-        "name"?: string;
+        "colors": string | string[];
+        "name": string;
         /**
           * @default ''
          */
@@ -489,13 +518,13 @@ declare namespace LocalJSX {
     }
     interface FontPicker {
         /**
+          * @default []
+         */
+        "fonts"?: FontItem[];
+        /**
           * @default "Fonts"
          */
         "name"?: string;
-        /**
-          * @default []
-         */
-        "options"?: FontItem[];
         /**
           * @default ''
          */
@@ -572,15 +601,16 @@ declare namespace LocalJSX {
     interface IconWrench {
     }
     interface IcontextGroup {
-        "icon"?: string;
-        "label"?: string;
+        "icon": string;
+        "label": string;
         /**
           * @default false
          */
         "rounded"?: boolean;
     }
     interface InputText {
-        "name"?: string;
+        "label"?: string;
+        "name": string;
         /**
           * @default true
          */
@@ -595,6 +625,22 @@ declare namespace LocalJSX {
         "options"?: DropdownOption[];
         "value"?: any;
     }
+    interface MultiLine {
+        "label"?: string;
+        "name": string;
+        /**
+          * @default true
+         */
+        "required"?: boolean;
+        /**
+          * @default 5
+         */
+        "rows"?: number;
+        /**
+          * @default ''
+         */
+        "value"?: string;
+    }
     interface PixobeBanner {
         /**
           * @default 'Pixobe'
@@ -606,11 +652,16 @@ declare namespace LocalJSX {
     interface PixobeWatermark {
     }
     interface SelectMenu {
-        "name"?: string;
+        "label"?: string;
+        "name": string;
         /**
           * @default []
          */
         "options"?: OptionItem[];
+        /**
+          * @default true
+         */
+        "required"?: boolean;
         /**
           * @default ''
          */
@@ -655,6 +706,7 @@ declare namespace LocalJSX {
         "icontext-group": IcontextGroup;
         "input-text": InputText;
         "menu-icon": MenuIcon;
+        "multi-line": MultiLine;
         "pixobe-banner": PixobeBanner;
         "pixobe-spinner": PixobeSpinner;
         "pixobe-watermark": PixobeWatermark;
@@ -703,6 +755,7 @@ declare module "@stencil/core" {
             "icontext-group": LocalJSX.IcontextGroup & JSXBase.HTMLAttributes<HTMLIcontextGroupElement>;
             "input-text": LocalJSX.InputText & JSXBase.HTMLAttributes<HTMLInputTextElement>;
             "menu-icon": LocalJSX.MenuIcon & JSXBase.HTMLAttributes<HTMLMenuIconElement>;
+            "multi-line": LocalJSX.MultiLine & JSXBase.HTMLAttributes<HTMLMultiLineElement>;
             "pixobe-banner": LocalJSX.PixobeBanner & JSXBase.HTMLAttributes<HTMLPixobeBannerElement>;
             "pixobe-spinner": LocalJSX.PixobeSpinner & JSXBase.HTMLAttributes<HTMLPixobeSpinnerElement>;
             "pixobe-watermark": LocalJSX.PixobeWatermark & JSXBase.HTMLAttributes<HTMLPixobeWatermarkElement>;

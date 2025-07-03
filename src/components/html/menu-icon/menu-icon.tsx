@@ -41,13 +41,13 @@ export class DropdownMenu {
     this.activateItem(target);
   }
 
-  onSlotChange = (e) => {
+  onSlotChange = (e: any) => {
     const slot = e.target as HTMLSlotElement;
     this.onSelectListeners(slot.assignedElements()[0] as HTMLElement)
   }
 
   componentDidLoad() {
-    this.onSelectListeners(this.el.shadowRoot);
+    this.onSelectListeners(this.el.shadowRoot!);
   }
 
   onSelectListeners = (container: HTMLElement | ShadowRoot) => {
@@ -95,8 +95,8 @@ export class DropdownMenu {
             <div class="text"><slot name="menu-text">{this.value}</slot></div>
             <div class="icon"><slot name="menu-icon" /></div>
           </label>
-          <input type="checkbox" id="checkedbox" ref={el => (this.checkbox = el)} />
-          <div class="menu" ref={el => (this.menu = el)}>
+          <input type="checkbox" id="checkedbox" ref={el => (this.checkbox = el as HTMLInputElement)} />
+          <div class="menu" ref={el => (this.menu = el as HTMLDivElement)}>
             {this.getMenuItems()}
           </div>
         </div>

@@ -1,4 +1,5 @@
 import { AttachInternals, Component, Element, h, Host, Prop, State } from '@stencil/core';
+import { fontLoader } from './font-utils';
 
 
 export interface FontItem {
@@ -15,19 +16,19 @@ export interface FontItem {
 export class FontPicker {
 
   @Element()
-  el: HTMLElement
+  el!: HTMLElement
 
   @Prop({ reflect: true })
   name: string = "Fonts";
 
   @Prop()
-  options: FontItem[] = []
+  fonts: FontItem[] = []
 
   @Prop({ mutable: true })
   value: string = ''
 
   @AttachInternals()
-  internals: ElementInternals;
+  internals!: ElementInternals;
 
   @State()
   open = false;
@@ -39,7 +40,6 @@ export class FontPicker {
   onOptionSelect = (opt: FontItem) => {
     this.value = opt.name;
     this.internals.setFormValue(opt.name);
-    this.open = false;
     const event = new CustomEvent('input', {
       detail: { value: opt.name },
       bubbles: true,
@@ -47,6 +47,11 @@ export class FontPicker {
       composed: true,
     });
     this.el.dispatchEvent(event);
+    this.open = false;
+  }
+
+  componentWillLoad() {
+    Promise.all(this.fonts.map(async (font) => await fontLoader(font)));
   }
 
   render() {
@@ -59,11 +64,14 @@ export class FontPicker {
               {this.value ? <div>{this.value}</div> : <div>Select {this.name}</div>}
             </div>
             <div class="custom-dropdown-menu">
-              {this.options.map(opt => (
-                <div onClick={() => this.onOptionSelect(opt)} style={{ 'font-family': opt.name }}
-                  class={{ "custom-dropdown-item": true, "active": this.value === opt.name }}
-                >{opt.name}</div>
-              ))}
+              {this.fonts.map(opt => {
+                const fontFamily = { fontFamily: opt.name };
+                return (
+                  <div onClick={() => this.onOptionSelect(opt)} style={fontFamily}
+                    class={{ "custom-dropdown-item": true, "active": this.value === opt.name }}
+                  >{opt.name}</div>
+                )
+              })}
             </div>
           </div>
         </div>

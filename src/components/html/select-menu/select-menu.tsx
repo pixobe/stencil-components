@@ -14,18 +14,25 @@ export interface OptionItem {
 export class SelectMenu {
 
   @Element()
-  el: HTMLElement
+  el!: HTMLElement
 
-  @Prop({ reflect: true }) name: string;
+  @Prop({ reflect: true })
+  name!: string;
+
+  @Prop({ reflect: true })
+  label?: string;
+
+  @Prop({ mutable: true })
+  value: string = '';
+
+  @Prop()
+  required: boolean = true;
+
+  @AttachInternals()
+  internals!: ElementInternals;
 
   @Prop()
   options: OptionItem[] = []
-
-  @Prop({ mutable: true })
-  value: string = ''
-
-  @AttachInternals()
-  internals: ElementInternals;
 
   @State()
   open = false;
@@ -37,7 +44,6 @@ export class SelectMenu {
   onOptionSelect = (opt: OptionItem) => {
     this.value = opt.value;
     this.internals.setFormValue(opt.value);
-    this.open = false;
     const event = new CustomEvent('input', {
       detail: { value: opt.value },
       bubbles: true,
@@ -45,6 +51,7 @@ export class SelectMenu {
       composed: true,
     });
     this.el.dispatchEvent(event);
+    this.open = false;
   }
 
   get selectedLabel() {
@@ -55,7 +62,7 @@ export class SelectMenu {
     return (
       <Host>
         <div class="form-element">
-          <label class="menu-lbl">{this.name}</label>
+          <label class="menu-lbl">{this.label || this.name}</label>
           <div class={{ 'custom-dropdown': true, 'open': this.open }}>
             <div class="custom-dropdown-trigger" onClick={this.toggleDropdown}>
               {this.value ? <div>{this.selectedLabel}</div> : <div>Select {this.name}</div>}

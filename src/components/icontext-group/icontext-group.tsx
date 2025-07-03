@@ -8,10 +8,10 @@ import { Component, Fragment, h, Host, Prop } from '@stencil/core';
 export class IcontextGroup {
 
   @Prop()
-  icon: string;
+  icon!: string;
 
   @Prop()
-  label: string;
+  label!: string;
 
   @Prop()
   rounded: boolean = false;

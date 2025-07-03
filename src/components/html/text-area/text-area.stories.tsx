@@ -1,10 +1,10 @@
 import { h } from '@stencil/core';
 import type { Meta, StoryObj } from '@stencil/storybook-plugin';
-import { InputText } from './input-text';
+import { MultiLineText } from './text-area';
 
-const meta: Meta<InputText> = {
-  title: 'InputText',
-  component: InputText,
+const meta: Meta<MultiLineText> = {
+  title: 'MultiLineText',
+  component: MultiLineText,
   argTypes: {
   },
   args: {
@@ -13,13 +13,13 @@ const meta: Meta<InputText> = {
     function onInputFn(e: any) {
       console.log(e.currentTarget.value)
     }
-    return <input-text {...props} onInput={onInputFn} ></input-text>
+    return <multi-line {...props} onInput={onInputFn} ></multi-line>
   },
 };
 
 export default meta;
 
-type Story = StoryObj<InputText>;
+type Story = StoryObj<MultiLineText>;
 
 export const Primary: Story = {
   args: {

@@ -8,7 +8,7 @@ const meta: Meta<ColorPicker> = {
   argTypes: {},
   args: {},
   render: (props) => {
-    function onInputFn(e) {
+    function onInputFn(e: any) {
       console.log(e.details.value)
     }
     return <color-picker {...props} onInput={onInputFn} ></color-picker>

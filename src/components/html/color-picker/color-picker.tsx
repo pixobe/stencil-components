@@ -8,16 +8,16 @@ import { AttachInternals, Component, Element, h, Host, Prop } from '@stencil/cor
 export class ColorPicker {
 
   @Element()
-  el: HTMLElement
+  el!: HTMLElement
 
   @Prop({ reflect: true })
-  name: string;
+  name!: string;
 
   @Prop({ mutable: true })
   value: string = ''
 
   @Prop()
-  colors: string | string[];
+  colors!: string | string[];
 
   @Prop()
   addMore: boolean = false;
@@ -26,9 +26,9 @@ export class ColorPicker {
   withPicker: boolean = false; // last one picker
 
   @AttachInternals()
-  internals: ElementInternals;
+  internals!: ElementInternals;
 
-  onInputFn = (value) => {
+  onInputFn = (value: string) => {
     this.value = value;
     this.internals.setFormValue(this.value);
     const event = new CustomEvent('input', {
@@ -47,7 +47,7 @@ export class ColorPicker {
           return (
             <button style={{ "background-color": color }}
               onClick={() => this.onInputFn(color)}
-              class={{ 'rounded': true, "active": this.value === color }}></button>
+              class={{ 'rounded': true, "active": this.value === color }} title={color}></button>
           );
         })
       );

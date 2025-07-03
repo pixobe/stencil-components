@@ -1,0 +1,45 @@
+:host {
+  .text-lbl {
+    font-weight: bold;
+    display: inline-block;
+    margin: 0.5rem 0;
+  }
+
+  textarea {
+    display: block;
+    padding: 0.5rem;
+    font-size: 1rem;
+    box-sizing: border-box;
+    width: 100%;
+    border-radius: 4px;
+    background-color: var(--tertiary-background);
+    color: var(--text-primary);
+    border: 1px solid var(--secondary-background);
+    &:focus {
+      outline: 1px solid var(--secondary-background);
+    }
+  }
+
+  textarea {
+    &::placeholder {
+      color: var(--color-text-secondary);
+      opacity: 1;
+    }
+
+    &::-webkit-input-placeholder {
+      color: var(--color-text-secondary);
+    }
+
+    &::-moz-placeholder {
+      color: var(--color-text-secondary);
+    }
+
+    &:-ms-input-placeholder {
+      color: var(--color-text-secondary);
+    }
+
+    &::-ms-input-placeholder {
+      color: var(--color-text-secondary);
+    }
+  }
+}

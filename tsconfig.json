@@ -5,16 +5,19 @@
     "allowUnreachableCode": false,
     "declaration": false,
     "experimentalDecorators": true,
-    "lib": ["dom", "es2017"],
+    "lib": ["ES2022", "DOM.Iterable", "DOM"],
     "moduleResolution": "node",
     "module": "esnext",
-    "target": "es2017",
+    "target": "es2022",
     "noUnusedLocals": false,
     "noUnusedParameters": true,
     "jsx": "react",
     "jsxFactory": "h",
     "jsxFragmentFactory": "Fragment",
-    "skipLibCheck": true
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "strict": true,
+    "strictPropertyInitialization": false
   },
   "include": ["src"],
   "exclude": ["node_modules", "**/*.stories.ts"]

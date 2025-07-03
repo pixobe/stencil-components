@@ -10,7 +10,7 @@ const meta: Meta<SelectMenu> = {
   args: {
   },
   render: (props) => {
-    function onValue(e) {
+    function onValue(e: any) {
       console.log(e)
     }
 
@@ -25,7 +25,8 @@ type Story = StoryObj<SelectMenu>;
 
 export const DefaultMenu: Story = {
   args: {
-    name: "Select the day",
+    name: "weekday",
+    label: "Weekdays",
     options: [
       {
         label: "Monday",

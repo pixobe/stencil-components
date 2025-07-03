@@ -2,12 +2,12 @@ import { AttachInternals, Component, Element, h, Host, Prop } from '@stencil/cor
 
 
 @Component({
-  tag: 'input-text',
-  styleUrl: 'input-text.scss',
+  tag: 'multi-line',
+  styleUrl: 'text-area.scss',
   shadow: true,
   formAssociated: true
 })
-export class InputText {
+export class MultiLineText {
 
   @Element()
   el!: HTMLElement
@@ -23,6 +23,8 @@ export class InputText {
 
   @Prop()
   required: boolean = true;
+  @Prop()
+  rows: number = 5;
 
   @AttachInternals()
   internals!: ElementInternals;
@@ -47,7 +49,8 @@ export class InputText {
             {this.label || this.name}
           </label>
           <div>
-            <input type="text" name={this.name} onInput={this.onInputFn} id={this.name} value={this.value} required={this.required} />
+            <textarea name={this.name} onInput={this.onInputFn} id={this.name} value={this.value} required={this.required}
+              rows={this.rows}></textarea>
           </div>
         </div>
       </Host>

@@ -1,6 +1,6 @@
 {
   "name": "@pixobe/stencil-components",
-  "version": "0.0.18",
+  "version": "0.0.19",
   "description": "Stencil Component Starter",
   "main": "dist/index.cjs.js",
   "module": "dist/index.js",
@@ -38,17 +38,17 @@
   },
   "devDependencies": {
     "@chromatic-com/storybook": "^4.0.1",
-    "@stencil/core": "^4.35.1",
+    "@stencil/core": "^4.35.3",
     "@stencil/sass": "^3.2.1",
     "@stencil/storybook-plugin": "^0.4.2",
-    "@storybook/addon-docs": "^9.0.14",
-    "@storybook/addon-links": "^9.0.14",
+    "@storybook/addon-docs": "^9.0.15",
+    "@storybook/addon-links": "^9.0.15",
     "@types/jest": "^30.0.0",
-    "@types/node": "^24.0.6",
-    "jest": "^30.0.3",
-    "jest-cli": "^30.0.3",
-    "puppeteer": "^24.11.1",
-    "storybook": "^9.0.14"
+    "@types/node": "^24.0.10",
+    "jest": "^30.0.4",
+    "jest-cli": "^30.0.4",
+    "puppeteer": "^24.11.2",
+    "storybook": "^9.0.15"
   },
   "license": "MIT",
   "overrides": {
