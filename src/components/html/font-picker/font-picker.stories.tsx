@@ -58,3 +58,11 @@ export const FontSelectorValueSet: Story = {
     fonts
   },
 };
+
+export const FontSelectorWithLabel: Story = {
+  args: {
+    name: "fonts",
+    label: "Select Text Color",
+    fonts
+  },
+};

@@ -21,6 +21,9 @@ export class FontPicker {
   @Prop({ reflect: true })
   name: string = "Fonts";
 
+  @Prop({ reflect: true })
+  label?: string;
+
   @Prop()
   fonts: FontItem[] = []
 
@@ -58,10 +61,10 @@ export class FontPicker {
     return (
       <Host>
         <div class="form-element">
-          <label class="menu-lbl">{this.name}</label>
+          <label class="menu-lbl">{this.label || this.name}</label>
           <div class={{ 'custom-dropdown': true, 'open': this.open }}>
             <div class="custom-dropdown-trigger" onClick={this.toggleDropdown}>
-              {this.value ? <div>{this.value}</div> : <div>Select {this.name}</div>}
+              {this.value ? <div>{this.value}</div> : <div>Select one {this.label}</div>}
             </div>
             <div class="custom-dropdown-menu">
               {this.fonts.map(opt => {

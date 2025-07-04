@@ -28,11 +28,23 @@ export namespace Components {
          */
         "withPicker": boolean;
     }
+    interface FileUploader {
+        "label"?: string;
+        /**
+          * @default "File"
+         */
+        "name": string;
+        /**
+          * @default ''
+         */
+        "value": string;
+    }
     interface FontPicker {
         /**
           * @default []
          */
         "fonts": FontItem[];
+        "label"?: string;
         /**
           * @default "Fonts"
          */
@@ -189,6 +201,12 @@ declare global {
     var HTMLColorPickerElement: {
         prototype: HTMLColorPickerElement;
         new (): HTMLColorPickerElement;
+    };
+    interface HTMLFileUploaderElement extends Components.FileUploader, HTMLStencilElement {
+    }
+    var HTMLFileUploaderElement: {
+        prototype: HTMLFileUploaderElement;
+        new (): HTMLFileUploaderElement;
     };
     interface HTMLFontPickerElement extends Components.FontPicker, HTMLStencilElement {
     }
@@ -455,6 +473,7 @@ declare global {
     };
     interface HTMLElementTagNameMap {
         "color-picker": HTMLColorPickerElement;
+        "file-uploader": HTMLFileUploaderElement;
         "font-picker": HTMLFontPickerElement;
         "icon-add": HTMLIconAddElement;
         "icon-add-cart": HTMLIconAddCartElement;
@@ -516,11 +535,23 @@ declare namespace LocalJSX {
          */
         "withPicker"?: boolean;
     }
+    interface FileUploader {
+        "label"?: string;
+        /**
+          * @default "File"
+         */
+        "name"?: string;
+        /**
+          * @default ''
+         */
+        "value"?: string;
+    }
     interface FontPicker {
         /**
           * @default []
          */
         "fonts"?: FontItem[];
+        "label"?: string;
         /**
           * @default "Fonts"
          */
@@ -669,6 +700,7 @@ declare namespace LocalJSX {
     }
     interface IntrinsicElements {
         "color-picker": ColorPicker;
+        "file-uploader": FileUploader;
         "font-picker": FontPicker;
         "icon-add": IconAdd;
         "icon-add-cart": IconAddCart;
@@ -718,6 +750,7 @@ declare module "@stencil/core" {
     export namespace JSX {
         interface IntrinsicElements {
             "color-picker": LocalJSX.ColorPicker & JSXBase.HTMLAttributes<HTMLColorPickerElement>;
+            "file-uploader": LocalJSX.FileUploader & JSXBase.HTMLAttributes<HTMLFileUploaderElement>;
             "font-picker": LocalJSX.FontPicker & JSXBase.HTMLAttributes<HTMLFontPickerElement>;
             "icon-add": LocalJSX.IconAdd & JSXBase.HTMLAttributes<HTMLIconAddElement>;
             "icon-add-cart": LocalJSX.IconAddCart & JSXBase.HTMLAttributes<HTMLIconAddCartElement>;
