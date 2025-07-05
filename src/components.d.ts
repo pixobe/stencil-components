@@ -5,12 +5,12 @@
  * It contains typing information for all components that exist in this project.
  */
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
-import { FontItem } from "./components/html/font-picker/font-picker";
-import { DropdownOption } from "./components/html/menu-icon/menu-icon";
-import { OptionItem } from "./components/html/select-menu/select-menu";
-export { FontItem } from "./components/html/font-picker/font-picker";
-export { DropdownOption } from "./components/html/menu-icon/menu-icon";
-export { OptionItem } from "./components/html/select-menu/select-menu";
+import { FontItem } from "@pixobe/ui-utils";
+import { DropdownOption } from "./components/menu-icon/menu-icon";
+import { OptionItem } from "./components/select-menu/select-menu";
+export { FontItem } from "@pixobe/ui-utils";
+export { DropdownOption } from "./components/menu-icon/menu-icon";
+export { OptionItem } from "./components/select-menu/select-menu";
 export namespace Components {
     interface ColorPicker {
         /**

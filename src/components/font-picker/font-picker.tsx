@@ -1,11 +1,5 @@
+import { FontItem, fontLoader } from '@pixobe/ui-utils';
 import { AttachInternals, Component, Element, h, Host, Prop, State } from '@stencil/core';
-import { fontLoader } from './font-utils';
-
-
-export interface FontItem {
-  name: string;
-  url: string;
-}
 
 @Component({
   tag: 'font-picker',
