@@ -48,6 +48,7 @@ export class FontPicker {
   }
 
   componentWillLoad() {
+    this.internals.setFormValue(this.value);
     Promise.all(this.fonts.map(async (font) => await fontLoader(font)));
   }
 

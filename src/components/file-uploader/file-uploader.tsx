@@ -23,6 +23,10 @@ export class FileUploader {
   @AttachInternals()
   internals!: ElementInternals;
 
+  componentWillLoad() {
+    this.internals.setFormValue(this.value);
+  }
+
   /**
    * 
    * @param e 

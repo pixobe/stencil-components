@@ -28,6 +28,10 @@ export class ColorPicker {
   @AttachInternals()
   internals!: ElementInternals;
 
+  componentWillLoad() {
+    this.internals.setFormValue(this.value);
+  }
+
   onInputFn = (value: string) => {
     this.value = value;
     this.internals.setFormValue(this.value);

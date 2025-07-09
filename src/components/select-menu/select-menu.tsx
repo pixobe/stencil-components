@@ -41,6 +41,10 @@ export class SelectMenu {
     this.open = !this.open;
   };
 
+  componentWillLoad() {
+    this.internals.setFormValue(this.value);
+  }
+
   onOptionSelect = (opt: OptionItem) => {
     this.value = opt.value;
     this.internals.setFormValue(opt.value);

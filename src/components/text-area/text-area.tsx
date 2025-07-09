@@ -29,6 +29,10 @@ export class MultiLineText {
   @AttachInternals()
   internals!: ElementInternals;
 
+  componentWillLoad() {
+    this.internals.setFormValue(this.value);
+  }
+
   onInputFn = (e: any) => {
     const value = e.target?.value;
     this.internals.setFormValue(value);
