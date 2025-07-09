@@ -32,3 +32,9 @@ export const Secondary: Story = {
     name: "Text",
   },
 };
+export const WithPlaceholder: Story = {
+  args: {
+    name: "Notes",
+    placeholder: "Enter your comments here..."
+  },
+};

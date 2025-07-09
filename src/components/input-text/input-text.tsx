@@ -18,6 +18,9 @@ export class InputText {
   @Prop({ reflect: true })
   label?: string;
 
+  @Prop({ reflect: false })
+  placeholder?: string = '';
+
   @Prop({ mutable: true })
   value: string = '';
 
@@ -51,7 +54,7 @@ export class InputText {
             {this.label || this.name}
           </label>
           <div>
-            <input type="text" name={this.name} onInput={this.onInputFn} id={this.name} value={this.value} required={this.required} />
+            <input type="text" name={this.name} onInput={this.onInputFn} id={this.name} value={this.value} required={this.required} placeholder={this.placeholder} />
           </div>
         </div>
       </Host>

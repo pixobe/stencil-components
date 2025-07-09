@@ -136,6 +136,10 @@ export namespace Components {
         "label"?: string;
         "name": string;
         /**
+          * @default ''
+         */
+        "placeholder"?: string;
+        /**
           * @default true
          */
         "required": boolean;
@@ -151,6 +155,10 @@ export namespace Components {
     interface MultiLine {
         "label"?: string;
         "name": string;
+        /**
+          * @default ''
+         */
+        "placeholder"?: string;
         /**
           * @default true
          */
@@ -643,6 +651,10 @@ declare namespace LocalJSX {
         "label"?: string;
         "name": string;
         /**
+          * @default ''
+         */
+        "placeholder"?: string;
+        /**
           * @default true
          */
         "required"?: boolean;
@@ -659,6 +671,10 @@ declare namespace LocalJSX {
     interface MultiLine {
         "label"?: string;
         "name": string;
+        /**
+          * @default ''
+         */
+        "placeholder"?: string;
         /**
           * @default true
          */

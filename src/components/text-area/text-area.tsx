@@ -18,6 +18,9 @@ export class MultiLineText {
   @Prop({ reflect: true })
   label?: string;
 
+  @Prop({ reflect: false })
+  placeholder?: string = '';
+
   @Prop({ mutable: true })
   value: string = '';
 
@@ -54,6 +57,7 @@ export class MultiLineText {
           </label>
           <div>
             <textarea name={this.name} onInput={this.onInputFn} id={this.name} value={this.value} required={this.required}
+              placeholder={this.placeholder}
               rows={this.rows}></textarea>
           </div>
         </div>
