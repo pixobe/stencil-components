@@ -13,7 +13,7 @@ const meta: Meta<FileUploader> = {
     function onValue(e: any) {
       console.log(e.detail)
     }
-    return <file-uploader {...props} onInput={onValue}></file-uploader>
+    return <file-uploader {...props} onFileInput={onValue}></file-uploader>
   },
 };
 

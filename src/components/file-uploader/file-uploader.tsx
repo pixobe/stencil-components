@@ -1,4 +1,4 @@
-import { AttachInternals, Component, Element, h, Host, Prop } from '@stencil/core';
+import { AttachInternals, Component, Element, Event, EventEmitter, h, Host, Prop } from '@stencil/core';
 
 @Component({
   tag: 'file-uploader',
@@ -23,25 +23,18 @@ export class FileUploader {
   @AttachInternals()
   internals!: ElementInternals;
 
+  @Event()
+  fileInput: EventEmitter;
+
   componentWillLoad() {
     this.internals.setFormValue(this.value);
   }
 
-  /**
-   * 
-   * @param e 
-   */
-  onFileInput = (e: any) => {
+  onFileSelect(e: any) {
     e.preventDefault();
     e.stopPropagation();
     const files = (e.target as HTMLInputElement).files || [];
-    const event = new CustomEvent('input', {
-      detail: { value: files[0] },
-      bubbles: true,
-      cancelable: true,
-      composed: true,
-    });
-    this.el.dispatchEvent(event);
+    this.fileInput.emit(files);
   }
 
   render() {
@@ -52,7 +45,7 @@ export class FileUploader {
           <div>
             <p>{this.label}</p>
           </div>
-          <input type="file" onInput={this.onFileInput} name={this.name} id={this.name} />
+          <input type="file" name={this.name} id={this.name} onInput={(e) => this.onFileSelect(e)} />
         </label>
       </Host>
     );

@@ -11,7 +11,7 @@ const meta: Meta<MultiLineText> = {
   },
   render: (props) => {
     function onInputFn(e: any) {
-      console.log(e.currentTarget.value)
+      console.log(e.target.value)
     }
     return <multi-line {...props} onInput={onInputFn} ></multi-line>
   },

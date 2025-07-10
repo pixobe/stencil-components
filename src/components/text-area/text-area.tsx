@@ -37,15 +37,10 @@ export class MultiLineText {
   }
 
   onInputFn = (e: any) => {
-    const value = e.target?.value;
+    const inputEvent = e as InputEvent;
+    const value = (inputEvent.target as HTMLTextAreaElement).value;
+    this.value = value;
     this.internals.setFormValue(value);
-    const event = new CustomEvent('input', {
-      detail: { value },
-      bubbles: true,
-      cancelable: true,
-      composed: true,
-    });
-    this.el.dispatchEvent(event);
   }
 
   render() {
@@ -56,7 +51,12 @@ export class MultiLineText {
             {this.label || this.name}
           </label>
           <div>
-            <textarea name={this.name} onInput={this.onInputFn} id={this.name} value={this.value} required={this.required}
+            <textarea
+              name={this.name}
+              onInput={this.onInputFn}
+              id={this.name}
+              value={this.value}
+              required={this.required}
               placeholder={this.placeholder}
               rows={this.rows}></textarea>
           </div>

@@ -11,7 +11,7 @@ const meta: Meta<InputText> = {
   },
   render: (props) => {
     function onInputFn(e: any) {
-      console.log(e.currentTarget.value)
+      console.log('Updated Input text', e.target.value)
     }
     return <input-text {...props} onInput={onInputFn} ></input-text>
   },

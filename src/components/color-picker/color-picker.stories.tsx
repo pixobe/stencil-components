@@ -9,7 +9,7 @@ const meta: Meta<ColorPicker> = {
   args: {},
   render: (props) => {
     function onInputFn(e: any) {
-      console.log(e.details.value)
+      console.log(e.target.value)
     }
     return <color-picker {...props} onInput={onInputFn} ></color-picker>
   },
@@ -29,13 +29,5 @@ export const ColorPickerWithValue: Story = {
   args: {
     name: "Text Color",
     value: "#cacaca"
-  },
-};
-
-export const ColorPickerList: Story = {
-  args: {
-    name: "Text Color",
-    value: "#cacaca",
-    colors: ['#cacaca', "#fefefe", "#3d3d3d"]
   },
 };

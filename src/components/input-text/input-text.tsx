@@ -35,15 +35,10 @@ export class InputText {
   }
 
   onInputFn = (e: any) => {
-    const value = e.target?.value;
+    const inputEvent = e as InputEvent;
+    const value = (inputEvent.target as HTMLInputElement).value;
+    this.value = value;
     this.internals.setFormValue(value);
-    const event = new CustomEvent('input', {
-      detail: { value },
-      bubbles: true,
-      cancelable: true,
-      composed: true,
-    });
-    this.el.dispatchEvent(event);
   }
 
   render() {

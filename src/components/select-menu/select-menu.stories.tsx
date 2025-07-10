@@ -11,7 +11,7 @@ const meta: Meta<SelectMenu> = {
   },
   render: (props) => {
     function onValue(e: any) {
-      console.log(e)
+      console.log(e.detail)
     }
 
     return <select-menu {...props} onInput={onValue}></select-menu>

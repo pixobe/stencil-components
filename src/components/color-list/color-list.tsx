@@ -1,12 +1,12 @@
-import { AttachInternals, Component, Element, h, Host, Prop } from '@stencil/core';
+import { AttachInternals, Component, Element, Event, EventEmitter, h, Host, Prop } from '@stencil/core';
 
 @Component({
-  tag: 'color-picker',
-  styleUrl: 'color-picker.scss',
+  tag: 'color-list',
+  styleUrl: 'color-list.scss',
   shadow: true,
   formAssociated: true
 })
-export class ColorPicker {
+export class ColorList {
 
   @Element()
   el!: HTMLElement
@@ -18,13 +18,16 @@ export class ColorPicker {
   value: string = ''
 
   @Prop()
-  colors!: string;
+  colors!: string[];
 
   @Prop()
   addMore: boolean = false;
 
   @Prop()
   withPicker: boolean = false; // last one picker
+
+  @Event()
+  colorSelected: EventEmitter;
 
   @AttachInternals()
   internals!: ElementInternals;
@@ -33,11 +36,24 @@ export class ColorPicker {
     this.internals.setFormValue(this.value);
   }
 
-  onInputFn = (e: any) => {
-    const inputEvent = e as InputEvent;
-    const value = (inputEvent.target as HTMLInputElement).value;
+  onColorSelect = (value: string) => {
     this.value = value;
     this.internals.setFormValue(value);
+    this.colorSelected.emit(value);
+  }
+
+  renderColors() {
+    if (Array.isArray(this.colors)) {
+      return (
+        this.colors.map(color => {
+          return (
+            <button style={{ "background-color": color }}
+              onClick={() => this.onColorSelect(color)}
+              class={{ 'rounded': true, "active": this.value === color }} title={color}></button>
+          );
+        })
+      );
+    }
   }
 
   render() {
@@ -46,8 +62,7 @@ export class ColorPicker {
         <div class="form-element color-picker">
           <label htmlFor={this.name} class="text-lbl">{this.name}</label>
           <div class="color-items">
-            <input type="color" name={this.name} onInput={(e: any) => this.onInputFn(e)} id={this.name} value={this.value}
-              style={{ 'border-color': this.value }} />
+            {this.renderColors()}
           </div>
         </div>
       </Host>

@@ -49,7 +49,7 @@ export class SelectMenu {
     this.value = opt.value;
     this.internals.setFormValue(opt.value);
     const event = new CustomEvent('input', {
-      detail: { value: opt.value },
+      detail: opt.value,
       bubbles: true,
       cancelable: true,
       composed: true,

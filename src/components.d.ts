@@ -12,12 +12,28 @@ export { FontItem } from "@pixobe/ui-utils";
 export { DropdownOption } from "./components/menu-icon/menu-icon";
 export { OptionItem } from "./components/select-menu/select-menu";
 export namespace Components {
+    interface ColorList {
+        /**
+          * @default false
+         */
+        "addMore": boolean;
+        "colors": string[];
+        "name": string;
+        /**
+          * @default ''
+         */
+        "value": string;
+        /**
+          * @default false
+         */
+        "withPicker": boolean;
+    }
     interface ColorPicker {
         /**
           * @default false
          */
         "addMore": boolean;
-        "colors": string | string[];
+        "colors": string;
         "name": string;
         /**
           * @default ''
@@ -199,18 +215,54 @@ export namespace Components {
         "value": string;
     }
 }
+export interface ColorListCustomEvent<T> extends CustomEvent<T> {
+    detail: T;
+    target: HTMLColorListElement;
+}
+export interface FileUploaderCustomEvent<T> extends CustomEvent<T> {
+    detail: T;
+    target: HTMLFileUploaderElement;
+}
 export interface MenuIconCustomEvent<T> extends CustomEvent<T> {
     detail: T;
     target: HTMLMenuIconElement;
 }
 declare global {
+    interface HTMLColorListElementEventMap {
+        "colorSelected": any;
+    }
+    interface HTMLColorListElement extends Components.ColorList, HTMLStencilElement {
+        addEventListener<K extends keyof HTMLColorListElementEventMap>(type: K, listener: (this: HTMLColorListElement, ev: ColorListCustomEvent<HTMLColorListElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLColorListElementEventMap>(type: K, listener: (this: HTMLColorListElement, ev: ColorListCustomEvent<HTMLColorListElementEventMap[K]>) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
+    }
+    var HTMLColorListElement: {
+        prototype: HTMLColorListElement;
+        new (): HTMLColorListElement;
+    };
     interface HTMLColorPickerElement extends Components.ColorPicker, HTMLStencilElement {
     }
     var HTMLColorPickerElement: {
         prototype: HTMLColorPickerElement;
         new (): HTMLColorPickerElement;
     };
+    interface HTMLFileUploaderElementEventMap {
+        "fileInput": any;
+    }
     interface HTMLFileUploaderElement extends Components.FileUploader, HTMLStencilElement {
+        addEventListener<K extends keyof HTMLFileUploaderElementEventMap>(type: K, listener: (this: HTMLFileUploaderElement, ev: FileUploaderCustomEvent<HTMLFileUploaderElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLFileUploaderElementEventMap>(type: K, listener: (this: HTMLFileUploaderElement, ev: FileUploaderCustomEvent<HTMLFileUploaderElementEventMap[K]>) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
     }
     var HTMLFileUploaderElement: {
         prototype: HTMLFileUploaderElement;
@@ -480,6 +532,7 @@ declare global {
         new (): HTMLSelectMenuElement;
     };
     interface HTMLElementTagNameMap {
+        "color-list": HTMLColorListElement;
         "color-picker": HTMLColorPickerElement;
         "file-uploader": HTMLFileUploaderElement;
         "font-picker": HTMLFontPickerElement;
@@ -527,12 +580,29 @@ declare global {
     }
 }
 declare namespace LocalJSX {
+    interface ColorList {
+        /**
+          * @default false
+         */
+        "addMore"?: boolean;
+        "colors": string[];
+        "name": string;
+        "onColorSelected"?: (event: ColorListCustomEvent<any>) => void;
+        /**
+          * @default ''
+         */
+        "value"?: string;
+        /**
+          * @default false
+         */
+        "withPicker"?: boolean;
+    }
     interface ColorPicker {
         /**
           * @default false
          */
         "addMore"?: boolean;
-        "colors": string | string[];
+        "colors": string;
         "name": string;
         /**
           * @default ''
@@ -549,6 +619,7 @@ declare namespace LocalJSX {
           * @default "File"
          */
         "name"?: string;
+        "onFileInput"?: (event: FileUploaderCustomEvent<any>) => void;
         /**
           * @default ''
          */
@@ -715,6 +786,7 @@ declare namespace LocalJSX {
         "value"?: string;
     }
     interface IntrinsicElements {
+        "color-list": ColorList;
         "color-picker": ColorPicker;
         "file-uploader": FileUploader;
         "font-picker": FontPicker;
@@ -765,6 +837,7 @@ export { LocalJSX as JSX };
 declare module "@stencil/core" {
     export namespace JSX {
         interface IntrinsicElements {
+            "color-list": LocalJSX.ColorList & JSXBase.HTMLAttributes<HTMLColorListElement>;
             "color-picker": LocalJSX.ColorPicker & JSXBase.HTMLAttributes<HTMLColorPickerElement>;
             "file-uploader": LocalJSX.FileUploader & JSXBase.HTMLAttributes<HTMLFileUploaderElement>;
             "font-picker": LocalJSX.FontPicker & JSXBase.HTMLAttributes<HTMLFontPickerElement>;
