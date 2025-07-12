@@ -23,24 +23,24 @@
 
   input[type='text'] {
     &::placeholder {
-      color: var(--text-tertiary);
+      color: var(--placeholder);
       opacity: 1;
     }
 
     &::-webkit-input-placeholder {
-      color: var(--text-tertiary);
+      color: var(--placeholder);
     }
 
     &::-moz-placeholder {
-      color: var(--text-tertiary);
+      color: var(--placeholder);
     }
 
     &:-ms-input-placeholder {
-      color: var(--text-tertiary);
+      color: var(--placeholder);
     }
 
     &::-ms-input-placeholder {
-      color: var(--text-tertiary);
+      color: var(--placeholder);
     }
   }
 }
