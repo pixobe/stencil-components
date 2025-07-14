@@ -1,13 +1,12 @@
 import { AttachInternals, Component, Element, h, Host, Prop } from '@stencil/core';
 
-
 @Component({
-  tag: 'input-text',
-  styleUrl: 'input-text.scss',
+  tag: 'check-box',
+  styleUrl: 'check-box.scss',
   shadow: true,
   formAssociated: true
 })
-export class InputText {
+export class CheckBox {
 
   @Element()
   el!: HTMLElement
@@ -36,9 +35,9 @@ export class InputText {
 
   onInputFn = (e: any) => {
     const inputEvent = e as InputEvent;
-    const value = (inputEvent.target as HTMLInputElement).value;
-    this.value = value;
-    this.internals.setFormValue(value);
+    const value = (inputEvent.target as HTMLInputElement).checked;
+    this.value = String(value);
+    this.internals.setFormValue(this.value);
   }
 
   render() {
@@ -46,11 +45,19 @@ export class InputText {
       <Host>
         <div class="form-element">
           <label htmlFor={this.name} class="text-lbl">
+            <input
+              type="checkbox"
+              name={this.name}
+              id={this.name}
+              value={this.value}
+              onInput={this.onInputFn}
+              aria-label={this.label}
+            />
+            <div class="checkbox" aria-hidden="true">
+              <icon-tick></icon-tick>
+            </div>
             {this.label}
           </label>
-          <div>
-            <input type="text" name={this.name} onInput={this.onInputFn} id={this.name} value={this.value} required={this.required} placeholder={this.placeholder} />
-          </div>
         </div>
       </Host>
     );

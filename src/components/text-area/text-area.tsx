@@ -48,7 +48,7 @@ export class MultiLineText {
       <Host>
         <div class="form-element">
           <label htmlFor={this.name} class="text-lbl">
-            {this.label || this.name}
+            {this.label}
           </label>
           <div>
             <textarea

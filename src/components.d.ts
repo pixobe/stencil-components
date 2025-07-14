@@ -12,6 +12,22 @@ export { FontItem } from "@pixobe/ui-utils";
 export { DropdownOption } from "./components/menu-icon/menu-icon";
 export { OptionItem } from "./components/select-menu/select-menu";
 export namespace Components {
+    interface CheckBox {
+        "label"?: string;
+        "name": string;
+        /**
+          * @default ''
+         */
+        "placeholder"?: string;
+        /**
+          * @default true
+         */
+        "required": boolean;
+        /**
+          * @default ''
+         */
+        "value": string;
+    }
     interface ColorList {
         /**
           * @default false
@@ -132,6 +148,8 @@ export namespace Components {
     }
     interface IconText {
     }
+    interface IconTick {
+    }
     interface IconTrash {
     }
     interface IconUpload {
@@ -228,6 +246,12 @@ export interface MenuIconCustomEvent<T> extends CustomEvent<T> {
     target: HTMLMenuIconElement;
 }
 declare global {
+    interface HTMLCheckBoxElement extends Components.CheckBox, HTMLStencilElement {
+    }
+    var HTMLCheckBoxElement: {
+        prototype: HTMLCheckBoxElement;
+        new (): HTMLCheckBoxElement;
+    };
     interface HTMLColorListElementEventMap {
         "colorSelected": any;
     }
@@ -448,6 +472,12 @@ declare global {
         prototype: HTMLIconTextElement;
         new (): HTMLIconTextElement;
     };
+    interface HTMLIconTickElement extends Components.IconTick, HTMLStencilElement {
+    }
+    var HTMLIconTickElement: {
+        prototype: HTMLIconTickElement;
+        new (): HTMLIconTickElement;
+    };
     interface HTMLIconTrashElement extends Components.IconTrash, HTMLStencilElement {
     }
     var HTMLIconTrashElement: {
@@ -532,6 +562,7 @@ declare global {
         new (): HTMLSelectMenuElement;
     };
     interface HTMLElementTagNameMap {
+        "check-box": HTMLCheckBoxElement;
         "color-list": HTMLColorListElement;
         "color-picker": HTMLColorPickerElement;
         "file-uploader": HTMLFileUploaderElement;
@@ -565,6 +596,7 @@ declare global {
         "icon-rotate": HTMLIconRotateElement;
         "icon-support": HTMLIconSupportElement;
         "icon-text": HTMLIconTextElement;
+        "icon-tick": HTMLIconTickElement;
         "icon-trash": HTMLIconTrashElement;
         "icon-upload": HTMLIconUploadElement;
         "icon-whatsapp": HTMLIconWhatsappElement;
@@ -580,6 +612,22 @@ declare global {
     }
 }
 declare namespace LocalJSX {
+    interface CheckBox {
+        "label"?: string;
+        "name": string;
+        /**
+          * @default ''
+         */
+        "placeholder"?: string;
+        /**
+          * @default true
+         */
+        "required"?: boolean;
+        /**
+          * @default ''
+         */
+        "value"?: string;
+    }
     interface ColorList {
         /**
           * @default false
@@ -702,6 +750,8 @@ declare namespace LocalJSX {
     }
     interface IconText {
     }
+    interface IconTick {
+    }
     interface IconTrash {
     }
     interface IconUpload {
@@ -786,6 +836,7 @@ declare namespace LocalJSX {
         "value"?: string;
     }
     interface IntrinsicElements {
+        "check-box": CheckBox;
         "color-list": ColorList;
         "color-picker": ColorPicker;
         "file-uploader": FileUploader;
@@ -819,6 +870,7 @@ declare namespace LocalJSX {
         "icon-rotate": IconRotate;
         "icon-support": IconSupport;
         "icon-text": IconText;
+        "icon-tick": IconTick;
         "icon-trash": IconTrash;
         "icon-upload": IconUpload;
         "icon-whatsapp": IconWhatsapp;
@@ -837,6 +889,7 @@ export { LocalJSX as JSX };
 declare module "@stencil/core" {
     export namespace JSX {
         interface IntrinsicElements {
+            "check-box": LocalJSX.CheckBox & JSXBase.HTMLAttributes<HTMLCheckBoxElement>;
             "color-list": LocalJSX.ColorList & JSXBase.HTMLAttributes<HTMLColorListElement>;
             "color-picker": LocalJSX.ColorPicker & JSXBase.HTMLAttributes<HTMLColorPickerElement>;
             "file-uploader": LocalJSX.FileUploader & JSXBase.HTMLAttributes<HTMLFileUploaderElement>;
@@ -870,6 +923,7 @@ declare module "@stencil/core" {
             "icon-rotate": LocalJSX.IconRotate & JSXBase.HTMLAttributes<HTMLIconRotateElement>;
             "icon-support": LocalJSX.IconSupport & JSXBase.HTMLAttributes<HTMLIconSupportElement>;
             "icon-text": LocalJSX.IconText & JSXBase.HTMLAttributes<HTMLIconTextElement>;
+            "icon-tick": LocalJSX.IconTick & JSXBase.HTMLAttributes<HTMLIconTickElement>;
             "icon-trash": LocalJSX.IconTrash & JSXBase.HTMLAttributes<HTMLIconTrashElement>;
             "icon-upload": LocalJSX.IconUpload & JSXBase.HTMLAttributes<HTMLIconUploadElement>;
             "icon-whatsapp": LocalJSX.IconWhatsapp & JSXBase.HTMLAttributes<HTMLIconWhatsappElement>;
