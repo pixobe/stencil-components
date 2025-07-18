@@ -13,11 +13,11 @@
     box-sizing: border-box;
     width: 100%;
     border-radius: 4px;
-    background-color: var(--tertiary-background);
+    background-color: var(--secondary-background);
     color: var(--text-primary);
-    border: 1px solid var(--secondary-background);
+    border: 1px solid var(--tertiary-background);
     &:focus {
-      outline: 1px solid var(--secondary-background);
+      outline: 1px solid var(--highlight, oklch(93.2% 0.032 255.585));
     }
   }
 

@@ -15,7 +15,10 @@ export class ColorList {
   name!: string;
 
   @Prop({ mutable: true })
-  value: string = ''
+  value: string = '';
+
+  @Prop({ reflect: true })
+  label?: string;
 
   @Prop()
   colors!: string[];
@@ -24,7 +27,7 @@ export class ColorList {
   addMore: boolean = false;
 
   @Prop()
-  withPicker: boolean = false; // last one picker
+  withPicker: boolean = false;
 
   @Event()
   colorSelected: EventEmitter;
@@ -60,7 +63,7 @@ export class ColorList {
     return (
       <Host>
         <div class="form-element color-picker">
-          <label htmlFor={this.name} class="text-lbl">{this.name}</label>
+          <label htmlFor={this.name} class="text-lbl">{this.label}</label>
           <div class="color-items">
             {this.renderColors()}
           </div>

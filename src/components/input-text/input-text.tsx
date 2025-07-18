@@ -16,6 +16,9 @@ export class InputText {
   name!: string;
 
   @Prop({ reflect: true })
+  type: string = 'text';
+
+  @Prop({ reflect: true })
   label?: string;
 
   @Prop({ reflect: false })
@@ -49,7 +52,7 @@ export class InputText {
             {this.label}
           </label>
           <div>
-            <input type="text" name={this.name} onInput={this.onInputFn} id={this.name} value={this.value} required={this.required} placeholder={this.placeholder} />
+            <input type={this.type} name={this.name} onInput={this.onInputFn} id={this.name} value={this.value} required={this.required} placeholder={this.placeholder} />
           </div>
         </div>
       </Host>

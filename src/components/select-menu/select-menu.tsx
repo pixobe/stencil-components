@@ -37,6 +37,14 @@ export class SelectMenu {
   @State()
   open = false;
 
+  get selectedLabel() {
+    return this.options.find(opt => opt.value === this.value)?.label
+  }
+
+  get displayName() {
+    return this.label || this.name;
+  }
+
   toggleDropdown = () => {
     this.open = !this.open;
   };
@@ -58,18 +66,16 @@ export class SelectMenu {
     this.open = false;
   }
 
-  get selectedLabel() {
-    return this.options.find(opt => opt.value === this.value)?.label
-  }
+
 
   render() {
     return (
       <Host>
         <div class="form-element">
-          <label class="menu-lbl">{this.label || this.name}</label>
+          <label class="menu-lbl">{this.displayName}</label>
           <div class={{ 'custom-dropdown': true, 'open': this.open }}>
             <div class="custom-dropdown-trigger" onClick={this.toggleDropdown}>
-              {this.value ? <div>{this.selectedLabel}</div> : <div>Select {this.name}</div>}
+              {this.value ? <div>{this.selectedLabel}</div> : <div>Select {this.displayName}</div>}
             </div>
             <div class="custom-dropdown-menu">
               {this.options.map(opt => (

@@ -34,6 +34,8 @@
     overflow-y: auto;
     z-index: 999;
     display: none;
+    box-sizing: border-box;
+    box-shadow: 1px 1px 3px var(--box-shadow);
   }
 
   .custom-dropdown.open .custom-dropdown-menu {
@@ -49,6 +51,6 @@
   }
 
   .custom-dropdown-item:hover {
-    background-color: var(--tertiary-background);
+    background-color: var(--secondary-background);
   }
 }

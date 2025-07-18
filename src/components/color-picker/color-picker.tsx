@@ -15,10 +15,10 @@ export class ColorPicker {
   name!: string;
 
   @Prop({ mutable: true })
-  value: string = ''
+  value: string = '';
 
-  @Prop()
-  colors!: string;
+  @Prop({ reflect: true })
+  label?: string;
 
   @Prop()
   addMore: boolean = false;
@@ -44,7 +44,7 @@ export class ColorPicker {
     return (
       <Host>
         <div class="form-element color-picker">
-          <label htmlFor={this.name} class="text-lbl">{this.name}</label>
+          <label htmlFor={this.name} class="text-lbl">{this.label}</label>
           <div class="color-items">
             <input type="color" name={this.name} onInput={(e: any) => this.onInputFn(e)} id={this.name} value={this.value}
               style={{ 'border-color': this.value }} />

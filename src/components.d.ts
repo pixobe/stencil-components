@@ -34,6 +34,7 @@ export namespace Components {
          */
         "addMore": boolean;
         "colors": string[];
+        "label"?: string;
         "name": string;
         /**
           * @default ''
@@ -49,7 +50,7 @@ export namespace Components {
           * @default false
          */
         "addMore": boolean;
-        "colors": string;
+        "label"?: string;
         "name": string;
         /**
           * @default ''
@@ -634,6 +635,7 @@ declare namespace LocalJSX {
          */
         "addMore"?: boolean;
         "colors": string[];
+        "label"?: string;
         "name": string;
         "onColorSelected"?: (event: ColorListCustomEvent<any>) => void;
         /**
@@ -650,7 +652,7 @@ declare namespace LocalJSX {
           * @default false
          */
         "addMore"?: boolean;
-        "colors": string;
+        "label"?: string;
         "name": string;
         /**
           * @default ''
