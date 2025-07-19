@@ -3,7 +3,7 @@ import { AttachInternals, Component, Element, h, Host, Prop } from '@stencil/cor
 
 @Component({
   tag: 'multi-line',
-  styleUrl: 'text-area.scss',
+  styleUrl: 'multi-line.scss',
   shadow: true,
   formAssociated: true
 })

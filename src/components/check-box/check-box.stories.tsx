@@ -20,8 +20,15 @@ export default meta;
 type Story = StoryObj<CheckBox>;
 
 
-export const ColorPickerList: Story = {
+export const Unchecked: Story = {
   args: {
     label: "Preview"
+  },
+};
+
+export const Checked: Story = {
+  args: {
+    label: "Preview",
+    value: "true"
   },
 };

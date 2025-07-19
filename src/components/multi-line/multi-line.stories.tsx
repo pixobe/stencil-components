@@ -1,6 +1,6 @@
 import { h } from '@stencil/core';
 import type { Meta, StoryObj } from '@stencil/storybook-plugin';
-import { MultiLineText } from './text-area';
+import { MultiLineText } from './multi-line';
 
 const meta: Meta<MultiLineText> = {
   title: 'MultiLineText',

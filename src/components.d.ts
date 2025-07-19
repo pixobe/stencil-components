@@ -16,10 +16,6 @@ export namespace Components {
         "label"?: string;
         "name": string;
         /**
-          * @default ''
-         */
-        "placeholder"?: string;
-        /**
           * @default true
          */
         "required": boolean;
@@ -86,6 +82,9 @@ export namespace Components {
           * @default ''
          */
         "value": string;
+    }
+    interface HtmlForm {
+        "formData": () => Promise<any>;
     }
     interface IconAdd {
     }
@@ -178,6 +177,10 @@ export namespace Components {
           * @default true
          */
         "required": boolean;
+        /**
+          * @default 'text'
+         */
+        "type": string;
         /**
           * @default ''
          */
@@ -298,6 +301,12 @@ declare global {
     var HTMLFontPickerElement: {
         prototype: HTMLFontPickerElement;
         new (): HTMLFontPickerElement;
+    };
+    interface HTMLHtmlFormElement extends Components.HtmlForm, HTMLStencilElement {
+    }
+    var HTMLHtmlFormElement: {
+        prototype: HTMLHtmlFormElement;
+        new (): HTMLHtmlFormElement;
     };
     interface HTMLIconAddElement extends Components.IconAdd, HTMLStencilElement {
     }
@@ -568,6 +577,7 @@ declare global {
         "color-picker": HTMLColorPickerElement;
         "file-uploader": HTMLFileUploaderElement;
         "font-picker": HTMLFontPickerElement;
+        "html-form": HTMLHtmlFormElement;
         "icon-add": HTMLIconAddElement;
         "icon-add-cart": HTMLIconAddCartElement;
         "icon-aligncenter": HTMLIconAligncenterElement;
@@ -616,10 +626,6 @@ declare namespace LocalJSX {
     interface CheckBox {
         "label"?: string;
         "name": string;
-        /**
-          * @default ''
-         */
-        "placeholder"?: string;
         /**
           * @default true
          */
@@ -689,6 +695,8 @@ declare namespace LocalJSX {
           * @default ''
          */
         "value"?: string;
+    }
+    interface HtmlForm {
     }
     interface IconAdd {
     }
@@ -782,6 +790,10 @@ declare namespace LocalJSX {
          */
         "required"?: boolean;
         /**
+          * @default 'text'
+         */
+        "type"?: string;
+        /**
           * @default ''
          */
         "value"?: string;
@@ -843,6 +855,7 @@ declare namespace LocalJSX {
         "color-picker": ColorPicker;
         "file-uploader": FileUploader;
         "font-picker": FontPicker;
+        "html-form": HtmlForm;
         "icon-add": IconAdd;
         "icon-add-cart": IconAddCart;
         "icon-aligncenter": IconAligncenter;
@@ -896,6 +909,7 @@ declare module "@stencil/core" {
             "color-picker": LocalJSX.ColorPicker & JSXBase.HTMLAttributes<HTMLColorPickerElement>;
             "file-uploader": LocalJSX.FileUploader & JSXBase.HTMLAttributes<HTMLFileUploaderElement>;
             "font-picker": LocalJSX.FontPicker & JSXBase.HTMLAttributes<HTMLFontPickerElement>;
+            "html-form": LocalJSX.HtmlForm & JSXBase.HTMLAttributes<HTMLHtmlFormElement>;
             "icon-add": LocalJSX.IconAdd & JSXBase.HTMLAttributes<HTMLIconAddElement>;
             "icon-add-cart": LocalJSX.IconAddCart & JSXBase.HTMLAttributes<HTMLIconAddCartElement>;
             "icon-aligncenter": LocalJSX.IconAligncenter & JSXBase.HTMLAttributes<HTMLIconAligncenterElement>;

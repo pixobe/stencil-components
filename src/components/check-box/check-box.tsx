@@ -17,14 +17,13 @@ export class CheckBox {
   @Prop({ reflect: true })
   label?: string;
 
-  @Prop({ reflect: false })
-  placeholder?: string = '';
-
   @Prop({ mutable: true })
   value: string = '';
 
   @Prop()
   required: boolean = true;
+
+  type = 'checkbox';
 
   @AttachInternals()
   internals!: ElementInternals;
@@ -52,6 +51,7 @@ export class CheckBox {
               value={this.value}
               onInput={this.onInputFn}
               aria-label={this.label}
+              checked={this.value === 'true'}
             />
             <div class="checkbox" aria-hidden="true">
               <icon-tick></icon-tick>

@@ -24,7 +24,9 @@ export class ColorPicker {
   addMore: boolean = false;
 
   @Prop()
-  withPicker: boolean = false; // last one picker
+  withPicker: boolean = false;
+
+  type = "color";
 
   @AttachInternals()
   internals!: ElementInternals;
