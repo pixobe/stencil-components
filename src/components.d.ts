@@ -84,7 +84,11 @@ export namespace Components {
         "value": string;
     }
     interface HtmlForm {
-        "formData": () => Promise<any>;
+        /**
+          * @default {}
+         */
+        "data": Record<string, any>;
+        "formData": () => Promise<Record<string, any>>;
     }
     interface IconAdd {
     }
@@ -697,6 +701,10 @@ declare namespace LocalJSX {
         "value"?: string;
     }
     interface HtmlForm {
+        /**
+          * @default {}
+         */
+        "data"?: Record<string, any>;
     }
     interface IconAdd {
     }

@@ -7,22 +7,28 @@ const meta: Meta<HtmlForm> = {
     component: HtmlForm,
     argTypes: {},
     args: {},
-    render: () => {
+    render: (props) => {
+        const data = props.data;
         async function onSubmit(e: any) {
             e.preventDefault();
             const parent = e.target.parentElement;
             const formData = await parent.formData();
             console.table(formData);
         }
-        const tag = <html-form >
+        const tag = <html-form data={data}>
             <check-box label="Preview" name="preview"></check-box>
             <div>
-                <input-text label="Name" name="name" value="Hello world"></input-text>
+                <input-text label="Name" name="firstname"></input-text>
             </div>
-            <input-text label="Address Line 1" name="address.line1" value="Block 97"></input-text>
-            <input-text label="Address Line 2" name="address.line2" value="Yishun Avenue 1" data-ignore></input-text>
-            <input-text name="font[].name" placeholder="Font name"></input-text>
-            <input-text name="font[].url" placeholder="Font URL"></input-text>
+            <input-text label="Address Line 1" name="address.line1"></input-text>
+            <input-text label="Address Line 2" name="address.line2" ></input-text>
+            <input-text name="font[0].name" placeholder="Font name" ></input-text>
+            <input-text name="font[0].url" placeholder="Font URL" ></input-text>
+            <input-text name="gallery[0].name" placeholder="Font name" ></input-text>
+            <input-text name="gallery[0].images[0].src" placeholder="Font URL" ></input-text>
+            <input-text name="gallery[1].name" placeholder="Font name" ></input-text>
+            <input-text name="gallery[1].images[0].src" placeholder="Font URL" ></input-text>
+            <input-text name="gallery[1].images[1].src" placeholder="Font URL"></input-text>
             <button onClick={onSubmit}>Submit</button>
         </html-form>
         return tag;
@@ -36,6 +42,40 @@ type Story = StoryObj<HTMLFormElement>;
 
 export const Unchecked: Story = {
     args: {
-        label: "Preview"
+        data: {
+            "preview": true,
+            "firstname": "Test",
+            "address": {
+                "line1": "Block 98",
+                "line2": "Yishun Avenue 1"
+            },
+            "font": [
+                {
+                    "name": "Roboto",
+                    "url": "https://roboto.com.sg"
+                }
+            ],
+            "gallery": [
+                {
+                    "name": "Seasons",
+                    "images": [
+                        {
+                            "src": "https://seasons.com.sg"
+                        }
+                    ]
+                },
+                {
+                    "name": "Animals",
+                    "images": [
+                        {
+                            "src": "https://animals.com.sg"
+                        },
+                        {
+                            "src": "https://animals2.com.sg"
+                        }
+                    ]
+                }
+            ]
+        }
     },
 };

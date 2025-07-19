@@ -1,4 +1,5 @@
-import { Component, Host, h, Method, Element } from '@stencil/core';
+import { Component, Host, h, Method, Prop, Element } from '@stencil/core';
+import { getValueByPath, valueMapper } from './form-utils';
 
 @Component({
   tag: 'html-form',
@@ -7,12 +8,17 @@ import { Component, Host, h, Method, Element } from '@stencil/core';
 })
 export class HtmlForm {
 
+  @Element()
+  el: HTMLElement
+
+  @Prop()
+  data: Record<string, any> = {}
+
   ref: HTMLFormElement;
 
   @Method()
   async formData() {
-    const jsonObject: any = {};
-    const groupedFields: Record<string, Record<string, string[]>> = {};
+    const data: Record<string, any> = {};
     const slot = this.ref.querySelector("slot");
     const assignedElements = slot?.assignedElements({ flatten: true }) as Array<HTMLInputElement> || [];
 
@@ -23,68 +29,32 @@ export class HtmlForm {
       })
       .filter(el => !!el.name && el.dataset.ignore === undefined)
 
-
     for (const el of formElements) {
+      valueMapper(data, el.name, el.value);
+    }
+    return data;
+  }
 
-      const key = el.name;
-      let rawValue: any = el.value;
+  componentDidLoad() {
+    const slot = this.el.shadowRoot?.querySelector("slot");
+    const assignedElements = slot!.assignedElements({ flatten: true }) as HTMLInputElement[];
 
-      if (el.type === 'checkbox') {
-        rawValue = (el as HTMLInputElement).checked;
-      }
+    const formElements: HTMLInputElement[] = assignedElements
+      .flatMap(el => {
+        if ((el as HTMLInputElement).name) return [el as HTMLInputElement];
+        return Array.from(el.querySelectorAll<HTMLInputElement>('input, select, textarea, [name]'));
+      })
+      .filter(el => !!el.name && el.dataset.ignore === undefined);
 
-      // Parse booleans from string
-      let parsedValue: any = rawValue;
-      if (parsedValue === 'true') parsedValue = true;
-      else if (parsedValue === 'false') parsedValue = false;
-
-      // Handle grouped fields like fieldNameSuffix[]
-      const match = key.match(/^(\w+)\[\]\.(\w+)$/);
-      if (match) {
-        const base = match[1];    // e.g., 'font'
-        const suffix = match[2];  // e.g., 'name'
-
-        groupedFields[base] ??= {};
-        groupedFields[base][suffix] ??= [];
-        groupedFields[base][suffix].push(parsedValue);
-        continue;
-      }
-
-      const keys = key.split('.');
-      let current = jsonObject;
-      for (let i = 0; i < keys.length; i++) {
-        const part = keys[i];
-        const isLast = i === keys.length - 1;
-        if (isLast) {
-          if (current.hasOwnProperty(part)) {
-            if (Array.isArray(current[part])) {
-              current[part].push(parsedValue);
-            } else {
-              current[part] = [current[part], parsedValue];
-            }
-          } else {
-            current[part] = parsedValue;
-          }
-        } else {
-          current[part] ??= {};
-          current = current[part];
+    if (formElements) {
+      for (const element of formElements) {
+        const name = (element! as HTMLInputElement).name;
+        if (name) {
+          const value = getValueByPath(this.data, name);
+          element.value = value;
         }
       }
     }
-    // Convert groupedFields into array of objects
-    for (const base in groupedFields) {
-      const group = groupedFields[base];
-      const maxLen = Math.max(...Object.values(group).map(arr => arr.length));
-      jsonObject[base] = [];
-      for (let i = 0; i < maxLen; i++) {
-        const entry: any = {};
-        for (const field in group) {
-          entry[field] = group[field][i] ?? '';
-        }
-        jsonObject[base].push(entry);
-      }
-    }
-    return jsonObject;
   }
 
 
