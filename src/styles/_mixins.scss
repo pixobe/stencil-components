@@ -1,0 +1,8 @@
+@mixin theme-styles() {
+  color: var(--text-primary);
+  border: 1px solid var(--quaternary-background);
+  background-color: var(--tertiary-background);
+  &:focus {
+    outline: 1px solid var(--active-border);
+  }
+}

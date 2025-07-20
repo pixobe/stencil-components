@@ -23,19 +23,21 @@ type Story = StoryObj<MultiLineText>;
 
 export const Primary: Story = {
   args: {
-    name: "First Name"
+    name: "firstName",
+    label: "First Name"
   },
 };
 
 export const Secondary: Story = {
   args: {
     name: "Text",
+    label: "Text"
   },
 };
-
 export const WithPlaceholder: Story = {
   args: {
     name: "Notes",
+    label: "Notes",
     placeholder: "Enter your comments here..."
   },
 };

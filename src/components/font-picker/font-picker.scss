@@ -1,3 +1,5 @@
+@use '../../styles/mixins' as *;
+
 :host {
   .menu-lbl {
     font-weight: bold;
@@ -16,24 +18,25 @@
     padding: 10px;
     font-size: 16px;
     cursor: pointer;
-    background-color: var(--tertiary-background);
-    color: var(--text-primary);
     border-radius: 4px;
+    @include theme-styles();
   }
 
   .custom-dropdown-menu {
+    display: none;
     position: absolute;
     top: 100%;
     left: 0;
     width: 100%;
-    background: var(--primary-background);
-    border: 1px solid var(--tertiary-background);
-    color: var(--text-primary);
     border-top: none;
     max-height: 200px;
     overflow-y: auto;
     z-index: 999;
-    display: none;
+    box-sizing: border-box;
+    color: var(--text-primary);
+    border: 1px solid var(--quaternary-background);
+    background-color: var(--quaternary-background);
+    box-shadow: 1px 1px 3px var(--box-shadow);
   }
 
   .custom-dropdown.open .custom-dropdown-menu {

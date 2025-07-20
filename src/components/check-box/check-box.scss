@@ -4,7 +4,7 @@
     display: flex;
     align-items: center;
     gap: 0.5rem;
-
+    color: var(--text-primary);
     input[type='checkbox'] {
       display: none;
     }
@@ -12,13 +12,14 @@
     .checkbox {
       width: 18px;
       height: 18px;
-      border: 2px solid #ccc;
       border-radius: 4px;
       background-color: transparent;
       display: flex;
       align-items: center;
       justify-content: center;
       transition: background-color 0.1s ease, border-color 0.1s ease;
+      border: 2px solid var(--text-tertiary);
+      background-color: var(--tertiary-background);
     }
 
     input[type='checkbox']:checked ~ .checkbox {

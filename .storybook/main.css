@@ -86,37 +86,47 @@
 }
 
 :root {
-  //new variables
-  --text-primary: oklch(0.12 0 0); /* near black for headlines */
-  --text-secondary: oklch(0.35 0 0); /* muted for labels, meta info */
-  --text-tertiary: oklch(0.5 0 0); /* placeholder or disabled text */
+  /* Text */
+  --text-primary: oklch(0.2 0.03 260); /* Deep gray-blue for readable body text */
+  --text-secondary: oklch(0.4 0.02 260); /* Muted lighter secondary text */
+  --text-tertiary: oklch(0.7 0.01 260); /* Light, soft for placeholders/hints */
 
-  --primary-background: oklch(0.98 0 0);
-  --secondary-background: oklch(0.95 0 0);
-  --tertiary-background: oklch(0.92 0 0);
+  /* Backgrounds */
+  --primary-background: oklch(0.98 0 0); /* Bright near-white */
+  --secondary-background: oklch(0.96 0 0); /* Light gray layer below */
+  --tertiary-background: oklch(0.92 0 0); /* Slightly deeper background for nested elements */
+  --quaternary-background: oklch(0.88 0 0);
 
-  --button-primary: oklch(60.9% 0.126 221.723);
-  --button-text-primary: oklch(98.5% 0 0);
-  --button-secondary: oklch(77.2% 0 0);
-  --button-text-secondary: oklch(30% 0 0);
-  --box-shadow: oklch(92.2% 0 0);
+  /* Buttons */
+  --button-primary: oklch(0.65 0.15 230); /* Vibrant blue with good contrast */
+  --button-text-primary: oklch(0.98 0 0); /* Almost white for readability */
+  --button-secondary: oklch(0.85 0.02 250); /* Light variant for secondary actions */
+  --button-text-secondary: oklch(0.3 0.01 260); /* Muted dark text for contrast */
 
+  /* Misc */
   --icon-bg: var(--tertiary-background);
   --icon-border: var(--tertiary-background);
-  --icon-color: var(--primary-secondary);
+  --icon-color: var(--text-secondary);
 
-  --hightlight: oklch(93.2% 0.032 255.585);
+  --box-shadow: oklch(0.9 0 0); /* Soft shadow tone */
+  --placeholder: oklch(0.68 0.01 260); /* Medium light gray-blue */
+  --error-text: oklch(0.65 0.2 30); /* Strong reddish tone for alerts */
+  --active-border: oklch(0.75 0.13 260); /* Highlight for focus rings etc. */
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --text-primary: oklch(0.98 0 0); /* white text for headings */
-    --text-secondary: oklch(0.75 0 0); /* lighter gray for body */
-    --text-tertiary: oklch(0.55 0 0); /* hint text */
-    --primary-background: oklch(0.18 0 0);
-    --secondary-background: oklch(0.25 0 0);
-    --tertiary-background: oklch(0.3 0 0);
-    --box-shadow: oklch(87% 0 0);
+    --text-primary: oklch(0.95 0 0); /* Near-white */
+    --text-secondary: oklch(0.75 0 0);
+    --text-tertiary: oklch(0.6 0 0);
+
+    --primary-background: oklch(0.18 0 0); /* Deep dark base */
+    --secondary-background: oklch(0.24 0 0); /* Slightly lifted dark gray */
+    --tertiary-background: oklch(0.32 0 0); /* Mid-tone background, headers/cards */
+    --quaternary-background: oklch(0.38 0 0);
+
+    --box-shadow: oklch(0.3 0 0); /* Subtle shadow tone for dark UI */
+    --placeholder: oklch(0.5 0 0);
   }
 }
 
@@ -153,4 +163,9 @@
   .icon {
     color: oklch(87.9% 0.169 91.605);
   }
+}
+
+html,
+body {
+  background-color: var(--secondary-background);
 }

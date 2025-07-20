@@ -1,3 +1,5 @@
+@use '../../styles/mixins' as *;
+
 :host {
   display: block;
   width: 100%;
@@ -10,10 +12,8 @@
     box-sizing: border-box;
     border-radius: 4px;
     text-align: center;
-    border: 2px dashed var(--tertiary-background);
-    background-color: var(--secondary-background);
-    color: var(--text-secondary);
     stroke-dasharray: 2px, 5px;
+    @include theme-styles();
   }
 
   input[type='file'] {
@@ -25,9 +25,5 @@
   }
   p {
     font-size: 14px;
-  }
-  &:hover {
-    background-color: var(--tertiary-background);
-    cursor: pointer;
   }
 }

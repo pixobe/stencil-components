@@ -1,0 +1,47 @@
+@use './mixins' as *;
+
+:host {
+  label.text-lbl {
+    font-weight: bold;
+    display: inline-block;
+    margin: 0.5rem 0;
+    color: var(--text-primary);
+  }
+
+  textarea,
+  input,
+  select {
+    display: block;
+    padding: 0.5rem;
+    font-size: 1rem;
+    box-sizing: border-box;
+    width: 100%;
+    border-radius: 4px;
+    @include theme-styles();
+  }
+
+  textarea,
+  input,
+  select {
+    &::placeholder {
+      color: var(--placeholder);
+      opacity: 1;
+    }
+
+    &::-webkit-input-placeholder {
+      color: var(--placeholder);
+    }
+
+    &::-moz-placeholder {
+      color: var(--placeholder);
+    }
+
+    &:-ms-input-placeholder {
+      color: var(--placeholder);
+    }
+
+    &::-ms-input-placeholder {
+      color: var(--placeholder);
+    }
+  }
+}
