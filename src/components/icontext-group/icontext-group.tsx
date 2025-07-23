@@ -17,13 +17,13 @@ export class IcontextGroup {
   rounded: boolean = false;
 
   render() {
-    const Icon = this.icon;
+    const T = this.icon;
     return (
-      <Host>
-        <div class={{ "rounded": this.rounded, "icontext": true }}>
-          <Icon></Icon>
+      <Host class={{ 'rounded': this.rounded }}>
+        <div class="wrapper">
+          <T />
         </div>
-        {this.label ? <div>{this.label}</div> : <></>}
+        <label>{this.label}</label>
       </Host >
     );
   }

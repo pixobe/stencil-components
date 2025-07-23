@@ -108,6 +108,8 @@ export namespace Components {
     }
     interface IconClose {
     }
+    interface IconCog {
+    }
     interface IconDone {
     }
     interface IconEdit {
@@ -366,6 +368,12 @@ declare global {
         prototype: HTMLIconCloseElement;
         new (): HTMLIconCloseElement;
     };
+    interface HTMLIconCogElement extends Components.IconCog, HTMLStencilElement {
+    }
+    var HTMLIconCogElement: {
+        prototype: HTMLIconCogElement;
+        new (): HTMLIconCogElement;
+    };
     interface HTMLIconDoneElement extends Components.IconDone, HTMLStencilElement {
     }
     var HTMLIconDoneElement: {
@@ -591,6 +599,7 @@ declare global {
         "icon-cart": HTMLIconCartElement;
         "icon-circle": HTMLIconCircleElement;
         "icon-close": HTMLIconCloseElement;
+        "icon-cog": HTMLIconCogElement;
         "icon-done": HTMLIconDoneElement;
         "icon-edit": HTMLIconEditElement;
         "icon-envelope": HTMLIconEnvelopeElement;
@@ -723,6 +732,8 @@ declare namespace LocalJSX {
     interface IconCircle {
     }
     interface IconClose {
+    }
+    interface IconCog {
     }
     interface IconDone {
     }
@@ -873,6 +884,7 @@ declare namespace LocalJSX {
         "icon-cart": IconCart;
         "icon-circle": IconCircle;
         "icon-close": IconClose;
+        "icon-cog": IconCog;
         "icon-done": IconDone;
         "icon-edit": IconEdit;
         "icon-envelope": IconEnvelope;
@@ -927,6 +939,7 @@ declare module "@stencil/core" {
             "icon-cart": LocalJSX.IconCart & JSXBase.HTMLAttributes<HTMLIconCartElement>;
             "icon-circle": LocalJSX.IconCircle & JSXBase.HTMLAttributes<HTMLIconCircleElement>;
             "icon-close": LocalJSX.IconClose & JSXBase.HTMLAttributes<HTMLIconCloseElement>;
+            "icon-cog": LocalJSX.IconCog & JSXBase.HTMLAttributes<HTMLIconCogElement>;
             "icon-done": LocalJSX.IconDone & JSXBase.HTMLAttributes<HTMLIconDoneElement>;
             "icon-edit": LocalJSX.IconEdit & JSXBase.HTMLAttributes<HTMLIconEditElement>;
             "icon-envelope": LocalJSX.IconEnvelope & JSXBase.HTMLAttributes<HTMLIconEnvelopeElement>;

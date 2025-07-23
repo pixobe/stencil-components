@@ -1,10 +1,11 @@
+@use 'src/styles/variables';
+
 :host {
   .text-lbl {
     position: relative;
     display: flex;
     align-items: center;
     gap: 0.5rem;
-    color: var(--text-primary);
     input[type='checkbox'] {
       display: none;
     }

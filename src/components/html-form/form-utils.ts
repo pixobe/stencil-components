@@ -17,7 +17,11 @@ export function valueMapper(rootObject: Record<string, any>, key: string, value:
     const isLast = i === tokens.length - 1;
 
     if (isLast) {
-      current[token] = value;
+      if (typeof value === 'string' && (value.toLowerCase() === 'true' || value.toLowerCase() === 'false')) {
+        current[token] = value.toLowerCase() === 'true';
+      } else {
+        current[token] = value;
+      }
       return;
     }
 

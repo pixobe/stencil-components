@@ -1,5 +1,6 @@
+@use 'src/styles/variables';
+
 :host {
-  display: block;
   .spinner {
     display: block;
     width: 24px;
