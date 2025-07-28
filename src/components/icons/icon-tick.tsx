@@ -1,7 +1,8 @@
-import { Component, h } from '@stencil/core';
+import { Component, h, Host } from '@stencil/core';
 
 @Component({
     tag: 'icon-tick',
+    styleUrl: 'icon-styles.scss'
 })
 export class IconText {
     render() {

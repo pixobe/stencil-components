@@ -15,7 +15,6 @@ const meta: Meta<CheckBox> = {
 };
 
 export default meta;
-
 type Story = StoryObj<CheckBox>;
 
 

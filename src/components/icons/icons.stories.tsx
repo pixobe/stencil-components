@@ -1,7 +1,8 @@
-import { h } from '@stencil/core';
-import type { Meta, StoryObj } from '@stencil/storybook-plugin';
-
-const icons = ['envelope',
+import type { Meta, StoryObj } from '@storybook/html-vite';
+const icons = [
+    'whatsapp',
+    'facebook',
+    'instagram',
     'pixobe',
     'help',
     'monogram',
@@ -22,9 +23,6 @@ const icons = ['envelope',
     'cart',
     'rotate',
     'support',
-    'whatsapp',
-    'facebook',
-    'instagram',
     'wrench',
     'add-cart',
     'done',
@@ -33,46 +31,45 @@ const icons = ['envelope',
     'magic',
     'pdf',
     'preview',
-    'trash',]
+    'trash'
+];
 
-const meta: Meta<HTMLDivElement> = {
+
+
+const meta: Meta<any> = {
     title: 'Icons',
-    component: HTMLDivElement,
-    argTypes: {
+    render: ({ ...args }) => {
+        const div = document.createElement('div');
+        div.classList.add(args.theme);
+
+        icons.forEach(icon => {
+            const name = `icon-${icon}`;
+            const el = document.createElement(name);
+            div.append(el);
+        });
+        return div;
+    },
+    argTypes: {},
+};
+
+export default meta;
+type Story = StoryObj<any>;
+
+
+export const Light: Story = {
+    args: {
+        theme: 'light',
     },
 };
 
-
-
-
-export default meta;
-
-type Story = StoryObj<HTMLDivElement>;
-
-export const DarkTheme: Story = {
-    render: () => <div class="dark">
-        {icons.map(icon => {
-            const T = `icon-${icon}`;
-            return <T></T>
-        })}
-    </div>,
+export const Dark = {
+    args: {
+        theme: 'dark',
+    },
 };
 
-
-export const LightTheme: Story = {
-    render: () => <div class="light">
-        {icons.map(icon => {
-            const T = `icon-${icon}`;
-            return <T></T>
-        })}
-    </div>,
-};
-
-export const ColorTheme: Story = {
-    render: () => <div class="color">
-        {icons.map(icon => {
-            const T = `icon-${icon}`;
-            return <T></T>
-        })}
-    </div>,
+export const Blue = {
+    args: {
+        theme: 'blue',
+    },
 };
