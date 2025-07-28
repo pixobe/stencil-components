@@ -8,7 +8,7 @@ export class IconRotate {
   render() {
     return (
       <Host class="icon">
-        <svg fill="currentColor" viewBox="0 0 1920 1920" xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" class="icon">
+        <svg fill="currentColor" viewBox="0 0 1920 1920" xmlns="http://www.w3.org/2000/svg" width="100%" height="100%">
           <g>
             <path
               fill-rule="evenodd"

@@ -8,7 +8,7 @@ export class IconPixobe {
   render() {
     return (
       <Host class="icon">
-        <svg width="100%" height="100%" class="icon" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+        <svg width="100%" height="100%" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
           <path
             d="M6.01961 16.5264H3.44081C2.64507 16.5264 2 17.173 2 17.9707V20.5558C2 21.3534 2.64507 22.0001 3.44081 22.0001H6.01961C6.81535 22.0001 7.46042 21.3534 7.46042 20.5558V17.9707C7.46042 17.173 6.81535 16.5264 6.01961 16.5264Z"
             fill="currentColor"

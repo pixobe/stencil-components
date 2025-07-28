@@ -150,6 +150,8 @@ export namespace Components {
     }
     interface IconRotate {
     }
+    interface IconSpinner {
+    }
     interface IconSupport {
     }
     interface IconText {
@@ -223,6 +225,8 @@ export namespace Components {
         "name": string;
     }
     interface PixobeSpinner {
+        "header"?: string;
+        "message"?: string;
     }
     interface PixobeWatermark {
     }
@@ -482,6 +486,12 @@ declare global {
         prototype: HTMLIconRotateElement;
         new (): HTMLIconRotateElement;
     };
+    interface HTMLIconSpinnerElement extends Components.IconSpinner, HTMLStencilElement {
+    }
+    var HTMLIconSpinnerElement: {
+        prototype: HTMLIconSpinnerElement;
+        new (): HTMLIconSpinnerElement;
+    };
     interface HTMLIconSupportElement extends Components.IconSupport, HTMLStencilElement {
     }
     var HTMLIconSupportElement: {
@@ -618,6 +628,7 @@ declare global {
         "icon-preview": HTMLIconPreviewElement;
         "icon-redo": HTMLIconRedoElement;
         "icon-rotate": HTMLIconRotateElement;
+        "icon-spinner": HTMLIconSpinnerElement;
         "icon-support": HTMLIconSupportElement;
         "icon-text": HTMLIconTextElement;
         "icon-tick": HTMLIconTickElement;
@@ -775,6 +786,8 @@ declare namespace LocalJSX {
     }
     interface IconRotate {
     }
+    interface IconSpinner {
+    }
     interface IconSupport {
     }
     interface IconText {
@@ -849,6 +862,8 @@ declare namespace LocalJSX {
         "name"?: string;
     }
     interface PixobeSpinner {
+        "header"?: string;
+        "message"?: string;
     }
     interface PixobeWatermark {
     }
@@ -903,6 +918,7 @@ declare namespace LocalJSX {
         "icon-preview": IconPreview;
         "icon-redo": IconRedo;
         "icon-rotate": IconRotate;
+        "icon-spinner": IconSpinner;
         "icon-support": IconSupport;
         "icon-text": IconText;
         "icon-tick": IconTick;
@@ -958,6 +974,7 @@ declare module "@stencil/core" {
             "icon-preview": LocalJSX.IconPreview & JSXBase.HTMLAttributes<HTMLIconPreviewElement>;
             "icon-redo": LocalJSX.IconRedo & JSXBase.HTMLAttributes<HTMLIconRedoElement>;
             "icon-rotate": LocalJSX.IconRotate & JSXBase.HTMLAttributes<HTMLIconRotateElement>;
+            "icon-spinner": LocalJSX.IconSpinner & JSXBase.HTMLAttributes<HTMLIconSpinnerElement>;
             "icon-support": LocalJSX.IconSupport & JSXBase.HTMLAttributes<HTMLIconSupportElement>;
             "icon-text": LocalJSX.IconText & JSXBase.HTMLAttributes<HTMLIconTextElement>;
             "icon-tick": LocalJSX.IconTick & JSXBase.HTMLAttributes<HTMLIconTickElement>;

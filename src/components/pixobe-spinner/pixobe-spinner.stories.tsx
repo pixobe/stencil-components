@@ -1,0 +1,31 @@
+import { h } from '@stencil/core';
+import type { Meta, StoryObj } from '@storybook/html-vite';
+import { PixobeSpinner } from './pixobe-spinner';
+
+
+const meta: Meta<any> = {
+  title: 'Pixobe Spinner',
+  render: (args) => {
+    const el = document.createElement("pixobe-spinner");
+    Object.assign(el, args)
+    return el;
+  },
+  argTypes: {},
+};
+export default meta;
+type Story = StoryObj<PixobeSpinner>;
+
+
+export const Spinner: Story = {
+  args: {},
+};
+
+
+
+export const SpinnerWithMessage: Story = {
+  args: {
+    header: "Generating Images",
+    message: "Please wait, it may take a while..."
+  },
+};
+

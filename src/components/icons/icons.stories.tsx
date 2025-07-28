@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/html-vite';
 const icons = [
+  'spinner',
   'whatsapp',
   'facebook',
   'instagram',
@@ -32,6 +33,7 @@ const icons = [
   'pdf',
   'preview',
   'trash',
+  'add-cart'
 ];
 
 const meta: Meta<any> = {

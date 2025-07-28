@@ -1,4 +1,4 @@
-import { Component, h, Host } from '@stencil/core';
+import { Component, h, Host, Prop } from '@stencil/core';
 
 @Component({
   tag: 'pixobe-spinner',
@@ -7,10 +7,18 @@ import { Component, h, Host } from '@stencil/core';
 })
 export class PixobeSpinner {
 
+  @Prop()
+  header?: string;
+
+  @Prop()
+  message?: string;
+
   render() {
     return (
       <Host>
-        <div class="spinner"></div>
+        <icon-spinner></icon-spinner>
+        {this.header && <h3>{this.header}</h3>}
+        {this.message && <p>{this.message}</p>}
       </Host>
     )
   }

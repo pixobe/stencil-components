@@ -44,6 +44,7 @@
 .icon {
   height: 24px;
   width: 24px;
+  color: yellow;
 }
 
 .dark {
@@ -132,7 +133,7 @@
 
 .dark,
 .light,
-.color {
+.blue {
   display: flex;
   flex-wrap: wrap;
   gap: 4px;
@@ -156,10 +157,10 @@
   }
 }
 
-.color {
+.blue {
   padding: 8px;
   border-radius: 4px;
-  background-color: oklch(44.4% 0.011 73.639);
+  background-color: #3d3d3d;
   .icon {
     color: oklch(87.9% 0.169 91.605);
   }
@@ -168,4 +169,9 @@
 html,
 body {
   background-color: var(--secondary-background);
+}
+
+#storybook-root {
+  height: 100%;
+  width: 100%;
 }

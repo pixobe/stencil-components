@@ -8,7 +8,7 @@ export class IconFacebook {
   render() {
     return (
       <Host class="icon">
-        <svg viewBox="0 0 2500 2500" xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="icon">
+        <svg viewBox="0 0 2500 2500" xmlns="http://www.w3.org/2000/svg" fill="currentColor">
           <g id="SVGRepo_iconCarrier">
             <defs>
               <radialGradient id="0" cx="332.14" cy="2511.81" r="3263.54" gradientUnits="userSpaceOnUse">
