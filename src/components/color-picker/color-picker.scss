@@ -2,12 +2,13 @@
 
 :host {
   display: block;
+  margin: 8px 0;
 
   .color-picker {
     .text-lbl {
       font-weight: bold;
       display: inline-block;
-      margin: 0.5rem 0;
+      margin-bottom: 8px;
     }
 
     .color-items {

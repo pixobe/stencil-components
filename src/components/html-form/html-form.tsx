@@ -1,4 +1,4 @@
-import { Component, Host, h, Method, Prop, Element } from '@stencil/core';
+import { Component, Host, h, Method, Prop, Element, Watch } from '@stencil/core';
 import { getValueByPath, valueMapper } from './form-utils';
 
 @Component({
@@ -13,6 +13,11 @@ export class HtmlForm {
 
   @Prop()
   data: Record<string, any> = {}
+
+  @Watch("data")
+  onDataChanges(newData: Record<string, any>) {
+    this.setValue(newData);
+  }
 
   ref: HTMLFormElement;
 
@@ -36,6 +41,11 @@ export class HtmlForm {
   }
 
   componentDidLoad() {
+    this.setValue(this.data);
+  }
+
+  setValue = (data: Record<string, any>) => {
+
     const slot = this.el.shadowRoot?.querySelector("slot");
     const assignedElements = slot!.assignedElements({ flatten: true }) as HTMLInputElement[];
 
@@ -50,14 +60,12 @@ export class HtmlForm {
       for (const element of formElements) {
         const name = (element! as HTMLInputElement).name;
         if (name) {
-          const value = getValueByPath(this.data, name);
+          const value = getValueByPath(data, name);
           element.value = value;
         }
       }
     }
   }
-
-
 
   render() {
     return (

@@ -2,10 +2,12 @@
 @use 'src/styles/mixins' as *;
 
 :host {
+  display: block;
+  margin: 8px 0;
   .menu-lbl {
     font-weight: bold;
     display: inline-block;
-    margin: 0.5rem 0;
+    margin-bottom: 8px;
     color: var(--text-primary);
   }
   .custom-dropdown {

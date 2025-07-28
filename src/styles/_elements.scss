@@ -1,10 +1,13 @@
 @use './mixins' as *;
 
 :host {
+  display: block;
+  margin: 8px 0;
+
   label.text-lbl {
     font-weight: bold;
     display: inline-block;
-    margin: 8px 0;
+    margin-bottom: 8px;
     color: var(--text-primary);
   }
 

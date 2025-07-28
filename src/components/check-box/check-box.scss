@@ -1,11 +1,15 @@
 @use 'src/styles/variables';
 
 :host {
+  display: block;
+  margin: 8px 0;
+
   .text-lbl {
     position: relative;
     display: flex;
     align-items: center;
     gap: 0.5rem;
+    font-weight: bold;
     input[type='checkbox'] {
       display: none;
     }

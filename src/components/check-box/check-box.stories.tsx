@@ -1,10 +1,9 @@
 import { h } from '@stencil/core';
-import type { Meta, StoryObj } from '@stencil/storybook-plugin';
+import type { Meta, StoryObj } from '@storybook/html-vite';
 import { CheckBox } from './check-box';
 
 const meta: Meta<CheckBox> = {
   title: 'Checkbox',
-  component: CheckBox,
   argTypes: {},
   args: {},
   render: (props) => {
