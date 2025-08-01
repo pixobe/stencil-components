@@ -8,7 +8,7 @@ export class IconFlipH {
   render() {
     return (
       <Host class="icon">
-        <svg viewBox="0 0 16 16" version="1.1" xmlns="http://www.w3.org/2000/svg" fill="currentColor">
+        <svg width="100%" height="100%" viewBox="0 0 16 16" version="1.1" xmlns="http://www.w3.org/2000/svg" fill="currentColor">
           <g>
             <path fill="currentColor" d="M0 15l6-5-6-4.9z"></path>
             <path fill="currentColor" d="M9 10.1l6 4.9v-10l-6 5.1zM14 12.9l-3.4-2.8 3.4-3v5.8z"></path>

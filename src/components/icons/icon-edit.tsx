@@ -8,7 +8,7 @@ export class IconEdit {
   render() {
     return (
       <Host class="icon">
-        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+        <svg width="100%" height="100%" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
           <g stroke-linecap="round" stroke-linejoin="round">
             <path
               id="Vector"

@@ -94,6 +94,8 @@ export namespace Components {
     }
     interface IconAddCart {
     }
+    interface IconAddImage {
+    }
     interface IconAligncenter {
     }
     interface IconAlignleft {
@@ -122,11 +124,9 @@ export namespace Components {
     }
     interface IconFlipv {
     }
-    interface IconHelp {
+    interface IconGallery {
     }
     interface IconImage {
-    }
-    interface IconImageupload {
     }
     interface IconInfo {
     }
@@ -161,6 +161,8 @@ export namespace Components {
     interface IconTrash {
     }
     interface IconUpload {
+    }
+    interface IconUploadImage {
     }
     interface IconWhatsapp {
     }
@@ -330,6 +332,12 @@ declare global {
         prototype: HTMLIconAddCartElement;
         new (): HTMLIconAddCartElement;
     };
+    interface HTMLIconAddImageElement extends Components.IconAddImage, HTMLStencilElement {
+    }
+    var HTMLIconAddImageElement: {
+        prototype: HTMLIconAddImageElement;
+        new (): HTMLIconAddImageElement;
+    };
     interface HTMLIconAligncenterElement extends Components.IconAligncenter, HTMLStencilElement {
     }
     var HTMLIconAligncenterElement: {
@@ -414,23 +422,17 @@ declare global {
         prototype: HTMLIconFlipvElement;
         new (): HTMLIconFlipvElement;
     };
-    interface HTMLIconHelpElement extends Components.IconHelp, HTMLStencilElement {
+    interface HTMLIconGalleryElement extends Components.IconGallery, HTMLStencilElement {
     }
-    var HTMLIconHelpElement: {
-        prototype: HTMLIconHelpElement;
-        new (): HTMLIconHelpElement;
+    var HTMLIconGalleryElement: {
+        prototype: HTMLIconGalleryElement;
+        new (): HTMLIconGalleryElement;
     };
     interface HTMLIconImageElement extends Components.IconImage, HTMLStencilElement {
     }
     var HTMLIconImageElement: {
         prototype: HTMLIconImageElement;
         new (): HTMLIconImageElement;
-    };
-    interface HTMLIconImageuploadElement extends Components.IconImageupload, HTMLStencilElement {
-    }
-    var HTMLIconImageuploadElement: {
-        prototype: HTMLIconImageuploadElement;
-        new (): HTMLIconImageuploadElement;
     };
     interface HTMLIconInfoElement extends Components.IconInfo, HTMLStencilElement {
     }
@@ -522,6 +524,12 @@ declare global {
         prototype: HTMLIconUploadElement;
         new (): HTMLIconUploadElement;
     };
+    interface HTMLIconUploadImageElement extends Components.IconUploadImage, HTMLStencilElement {
+    }
+    var HTMLIconUploadImageElement: {
+        prototype: HTMLIconUploadImageElement;
+        new (): HTMLIconUploadImageElement;
+    };
     interface HTMLIconWhatsappElement extends Components.IconWhatsapp, HTMLStencilElement {
     }
     var HTMLIconWhatsappElement: {
@@ -602,6 +610,7 @@ declare global {
         "html-form": HTMLHtmlFormElement;
         "icon-add": HTMLIconAddElement;
         "icon-add-cart": HTMLIconAddCartElement;
+        "icon-add-image": HTMLIconAddImageElement;
         "icon-aligncenter": HTMLIconAligncenterElement;
         "icon-alignleft": HTMLIconAlignleftElement;
         "icon-alignright": HTMLIconAlignrightElement;
@@ -616,9 +625,8 @@ declare global {
         "icon-facebook": HTMLIconFacebookElement;
         "icon-fliph": HTMLIconFliphElement;
         "icon-flipv": HTMLIconFlipvElement;
-        "icon-help": HTMLIconHelpElement;
+        "icon-gallery": HTMLIconGalleryElement;
         "icon-image": HTMLIconImageElement;
-        "icon-imageupload": HTMLIconImageuploadElement;
         "icon-info": HTMLIconInfoElement;
         "icon-instagram": HTMLIconInstagramElement;
         "icon-magic": HTMLIconMagicElement;
@@ -634,6 +642,7 @@ declare global {
         "icon-tick": HTMLIconTickElement;
         "icon-trash": HTMLIconTrashElement;
         "icon-upload": HTMLIconUploadElement;
+        "icon-upload-image": HTMLIconUploadImageElement;
         "icon-whatsapp": HTMLIconWhatsappElement;
         "icon-wrench": HTMLIconWrenchElement;
         "icontext-group": HTMLIcontextGroupElement;
@@ -730,6 +739,8 @@ declare namespace LocalJSX {
     }
     interface IconAddCart {
     }
+    interface IconAddImage {
+    }
     interface IconAligncenter {
     }
     interface IconAlignleft {
@@ -758,11 +769,9 @@ declare namespace LocalJSX {
     }
     interface IconFlipv {
     }
-    interface IconHelp {
+    interface IconGallery {
     }
     interface IconImage {
-    }
-    interface IconImageupload {
     }
     interface IconInfo {
     }
@@ -797,6 +806,8 @@ declare namespace LocalJSX {
     interface IconTrash {
     }
     interface IconUpload {
+    }
+    interface IconUploadImage {
     }
     interface IconWhatsapp {
     }
@@ -892,6 +903,7 @@ declare namespace LocalJSX {
         "html-form": HtmlForm;
         "icon-add": IconAdd;
         "icon-add-cart": IconAddCart;
+        "icon-add-image": IconAddImage;
         "icon-aligncenter": IconAligncenter;
         "icon-alignleft": IconAlignleft;
         "icon-alignright": IconAlignright;
@@ -906,9 +918,8 @@ declare namespace LocalJSX {
         "icon-facebook": IconFacebook;
         "icon-fliph": IconFliph;
         "icon-flipv": IconFlipv;
-        "icon-help": IconHelp;
+        "icon-gallery": IconGallery;
         "icon-image": IconImage;
-        "icon-imageupload": IconImageupload;
         "icon-info": IconInfo;
         "icon-instagram": IconInstagram;
         "icon-magic": IconMagic;
@@ -924,6 +935,7 @@ declare namespace LocalJSX {
         "icon-tick": IconTick;
         "icon-trash": IconTrash;
         "icon-upload": IconUpload;
+        "icon-upload-image": IconUploadImage;
         "icon-whatsapp": IconWhatsapp;
         "icon-wrench": IconWrench;
         "icontext-group": IcontextGroup;
@@ -948,6 +960,7 @@ declare module "@stencil/core" {
             "html-form": LocalJSX.HtmlForm & JSXBase.HTMLAttributes<HTMLHtmlFormElement>;
             "icon-add": LocalJSX.IconAdd & JSXBase.HTMLAttributes<HTMLIconAddElement>;
             "icon-add-cart": LocalJSX.IconAddCart & JSXBase.HTMLAttributes<HTMLIconAddCartElement>;
+            "icon-add-image": LocalJSX.IconAddImage & JSXBase.HTMLAttributes<HTMLIconAddImageElement>;
             "icon-aligncenter": LocalJSX.IconAligncenter & JSXBase.HTMLAttributes<HTMLIconAligncenterElement>;
             "icon-alignleft": LocalJSX.IconAlignleft & JSXBase.HTMLAttributes<HTMLIconAlignleftElement>;
             "icon-alignright": LocalJSX.IconAlignright & JSXBase.HTMLAttributes<HTMLIconAlignrightElement>;
@@ -962,9 +975,8 @@ declare module "@stencil/core" {
             "icon-facebook": LocalJSX.IconFacebook & JSXBase.HTMLAttributes<HTMLIconFacebookElement>;
             "icon-fliph": LocalJSX.IconFliph & JSXBase.HTMLAttributes<HTMLIconFliphElement>;
             "icon-flipv": LocalJSX.IconFlipv & JSXBase.HTMLAttributes<HTMLIconFlipvElement>;
-            "icon-help": LocalJSX.IconHelp & JSXBase.HTMLAttributes<HTMLIconHelpElement>;
+            "icon-gallery": LocalJSX.IconGallery & JSXBase.HTMLAttributes<HTMLIconGalleryElement>;
             "icon-image": LocalJSX.IconImage & JSXBase.HTMLAttributes<HTMLIconImageElement>;
-            "icon-imageupload": LocalJSX.IconImageupload & JSXBase.HTMLAttributes<HTMLIconImageuploadElement>;
             "icon-info": LocalJSX.IconInfo & JSXBase.HTMLAttributes<HTMLIconInfoElement>;
             "icon-instagram": LocalJSX.IconInstagram & JSXBase.HTMLAttributes<HTMLIconInstagramElement>;
             "icon-magic": LocalJSX.IconMagic & JSXBase.HTMLAttributes<HTMLIconMagicElement>;
@@ -980,6 +992,7 @@ declare module "@stencil/core" {
             "icon-tick": LocalJSX.IconTick & JSXBase.HTMLAttributes<HTMLIconTickElement>;
             "icon-trash": LocalJSX.IconTrash & JSXBase.HTMLAttributes<HTMLIconTrashElement>;
             "icon-upload": LocalJSX.IconUpload & JSXBase.HTMLAttributes<HTMLIconUploadElement>;
+            "icon-upload-image": LocalJSX.IconUploadImage & JSXBase.HTMLAttributes<HTMLIconUploadImageElement>;
             "icon-whatsapp": LocalJSX.IconWhatsapp & JSXBase.HTMLAttributes<HTMLIconWhatsappElement>;
             "icon-wrench": LocalJSX.IconWrench & JSXBase.HTMLAttributes<HTMLIconWrenchElement>;
             "icontext-group": LocalJSX.IcontextGroup & JSXBase.HTMLAttributes<HTMLIcontextGroupElement>;
