@@ -7,7 +7,8 @@
   width: 100%;
 
   label {
-    display: block;
+    display: flex;
+    flex-direction: column;
     width: 100%;
     height: 100%;
     padding: 0.5rem 1rem;
@@ -16,6 +17,8 @@
     text-align: center;
     stroke-dasharray: 2px, 5px;
     @include theme-styles();
+    justify-content: center;
+    align-items: center;
   }
 
   input[type='file'] {

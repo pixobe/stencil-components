@@ -40,8 +40,8 @@ export class FileUploader {
   render() {
     return (
       <Host>
-        <label class="file-uploader" htmlFor={this.name}>
-          <icon-imageupload></icon-imageupload>
+        <label htmlFor={this.name}>
+          <icon-add-image></icon-add-image>
           <div>
             <p>{this.label}</p>
           </div>

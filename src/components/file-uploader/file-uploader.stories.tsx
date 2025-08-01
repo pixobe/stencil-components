@@ -1,35 +1,31 @@
-import { h } from '@stencil/core';
-import type { Meta, StoryObj } from '@stencil/storybook-plugin';
-import { FileUploader } from './file-uploader';
+import type { Meta, StoryObj } from '@storybook/html-vite';
 
-const meta: Meta<FileUploader> = {
-  title: 'File Loader',
-  component: FileUploader,
-  argTypes: {
+
+const meta: Meta<any> = {
+  title: 'File/File Uploader',
+  render: (args) => {
+    const el = document.createElement("file-uploader");
+    Object.assign(el, args)
+    return el;
   },
+  argTypes: {},
+};
+export default meta;
+type Story = StoryObj<any>;
+
+
+export const FileUploader: Story = {
   args: {
-  },
-  render: (props) => {
-    function onValue(e: any) {
-      console.log(e.detail)
-    }
-    return <file-uploader {...props} onFileInput={onValue}></file-uploader>
+    name: "image",
   },
 };
 
 
-export default meta;
 
-type Story = StoryObj<FileUploader>;
-
-export const FontSelector: Story = {
+export const FileUpladerWithLabel: Story = {
   args: {
     name: "image",
     label: "Upload jpg, svg, png for etching"
   },
 };
-export const FontSelectorValueSet: Story = {
-  args: {
-    name: "image",
-  },
-};
+

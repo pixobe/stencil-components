@@ -1,4 +1,3 @@
-import { h } from '@stencil/core';
 import type { Meta, StoryObj } from '@storybook/html-vite';
 import { PixobeSpinner } from './pixobe-spinner';
 
