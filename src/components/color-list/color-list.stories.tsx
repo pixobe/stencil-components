@@ -1,29 +1,24 @@
-import { h } from '@stencil/core';
-import type { Meta, StoryObj } from '@stencil/storybook-plugin';
-import { ColorList } from './color-list';
+import type { Meta, StoryObj } from '@storybook/html-vite';
 
-const meta: Meta<ColorList> = {
+
+const meta: Meta<any> = {
   title: 'Color List',
-  component: ColorList,
+  render: (args) => {
+    const el = document.createElement("color-list");
+    Object.assign(el, args)
+    return el;
+  },
   argTypes: {},
-  args: {},
-  render: (props) => {
-    function onColorSelectEvent(e: any) {
-      console.log(e.target.value)
-    }
-    return <color-list {...props} onColorSelected={onColorSelectEvent} ></color-list>
-  },
 };
-
 export default meta;
+type Story = StoryObj<any>;
 
-type Story = StoryObj<ColorList>;
 
-
-export const ColorPickerList: Story = {
+export const ColorPicker: Story = {
   args: {
-    name: "Text Color",
-    value: "#cacaca",
-    colors: ['#cacaca', "#fefefe", "#3d3d3d"]
+    label: "Colors",
+    colors: ["#ffccaa", "#acabbb", '#ff000f', '#3D3D3D'],
+    editable: true
   },
 };
+

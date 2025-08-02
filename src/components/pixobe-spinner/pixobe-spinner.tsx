@@ -7,10 +7,10 @@ import { Component, h, Host, Prop } from '@stencil/core';
 })
 export class PixobeSpinner {
 
-  @Prop()
+  @Prop({ mutable: true })
   header?: string;
 
-  @Prop()
+  @Prop({ mutable: true })
   message?: string;
 
   render() {

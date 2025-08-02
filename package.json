@@ -56,6 +56,10 @@
     "storybook": "$storybook"
   },
   "dependencies": {
-    "@storybook/html-vite": "^9.0.18"
+    "@melloware/coloris": "^0.25.0",
+    "@storybook/html-vite": "^9.0.18",
+    "@thednp/color-picker": "^2.0.4",
+    "@yaireo/color-picker": "^0.15.1",
+    "alwan": "^2.1.1"
   }
 }

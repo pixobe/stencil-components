@@ -5,9 +5,11 @@
  * It contains typing information for all components that exist in this project.
  */
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
+import { ColorInfo, ColorInput } from "./components/color-picker/color-picker.types";
 import { FontItem } from "@pixobe/ui-utils";
 import { DropdownOption } from "./components/menu-icon/menu-icon";
 import { OptionItem } from "./components/select-menu/select-menu";
+export { ColorInfo, ColorInput } from "./components/color-picker/color-picker.types";
 export { FontItem } from "@pixobe/ui-utils";
 export { DropdownOption } from "./components/menu-icon/menu-icon";
 export { OptionItem } from "./components/select-menu/select-menu";
@@ -25,37 +27,24 @@ export namespace Components {
         "value": string;
     }
     interface ColorList {
+        "colors": string[];
         /**
           * @default false
          */
-        "addMore": boolean;
-        "colors": string[];
+        "editable": boolean;
         "label"?: string;
         "name": string;
+        /**
+          * @default false
+         */
+        "picker": boolean;
         /**
           * @default ''
          */
         "value": string;
-        /**
-          * @default false
-         */
-        "withPicker": boolean;
     }
     interface ColorPicker {
-        /**
-          * @default false
-         */
-        "addMore": boolean;
-        "label"?: string;
-        "name": string;
-        /**
-          * @default ''
-         */
-        "value": string;
-        /**
-          * @default false
-         */
-        "withPicker": boolean;
+        "color": ColorInput;
     }
     interface FileUploader {
         "label"?: string;
@@ -253,6 +242,10 @@ export interface ColorListCustomEvent<T> extends CustomEvent<T> {
     detail: T;
     target: HTMLColorListElement;
 }
+export interface ColorPickerCustomEvent<T> extends CustomEvent<T> {
+    detail: T;
+    target: HTMLColorPickerElement;
+}
 export interface FileUploaderCustomEvent<T> extends CustomEvent<T> {
     detail: T;
     target: HTMLFileUploaderElement;
@@ -285,7 +278,18 @@ declare global {
         prototype: HTMLColorListElement;
         new (): HTMLColorListElement;
     };
+    interface HTMLColorPickerElementEventMap {
+        "colorChanged": ColorInfo;
+    }
     interface HTMLColorPickerElement extends Components.ColorPicker, HTMLStencilElement {
+        addEventListener<K extends keyof HTMLColorPickerElementEventMap>(type: K, listener: (this: HTMLColorPickerElement, ev: ColorPickerCustomEvent<HTMLColorPickerElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLColorPickerElementEventMap>(type: K, listener: (this: HTMLColorPickerElement, ev: ColorPickerCustomEvent<HTMLColorPickerElementEventMap[K]>) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
     }
     var HTMLColorPickerElement: {
         prototype: HTMLColorPickerElement;
@@ -669,38 +673,26 @@ declare namespace LocalJSX {
         "value"?: string;
     }
     interface ColorList {
+        "colors": string[];
         /**
           * @default false
          */
-        "addMore"?: boolean;
-        "colors": string[];
+        "editable"?: boolean;
         "label"?: string;
         "name": string;
         "onColorSelected"?: (event: ColorListCustomEvent<any>) => void;
         /**
+          * @default false
+         */
+        "picker"?: boolean;
+        /**
           * @default ''
          */
         "value"?: string;
-        /**
-          * @default false
-         */
-        "withPicker"?: boolean;
     }
     interface ColorPicker {
-        /**
-          * @default false
-         */
-        "addMore"?: boolean;
-        "label"?: string;
-        "name": string;
-        /**
-          * @default ''
-         */
-        "value"?: string;
-        /**
-          * @default false
-         */
-        "withPicker"?: boolean;
+        "color"?: ColorInput;
+        "onColorChanged"?: (event: ColorPickerCustomEvent<ColorInfo>) => void;
     }
     interface FileUploader {
         "label"?: string;

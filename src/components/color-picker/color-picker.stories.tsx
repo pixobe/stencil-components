@@ -1,33 +1,20 @@
-import { h } from '@stencil/core';
-import type { Meta, StoryObj } from '@stencil/storybook-plugin';
-import { ColorPicker } from './color-picker';
+import type { Meta, StoryObj } from '@storybook/html-vite';
 
-const meta: Meta<ColorPicker> = {
+
+const meta: Meta<any> = {
   title: 'Color Picker',
-  component: ColorPicker,
+  render: (args) => {
+    const el = document.createElement("color-picker");
+    Object.assign(el, args)
+    return el;
+  },
   argTypes: {},
-  args: {},
-  render: (props) => {
-    function onInputFn(e: any) {
-      console.log(e.target.value)
-    }
-    return <color-picker {...props} onInput={onInputFn} ></color-picker>
-  },
 };
-
 export default meta;
+type Story = StoryObj<any>;
 
-type Story = StoryObj<ColorPicker>;
 
-export const ColorPickerDefault: Story = {
-  args: {
-    name: "Text Color",
-  },
+export const ColorPicker: Story = {
+  args: {},
 };
 
-export const ColorPickerWithValue: Story = {
-  args: {
-    name: "Text Color",
-    value: "#cacaca"
-  },
-};

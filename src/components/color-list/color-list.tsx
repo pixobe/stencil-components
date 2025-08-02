@@ -1,8 +1,9 @@
-import { AttachInternals, Component, Element, Event, EventEmitter, h, Host, Prop } from '@stencil/core';
+import { AttachInternals, Component, Element, Event, EventEmitter, h, Host, Prop, State } from '@stencil/core';
+
 
 @Component({
   tag: 'color-list',
-  styleUrl: 'color-list.scss',
+  styleUrls: ['color-list.scss'],
   shadow: true,
   formAssociated: true
 })
@@ -20,20 +21,25 @@ export class ColorList {
   @Prop({ reflect: true })
   label?: string;
 
-  @Prop()
+  @Prop({ mutable: true })
   colors!: string[];
 
   @Prop()
-  addMore: boolean = false;
+  editable: boolean = false;
 
   @Prop()
-  withPicker: boolean = false;
+  picker: boolean = false;
 
   @Event()
   colorSelected: EventEmitter;
 
   @AttachInternals()
   internals!: ElementInternals;
+
+  colorRef: HTMLCanvasElement;
+
+  @State()
+  isOpen: boolean = true;
 
   componentWillLoad() {
     this.internals.setFormValue(this.value);
@@ -50,12 +56,34 @@ export class ColorList {
       return (
         this.colors.map(color => {
           return (
-            <button style={{ "background-color": color }}
+            <button
+              style={{ backgroundColor: color }}
               onClick={() => this.onColorSelect(color)}
               class={{ 'rounded': true, "active": this.value === color }} title={color}></button>
           );
         })
       );
+    }
+  }
+
+  renderEditableColor() {
+    const add = (e: any) => {
+      const color = e.target.value;
+      this.colors = [...this.colors, color];
+      this.isOpen = false;
+    }
+
+    if (this.isOpen) {
+      if (this.editable) {
+        return (
+          <div>
+            <label title={"Add new color"} class="rounded" htmlFor='color' onInput={(e) => add(e)}>
+              <icon-add></icon-add>
+              <input type="color" id="color" title="Add new color" ref={(el) => this.colorRef = el as any} />
+            </label>
+          </div >
+        );
+      }
     }
   }
 
@@ -66,7 +94,11 @@ export class ColorList {
           <label htmlFor={this.name} class="text-lbl">{this.label}</label>
           <div class="color-items">
             {this.renderColors()}
+            {this.renderEditableColor()}
           </div>
+        </div>
+        <div id="picker-container">
+          <canvas id="color-canvas" width="300" height="200" ref={(el) => this.colorRef = el as any}></canvas>
         </div>
       </Host>
     );
