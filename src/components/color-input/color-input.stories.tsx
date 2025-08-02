@@ -1,9 +1,10 @@
 import type { Meta, StoryObj } from '@storybook/html-vite';
 
+
 const meta: Meta<any> = {
-  title: 'Checkbox',
+  title: 'Color Input',
   render: (args) => {
-    const el = document.createElement("check-box");
+    const el = document.createElement("color-input");
     Object.assign(el, args)
     return el;
   },
@@ -26,3 +27,4 @@ export const DefaultValue: Story = {
     value: '#ff0000'
   },
 };
+

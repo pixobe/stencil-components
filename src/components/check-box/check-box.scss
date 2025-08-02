@@ -33,17 +33,13 @@
       box-shadow: 0 0 0 1px rgba(59, 130, 246, 0.3);
 
       icon-tick {
-        display: block;
+        display: inherit;
       }
     }
 
     icon-tick {
       display: none;
       color: white;
-      .icon {
-        height: 100%;
-        width: 100%;
-      }
     }
   }
 }

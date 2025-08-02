@@ -1,0 +1,31 @@
+:host {
+  display: block;
+  label {
+    font-weight: bold;
+    display: inline-block;
+    font-size: 15px;
+    font-family: system-ui, sans-serif;
+  }
+  .color-wrapper {
+    position: relative;
+
+    .button-picker {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      label {
+        color: var(--text-primary);
+      }
+    }
+    color-picker {
+      position: absolute;
+    }
+    button {
+      border: none;
+      outline: none;
+      margin: 0;
+      padding: 0;
+      background-color: transparent;
+    }
+  }
+}

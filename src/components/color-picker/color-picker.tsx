@@ -1,4 +1,5 @@
 import {
+  AttachInternals,
   Component,
   Element,
   Event,
@@ -23,12 +24,26 @@ import {
   tag: 'color-picker',
   styleUrl: 'color-picker.scss',
   shadow: true,
+  formAssociated: true
 })
 export class ColorPickerComponent {
   @Element()
   el: HTMLElement;
 
-  @Prop({ mutable: true }) color: ColorInput;
+  @Prop({ mutable: true })
+  value: ColorInput;
+
+  @Event({ eventName: "color" })
+  onColorInputEventEmitter: EventEmitter<string>;
+
+  @Event({ eventName: 'cancel' })
+  cancelEventEmitter: EventEmitter<void>;
+
+  @Event({ eventName: 'select' })
+  colorSelectedEventEmitter: EventEmitter<string>;
+
+  @AttachInternals()
+  internals!: ElementInternals;
 
   @State()
   private _hue: number = 0;
@@ -41,8 +56,10 @@ export class ColorPickerComponent {
   @State()
   private _selectedColor: string = "hsla(0, 100%, 50%, 1)";
 
-  @Event()
-  colorChanged: EventEmitter<ColorInfo>;
+  @Watch("color")
+  onColorChanges(newValue: ColorInput) {
+    this.setColor(newValue);
+  }
 
   private _canvas: HTMLCanvasElement;
   private _ctx: CanvasRenderingContext2D;
@@ -60,20 +77,20 @@ export class ColorPickerComponent {
 
   private _rgbaCache: RGBA = { r: 0, g: 0, b: 0, a: 1 };
   private _hexCache: string = '#000000';
+  private _drawPending = false;
 
   connectedCallback() {
-    // Process initial color if provided
-    if (this.color) {
-      this.setColor(this.color);
-    }
-
-    // Add global mouseup listener
     window.addEventListener("mouseup", this.handleGlobalMouseUp);
   }
 
   disconnectedCallback() {
-    // Remove global mouseup listener
     window.removeEventListener("mouseup", this.handleGlobalMouseUp);
+  }
+
+  componentWillLoad() {
+    if (this.value) {
+      this.setColor(this.value);
+    }
   }
 
   componentDidLoad() {
@@ -86,7 +103,6 @@ export class ColorPickerComponent {
     this._alphaCanvas =
       this.el.shadowRoot!.querySelector(".alpha-slider")!;
     this._alphaCtx = this._alphaCanvas.getContext("2d")!;
-
     // Initialize the UI
     this._drawColorMap();
     this._drawHueSlider();
@@ -96,10 +112,7 @@ export class ColorPickerComponent {
     this._updateAlphaIndicator();
   }
 
-  @Watch("color")
-  onColorChanges(newValue: ColorInput) {
-    this.setColor(newValue);
-  }
+
 
   private handleGlobalMouseUp = () => {
     this._dragging = false;
@@ -165,12 +178,8 @@ export class ColorPickerComponent {
     this._lightness = 100 - (y / 255) * 100;
 
     this._colorMapIndicator = { x, y };
-    this._updateSelectedColor();
+    this._queueUpdate(true);
   }
-
-  private _animationFrameId: number | null = null;
-  private _pendingHue: number | null = null;
-
 
   private handleSliderInteraction(e: MouseEvent) {
     const rect = this._sliderCanvas.getBoundingClientRect();
@@ -184,7 +193,6 @@ export class ColorPickerComponent {
     }
   }
 
-
   private handleAlphaInteraction(e: MouseEvent) {
     const rect = this._alphaCanvas.getBoundingClientRect();
     const x = Math.max(0, Math.min(255, e.clientX - rect.left));
@@ -193,7 +201,7 @@ export class ColorPickerComponent {
     this._alpha = x / 255;
 
     this._alphaIndicator = { x };
-    this._updateSelectedColor();
+    this._queueUpdate(false);
   }
 
   private _drawColorMap() {
@@ -284,13 +292,11 @@ export class ColorPickerComponent {
 
   private _updateSelectedColor() {
     this._selectedColor = `hsla(${this._hue}, ${this._saturation}%, ${this._lightness}%, ${this._alpha})`;
-
     const rgb = this._hslToRgb(this._hue, this._saturation, this._lightness);
     this._rgbaCache = { ...rgb, a: this._alpha };
     this._hexCache = this._hslToHex(this._hue, this._saturation, this._lightness);
-
+    this.onColorInputEventEmitter.emit(this._hexCache);
     this._updateUI();
-    this.colorChanged.emit(this.getColor());
   }
 
   private _updateUI() {
@@ -307,7 +313,6 @@ export class ColorPickerComponent {
   private _updateColorMapIndicator() {
     const x = (this._saturation / 100) * 255;
     const y = (1 - this._lightness / 100) * 255;
-
     this._colorMapIndicator = { x, y };
   }
 
@@ -439,6 +444,7 @@ export class ColorPickerComponent {
 
   public setColor(color: ColorInput): void {
     // Handle hex color format
+
     if (typeof color === "string" && color.startsWith("#")) {
       const rgb = this._hexToRgb(color);
       if (rgb) {
@@ -446,10 +452,10 @@ export class ColorPickerComponent {
         this._hue = hsl.h;
         this._saturation = hsl.s;
         this._lightness = hsl.l;
-        // Alpha is maintained if not specified
+        this._rgbaCache = { ...rgb, a: 1 };
       }
+      this._hexCache = color as string;
     }
-    // Handle object format with rgba or hsla
     else if (typeof color === "object") {
       // RGBA format
       if ("r" in color && "g" in color && "b" in color) {
@@ -469,27 +475,37 @@ export class ColorPickerComponent {
         if ("a" in color) this._alpha = (color as HSLA).a;
       }
     }
-
-    if (this._ctx && this._alphaCtx) {
-      this._drawColorMap();
-      this._drawAlphaSlider();
-      this._updateSelectedColor();
-    }
+    const x = (this._saturation / 100) * 255;
+    const y = (1 - this._lightness / 100) * 255;
+    this._colorMapIndicator = { x, y };
+    this.internals.setFormValue(color as string);
   }
 
-  private _drawPending = false;
 
-  private _queueUpdate = () => {
+  private _queueUpdate = (drawAlphaSlider = true, drawColorMap = true,) => {
     if (this._drawPending) return;
     this._drawPending = true;
-
     requestAnimationFrame(() => {
-      this._drawColorMap();
-      this._drawAlphaSlider();
+      if (drawColorMap) {
+        this._drawColorMap();
+      }
+      if (drawAlphaSlider) {
+        this._drawAlphaSlider();
+      }
       this._updateSelectedColor();
       this._drawPending = false;
     });
   };
+
+  onColorSelected() {
+    this.colorSelectedEventEmitter.emit(this._hexCache);
+  }
+
+  onCancelEvent() {
+    this.cancelEventEmitter.emit();
+  }
+
+
 
   render() {
     return (
@@ -567,6 +583,10 @@ export class ColorPickerComponent {
                 />
               </div>
             </div>
+          </div>
+          <div class="button-group">
+            <button class="button-secondary" onClick={() => this.onCancelEvent()}>Cancel</button>
+            <button class="button-primary" onClick={() => this.onColorSelected()}>Ok</button>
           </div>
         </div>
       </Host>

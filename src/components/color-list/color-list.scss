@@ -17,6 +17,26 @@
       flex-wrap: wrap;
     }
 
+    .lbl-add {
+      position: relative;
+      top: 100%;
+      left: 0;
+      .color-picker-wrapper {
+        position: absolute;
+      }
+    }
+
+    .gradient {
+      background: radial-gradient(
+        circle,
+        rgb(255, 0, 0, 1) 0%,
+
+        rgb(0, 255, 0, 1) 50%,
+
+        rgb(0, 0, 255, 1) 100%
+      );
+    }
+
     button.rounded,
     label.rounded {
       outline: none;

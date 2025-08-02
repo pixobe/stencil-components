@@ -5,11 +5,11 @@
  * It contains typing information for all components that exist in this project.
  */
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
-import { ColorInfo, ColorInput } from "./components/color-picker/color-picker.types";
+import { ColorInput } from "./components/color-picker/color-picker.types";
 import { FontItem } from "@pixobe/ui-utils";
 import { DropdownOption } from "./components/menu-icon/menu-icon";
 import { OptionItem } from "./components/select-menu/select-menu";
-export { ColorInfo, ColorInput } from "./components/color-picker/color-picker.types";
+export { ColorInput } from "./components/color-picker/color-picker.types";
 export { FontItem } from "@pixobe/ui-utils";
 export { DropdownOption } from "./components/menu-icon/menu-icon";
 export { OptionItem } from "./components/select-menu/select-menu";
@@ -26,12 +26,20 @@ export namespace Components {
          */
         "value": string;
     }
+    interface ColorInput {
+        "label"?: string;
+        "name": string;
+        /**
+          * @default ''
+         */
+        "value": string;
+    }
     interface ColorList {
         "colors": string[];
         /**
           * @default false
          */
-        "editable": boolean;
+        "editMode": boolean;
         "label"?: string;
         "name": string;
         /**
@@ -44,7 +52,7 @@ export namespace Components {
         "value": string;
     }
     interface ColorPicker {
-        "color": ColorInput;
+        "value": ColorInput;
     }
     interface FileUploader {
         "label"?: string;
@@ -261,8 +269,14 @@ declare global {
         prototype: HTMLCheckBoxElement;
         new (): HTMLCheckBoxElement;
     };
+    interface HTMLColorInputElement extends Components.ColorInput, HTMLStencilElement {
+    }
+    var HTMLColorInputElement: {
+        prototype: HTMLColorInputElement;
+        new (): HTMLColorInputElement;
+    };
     interface HTMLColorListElementEventMap {
-        "colorSelected": any;
+        "select": string;
     }
     interface HTMLColorListElement extends Components.ColorList, HTMLStencilElement {
         addEventListener<K extends keyof HTMLColorListElementEventMap>(type: K, listener: (this: HTMLColorListElement, ev: ColorListCustomEvent<HTMLColorListElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
@@ -279,7 +293,9 @@ declare global {
         new (): HTMLColorListElement;
     };
     interface HTMLColorPickerElementEventMap {
-        "colorChanged": ColorInfo;
+        "color": string;
+        "cancel": void;
+        "select": string;
     }
     interface HTMLColorPickerElement extends Components.ColorPicker, HTMLStencilElement {
         addEventListener<K extends keyof HTMLColorPickerElementEventMap>(type: K, listener: (this: HTMLColorPickerElement, ev: ColorPickerCustomEvent<HTMLColorPickerElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
@@ -607,6 +623,7 @@ declare global {
     };
     interface HTMLElementTagNameMap {
         "check-box": HTMLCheckBoxElement;
+        "color-input": HTMLColorInputElement;
         "color-list": HTMLColorListElement;
         "color-picker": HTMLColorPickerElement;
         "file-uploader": HTMLFileUploaderElement;
@@ -672,15 +689,23 @@ declare namespace LocalJSX {
          */
         "value"?: string;
     }
+    interface ColorInput {
+        "label"?: string;
+        "name": string;
+        /**
+          * @default ''
+         */
+        "value"?: string;
+    }
     interface ColorList {
         "colors": string[];
         /**
           * @default false
          */
-        "editable"?: boolean;
+        "editMode"?: boolean;
         "label"?: string;
         "name": string;
-        "onColorSelected"?: (event: ColorListCustomEvent<any>) => void;
+        "onSelect"?: (event: ColorListCustomEvent<string>) => void;
         /**
           * @default false
          */
@@ -691,8 +716,10 @@ declare namespace LocalJSX {
         "value"?: string;
     }
     interface ColorPicker {
-        "color"?: ColorInput;
-        "onColorChanged"?: (event: ColorPickerCustomEvent<ColorInfo>) => void;
+        "onCancel"?: (event: ColorPickerCustomEvent<void>) => void;
+        "onColor"?: (event: ColorPickerCustomEvent<string>) => void;
+        "onSelect"?: (event: ColorPickerCustomEvent<string>) => void;
+        "value"?: ColorInput;
     }
     interface FileUploader {
         "label"?: string;
@@ -888,6 +915,7 @@ declare namespace LocalJSX {
     }
     interface IntrinsicElements {
         "check-box": CheckBox;
+        "color-input": ColorInput;
         "color-list": ColorList;
         "color-picker": ColorPicker;
         "file-uploader": FileUploader;
@@ -945,6 +973,7 @@ declare module "@stencil/core" {
     export namespace JSX {
         interface IntrinsicElements {
             "check-box": LocalJSX.CheckBox & JSXBase.HTMLAttributes<HTMLCheckBoxElement>;
+            "color-input": LocalJSX.ColorInput & JSXBase.HTMLAttributes<HTMLColorInputElement>;
             "color-list": LocalJSX.ColorList & JSXBase.HTMLAttributes<HTMLColorListElement>;
             "color-picker": LocalJSX.ColorPicker & JSXBase.HTMLAttributes<HTMLColorPickerElement>;
             "file-uploader": LocalJSX.FileUploader & JSXBase.HTMLAttributes<HTMLFileUploaderElement>;

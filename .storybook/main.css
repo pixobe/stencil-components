@@ -168,7 +168,11 @@
 
 html,
 body {
-  background-color: var(--secondary-background);
+  background-color: #ffffff;
+}
+
+@media (prefers-color-scheme: dark) {
+  background-color: #111111;
 }
 
 #storybook-root {

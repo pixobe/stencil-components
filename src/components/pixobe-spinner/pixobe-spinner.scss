@@ -16,8 +16,12 @@
   backdrop-filter: blur(10px);
   padding: 8px;
   box-sizing: border-box;
+  font-family: system-ui, 'Open Sans', sans-serif;
   p {
     margin: 4px 0;
     text-align: center;
+  }
+  h3 {
+    margin: 0.5rem auto;
   }
 }
