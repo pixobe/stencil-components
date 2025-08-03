@@ -1,25 +1,18 @@
-import { h } from '@stencil/core';
-import type { Meta, StoryObj } from '@stencil/storybook-plugin';
-import { InputText } from './input-text';
+import type { Meta, StoryObj } from '@storybook/html-vite';
 
-const meta: Meta<InputText> = {
-  title: 'InputText',
-  component: InputText,
-  argTypes: {
+
+const meta: Meta<any> = {
+  title: 'Text',
+  render: (args) => {
+    const el = document.createElement("input-text");
+    Object.assign(el, args)
+    return el;
   },
-  args: {
-  },
-  render: (props) => {
-    function onInputFn(e: any) {
-      console.log('Updated Input text', e.target.value)
-    }
-    return <input-text {...props} onInput={onInputFn} ></input-text>
-  },
+  argTypes: {},
 };
-
 export default meta;
+type Story = StoryObj<any>;
 
-type Story = StoryObj<InputText>;
 
 export const Primary: Story = {
   args: {

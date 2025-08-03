@@ -8,7 +8,6 @@ import { AttachInternals, Component, Host, h, Prop, State } from '@stencil/core'
 })
 export class ColorInput {
 
-
   @Prop({ reflect: true })
   name!: string;
 
@@ -36,31 +35,25 @@ export class ColorInput {
 
   onColorOk = (e: any) => {
     this.onColorSelect(e);
-    this.isOpen = false;
   }
 
-  open() {
-    this.isOpen = true;
-  }
-  close() {
-    this.isOpen = false;
-  }
 
   render() {
     return (
       <Host>
-        <div class='color-wrapper'>
-          <div>
-            <button title={'Color Picker'} onClick={() => this.open()} style={{ 'color': this.value }} class="button-picker">
-              <icon-circle></icon-circle>
+        <div class="form-element">
+          <div class='color-wrapper'>
+            <button title={'Color Picker'} style={{ 'color': this.value }} class="button-picker">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <rect width="24" height="24" fill="currentColor" rx="4" ></rect>
+              </svg>
               <label>{this.label}</label>
+              <color-picker
+                onColorSelect={(e) => this.onColorOk(e)}
+                onColorInput={(e) => this.onColorSelect(e)}
+                value={this.value as any}></color-picker>
             </button>
           </div>
-          {this.isOpen &&
-            <color-picker
-              onSelect={(e) => this.onColorOk(e)}
-              onColor={(e) => this.onColorSelect(e)}
-              onCancel={() => this.close()} value={this.value as any}></color-picker>}
         </div>
       </Host>
     );

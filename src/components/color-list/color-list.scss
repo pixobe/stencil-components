@@ -2,30 +2,20 @@
 
 :host {
   display: block;
-  margin: 8px 0;
-
   .color-picker {
     .text-lbl {
       font-weight: bold;
       display: inline-block;
       margin-bottom: 8px;
     }
-
     .color-items {
       display: flex;
       gap: 8px;
       flex-wrap: wrap;
     }
-
     .lbl-add {
       position: relative;
-      top: 100%;
-      left: 0;
-      .color-picker-wrapper {
-        position: absolute;
-      }
     }
-
     .gradient {
       background: radial-gradient(
         circle,
@@ -36,7 +26,6 @@
         rgb(0, 0, 255, 1) 100%
       );
     }
-
     button.rounded,
     label.rounded {
       outline: none;
@@ -53,6 +42,36 @@
       border-radius: 50%;
     }
 
+    .deletable {
+      position: relative;
+
+      .button-trash {
+        display: block;
+        border: none;
+        outline: none;
+        background-color: var(--error-background);
+
+        position: absolute;
+        top: -8px;
+        right: -8px;
+        z-index: 2;
+
+        .icon {
+          height: 18px;
+          width: 18px;
+          display: none;
+        }
+      }
+
+      &:hover {
+        .button-trash {
+          .icon {
+            display: inherit;
+          }
+        }
+      }
+    }
+
     input[type='color'] {
       position: absolute;
       left: 4px;
@@ -66,8 +85,8 @@
     }
 
     .active {
-      outline: 2px solid var(--active-border);
-      box-shadow: 0 0 2px 5px var(--box-shadow);
+      outline: 1px solid var(--active-border);
+      box-shadow: 0 0 2px 4px var(--box-shadow);
     }
   }
 }

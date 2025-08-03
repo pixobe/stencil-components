@@ -6,11 +6,11 @@ const meta: Meta<any> = {
   render: (args) => {
     const el = document.createElement("color-list");
     Object.assign(el, args)
-    el.addEventListener('color', (e: any) => {
-      console.log("oninput", e.detail)
+    el.addEventListener('colorSelect', (e: any) => {
+      console.log("on color select", e.detail)
     });
 
-    el.addEventListener('select', (e: any) => {
+    el.addEventListener('closePicker', (e: any) => {
       console.log("oninput", e.detail)
     });
 
@@ -32,6 +32,7 @@ export const WithColors: Story = {
   args: {
     label: "Colors",
     colors: ["#ffccaa", "#acabbb", '#ff000f', '#3D3D3D'],
+    value: "#acabbb"
   },
 };
 

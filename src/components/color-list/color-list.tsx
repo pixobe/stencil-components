@@ -30,7 +30,7 @@ export class ColorList {
   @Prop()
   picker: boolean = false;
 
-  @Event({ eventName: "select" })
+  @Event({ eventName: "colorSelect" })
   onColorSelectEvent: EventEmitter<string>
 
   @AttachInternals()
@@ -61,7 +61,8 @@ export class ColorList {
 
   onColorPicked = (value: string) => {
     this.onColorSelect(value);
-    this.onColorSelectEvent.emit(value)
+    this.onColorSelectEvent.emit(value);
+    this.isOpen = false;
   }
 
   onColorPickerSelected = (value: string) => {
@@ -78,28 +79,37 @@ export class ColorList {
   }
 
   show = () => {
+    this.onColorSelect('');
     this.isOpen = true;
   }
 
-  cancel = (e: any) => {
+  close = (e: any) => {
     e.preventDefault();
     e.stopPropagation();
     this.isOpen = false;
     console.log('cancelled')
   }
 
+  remove(e: any, color: string) {
+    e.stopPropagation();
+    e.preventDefault();
+    const index = this.colors.findIndex(c => c === color);
+    this.colors.splice(index, 1);
+    this.colors = [...this.colors];
+  }
+
   renderColorPicker() {
     if (this.picker) {
       return (
         <div class="lbl-add">
-          <button title={"Add new color"} class="rounded gradient" onClick={() => this.show()}> </button>
+          <button title={"Add new color"} class={{ "rounded gradient": true, "active": this.isOpen }} onClick={() => this.show()} > </button>
           {
             this.isOpen &&
             <div class="color-picker-wrapper">
               <color-picker
                 class="color-picker-element"
-                onSelect={(e) => this.onColorPickerSelected(e.detail)}
-                onCancel={this.cancel}></color-picker>
+                onColorSelect={(e) => this.onColorPickerSelected(e.detail)}
+                onClosePicker={this.close}></color-picker>
             </div>
           }
         </div>
@@ -110,13 +120,18 @@ export class ColorList {
   renderColors() {
     if (Array.isArray(this.colors)) {
       return (
-        this.colors.map(color => {
+        this.colors.map((color) => {
           return (
             <button
               style={{ backgroundColor: color }}
               onClick={() => this.onColorPicked(color)}
-              class={{ 'rounded': true, "active": this.value === color }}
-              title={color}></button>
+              class={{ 'rounded': true, "deletable": true, "active": this.value === color }}
+              title={color}>
+              {this.editMode
+                && <button class="button-trash" onClick={(e) => this.remove(e, color)}>
+                  <icon-trash></icon-trash>
+                </button>}
+            </button>
           );
         })
       );
@@ -129,16 +144,17 @@ export class ColorList {
         <div class="lbl-add">
           <button title={"Add new color"} class="rounded" onClick={() => this.show()}>
             <icon-add></icon-add>
+            {
+              this.isOpen &&
+              <div style={this.dropdownPosition} class="color-picker-wrapper">
+                <color-picker
+                  class="color-picker-element"
+                  onColorSelect={(e: any) => this.add(e)}
+                  onClosePicker={(e: any) => this.close(e)}></color-picker>
+              </div>
+            }
           </button>
-          {
-            this.isOpen &&
-            <div style={this.dropdownPosition} class="color-picker-wrapper">
-              <color-picker
-                class="color-picker-element"
-                onSelect={(e) => this.add(e)}
-                onCancel={(e) => this.cancel(e)}></color-picker>
-            </div>
-          }
+
         </div>
       );
     }

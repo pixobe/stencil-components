@@ -276,7 +276,7 @@ declare global {
         new (): HTMLColorInputElement;
     };
     interface HTMLColorListElementEventMap {
-        "select": string;
+        "colorSelect": string;
     }
     interface HTMLColorListElement extends Components.ColorList, HTMLStencilElement {
         addEventListener<K extends keyof HTMLColorListElementEventMap>(type: K, listener: (this: HTMLColorListElement, ev: ColorListCustomEvent<HTMLColorListElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
@@ -293,9 +293,9 @@ declare global {
         new (): HTMLColorListElement;
     };
     interface HTMLColorPickerElementEventMap {
-        "color": string;
-        "cancel": void;
-        "select": string;
+        "colorInput": string;
+        "closePicker": void;
+        "colorSelect": string;
     }
     interface HTMLColorPickerElement extends Components.ColorPicker, HTMLStencilElement {
         addEventListener<K extends keyof HTMLColorPickerElementEventMap>(type: K, listener: (this: HTMLColorPickerElement, ev: ColorPickerCustomEvent<HTMLColorPickerElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
@@ -705,7 +705,7 @@ declare namespace LocalJSX {
         "editMode"?: boolean;
         "label"?: string;
         "name": string;
-        "onSelect"?: (event: ColorListCustomEvent<string>) => void;
+        "onColorSelect"?: (event: ColorListCustomEvent<string>) => void;
         /**
           * @default false
          */
@@ -716,9 +716,9 @@ declare namespace LocalJSX {
         "value"?: string;
     }
     interface ColorPicker {
-        "onCancel"?: (event: ColorPickerCustomEvent<void>) => void;
-        "onColor"?: (event: ColorPickerCustomEvent<string>) => void;
-        "onSelect"?: (event: ColorPickerCustomEvent<string>) => void;
+        "onClosePicker"?: (event: ColorPickerCustomEvent<void>) => void;
+        "onColorInput"?: (event: ColorPickerCustomEvent<string>) => void;
+        "onColorSelect"?: (event: ColorPickerCustomEvent<string>) => void;
         "value"?: ColorInput;
     }
     interface FileUploader {

@@ -19,6 +19,7 @@ import {
   RGB,
   RGBA,
 } from "./color-picker.types";
+import { hexToRgb, hslToHex, hslToRgb, rgbToHsl } from "./color-utils";
 
 @Component({
   tag: 'color-picker',
@@ -33,13 +34,13 @@ export class ColorPickerComponent {
   @Prop({ mutable: true })
   value: ColorInput;
 
-  @Event({ eventName: "color" })
+  @Event({ eventName: "colorInput", composed: false })
   onColorInputEventEmitter: EventEmitter<string>;
 
-  @Event({ eventName: 'cancel' })
+  @Event({ eventName: 'closePicker', composed: false })
   cancelEventEmitter: EventEmitter<void>;
 
-  @Event({ eventName: 'select' })
+  @Event({ eventName: 'colorSelect', composed: false })
   colorSelectedEventEmitter: EventEmitter<string>;
 
   @AttachInternals()
@@ -80,11 +81,21 @@ export class ColorPickerComponent {
   private _drawPending = false;
 
   connectedCallback() {
-    window.addEventListener("mouseup", this.handleGlobalMouseUp);
+    window.addEventListener("pointerup", this.handleGlobalMouseUp);
+    const parent = this.el.parentElement;
+    if (!parent) return;
+
+    parent.addEventListener("click", (e) => {
+      if (e.target === this.el) {
+        return;
+      }
+      this.el.style.display = 'block';
+      this.setPosition();
+    });
   }
 
   disconnectedCallback() {
-    window.removeEventListener("mouseup", this.handleGlobalMouseUp);
+    window.removeEventListener("pointerup", this.handleGlobalMouseUp);
   }
 
   componentWillLoad() {
@@ -110,10 +121,9 @@ export class ColorPickerComponent {
     this._updateColorMapIndicator();
     this._updateSliderIndicator();
     this._updateAlphaIndicator();
+
+
   }
-
-
-
   private handleGlobalMouseUp = () => {
     this._dragging = false;
     this._draggingSlider = false;
@@ -122,6 +132,8 @@ export class ColorPickerComponent {
 
   private handleColorMapMouseDown = (e: MouseEvent) => {
     this._dragging = true;
+    this._draggingAlpha = false;
+    this._draggingSlider = false;
     this.handleColorMapInteraction(e);
   };
 
@@ -131,41 +143,45 @@ export class ColorPickerComponent {
     }
   };
 
-  private handleHueSliderMouseDown = (e: MouseEvent) => {
-    this._draggingSlider = true;
-    this.handleSliderInteraction(e);
-  };
-
-  private handleHueSliderMouseMove = (e: MouseEvent) => {
-    if (this._draggingSlider) {
+  private handleSliderMouseMove = (e: MouseEvent) => {
+    if (this._draggingAlpha) {
+      this.handleAlphaInteraction(e);
+    } else if (this._draggingSlider) {
       this.handleSliderInteraction(e);
     }
   };
 
-  private handleAlphaSliderMouseDown = (e: MouseEvent) => {
-    this._draggingAlpha = true;
-    this.handleAlphaInteraction(e);
+  private handleHueSliderMouseDown = (e: MouseEvent) => {
+    this._dragging = false;
+    this._draggingAlpha = false;
+    this._draggingSlider = true;
+    this.handleSliderInteraction(e);
   };
 
-  private handleAlphaSliderMouseMove = (e: MouseEvent) => {
-    if (this._draggingAlpha) {
-      this.handleAlphaInteraction(e);
-    }
+
+  private handleAlphaSliderMouseDown = (e: MouseEvent) => {
+    this._dragging = false;
+    this._draggingSlider = false;
+    this._draggingAlpha = true;
+    this.handleAlphaInteraction(e);
   };
 
   private handleHexInputChange = (e: Event) => {
     const hexValue = (e.target as HTMLInputElement).value;
     if (/^#[0-9A-F]{6}$/i.test(hexValue)) {
-      const rgb = this._hexToRgb(hexValue);
+      const rgb = hexToRgb(hexValue);
       if (rgb) {
-        const hsl = this._rgbToHsl(rgb.r, rgb.g, rgb.b);
+        const hsl = rgbToHsl(rgb.r, rgb.g, rgb.b);
         this._hue = hsl.h;
         this._saturation = hsl.s;
         this._lightness = hsl.l;
         // Alpha is maintained when changing hex
         this._updateUI();
+
+        this._rgbaCache = { ...rgb, a: 1 };
       }
     }
+    this._hexCache = hexValue;
   };
 
   private handleColorMapInteraction(e: MouseEvent) {
@@ -292,11 +308,13 @@ export class ColorPickerComponent {
 
   private _updateSelectedColor() {
     this._selectedColor = `hsla(${this._hue}, ${this._saturation}%, ${this._lightness}%, ${this._alpha})`;
-    const rgb = this._hslToRgb(this._hue, this._saturation, this._lightness);
+    const rgb = hslToRgb(this._hue, this._saturation, this._lightness);
     this._rgbaCache = { ...rgb, a: this._alpha };
-    this._hexCache = this._hslToHex(this._hue, this._saturation, this._lightness);
-    this.onColorInputEventEmitter.emit(this._hexCache);
+    this._hexCache = hslToHex(this._hue, this._saturation, this._lightness);
     this._updateUI();
+    requestAnimationFrame(() => {
+      this.onColorInputEventEmitter.emit(this._hexCache);
+    })
   }
 
   private _updateUI() {
@@ -326,101 +344,6 @@ export class ColorPickerComponent {
     this._alphaIndicator = { x };
   }
 
-  // Color conversion utilities
-  private _hslToRgb(h: number, s: number, l: number): RGB {
-    h /= 360;
-    s /= 100;
-    l /= 100;
-
-    let r: number, g: number, b: number;
-
-    if (s === 0) {
-      r = g = b = l; // achromatic
-    } else {
-      const q = l < 0.5 ? l * (1 + s) : l + s - l * s;
-      const p = 2 * l - q;
-      r = this._hueToRgb(p, q, h + 1 / 3);
-      g = this._hueToRgb(p, q, h);
-      b = this._hueToRgb(p, q, h - 1 / 3);
-    }
-
-    return {
-      r: Math.round(r * 255),
-      g: Math.round(g * 255),
-      b: Math.round(b * 255),
-    };
-  }
-
-  private _hueToRgb(p: number, q: number, t: number): number {
-    if (t < 0) t += 1;
-    if (t > 1) t -= 1;
-    if (t < 1 / 6) return p + (q - p) * 6 * t;
-    if (t < 1 / 2) return q;
-    if (t < 2 / 3) return p + (q - p) * (2 / 3 - t) * 6;
-    return p;
-  }
-
-  private _rgbToHsl(r: number, g: number, b: number): HSL {
-    r /= 255;
-    g /= 255;
-    b /= 255;
-
-    const max = Math.max(r, g, b);
-    const min = Math.min(r, g, b);
-    let h: number = 0;
-    let s: number = 0;
-    const l = (max + min) / 2;
-
-    if (max === min) {
-      h = s = 0; // achromatic
-    } else {
-      const d = max - min;
-      s = l > 0.5 ? d / (2 - max - min) : d / (max + min);
-
-      switch (max) {
-        case r:
-          h = (g - b) / d + (g < b ? 6 : 0);
-          break;
-        case g:
-          h = (b - r) / d + 2;
-          break;
-        case b:
-          h = (r - g) / d + 4;
-          break;
-      }
-
-      h /= 6;
-    }
-
-    return {
-      h: Math.round(h * 360),
-      s: Math.round(s * 100),
-      l: Math.round(l * 100),
-    };
-  }
-
-  private _hslToHex(h: number, s: number, l: number): string {
-    const rgb = this._hslToRgb(h, s, l);
-    return `#${this._componentToHex(rgb.r)}${this._componentToHex(
-      rgb.g
-    )}${this._componentToHex(rgb.b)}`;
-  }
-
-  private _componentToHex(c: number): string {
-    const hex = c.toString(16);
-    return hex.length === 1 ? "0" + hex : hex;
-  }
-
-  private _hexToRgb(hex: string): RGB | null {
-    const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
-    return result
-      ? {
-        r: parseInt(result[1], 16),
-        g: parseInt(result[2], 16),
-        b: parseInt(result[3], 16),
-      }
-      : null;
-  }
 
   // Public API
   public getColor(): ColorInfo {
@@ -432,23 +355,21 @@ export class ColorPickerComponent {
         l: this._lightness,
         a: this._alpha,
       },
-      rgb: this._hslToRgb(this._hue, this._saturation, this._lightness),
+      rgb: hslToRgb(this._hue, this._saturation, this._lightness),
       rgba: {
-        ...this._hslToRgb(this._hue, this._saturation, this._lightness),
+        ...hslToRgb(this._hue, this._saturation, this._lightness),
         a: this._alpha,
       },
-      hex: this._hslToHex(this._hue, this._saturation, this._lightness),
+      hex: hslToHex(this._hue, this._saturation, this._lightness),
       cssColor: this._selectedColor,
     };
   }
 
   public setColor(color: ColorInput): void {
-    // Handle hex color format
-
     if (typeof color === "string" && color.startsWith("#")) {
-      const rgb = this._hexToRgb(color);
+      const rgb = hexToRgb(color);
       if (rgb) {
-        const hsl = this._rgbToHsl(rgb.r, rgb.g, rgb.b);
+        const hsl = rgbToHsl(rgb.r, rgb.g, rgb.b);
         this._hue = hsl.h;
         this._saturation = hsl.s;
         this._lightness = hsl.l;
@@ -460,7 +381,7 @@ export class ColorPickerComponent {
       // RGBA format
       if ("r" in color && "g" in color && "b" in color) {
         const rgbColor = color as RGB | RGBA;
-        const hsl = this._rgbToHsl(rgbColor.r, rgbColor.g, rgbColor.b);
+        const hsl = rgbToHsl(rgbColor.r, rgbColor.g, rgbColor.b);
         this._hue = hsl.h;
         this._saturation = hsl.s;
         this._lightness = hsl.l;
@@ -497,24 +418,83 @@ export class ColorPickerComponent {
     });
   };
 
-  onColorSelected() {
+  onColorSelected(e: any) {
+    e.stopPropagation();
+    e.preventDefault();
     this.colorSelectedEventEmitter.emit(this._hexCache);
+    this.el.style.display = 'none';
   }
 
-  onCancelEvent() {
+  onCancelEvent(e: any) {
+    e.stopPropagation();
+    e.preventDefault();
     this.cancelEventEmitter.emit();
+    this.el.style.display = 'none';
   }
 
 
+  setPosition() {
+    const element = this.el;
+    const parent = element.parentElement;
+    if (!parent) return;
+
+
+
+    parent.style.position = "relative";
+    const elementRect = element.getBoundingClientRect();
+    const parentRect = parent.getBoundingClientRect();
+    const vw = window.innerWidth;
+    const vh = window.innerHeight;
+    if (vw < 600 && vh < 600) {
+      element.style.top = "50%";
+      element.style.left = "50%";
+      element.style.transform = "translate(-50%, -50%)";
+      element.style.position = "fixed";
+      return;
+    }
+
+    const elementWidth = elementRect.width;
+    const elementHeight = elementRect.height;
+
+    // Account for parent's full size (not just its edge)
+    const spaceRight = vw - parentRect.right - parentRect.width;
+    const spaceBottom = vh - parentRect.bottom + parentRect.height;
+    const spaceLeft = parentRect.left;
+    const spaceTop = parentRect.top;
+
+
+    element.style.top = "100%";
+
+    if (spaceLeft < elementWidth && spaceRight < elementWidth) {
+      element.style.top = `${(vh - elementHeight) / 2}px`;
+      element.style.left = `${(vw - elementWidth) / 2}px`;
+      element.style.position = "fixed";
+    } else if (spaceRight > elementWidth) {
+      element.style.left = '0';
+    } else {
+      element.style.right = "0";
+      element.style.left = "auto";
+    }
+
+    if (spaceBottom < elementHeight && spaceTop < elementHeight) {
+      element.style.top = `${(vh - elementHeight) / 2}px`;
+      element.style.left = `${(vw - elementWidth) / 2}px`;
+      element.style.position = "fixed";
+    } else if (spaceTop >= elementHeight) {
+      element.style.bottom = '100%';
+      element.style.top = "auto";
+    }
+
+  }
 
   render() {
     return (
       <Host>
-        <div class="color-picker-container">
+        <div class="color-picker-container" onPointerMove={this.handleSliderMouseMove}>
           <div
             class="color-map-container"
-            onMouseDown={this.handleColorMapMouseDown}
-            onMouseMove={this.handleColorMapMouseMove}
+            onPointerDown={this.handleColorMapMouseDown}
+            onPointerMove={this.handleColorMapMouseMove}
           >
             <canvas class="color-map" width="256" height="256"></canvas>
             <div
@@ -528,10 +508,10 @@ export class ColorPickerComponent {
 
           <div
             class="slider-container hue-slider-container"
-            onMouseDown={this.handleHueSliderMouseDown}
-            onMouseMove={this.handleHueSliderMouseMove}
+            onPointerDown={this.handleHueSliderMouseDown}
+            onPointerMove={this.handleSliderMouseMove}
           >
-            <canvas class="hue-slider" width="256" height="30"></canvas>
+            <canvas class="hue-slider" width="256" height="16"></canvas>
             <div
               class="slider-indicator hue-slider-indicator"
               style={{ left: `${this._sliderIndicator.x}px` }}
@@ -540,10 +520,10 @@ export class ColorPickerComponent {
 
           <div
             class="alpha-slider-container"
-            onMouseDown={this.handleAlphaSliderMouseDown}
-            onMouseMove={this.handleAlphaSliderMouseMove}
+            onPointerDown={this.handleAlphaSliderMouseDown}
+            onPointerMove={this.handleSliderMouseMove}
           >
-            <canvas class="alpha-slider" width="256" height="30"></canvas>
+            <canvas class="alpha-slider" width="256" height="16"></canvas>
             <div
               class="slider-indicator alpha-slider-indicator"
               style={{ left: `${this._alphaIndicator.x}px` }}
@@ -553,40 +533,59 @@ export class ColorPickerComponent {
           <div class="color-info">
             <div class="color-values">
               <div class="color-value">
-                <label>HEX:</label>
+                <label>R:</label>
+                <input
+                  title="Red"
+                  type="text"
+                  class="hex-value"
+                  value={this._rgbaCache.r}
+                />
+              </div>
+              <div class="color-value">
+                <label>G:</label>
+                <input
+                  title="Green"
+                  type="text"
+                  class="hex-value"
+                  value={this._rgbaCache.g}
+                />
+              </div>
+              <div class="color-value">
+                <label>B:</label>
+                <input
+                  title="Blue"
+                  type="text"
+                  class="hex-value"
+                  value={this._rgbaCache.b}
+                />
+              </div>
+
+              <div class="color-value">
+                <label>A:</label>
+                <input
+                  title="Alpha"
+                  type="text"
+                  class="hex-value"
+                  value={this._rgbaCache.a.toFixed(2)}
+                  onChange={this.handleHexInputChange}
+                />
+              </div>
+              <div class="color-indicator" style={{ backgroundColor: this._hexCache }}>
+              </div>
+              <div class="color-value">
                 <input
                   title="HEX"
                   type="text"
                   class="hex-value"
-                  value={this._hexCache}
+                  value={this._hexCache.toLocaleUpperCase()}
                   onChange={this.handleHexInputChange}
-                />
-              </div>
-              <div class="color-value">
-                <label>RGBA:</label>
-                <input
-                  title="RGBA"
-                  type="text"
-                  class="rgba-value"
-                  value={`${this._rgbaCache.r},${this._rgbaCache.g},${this._rgbaCache.b},${this._rgbaCache.a.toFixed(2)}`}
-                  readonly
-                />
-              </div>
-              <div class="color-value">
-                <label>Alpha:</label>
-                <input
-                  title="Alpha"
-                  type="text"
-                  class="alpha-value"
-                  value={`${Math.round(this._alpha * 100)}%`}
-                  readonly
                 />
               </div>
             </div>
           </div>
           <div class="button-group">
-            <button class="button-secondary" onClick={() => this.onCancelEvent()}>Cancel</button>
-            <button class="button-primary" onClick={() => this.onColorSelected()}>Ok</button>
+            <button class="button-secondary" onClick={(e) => this.onCancelEvent(e)}>Cancel</button>
+            <button class="button-primary" onClick={(e) => this.onColorSelected(e)}>Ok</button>
           </div>
         </div>
       </Host>

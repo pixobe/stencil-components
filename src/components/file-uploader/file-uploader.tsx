@@ -40,13 +40,15 @@ export class FileUploader {
   render() {
     return (
       <Host>
-        <label htmlFor={this.name}>
-          <icon-add-image></icon-add-image>
-          <div>
-            <p>{this.label}</p>
-          </div>
-          <input type="file" name={this.name} id={this.name} onInput={(e) => this.onFileSelect(e)} />
-        </label>
+        <div class="form-element">
+          <label htmlFor={this.name}>
+            <icon-add-image></icon-add-image>
+            <div>
+              <p>{this.label}</p>
+            </div>
+            <input type="file" name={this.name} id={this.name} onInput={(e) => this.onFileSelect(e)} />
+          </label>
+        </div>
       </Host>
     );
   }
