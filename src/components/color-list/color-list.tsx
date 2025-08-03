@@ -37,16 +37,10 @@ export class ColorList {
   internals!: ElementInternals;
 
   @State()
-  isOpen: boolean = false;
-
-  @State()
   dropdownPosition: { top?: string; bottom?: string; left?: string; right?: string } = {
     top: '100%',
     left: '0',
   };
-
-  @State()
-  selectedIndex = 0;
 
   colorRef: HTMLCanvasElement;
 
@@ -62,12 +56,10 @@ export class ColorList {
   onColorPicked = (value: string) => {
     this.onColorSelect(value);
     this.onColorSelectEvent.emit(value);
-    this.isOpen = false;
   }
 
   onColorPickerSelected = (value: string) => {
     this.onColorSelect(value);
-    this.isOpen = false;
   }
 
   add = (e: any) => {
@@ -75,20 +67,12 @@ export class ColorList {
     e.stopPropagation();
     const color = e.detail;
     this.colors = [...this.colors, color];
-    this.isOpen = false;
   }
 
   show = () => {
     this.onColorSelect('');
-    this.isOpen = true;
   }
 
-  close = (e: any) => {
-    e.preventDefault();
-    e.stopPropagation();
-    this.isOpen = false;
-    console.log('cancelled')
-  }
 
   remove(e: any, color: string) {
     e.stopPropagation();
@@ -101,18 +85,12 @@ export class ColorList {
   renderColorPicker() {
     if (this.picker) {
       return (
-        <div class="lbl-add">
-          <button title={"Add new color"} class={{ "rounded gradient": true, "active": this.isOpen }} onClick={() => this.show()} > </button>
-          {
-            this.isOpen &&
-            <div class="color-picker-wrapper">
-              <color-picker
-                class="color-picker-element"
-                onColorSelect={(e) => this.onColorPickerSelected(e.detail)}
-                onClosePicker={this.close}></color-picker>
-            </div>
-          }
-        </div>
+        <button title={"Add new color"} class="rounded gradient">
+          <color-picker
+            class="color-picker-element"
+            onColorSelect={(e) => this.onColorPickerSelected(e.detail)}
+          ></color-picker>
+        </button>
       )
     }
   }
@@ -141,21 +119,13 @@ export class ColorList {
   renderAddColor() {
     if (this.editMode) {
       return (
-        <div class="lbl-add">
-          <button title={"Add new color"} class="rounded" onClick={() => this.show()}>
-            <icon-add></icon-add>
-            {
-              this.isOpen &&
-              <div style={this.dropdownPosition} class="color-picker-wrapper">
-                <color-picker
-                  class="color-picker-element"
-                  onColorSelect={(e: any) => this.add(e)}
-                  onClosePicker={(e: any) => this.close(e)}></color-picker>
-              </div>
-            }
-          </button>
-
-        </div>
+        <button title={"Add new color"} class="rounded" onClick={() => this.show()}>
+          <icon-add></icon-add>
+          <color-picker
+            class="color-picker-element"
+            onColorSelect={(e: any) => this.add(e)}
+          ></color-picker>
+        </button>
       );
     }
   }

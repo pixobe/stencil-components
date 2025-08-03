@@ -13,9 +13,7 @@
       gap: 8px;
       flex-wrap: wrap;
     }
-    .lbl-add {
-      position: relative;
-    }
+
     .gradient {
       background: radial-gradient(
         circle,
@@ -44,7 +42,6 @@
 
     .deletable {
       position: relative;
-
       .button-trash {
         display: block;
         border: none;
