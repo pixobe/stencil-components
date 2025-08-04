@@ -11,7 +11,7 @@ const meta: Meta<any> = {
       wrapper.classList.add(className)
     }
     const el = document.createElement("color-input");
-    Object.assign(el, args)
+    el.value = args.value;
     el.addEventListener('closePicker', () => {
       console.log("cancelled")
     });

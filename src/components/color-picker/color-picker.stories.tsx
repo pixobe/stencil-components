@@ -8,8 +8,10 @@ const meta: Meta<any> = {
     const mainWrapper = document.createElement("div");
     const className = args.className || ''
     mainWrapper.classList.add("position-wrapper");
+
+
     if (className) {
-      mainWrapper.classList.add(className)
+      mainWrapper.classList.add(className);
     }
 
     const wrapper = document.createElement("label");
@@ -17,7 +19,7 @@ const meta: Meta<any> = {
     wrapper.classList.add("color-picker-wrapper");
 
     const el = document.createElement("color-picker");
-    Object.assign(el, args)
+    el.value = args.value;
 
     el.addEventListener('closePicker', () => {
       console.log("cancelled")
@@ -51,7 +53,6 @@ type Story = StoryObj<any>;
 
 export const TopLeft: Story = {
   args: {
-    label: "Colors",
     value: '',
     className: 'top-left'
   },
@@ -59,7 +60,6 @@ export const TopLeft: Story = {
 
 export const TopRight: Story = {
   args: {
-    label: "Colors",
     className: 'top-right'
   },
 };
@@ -85,5 +85,13 @@ export const Center: Story = {
     label: "Colors",
     value: '',
     className: 'center-middle'
+  },
+};
+
+export const OverflowHidden: Story = {
+  args: {
+    label: "Colors",
+    value: '',
+    className: 'color-picker-overflow-hidden'
   },
 };

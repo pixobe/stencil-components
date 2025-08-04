@@ -8,7 +8,6 @@
   }
   .color-wrapper {
     position: relative;
-
     .button-picker {
       display: flex;
       align-items: center;
@@ -16,9 +15,6 @@
       label {
         color: var(--text-primary);
       }
-    }
-    color-picker {
-      position: absolute;
     }
     button {
       border: none;

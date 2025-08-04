@@ -119,7 +119,7 @@ export class ColorList {
   renderAddColor() {
     if (this.editMode) {
       return (
-        <button title={"Add new color"} class="rounded" onClick={() => this.show()}>
+        <button title={"Add new color"} class="rounded">
           <icon-add></icon-add>
           <color-picker
             class="color-picker-element"

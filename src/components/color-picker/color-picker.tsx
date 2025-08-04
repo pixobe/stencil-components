@@ -81,18 +81,11 @@ export class ColorPickerComponent {
   private _drawPending = false;
 
   connectedCallback() {
-    window.addEventListener("pointerup", this.handleGlobalMouseUp);
-    const parent = this.el.parentElement;
-    if (!parent) return;
-
-    parent.addEventListener("click", () => {
-      this.el.style.display = 'block';
-      this.setPosition();
-    });
+    window.addEventListener("mouseup", this.handleGlobalMouseUp);
   }
 
   disconnectedCallback() {
-    window.removeEventListener("pointerup", this.handleGlobalMouseUp);
+    window.removeEventListener("mouseup", this.handleGlobalMouseUp);
   }
 
   componentWillLoad() {
@@ -118,28 +111,29 @@ export class ColorPickerComponent {
     this._updateColorMapIndicator();
     this._updateSliderIndicator();
     this._updateAlphaIndicator();
-  }
 
+
+  }
   private handleGlobalMouseUp = () => {
     this._dragging = false;
     this._draggingSlider = false;
     this._draggingAlpha = false;
   };
 
-  private handleColorMapMouseDown = (e: PointerEvent) => {
+  private handleColorMapMouseDown = (e: MouseEvent) => {
     this._dragging = true;
     this._draggingAlpha = false;
     this._draggingSlider = false;
     this.handleColorMapInteraction(e);
   };
 
-  private handleColorMapMouseMove = (e: PointerEvent) => {
+  private handleColorMapMouseMove = (e: MouseEvent) => {
     if (this._dragging) {
       this.handleColorMapInteraction(e);
     }
   };
 
-  private handleSliderMouseMove = (e: PointerEvent) => {
+  private handleSliderMouseMove = (e: MouseEvent) => {
     if (this._draggingAlpha) {
       this.handleAlphaInteraction(e);
     } else if (this._draggingSlider) {
@@ -147,7 +141,7 @@ export class ColorPickerComponent {
     }
   };
 
-  private handleHueSliderMouseDown = (e: PointerEvent) => {
+  private handleHueSliderMouseDown = (e: MouseEvent) => {
     this._dragging = false;
     this._draggingAlpha = false;
     this._draggingSlider = true;
@@ -155,7 +149,7 @@ export class ColorPickerComponent {
   };
 
 
-  private handleAlphaSliderMouseDown = (e: PointerEvent) => {
+  private handleAlphaSliderMouseDown = (e: MouseEvent) => {
     this._dragging = false;
     this._draggingSlider = false;
     this._draggingAlpha = true;
@@ -180,25 +174,24 @@ export class ColorPickerComponent {
     this._hexCache = hexValue;
   };
 
-  private handleColorMapInteraction(e: PointerEvent) {
-    e.preventDefault();
-    e.stopPropagation();
+  private handleColorMapInteraction(e: MouseEvent) {
     const rect = this._canvas.getBoundingClientRect();
     const x = Math.max(0, Math.min(255, e.clientX - rect.left));
     const y = Math.max(0, Math.min(255, e.clientY - rect.top));
+
     // Convert position to saturation and lightness
     this._saturation = (x / 255) * 100;
     this._lightness = 100 - (y / 255) * 100;
+
     this._colorMapIndicator = { x, y };
     this._queueUpdate(true);
   }
 
-  private handleSliderInteraction(e: PointerEvent) {
-    e.preventDefault();
-    e.stopPropagation();
+  private handleSliderInteraction(e: MouseEvent) {
     const rect = this._sliderCanvas.getBoundingClientRect();
     const x = Math.max(0, Math.min(255, e.clientX - rect.left));
     const hue = (x / 255) * 360;
+
     if (this._hue !== hue) {
       this._hue = hue;
       this._sliderIndicator.x = x;
@@ -206,13 +199,13 @@ export class ColorPickerComponent {
     }
   }
 
-  private handleAlphaInteraction(e: PointerEvent) {
-    e.preventDefault();
-    e.stopPropagation();
+  private handleAlphaInteraction(e: MouseEvent) {
     const rect = this._alphaCanvas.getBoundingClientRect();
     const x = Math.max(0, Math.min(255, e.clientX - rect.left));
+
     // Convert position to alpha (0-1)
     this._alpha = x / 255;
+
     this._alphaIndicator = { x };
     this._queueUpdate(false);
   }
@@ -221,15 +214,18 @@ export class ColorPickerComponent {
     if (!this._ctx) return;
     const width = this._canvas.width;
     const height = this._canvas.height;
+
     // Draw base hue color
     this._ctx.fillStyle = `hsl(${this._hue}, 100%, 50%)`;
     this._ctx.fillRect(0, 0, width, height);
+
     // Overlay white -> transparent (saturation)
     const whiteGrad = this._ctx.createLinearGradient(0, 0, width, 0);
     whiteGrad.addColorStop(0, 'white');
     whiteGrad.addColorStop(1, 'transparent');
     this._ctx.fillStyle = whiteGrad;
     this._ctx.fillRect(0, 0, width, height);
+
     // Overlay transparent -> black (lightness)
     const blackGrad = this._ctx.createLinearGradient(0, 0, 0, height);
     blackGrad.addColorStop(0, 'transparent');
@@ -416,69 +412,12 @@ export class ColorPickerComponent {
     e.stopPropagation();
     e.preventDefault();
     this.colorSelectedEventEmitter.emit(this._hexCache);
-    this.el.style.display = 'none';
   }
 
   onCancelEvent(e: any) {
     e.stopPropagation();
     e.preventDefault();
     this.cancelEventEmitter.emit();
-    this.el.style.display = 'none';
-  }
-
-
-  setPosition() {
-    const element = this.el;
-    const parent = element.parentElement;
-    if (!parent) return;
-
-
-
-    parent.style.position = "relative";
-    const elementRect = element.getBoundingClientRect();
-    const parentRect = parent.getBoundingClientRect();
-    const vw = window.innerWidth;
-    const vh = window.innerHeight;
-    if (vw < 600 && vh < 600) {
-      element.style.top = "50%";
-      element.style.left = "50%";
-      element.style.transform = "translate(-50%, -50%)";
-      element.style.position = "fixed";
-      return;
-    }
-
-    const elementWidth = elementRect.width;
-    const elementHeight = elementRect.height;
-
-    // Account for parent's full size (not just its edge)
-    const spaceRight = vw - parentRect.right - parentRect.width;
-    const spaceBottom = vh - parentRect.bottom + parentRect.height;
-    const spaceLeft = parentRect.left;
-    const spaceTop = parentRect.top;
-
-
-    element.style.top = "100%";
-
-    if (spaceLeft < elementWidth && spaceRight < elementWidth) {
-      element.style.top = `${(vh - elementHeight) / 2}px`;
-      element.style.left = `${(vw - elementWidth) / 2}px`;
-      element.style.position = "fixed";
-    } else if (spaceRight > elementWidth) {
-      element.style.left = '0';
-    } else {
-      element.style.right = "0";
-      element.style.left = "auto";
-    }
-
-    if (spaceBottom < elementHeight && spaceTop < elementHeight) {
-      element.style.top = `${(vh - elementHeight) / 2}px`;
-      element.style.left = `${(vw - elementWidth) / 2}px`;
-      element.style.position = "fixed";
-    } else if (spaceTop >= elementHeight) {
-      element.style.bottom = '100%';
-      element.style.top = "auto";
-    }
-
   }
 
   render() {
@@ -564,7 +503,7 @@ export class ColorPickerComponent {
                   onChange={this.handleHexInputChange}
                 />
               </div>
-              <div class="color-indicator" style={{ backgroundColor: this._hexCache, opacity: `${this._rgbaCache.a}` }}>
+              <div class="color-indicator" style={{ backgroundColor: this._hexCache }}>
               </div>
               <div class="color-value">
                 <input

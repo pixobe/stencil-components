@@ -92,3 +92,53 @@ export function hexToRgb(hex: string): RGB | null {
       }
     : null;
 }
+
+export function setPosition(element: HTMLElement) {
+  const parent = element.parentElement;
+  if (!parent) return;
+
+  parent.style.position = 'relative';
+  const elementRect = element.getBoundingClientRect();
+  const parentRect = parent.getBoundingClientRect();
+  const vw = window.innerWidth;
+  const vh = window.innerHeight;
+
+  if (vw < 600 && vh < 600) {
+    element.style.top = '50%';
+    element.style.left = '50%';
+    element.style.transform = 'translate(-50%, -50%)';
+    element.style.position = 'fixed';
+    return;
+  }
+
+  const elementWidth = elementRect.width;
+  const elementHeight = elementRect.height;
+
+  // Account for parent's full size (not just its edge)
+  const spaceRight = vw - parentRect.right - parentRect.width;
+  const spaceBottom = vh - parentRect.bottom + parentRect.height;
+  const spaceLeft = parentRect.left;
+  const spaceTop = parentRect.top;
+
+  element.style.top = '100%';
+
+  if (spaceLeft < elementWidth && spaceRight < elementWidth) {
+    element.style.top = `${(vh - elementHeight) / 2}px`;
+    element.style.left = `${(vw - elementWidth) / 2}px`;
+    element.style.position = 'fixed';
+  } else if (spaceRight > elementWidth) {
+    element.style.left = '0';
+  } else {
+    element.style.right = '0';
+    element.style.left = 'auto';
+  }
+
+  if (spaceBottom < elementHeight && spaceTop < elementHeight) {
+    element.style.top = `${(vh - elementHeight) / 2}px`;
+    element.style.left = `${(vw - elementWidth) / 2}px`;
+    element.style.position = 'fixed';
+  } else if (spaceTop >= elementHeight) {
+    element.style.bottom = '100%';
+    element.style.top = 'auto';
+  }
+}
