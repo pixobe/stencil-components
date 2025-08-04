@@ -8,6 +8,13 @@
   }
   .color-wrapper {
     position: relative;
+    button {
+      border: none;
+      outline: none;
+      margin: 0;
+      padding: 0;
+      background-color: transparent;
+    }
     .button-picker {
       display: flex;
       align-items: center;
@@ -16,12 +23,10 @@
         color: var(--text-primary);
       }
     }
-    button {
-      border: none;
-      outline: none;
-      margin: 0;
-      padding: 0;
-      background-color: transparent;
+    .color-picker {
+      position: absolute;
+      top: 100%;
+      left: 0;
     }
   }
 }

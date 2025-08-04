@@ -88,7 +88,6 @@ export class ColorList {
         <button title={"Add new color"} class="rounded gradient">
           <color-picker
             class="color-picker-element"
-            onColorSelect={(e) => this.onColorPickerSelected(e.detail)}
           ></color-picker>
         </button>
       )
@@ -121,10 +120,7 @@ export class ColorList {
       return (
         <button title={"Add new color"} class="rounded">
           <icon-add></icon-add>
-          <color-picker
-            class="color-picker-element"
-            onColorSelect={(e: any) => this.add(e)}
-          ></color-picker>
+          <color-picker class="color-picker-element" ></color-picker>
         </button>
       );
     }

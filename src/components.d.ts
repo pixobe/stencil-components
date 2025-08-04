@@ -5,11 +5,9 @@
  * It contains typing information for all components that exist in this project.
  */
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
-import { ColorInput } from "./components/color-picker/color-picker.types";
 import { FontItem } from "@pixobe/ui-utils";
 import { DropdownOption } from "./components/menu-icon/menu-icon";
 import { OptionItem } from "./components/select-menu/select-menu";
-export { ColorInput } from "./components/color-picker/color-picker.types";
 export { FontItem } from "@pixobe/ui-utils";
 export { DropdownOption } from "./components/menu-icon/menu-icon";
 export { OptionItem } from "./components/select-menu/select-menu";
@@ -52,7 +50,10 @@ export namespace Components {
         "value": string;
     }
     interface ColorPicker {
-        "value": ColorInput;
+        /**
+          * @default '#ff0000'
+         */
+        "color": string;
     }
     interface ColorpickerWrapper {
     }
@@ -295,9 +296,7 @@ declare global {
         new (): HTMLColorListElement;
     };
     interface HTMLColorPickerElementEventMap {
-        "colorInput": string;
-        "closePicker": void;
-        "colorSelect": string;
+        "colorChange": { color: string; element: HTMLElement };
     }
     interface HTMLColorPickerElement extends Components.ColorPicker, HTMLStencilElement {
         addEventListener<K extends keyof HTMLColorPickerElementEventMap>(type: K, listener: (this: HTMLColorPickerElement, ev: ColorPickerCustomEvent<HTMLColorPickerElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
@@ -725,10 +724,11 @@ declare namespace LocalJSX {
         "value"?: string;
     }
     interface ColorPicker {
-        "onClosePicker"?: (event: ColorPickerCustomEvent<void>) => void;
-        "onColorInput"?: (event: ColorPickerCustomEvent<string>) => void;
-        "onColorSelect"?: (event: ColorPickerCustomEvent<string>) => void;
-        "value"?: ColorInput;
+        /**
+          * @default '#ff0000'
+         */
+        "color"?: string;
+        "onColorChange"?: (event: ColorPickerCustomEvent<{ color: string; element: HTMLElement }>) => void;
     }
     interface ColorpickerWrapper {
     }

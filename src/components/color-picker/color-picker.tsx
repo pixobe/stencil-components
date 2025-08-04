@@ -1,527 +1,467 @@
-import {
-  AttachInternals,
-  Component,
-  Element,
-  Event,
-  EventEmitter,
-  Host,
-  Prop,
-  State,
-  Watch,
-  h
-} from "@stencil/core";
-import {
-  ColorInfo,
-  ColorInput,
-  ColorPosition,
-  HSL,
-  HSLA,
-  RGB,
-  RGBA,
-} from "./color-picker.types";
-import { hexToRgb, hslToHex, hslToRgb, rgbToHsl } from "./color-utils";
+import { Component, Element, Event, EventEmitter, h, Host, Prop, State } from '@stencil/core';
+import { strToRGBA, RGBAtoHSVA, RGBAToHex, HSVAtoRGBA } from './color-utils';
 
 @Component({
   tag: 'color-picker',
-  styleUrl: 'color-picker.scss',
+  styleUrls: ['color-picker.scss'],
   shadow: true,
-  formAssociated: true
 })
-export class ColorPickerComponent {
-  @Element()
-  el: HTMLElement;
+export class ColorPicker {
+  @Prop()
+  color: string = '#ff0000';
 
-  @Prop({ mutable: true })
-  value: ColorInput;
+  @Element() el: HTMLElement;
 
-  @Event({ eventName: "colorInput", composed: false })
-  onColorInputEventEmitter: EventEmitter<string>;
+  @Event()
+  colorChange: EventEmitter<{ color: string; element: HTMLElement }>;
 
-  @Event({ eventName: 'closePicker', composed: false })
-  cancelEventEmitter: EventEmitter<void>;
+  // Element references using ref pattern
+  private colorArea: HTMLElement;
+  private colorMarker: HTMLElement;
+  private hueSlider: HTMLInputElement;
+  private hueMarker: HTMLElement;
+  private alphaSlider: HTMLInputElement;
+  private alphaMarker: HTMLElement;
+  private alphaGradient: HTMLElement; // Added reference to alpha gradient span
+  private colorPreview: HTMLElement;
+  private colorValue: HTMLInputElement;
+  private pickerEl: HTMLElement;
 
-  @Event({ eventName: 'colorSelect', composed: false })
-  colorSelectedEventEmitter: EventEmitter<string>;
+  // Private variables that don't trigger renders
+  private colorAreaDims = { width: 0, height: 0, x: 0, y: 0 };
+  private isPointerDown: boolean = false;
+  private initializing: boolean = true;
+  private defaultMarkerPosition = { s: 100, v: 100 };
+  private markerPosition = { x: 0, y: 0 };
+  // States
+  @State() hue: number = 0;
+  @State() alpha: number = 1;
+  @State() currentColor: string = '';
+  @State() hexColor: string = '#ff0000';
+  @State() opaqueHexColor: string = '#ff0000';
 
-  @AttachInternals()
-  internals!: ElementInternals;
-
-  @State()
-  private _hue: number = 0;
-  @State()
-  private _saturation: number = 100;
-  @State()
-  private _lightness: number = 50;
-  @State()
-  private _alpha: number = 1;
-  @State()
-  private _selectedColor: string = "hsla(0, 100%, 50%, 1)";
-
-  @Watch("color")
-  onColorChanges(newValue: ColorInput) {
-    this.setColor(newValue);
-  }
-
-  private _canvas: HTMLCanvasElement;
-  private _ctx: CanvasRenderingContext2D;
-  private _sliderCanvas: HTMLCanvasElement;
-  private _sliderCtx: CanvasRenderingContext2D;
-  private _alphaCanvas: HTMLCanvasElement;
-  private _alphaCtx: CanvasRenderingContext2D;
-
-  private _dragging: boolean = false;
-  private _draggingSlider: boolean = false;
-  private _draggingAlpha: boolean = false;
-  private _colorMapIndicator: ColorPosition = { x: 0, y: 0 };
-  private _sliderIndicator: ColorPosition = { x: 0 };
-  private _alphaIndicator: ColorPosition = { x: 0 };
-
-  private _rgbaCache: RGBA = { r: 0, g: 0, b: 0, a: 1 };
-  private _hexCache: string = '#000000';
-  private _drawPending = false;
-
-  connectedCallback() {
-    window.addEventListener("mouseup", this.handleGlobalMouseUp);
-  }
-
-  disconnectedCallback() {
-    window.removeEventListener("mouseup", this.handleGlobalMouseUp);
-  }
 
   componentWillLoad() {
-    if (this.value) {
-      this.setColor(this.value);
+    if (this.color) {
+      const rgba = strToRGBA(this.color);
+      const hsva = RGBAtoHSVA(rgba);
+
+      this.hue = hsva.h;
+      this.alpha = hsva.a;
+      this.hexColor = RGBAToHex(rgba);
+      this.opaqueHexColor = this.hexColor.substring(0, 7);
+      this.currentColor = this.color;
+
+      this.defaultMarkerPosition = {
+        s: hsva.s,
+        v: hsva.v,
+      };
     }
   }
 
   componentDidLoad() {
-    // Get canvas references
-    this._canvas = this.el.shadowRoot!.querySelector(".color-map")!;
-    this._ctx = this._canvas.getContext("2d")!;
-    this._sliderCanvas =
-      this.el.shadowRoot!.querySelector(".hue-slider")!;
-    this._sliderCtx = this._sliderCanvas.getContext("2d")!;
-    this._alphaCanvas =
-      this.el.shadowRoot!.querySelector(".alpha-slider")!;
-    this._alphaCtx = this._alphaCanvas.getContext("2d")!;
-    // Initialize the UI
-    this._drawColorMap();
-    this._drawHueSlider();
-    this._drawAlphaSlider();
-    this._updateColorMapIndicator();
-    this._updateSliderIndicator();
-    this._updateAlphaIndicator();
+    this.updateColorAreaDimensions();
+    if (this.initializing) {
+      const x = (this.defaultMarkerPosition.s / 100) * this.colorAreaDims.width;
+      const y = (1 - this.defaultMarkerPosition.v / 100) * this.colorAreaDims.height;
 
+      if (this.colorMarker) {
+        this.colorMarker.style.left = `${x}px`;
+        this.colorMarker.style.top = `${y}px`;
+      }
+      this.markerPosition = { x, y };
+      this.updateInitialUI();
+      this.initializing = false;
+    }
 
+    // Add event listeners
+    this.attachEventListeners();
   }
-  private handleGlobalMouseUp = () => {
-    this._dragging = false;
-    this._draggingSlider = false;
-    this._draggingAlpha = false;
-  };
 
-  private handleColorMapMouseDown = (e: MouseEvent) => {
-    this._dragging = true;
-    this._draggingAlpha = false;
-    this._draggingSlider = false;
-    this.handleColorMapInteraction(e);
-  };
-
-  private handleColorMapMouseMove = (e: MouseEvent) => {
-    if (this._dragging) {
-      this.handleColorMapInteraction(e);
+  updateInitialUI() {
+    // Update UI elements based on the current state without changing state
+    if (this.hueSlider) {
+      this.hueSlider.value = this.hue.toString();
     }
-  };
 
-  private handleSliderMouseMove = (e: MouseEvent) => {
-    if (this._draggingAlpha) {
-      this.handleAlphaInteraction(e);
-    } else if (this._draggingSlider) {
-      this.handleSliderInteraction(e);
+    if (this.alphaSlider) {
+      this.alphaSlider.value = (this.alpha * 100).toString();
     }
-  };
 
-  private handleHueSliderMouseDown = (e: MouseEvent) => {
-    this._dragging = false;
-    this._draggingAlpha = false;
-    this._draggingSlider = true;
-    this.handleSliderInteraction(e);
-  };
+    if (this.hueMarker) {
+      this.hueMarker.style.left = `${(this.hue / 360) * 100}%`;
+    }
 
+    if (this.pickerEl) {
+      this.pickerEl.style.color = `hsl(${this.hue}, 100%, 50%)`;
+    }
 
-  private handleAlphaSliderMouseDown = (e: MouseEvent) => {
-    this._dragging = false;
-    this._draggingSlider = false;
-    this._draggingAlpha = true;
-    this.handleAlphaInteraction(e);
-  };
+    if (this.alphaMarker) {
+      this.alphaMarker.style.left = `${this.alpha * 100}%`;
 
-  private handleHexInputChange = (e: Event) => {
-    const hexValue = (e.target as HTMLInputElement).value;
-    if (/^#[0-9A-F]{6}$/i.test(hexValue)) {
-      const rgb = hexToRgb(hexValue);
-      if (rgb) {
-        const hsl = rgbToHsl(rgb.r, rgb.g, rgb.b);
-        this._hue = hsl.h;
-        this._saturation = hsl.s;
-        this._lightness = hsl.l;
-        // Alpha is maintained when changing hex
-        this._updateUI();
+      const { h, s, v } = this.getCurrentHSV();
+      this.alphaMarker.style.color = this.hexColor; // Use hex color (with alpha)
 
-        this._rgbaCache = { ...rgb, a: 1 };
+      if (this.alphaMarker.parentNode) {
+        const alphaSliderParent = this.alphaMarker.parentNode as HTMLElement;
+        alphaSliderParent.style.color = this.opaqueHexColor; // Use opaque hex color
       }
     }
-    this._hexCache = hexValue;
+
+    // Update the alpha gradient span
+    if (this.alphaGradient) {
+      // Force repaint for Chrome bug workaround
+      this.forceGradientRepaint();
+    }
+
+    if (this.colorMarker) {
+      this.colorMarker.style.color = this.opaqueHexColor;
+    }
+
+    if (this.colorPreview) {
+      this.colorPreview.style.color = this.hexColor;
+    }
+
+    if (this.colorValue) {
+      this.colorValue.value = this.hexColor;
+    }
+  }
+
+  // Force repaint of gradients (for Chrome bug workaround)
+  forceGradientRepaint() {
+    // Force repaint the color gradient
+    if (this.colorArea) {
+      this.colorArea.style.display = 'none';
+      this.colorArea.offsetHeight; // Trigger reflow
+      this.colorArea.style.display = '';
+    }
+
+    // Force repaint the alpha gradient
+    if (this.alphaGradient) {
+      this.alphaGradient.style.display = 'none';
+      this.alphaGradient.offsetHeight; // Trigger reflow
+      this.alphaGradient.style.display = '';
+    }
+  }
+
+  attachEventListeners() {
+    // Add event listeners for color area and marker using pointer events
+    if (this.colorArea) {
+      this.colorArea.addEventListener('pointerdown', this.handleColorAreaPointerDown);
+    }
+
+    if (this.colorMarker) {
+      this.colorMarker.addEventListener('pointerdown', this.handleMarkerPointerDown);
+    }
+
+    // Add event listener for sliders
+    if (this.hueSlider) {
+      this.hueSlider.addEventListener('input', this.handleHueChange);
+    }
+
+    if (this.alphaSlider) {
+      this.alphaSlider.addEventListener('input', this.handleAlphaChange);
+    }
+
+    // Add event listener for color input
+    if (this.colorValue) {
+      this.colorValue.addEventListener('change', this.handleColorInputChange);
+    }
+
+    // Global event listeners for pointer events
+    document.addEventListener('pointermove', this.handlePointerMove);
+    document.addEventListener('pointerup', this.handlePointerUp);
+    document.addEventListener('pointercancel', this.handlePointerUp);
+  }
+
+  disconnectedCallback() {
+    // Clean up event listeners
+    document.removeEventListener('pointermove', this.handlePointerMove);
+    document.removeEventListener('pointerup', this.handlePointerUp);
+    document.removeEventListener('pointercancel', this.handlePointerUp);
+
+    if (this.colorArea) {
+      this.colorArea.removeEventListener('pointerdown', this.handleColorAreaPointerDown);
+    }
+
+    if (this.colorMarker) {
+      this.colorMarker.removeEventListener('pointerdown', this.handleMarkerPointerDown);
+    }
+
+    if (this.hueSlider) {
+      this.hueSlider.removeEventListener('input', this.handleHueChange);
+    }
+
+    if (this.alphaSlider) {
+      this.alphaSlider.removeEventListener('input', this.handleAlphaChange);
+    }
+
+    if (this.colorValue) {
+      this.colorValue.removeEventListener('change', this.handleColorInputChange);
+    }
+  }
+
+  handleHueChange = () => {
+    this.hue = parseInt(this.hueSlider.value, 10);
+    this.updateHueUI();
+    this.updateColorFromPosition();
   };
 
-  private handleColorMapInteraction(e: MouseEvent) {
-    const rect = this._canvas.getBoundingClientRect();
-    const x = Math.max(0, Math.min(255, e.clientX - rect.left));
-    const y = Math.max(0, Math.min(255, e.clientY - rect.top));
+  handleAlphaChange = () => {
+    this.alpha = parseInt(this.alphaSlider.value, 10) / 100;
+    this.updateAlphaUI();
+    this.updateColorFromPosition();
+  };
 
-    // Convert position to saturation and lightness
-    this._saturation = (x / 255) * 100;
-    this._lightness = 100 - (y / 255) * 100;
+  handleColorInputChange = () => {
+    const colorStr = this.colorValue.value;
+    this.setColorFromStr(colorStr);
+  };
 
-    this._colorMapIndicator = { x, y };
-    this._queueUpdate(true);
-  }
+  setColorFromStr = (colorStr: string) => {
+    // Parse the color string to get rgba values
+    const rgba = strToRGBA(colorStr);
+    const hsva = RGBAtoHSVA(rgba);
 
-  private handleSliderInteraction(e: MouseEvent) {
-    const rect = this._sliderCanvas.getBoundingClientRect();
-    const x = Math.max(0, Math.min(255, e.clientX - rect.left));
-    const hue = (x / 255) * 360;
+    // Update state values
+    this.hue = hsva.h;
+    this.alpha = hsva.a;
 
-    if (this._hue !== hue) {
-      this._hue = hue;
-      this._sliderIndicator.x = x;
-      this._queueUpdate();
-    }
-  }
-
-  private handleAlphaInteraction(e: MouseEvent) {
-    const rect = this._alphaCanvas.getBoundingClientRect();
-    const x = Math.max(0, Math.min(255, e.clientX - rect.left));
-
-    // Convert position to alpha (0-1)
-    this._alpha = x / 255;
-
-    this._alphaIndicator = { x };
-    this._queueUpdate(false);
-  }
-
-  private _drawColorMap() {
-    if (!this._ctx) return;
-    const width = this._canvas.width;
-    const height = this._canvas.height;
-
-    // Draw base hue color
-    this._ctx.fillStyle = `hsl(${this._hue}, 100%, 50%)`;
-    this._ctx.fillRect(0, 0, width, height);
-
-    // Overlay white -> transparent (saturation)
-    const whiteGrad = this._ctx.createLinearGradient(0, 0, width, 0);
-    whiteGrad.addColorStop(0, 'white');
-    whiteGrad.addColorStop(1, 'transparent');
-    this._ctx.fillStyle = whiteGrad;
-    this._ctx.fillRect(0, 0, width, height);
-
-    // Overlay transparent -> black (lightness)
-    const blackGrad = this._ctx.createLinearGradient(0, 0, 0, height);
-    blackGrad.addColorStop(0, 'transparent');
-    blackGrad.addColorStop(1, 'black');
-    this._ctx.fillStyle = blackGrad;
-    this._ctx.fillRect(0, 0, width, height);
-  }
-
-  private _drawHueSlider() {
-    if (!this._sliderCtx) return;
-
-    const width = this._sliderCanvas.width;
-    const height = this._sliderCanvas.height;
-
-    // Create gradient
-    const gradient = this._sliderCtx.createLinearGradient(0, 0, width, 0);
-
-    // Add color stops for a smooth rainbow gradient
-    for (let i = 0; i <= 360; i += 30) {
-      const position = i / 360;
-      gradient.addColorStop(position, `hsl(${i}, 100%, 50%)`);
+    // Update UI elements
+    if (this.hueSlider) {
+      this.hueSlider.value = this.hue.toString();
     }
 
-    // Clear canvas
-    this._sliderCtx.clearRect(0, 0, width, height);
+    if (this.alphaSlider) {
+      this.alphaSlider.value = (this.alpha * 100).toString();
+    }
 
-    // Fill with gradient
-    this._sliderCtx.fillStyle = gradient;
-    this._sliderCtx.fillRect(0, 0, width, height);
+    // Calculate the marker position based on hsv
+    if (this.colorAreaDims.width > 0 && this.colorAreaDims.height > 0) {
+      const x = (hsva.s / 100) * this.colorAreaDims.width;
+      const y = (1 - hsva.v / 100) * this.colorAreaDims.height;
+      this.markerPosition = { x, y };
+    }
 
-    // Add a subtle 3D effect
-    this._sliderCtx.fillStyle = "rgba(255, 255, 255, 0.2)";
-    this._sliderCtx.fillRect(0, 0, width, height / 2);
-
-    // Add a subtle border
-    this._sliderCtx.strokeStyle = "rgba(0, 0, 0, 0.1)";
-    this._sliderCtx.lineWidth = 1;
-    this._sliderCtx.strokeRect(0, 0, width, height);
-  }
-
-  private _drawAlphaSlider() {
-    if (!this._alphaCtx) return;
-
-    const width = this._alphaCanvas.width;
-    const height = this._alphaCanvas.height;
-
-    // Create gradient from transparent to opaque with the current color
-    const gradient = this._alphaCtx.createLinearGradient(0, 0, width, 0);
-    gradient.addColorStop(
-      0,
-      `hsla(${this._hue}, ${this._saturation}%, ${this._lightness}%, 0)`
-    );
-    gradient.addColorStop(
-      1,
-      `hsla(${this._hue}, ${this._saturation}%, ${this._lightness}%, 1)`
-    );
-
-    // Clear canvas
-    this._alphaCtx.clearRect(0, 0, width, height);
-
-    // Fill with gradient
-    this._alphaCtx.fillStyle = gradient;
-    this._alphaCtx.fillRect(0, 0, width, height);
-
-    // Add a subtle border
-    this._alphaCtx.strokeStyle = "rgba(0, 0, 0, 0.1)";
-    this._alphaCtx.lineWidth = 1;
-    this._alphaCtx.strokeRect(0, 0, width, height);
-  }
-
-  private _updateSelectedColor() {
-    this._selectedColor = `hsla(${this._hue}, ${this._saturation}%, ${this._lightness}%, ${this._alpha})`;
-    const rgb = hslToRgb(this._hue, this._saturation, this._lightness);
-    this._rgbaCache = { ...rgb, a: this._alpha };
-    this._hexCache = hslToHex(this._hue, this._saturation, this._lightness);
-    this._updateUI();
-    requestAnimationFrame(() => {
-      this.onColorInputEventEmitter.emit(this._hexCache);
-    })
-  }
-
-  private _updateUI() {
-    // Update color map indicator position
-    this._updateColorMapIndicator();
-
-    // Update slider indicator position
-    this._updateSliderIndicator();
-
-    // Update alpha indicator position
-    this._updateAlphaIndicator();
-  }
-
-  private _updateColorMapIndicator() {
-    const x = (this._saturation / 100) * 255;
-    const y = (1 - this._lightness / 100) * 255;
-    this._colorMapIndicator = { x, y };
-  }
-
-  private _updateSliderIndicator() {
-    const x = (this._hue / 360) * 255;
-    this._sliderIndicator = { x };
-  }
-
-  private _updateAlphaIndicator() {
-    const x = this._alpha * 255;
-    this._alphaIndicator = { x };
-  }
+    // Update UI
+    this.updateHueUI();
+    this.updateMarkerPosition();
+    this.updateColorFromPosition();
+  };
 
 
-  // Public API
-  public getColor(): ColorInfo {
-    return {
-      hsl: { h: this._hue, s: this._saturation, l: this._lightness },
-      hsla: {
-        h: this._hue,
-        s: this._saturation,
-        l: this._lightness,
-        a: this._alpha,
-      },
-      rgb: hslToRgb(this._hue, this._saturation, this._lightness),
-      rgba: {
-        ...hslToRgb(this._hue, this._saturation, this._lightness),
-        a: this._alpha,
-      },
-      hex: hslToHex(this._hue, this._saturation, this._lightness),
-      cssColor: this._selectedColor,
+  updateHueUI = () => {
+    // Update the hue marker position
+    if (this.hueMarker) {
+      this.hueMarker.style.left = `${(this.hue / 360) * 100}%`;
+    }
+
+    // Update the color of the picker (affects the gradient)
+    if (this.pickerEl) {
+      this.pickerEl.style.color = `hsl(${this.hue}, 100%, 50%)`;
+    }
+  };
+
+  updateAlphaUI = () => {
+    // Update the alpha marker position
+    if (this.alphaMarker) {
+      this.alphaMarker.style.left = `${this.alpha * 100}%`;
+    }
+
+    // Update the alpha slider's background color and marker
+    if (this.alphaMarker && this.alphaMarker.parentNode) {
+      const alphaSliderParent = this.alphaMarker.parentNode as HTMLElement;
+      // Use the opaque version of the current color (exactly like coloris.js does)
+      alphaSliderParent.style.color = this.opaqueHexColor;
+
+      // Set the alpha marker color to show the full color with transparency
+      this.alphaMarker.style.color = this.hexColor;
+    }
+
+    // Force repaint the alpha gradient span (Chrome bug workaround)
+    if (this.alphaGradient) {
+      this.alphaGradient.style.display = 'none';
+      this.alphaGradient.offsetHeight; // Trigger reflow
+      this.alphaGradient.style.display = '';
+    }
+  };
+
+  updateColorPreview = () => {
+    if (this.colorPreview) {
+      this.colorPreview.style.color = this.hexColor;
+    }
+
+    // Update hex color value input
+    if (this.colorValue) {
+      this.colorValue.value = this.hexColor;
+    }
+  };
+
+  getCurrentHSV = () => {
+    // If color area dimensions aren't initialized yet, use default values
+    if (this.colorAreaDims.width === 0 || this.colorAreaDims.height === 0) {
+      return {
+        h: this.hue,
+        s: this.defaultMarkerPosition.s || 100,
+        v: this.defaultMarkerPosition.v || 100,
+      };
+    }
+
+    // Calculate saturation and value based on marker position
+    const s = (this.markerPosition.x / this.colorAreaDims.width) * 100;
+    const v = 100 - (this.markerPosition.y / this.colorAreaDims.height) * 100;
+    return { h: this.hue, s, v };
+  };
+
+  updateColorAreaDimensions = () => {
+    if (!this.colorArea) return;
+
+    const rect = this.colorArea.getBoundingClientRect();
+    this.colorAreaDims = {
+      width: this.colorArea.offsetWidth,
+      height: this.colorArea.offsetHeight,
+      x: rect.left,
+      y: rect.top,
     };
-  }
+  };
 
-  public setColor(color: ColorInput): void {
-    if (typeof color === "string" && color.startsWith("#")) {
-      const rgb = hexToRgb(color);
-      if (rgb) {
-        const hsl = rgbToHsl(rgb.r, rgb.g, rgb.b);
-        this._hue = hsl.h;
-        this._saturation = hsl.s;
-        this._lightness = hsl.l;
-        this._rgbaCache = { ...rgb, a: 1 };
-      }
-      this._hexCache = color as string;
+  getPointerPosition = (event: PointerEvent) => {
+    return {
+      pageX: event.pageX,
+      pageY: event.pageY,
+    };
+  };
+
+  handleColorAreaPointerDown = (event: PointerEvent) => {
+    this.isPointerDown = true;
+    // Set pointer capture to ensure events keep coming to this element
+    this.colorArea.setPointerCapture(event.pointerId);
+    this.moveMarker(event);
+  };
+
+  handleMarkerPointerDown = (event: PointerEvent) => {
+    this.isPointerDown = true;
+    // Set pointer capture to ensure events keep coming to this element
+    this.colorMarker.setPointerCapture(event.pointerId);
+    event.stopPropagation();
+  };
+
+  handlePointerMove = (event: PointerEvent) => {
+    if (this.isPointerDown) {
+      this.moveMarker(event);
     }
-    else if (typeof color === "object") {
-      // RGBA format
-      if ("r" in color && "g" in color && "b" in color) {
-        const rgbColor = color as RGB | RGBA;
-        const hsl = rgbToHsl(rgbColor.r, rgbColor.g, rgbColor.b);
-        this._hue = hsl.h;
-        this._saturation = hsl.s;
-        this._lightness = hsl.l;
-        if ("a" in color) this._alpha = (color as RGBA).a;
-      }
-      // HSLA format
-      else if ("h" in color && "s" in color && "l" in color) {
-        const hslColor = color as HSL | HSLA;
-        this._hue = hslColor.h;
-        this._saturation = hslColor.s;
-        this._lightness = hslColor.l;
-        if ("a" in color) this._alpha = (color as HSLA).a;
+  };
+
+  handlePointerUp = (event: PointerEvent) => {
+    this.isPointerDown = false;
+    // Release pointer capture
+    if (this.colorArea && event.pointerId) {
+      try {
+        this.colorArea.releasePointerCapture(event.pointerId);
+      } catch (e) {
+        // Silently catch if the pointerId is no longer valid
       }
     }
-    const x = (this._saturation / 100) * 255;
-    const y = (1 - this._lightness / 100) * 255;
-    this._colorMapIndicator = { x, y };
-    this.internals.setFormValue(color as string);
-  }
-
-
-  private _queueUpdate = (drawAlphaSlider = true, drawColorMap = true,) => {
-    if (this._drawPending) return;
-    this._drawPending = true;
-    requestAnimationFrame(() => {
-      if (drawColorMap) {
-        this._drawColorMap();
+    if (this.colorMarker && event.pointerId) {
+      try {
+        this.colorMarker.releasePointerCapture(event.pointerId);
+      } catch (e) {
+        // Silently catch if the pointerId is no longer valid
       }
-      if (drawAlphaSlider) {
-        this._drawAlphaSlider();
-      }
-      this._updateSelectedColor();
-      this._drawPending = false;
+    }
+  };
+
+  moveMarker = (event: PointerEvent) => {
+    const pointer = this.getPointerPosition(event);
+    let x = pointer.pageX - this.colorAreaDims.x;
+    let y = pointer.pageY - this.colorAreaDims.y;
+    this.setMarkerPosition(x, y);
+  };
+
+  setMarkerPosition = (x: number, y: number) => {
+    // Make sure the marker doesn't go out of bounds
+    x = x < 0 ? 0 : x > this.colorAreaDims.width ? this.colorAreaDims.width : x;
+    y = y < 0 ? 0 : y > this.colorAreaDims.height ? this.colorAreaDims.height : y;
+
+    // Update state
+    this.markerPosition = { x, y };
+    this.updateMarkerPosition();
+    this.updateColorFromPosition();
+  };
+
+  updateMarkerPosition = () => {
+    if (this.colorMarker) {
+      this.colorMarker.style.left = `${this.markerPosition.x}px`;
+      this.colorMarker.style.top = `${this.markerPosition.y}px`;
+    }
+  };
+
+  updateColorFromPosition = () => {
+    // Get the current HSV values
+    const { h, s, v } = this.getCurrentHSV();
+
+    // Convert to RGBA
+    const rgba = HSVAtoRGBA({ h, s, v, a: this.alpha });
+
+    // Convert to HEX
+    this.hexColor = RGBAToHex(rgba);
+
+    // Store the opaque version (without alpha)
+    this.opaqueHexColor = this.hexColor.substring(0, 7);
+
+    // Create the color string
+    const colorString = `hsla(${h}, ${s}%, ${v}%, ${this.alpha})`;
+    this.currentColor = colorString;
+
+    // Update color marker color
+    if (this.colorMarker) {
+      this.colorMarker.style.color = this.opaqueHexColor;
+    }
+
+    // Update alpha slider elements
+    this.updateAlphaUI();
+
+    // Update the color preview and hex input
+    this.updateColorPreview();
+
+    // Force repaint the gradients to fix Chrome bug
+    this.forceGradientRepaint();
+
+    // Emit color change event (like coloris.js onChange)
+    this.colorChange.emit({
+      color: this.currentColor,
+      element: this.el,
     });
   };
-
-  onColorSelected(e: any) {
-    e.stopPropagation();
-    e.preventDefault();
-    this.colorSelectedEventEmitter.emit(this._hexCache);
-  }
-
-  onCancelEvent(e: any) {
-    e.stopPropagation();
-    e.preventDefault();
-    this.cancelEventEmitter.emit();
-  }
 
   render() {
     return (
       <Host>
-        <div class="color-picker-container" onPointerMove={this.handleSliderMouseMove}>
-          <div
-            class="color-map-container"
-            onPointerDown={this.handleColorMapMouseDown}
-            onPointerMove={this.handleColorMapMouseMove}
-          >
-            <canvas class="color-map" width="256" height="256"></canvas>
-            <div
-              class="color-map-indicator"
-              style={{
-                left: `${this._colorMapIndicator.x}px`,
-                top: `${this._colorMapIndicator.y}px`,
-              }}
-            ></div>
+        <div class="clr-picker" ref={el => (this.pickerEl = el as HTMLElement)}>
+          <div id="clr-color-area" class="clr-gradient" role="application" ref={el => (this.colorArea = el as HTMLElement)}>
+            <div id="clr-color-marker" class="clr-marker" tabindex="0" ref={el => (this.colorMarker = el as HTMLElement)}></div>
           </div>
 
-          <div
-            class="slider-container hue-slider-container"
-            onPointerDown={this.handleHueSliderMouseDown}
-            onPointerMove={this.handleSliderMouseMove}
-          >
-            <canvas class="hue-slider" width="256" height="16"></canvas>
-            <div
-              class="slider-indicator hue-slider-indicator"
-              style={{ left: `${this._sliderIndicator.x}px` }}
-            ></div>
+          <div class="clr-hue">
+            <input id="clr-hue-slider" type="range" min="0" max="360" step="1" aria-label="Hue slider" ref={el => (this.hueSlider = el as HTMLInputElement)} />
+            <div id="clr-hue-marker" ref={el => (this.hueMarker = el as HTMLElement)}></div>
           </div>
 
-          <div
-            class="alpha-slider-container"
-            onPointerDown={this.handleAlphaSliderMouseDown}
-            onPointerMove={this.handleSliderMouseMove}
-          >
-            <canvas class="alpha-slider" width="256" height="16"></canvas>
-            <div
-              class="slider-indicator alpha-slider-indicator"
-              style={{ left: `${this._alphaIndicator.x}px` }}
-            ></div>
+          <div class="clr-alpha">
+            <input id="clr-alpha-slider" type="range" min="0" max="100" step="1" aria-label="Opacity slider" ref={el => (this.alphaSlider = el as HTMLInputElement)} />
+            <div id="clr-alpha-marker" ref={el => (this.alphaMarker = el as HTMLElement)}></div>
+            <span ref={el => (this.alphaGradient = el as HTMLElement)}></span>
           </div>
 
-          <div class="color-info">
-            <div class="color-values">
-              <div class="color-value">
-                <label>R:</label>
-                <input
-                  title="Red"
-                  type="text"
-                  class="hex-value"
-                  value={this._rgbaCache.r}
-                />
-              </div>
-              <div class="color-value">
-                <label>G:</label>
-                <input
-                  title="Green"
-                  type="text"
-                  class="hex-value"
-                  value={this._rgbaCache.g}
-                />
-              </div>
-              <div class="color-value">
-                <label>B:</label>
-                <input
-                  title="Blue"
-                  type="text"
-                  class="hex-value"
-                  value={this._rgbaCache.b}
-                />
-              </div>
-
-              <div class="color-value">
-                <label>A:</label>
-                <input
-                  title="Alpha"
-                  type="text"
-                  class="hex-value"
-                  value={this._rgbaCache.a.toFixed(2)}
-                  onChange={this.handleHexInputChange}
-                />
-              </div>
-              <div class="color-indicator" style={{ backgroundColor: this._hexCache }}>
-              </div>
-              <div class="color-value">
-                <input
-                  title="HEX"
-                  type="text"
-                  class="hex-value"
-                  value={this._hexCache.toLocaleUpperCase()}
-                  onChange={this.handleHexInputChange}
-                />
-              </div>
-            </div>
-          </div>
-          <div class="button-group">
-            <button class="button-secondary" onClick={(e) => this.onCancelEvent(e)}>Cancel</button>
-            <button class="button-primary" onClick={(e) => this.onColorSelected(e)}>Ok</button>
+          <div class="clr-info">
+            <button id="clr-color-preview" class="clr-preview" type="button" aria-label="Current color" ref={el => (this.colorPreview = el as HTMLElement)}></button>
+            <input id="clr-color-value" class="clr-color" type="text" aria-label="Color value field" ref={el => (this.colorValue = el as HTMLInputElement)} />
           </div>
         </div>
       </Host>
     );
   }
 }
+
+
+
