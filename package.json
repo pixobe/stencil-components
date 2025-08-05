@@ -56,6 +56,7 @@
     "storybook": "$storybook"
   },
   "dependencies": {
+    "@floating-ui/dom": "^1.7.3",
     "@melloware/coloris": "^0.25.0",
     "@storybook/html-vite": "^9.0.18",
     "@thednp/color-picker": "^2.0.4",

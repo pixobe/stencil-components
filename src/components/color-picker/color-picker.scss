@@ -1,12 +1,12 @@
 :host {
   display: block;
+  width: max-content;
   .clr-picker {
     display: flex;
     flex-direction: column;
     gap: 8px;
     flex-wrap: wrap;
     position: absolute;
-    width: 200px;
     z-index: 1000;
     border-radius: 10px;
     background-color: #fff;
@@ -96,6 +96,7 @@
 
     input.clr-color {
       width: 100%;
+      min-width: 100px;
       height: 32px;
       padding: 0 10px;
       box-sizing: border-box;

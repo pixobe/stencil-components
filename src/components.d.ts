@@ -55,8 +55,6 @@ export namespace Components {
          */
         "color": string;
     }
-    interface ColorpickerWrapper {
-    }
     interface FileUploader {
         "label"?: string;
         /**
@@ -311,12 +309,6 @@ declare global {
     var HTMLColorPickerElement: {
         prototype: HTMLColorPickerElement;
         new (): HTMLColorPickerElement;
-    };
-    interface HTMLColorpickerWrapperElement extends Components.ColorpickerWrapper, HTMLStencilElement {
-    }
-    var HTMLColorpickerWrapperElement: {
-        prototype: HTMLColorpickerWrapperElement;
-        new (): HTMLColorpickerWrapperElement;
     };
     interface HTMLFileUploaderElementEventMap {
         "fileInput": any;
@@ -633,7 +625,6 @@ declare global {
         "color-input": HTMLColorInputElement;
         "color-list": HTMLColorListElement;
         "color-picker": HTMLColorPickerElement;
-        "colorpicker-wrapper": HTMLColorpickerWrapperElement;
         "file-uploader": HTMLFileUploaderElement;
         "font-picker": HTMLFontPickerElement;
         "html-form": HTMLHtmlFormElement;
@@ -729,8 +720,6 @@ declare namespace LocalJSX {
          */
         "color"?: string;
         "onColorChange"?: (event: ColorPickerCustomEvent<{ color: string; element: HTMLElement }>) => void;
-    }
-    interface ColorpickerWrapper {
     }
     interface FileUploader {
         "label"?: string;
@@ -929,7 +918,6 @@ declare namespace LocalJSX {
         "color-input": ColorInput;
         "color-list": ColorList;
         "color-picker": ColorPicker;
-        "colorpicker-wrapper": ColorpickerWrapper;
         "file-uploader": FileUploader;
         "font-picker": FontPicker;
         "html-form": HtmlForm;
@@ -988,7 +976,6 @@ declare module "@stencil/core" {
             "color-input": LocalJSX.ColorInput & JSXBase.HTMLAttributes<HTMLColorInputElement>;
             "color-list": LocalJSX.ColorList & JSXBase.HTMLAttributes<HTMLColorListElement>;
             "color-picker": LocalJSX.ColorPicker & JSXBase.HTMLAttributes<HTMLColorPickerElement>;
-            "colorpicker-wrapper": LocalJSX.ColorpickerWrapper & JSXBase.HTMLAttributes<HTMLColorpickerWrapperElement>;
             "file-uploader": LocalJSX.FileUploader & JSXBase.HTMLAttributes<HTMLFileUploaderElement>;
             "font-picker": LocalJSX.FontPicker & JSXBase.HTMLAttributes<HTMLFontPickerElement>;
             "html-form": LocalJSX.HtmlForm & JSXBase.HTMLAttributes<HTMLHtmlFormElement>;

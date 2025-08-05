@@ -23,9 +23,10 @@
         color: var(--text-primary);
       }
     }
-    .color-picker {
+    .color-picker-wrapper {
       position: absolute;
-      top: 100%;
+      width: max-content;
+      top: 0;
       left: 0;
     }
   }
