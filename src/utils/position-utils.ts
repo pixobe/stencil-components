@@ -17,7 +17,7 @@ interface ComputePositionOptions {
  * Otherwise places the child below with `top: 100%`.
  */
 export function computePosition(parent: HTMLElement): TPosition {
-  const options = { childWidth: 200, childHeight: 250, spacing: 4 };
+  const options = { childWidth: 200, childHeight: 250, spacing: 2 };
 
   const rect = parent.getBoundingClientRect();
   const viewportHeight = window.innerHeight;
@@ -26,11 +26,13 @@ export function computePosition(parent: HTMLElement): TPosition {
   const spaceBelow = viewportHeight - (rect.bottom + options.spacing);
   const spaceAbove = rect.top - options.spacing;
 
+  const offset = `calc(100% + ${options.spacing}px)`;
+
   const verticalPosition: Record<string, string> = {};
   if (spaceBelow >= options.childHeight) {
-    verticalPosition.top = '100%';
+    verticalPosition.top = offset;
   } else if (spaceAbove >= options.childHeight) {
-    verticalPosition.bottom = '100%';
+    verticalPosition.bottom = offset;
   } else {
     verticalPosition.top = `${(rect.height - options.childHeight) / 2}px`;
   }

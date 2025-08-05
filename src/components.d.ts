@@ -298,7 +298,7 @@ declare global {
         new (): HTMLColorListElement;
     };
     interface HTMLColorPickerElementEventMap {
-        "colorChange": { color: string; element: HTMLElement };
+        "colorChange": any;
     }
     interface HTMLColorPickerElement extends Components.ColorPicker, HTMLStencilElement {
         addEventListener<K extends keyof HTMLColorPickerElementEventMap>(type: K, listener: (this: HTMLColorPickerElement, ev: ColorPickerCustomEvent<HTMLColorPickerElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
@@ -727,7 +727,7 @@ declare namespace LocalJSX {
           * @default '#ff0000'
          */
         "color"?: string;
-        "onColorChange"?: (event: ColorPickerCustomEvent<{ color: string; element: HTMLElement }>) => void;
+        "onColorChange"?: (event: ColorPickerCustomEvent<any>) => void;
     }
     interface FileUploader {
         "label"?: string;

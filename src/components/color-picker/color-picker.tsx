@@ -13,7 +13,7 @@ export class ColorPicker {
   @Element() el: HTMLElement;
 
   @Event()
-  colorChange: EventEmitter<{ color: string; element: HTMLElement }>;
+  colorChange: EventEmitter<any>;
 
   // Element references using ref pattern
   private colorArea: HTMLElement;
@@ -49,13 +49,11 @@ export class ColorPicker {
     if (this.color) {
       const rgba = strToRGBA(this.color);
       const hsva = RGBAtoHSVA(rgba);
-
       this.hue = hsva.h;
       this.alpha = hsva.a;
       this.hexColor = RGBAToHex(rgba);
       this.opaqueHexColor = this.hexColor.substring(0, 7);
       this.currentColor = this.color;
-
       this.defaultMarkerPosition = {
         s: hsva.s,
         v: hsva.v,
@@ -432,10 +430,7 @@ export class ColorPicker {
     this.forceGradientRepaint();
 
     // Emit color change event (like coloris.js onChange)
-    this.colorChange.emit({
-      color: this.currentColor,
-      element: this.el,
-    });
+    this.colorChange.emit(this.hexColor);
   };
 
   render() {
