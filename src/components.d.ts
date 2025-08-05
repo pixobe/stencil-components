@@ -28,6 +28,10 @@ export namespace Components {
         "label"?: string;
         "name": string;
         /**
+          * @default 'checkbox'
+         */
+        "theme": 'checkbox' | 'input' | 'swatch';
+        /**
           * @default ''
          */
         "value": string;
@@ -691,6 +695,10 @@ declare namespace LocalJSX {
     interface ColorInput {
         "label"?: string;
         "name": string;
+        /**
+          * @default 'checkbox'
+         */
+        "theme"?: 'checkbox' | 'input' | 'swatch';
         /**
           * @default ''
          */

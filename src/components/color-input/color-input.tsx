@@ -1,5 +1,6 @@
-import { AttachInternals, Component, Host, h, Prop, Element } from '@stencil/core';
-import { computePosition } from '@floating-ui/dom';
+import { AttachInternals, Component, Host, h, Prop, Element, State } from '@stencil/core';
+import { wrap } from 'module';
+import { computePosition, TPosition } from 'src/utils/position-utils';
 
 @Component({
   tag: 'color-input',
@@ -10,9 +11,9 @@ import { computePosition } from '@floating-ui/dom';
 export class ColorInput {
 
   @Element()
-  el: HTMLElement
+  el: HTMLElement;
 
-  @Prop({ reflect: true })
+  @Prop({ reflect: true, mutable: true })
   name!: string;
 
   @Prop({ mutable: true })
@@ -21,19 +22,21 @@ export class ColorInput {
   @Prop({ reflect: true })
   label?: string;
 
+  @Prop({ reflect: true })
+  theme: 'checkbox' | 'input' | 'swatch' = 'checkbox';
+
   @AttachInternals()
   internals!: ElementInternals;
 
-  ref: HTMLElement;
+  @State()
+  toggle: boolean = false;
+
+  @State()
+  computedPosition: TPosition = { top: "100%", left: "0", bottom: "auto", right: "auto" };
+
 
   componentWillLoad() {
     this.internals.setFormValue(this.value);
-  }
-
-  componentDidLoad() {
-    computePosition(this.el, this.ref).then(({ x, y }) => {
-      console.log(x, y);
-    });
   }
 
   onColorSelect = (e: any) => {
@@ -42,22 +45,36 @@ export class ColorInput {
     this.internals.setFormValue(value);
   }
 
+  toggleColorPicker(): void {
+    requestAnimationFrame(() => {
+      this.toggle = !this.toggle;
+      const button = this.el.shadowRoot?.querySelector("button")!;
+      const wrapper = this.el.shadowRoot?.querySelector(".clrpick-wrap")! as HTMLDivElement;
+      this.computedPosition = computePosition(button);
+      wrapper.style.top = this.computedPosition.top;
+      wrapper.style.bottom = this.computedPosition.bottom;
+      wrapper.style.left = this.computedPosition.left;
+      wrapper.style.right = this.computedPosition.right;
+    })
+  }
+
   render() {
     return (
       <Host>
-        <div class="form-element">
-          <div class='color-wrapper'>
-            <button title={'Color Picker'}
-              style={{ 'color': this.value }}
-              class="button-picker">
-              <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
-                <rect width="24" height="24" fill="currentColor" rx="4" ></rect>
-              </svg>
-              <label>{this.label}</label>
-            </button>
-            <div class="color-picker-wrapper" ref={(el) => this.ref = el!}>
-              <color-picker ></color-picker>
-            </div>
+        <div class='clr'>
+          <button
+            title={'Color Picker'}
+            onClick={() => this.toggleColorPicker()}
+            style={{ color: this.value }}
+            role="button"
+          >
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
+              <rect width="24" height="24" fill="currentColor" rx="4"></rect>
+            </svg>
+            <label>{this.label}</label>
+          </button>
+          <div class="clrpick-wrap">
+            {this.toggle && <color-picker></color-picker>}
           </div>
         </div>
       </Host>

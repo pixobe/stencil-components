@@ -1,33 +1,18 @@
+@use '../../styles/button';
+@use '../../styles/labels';
+
 :host {
   display: block;
-  label {
-    font-weight: bold;
-    display: inline-block;
-    font-size: 15px;
-    font-family: system-ui, sans-serif;
+
+  button {
+    display: flex;
+    align-items: center;
+    gap: 8px;
   }
-  .color-wrapper {
+  .clr {
     position: relative;
-    button {
-      border: none;
-      outline: none;
-      margin: 0;
-      padding: 0;
-      background-color: transparent;
-    }
-    .button-picker {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      label {
-        color: var(--text-primary);
-      }
-    }
-    .color-picker-wrapper {
+    .clrpick-wrap {
       position: absolute;
-      width: max-content;
-      top: 0;
-      left: 0;
     }
   }
 }

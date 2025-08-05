@@ -12,6 +12,9 @@ const meta: Meta<any> = {
     }
     const el = document.createElement("color-input");
     el.value = args.value;
+    el.label = args.label;
+
+
     el.addEventListener('closePicker', () => {
       console.log("cancelled")
     });
@@ -24,6 +27,13 @@ export default meta;
 type Story = StoryObj<any>;
 
 
+export const DefaultView: Story = {
+  args: {
+    label: "Text Color",
+    value: '#ff0000'
+  },
+};
+
 export const NoValue: Story = {
   args: {
     label: "Colors",
@@ -32,12 +42,6 @@ export const NoValue: Story = {
   },
 };
 
-export const DefaultValue: Story = {
-  args: {
-    label: "Colors",
-    value: '#ff0000'
-  },
-};
 
 export const BottomLeft: Story = {
   args: {

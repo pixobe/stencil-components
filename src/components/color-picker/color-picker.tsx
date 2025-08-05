@@ -34,12 +34,16 @@ export class ColorPicker {
   private defaultMarkerPosition = { s: 100, v: 100 };
   private markerPosition = { x: 0, y: 0 };
   // States
-  @State() hue: number = 0;
-  @State() alpha: number = 1;
-  @State() currentColor: string = '';
-  @State() hexColor: string = '#ff0000';
-  @State() opaqueHexColor: string = '#ff0000';
-
+  @State()
+  hue: number = 0;
+  @State()
+  alpha: number = 1;
+  @State()
+  currentColor: string = '';
+  @State()
+  hexColor: string = '#ff0000';
+  @State()
+  opaqueHexColor: string = '#ff0000';
 
   componentWillLoad() {
     if (this.color) {
