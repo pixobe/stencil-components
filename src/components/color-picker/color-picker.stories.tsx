@@ -8,7 +8,7 @@ const meta: Meta<any> = {
     el.swatches = args.swatches;
     el.editMode = args.editMode;
 
-    el.addEventListener("colorAdded", (e) => {
+    el.addEventListener("added", (e) => {
       console.log(e.detail)
     })
     return el;

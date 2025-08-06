@@ -81,9 +81,7 @@ export class ColorInput {
             <label>{this.label}</label>
           </button>
           <div class="clrpick-wrap">
-            {this.toggle && <color-picker
-              onColorChange={(e) => this.onColorChange(e)}
-              onColorSelected={(e) => this.onColorSelect(e)}></color-picker>}
+            {this.toggle && <color-picker></color-picker>}
           </div>
         </div>
       </Host>

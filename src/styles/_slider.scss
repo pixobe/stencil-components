@@ -1,0 +1,56 @@
+:host {
+  input[type='range'] {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    &:focus {
+      outline: none;
+    }
+    &::-webkit-slider-thumb {
+      -webkit-appearance: none;
+    }
+    &::-moz-range-thumb {
+      border: none;
+    }
+  }
+
+  .custom-slider {
+    display: block;
+    border-radius: 12px;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    width: 100%;
+
+    @mixin track-style {
+      display: flex;
+      align-items: center;
+      border-radius: 12px;
+      height: 24px;
+      box-sizing: border-box;
+    }
+
+    @mixin thumb-style {
+      position: relative;
+      width: 20px;
+      height: 20px;
+      margin-top: 2px;
+      border-radius: 50%;
+      box-shadow: 0 0 0 2px #ffffff;
+      outline: 1px solid #ffffff;
+      background-color: transparent;
+    }
+    &::-webkit-slider-runnable-track {
+      @include track-style;
+    }
+    &::-moz-range-track {
+      @include track-style;
+    }
+    &::-moz-range-thumb {
+      @include thumb-style;
+    }
+    &::-webkit-slider-thumb {
+      @include thumb-style;
+    }
+  }
+}
