@@ -1,5 +1,6 @@
 import { Component, Element, Event, EventEmitter, h, Host, Prop, State } from '@stencil/core';
 import { strToRGBA, RGBAtoHSVA, RGBAToHex, HSVAtoRGBA } from './color-utils';
+import { background } from 'storybook/internal/theming';
 
 @Component({
   tag: 'color-picker',
@@ -10,10 +11,23 @@ export class ColorPicker {
   @Prop()
   color: string = '#ff0000';
 
+  @Prop({ mutable: true })
+  swatches: string[] = [];
+
+  @Prop()
+  editMode: boolean = false;
+
   @Element() el: HTMLElement;
 
-  @Event()
-  colorChange: EventEmitter<any>;
+  @Event({ eventName: "colorChange" })
+  colorChange: EventEmitter<string>;
+
+  @Event({ eventName: "colorSelected" })
+  colorSelected: EventEmitter<string>;
+
+
+  @Event({ eventName: "colorAdded" })
+  colorAdded: EventEmitter<string>;
 
   // Element references using ref pattern
   private colorArea: HTMLElement;
@@ -101,12 +115,11 @@ export class ColorPicker {
     if (this.alphaMarker) {
       this.alphaMarker.style.left = `${this.alpha * 100}%`;
 
-      const { h, s, v } = this.getCurrentHSV();
-      this.alphaMarker.style.color = this.hexColor; // Use hex color (with alpha)
+      this.alphaMarker.style.color = this.hexColor;
 
       if (this.alphaMarker.parentNode) {
         const alphaSliderParent = this.alphaMarker.parentNode as HTMLElement;
-        alphaSliderParent.style.color = this.opaqueHexColor; // Use opaque hex color
+        alphaSliderParent.style.color = this.opaqueHexColor;
       }
     }
 
@@ -146,10 +159,15 @@ export class ColorPicker {
     }
   }
 
+  handleColorAreaPointerUp = () => {
+    this.colorSelected.emit(this.hexColor);
+  }
+
   attachEventListeners() {
     // Add event listeners for color area and marker using pointer events
     if (this.colorArea) {
       this.colorArea.addEventListener('pointerdown', this.handleColorAreaPointerDown);
+      this.colorArea.addEventListener('pointerup', this.handleColorAreaPointerUp);
     }
 
     if (this.colorMarker) {
@@ -184,6 +202,7 @@ export class ColorPicker {
 
     if (this.colorArea) {
       this.colorArea.removeEventListener('pointerdown', this.handleColorAreaPointerDown);
+      this.colorArea.removeEventListener('pointerup', this.handleColorAreaPointerUp);
     }
 
     if (this.colorMarker) {
@@ -433,6 +452,22 @@ export class ColorPicker {
     this.colorChange.emit(this.hexColor);
   };
 
+  onColorAdddedEvent = () => {
+    this.swatches = [...this.swatches, this.hexColor];
+    this.colorAdded.emit(this.hexColor);
+  }
+
+  onSwatchSelected = (color: string) => {
+    if (this.editMode) {
+      const index = this.swatches.findIndex(swatch => swatch === color);
+      this.swatches.splice(index, 1);
+      this.swatches = [...this.swatches];
+    } else {
+      this.colorSelected.emit(color)
+    }
+  }
+
+
   render() {
     return (
       <Host>
@@ -455,6 +490,14 @@ export class ColorPicker {
           <div class="clr-info">
             <button id="clr-color-preview" class="clr-preview" type="button" aria-label="Current color" ref={el => (this.colorPreview = el as HTMLElement)}></button>
             <input id="clr-color-value" class="clr-color" type="text" aria-label="Color value field" ref={el => (this.colorValue = el as HTMLInputElement)} />
+          </div>
+
+          <div class="clr-swatches">
+            {this.swatches.map(swatch => (
+              <button style={{ backgroundColor: swatch }} class='clr-swatch' onClick={() => this.onSwatchSelected(swatch)}>
+                {this.editMode && <icon-trash class='icon-trash'></icon-trash>}
+              </button>))}
+            {this.editMode && <button class='clr-add' onClick={this.onColorAdddedEvent}><icon-add></icon-add></button>}
           </div>
         </div>
       </Host>

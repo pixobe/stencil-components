@@ -43,6 +43,13 @@ export class ColorInput {
     const value = e.detail;
     this.value = value;
     this.internals.setFormValue(value);
+    console.log(value)
+  }
+
+  onColorChange = (e: any) => {
+    const value = e.detail;
+    this.value = value;
+    this.internals.setFormValue(value);
   }
 
   toggleColorPicker(): void {
@@ -74,7 +81,9 @@ export class ColorInput {
             <label>{this.label}</label>
           </button>
           <div class="clrpick-wrap">
-            {this.toggle && <color-picker onColorChange={(e) => this.onColorSelect(e)}></color-picker>}
+            {this.toggle && <color-picker
+              onColorChange={(e) => this.onColorChange(e)}
+              onColorSelected={(e) => this.onColorSelect(e)}></color-picker>}
           </div>
         </div>
       </Host>

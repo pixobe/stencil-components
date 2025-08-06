@@ -58,6 +58,14 @@ export namespace Components {
           * @default '#ff0000'
          */
         "color": string;
+        /**
+          * @default false
+         */
+        "editMode": boolean;
+        /**
+          * @default []
+         */
+        "swatches": string[];
     }
     interface FileUploader {
         "label"?: string;
@@ -298,7 +306,9 @@ declare global {
         new (): HTMLColorListElement;
     };
     interface HTMLColorPickerElementEventMap {
-        "colorChange": any;
+        "colorChange": string;
+        "colorSelected": string;
+        "colorAdded": string;
     }
     interface HTMLColorPickerElement extends Components.ColorPicker, HTMLStencilElement {
         addEventListener<K extends keyof HTMLColorPickerElementEventMap>(type: K, listener: (this: HTMLColorPickerElement, ev: ColorPickerCustomEvent<HTMLColorPickerElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
@@ -727,7 +737,17 @@ declare namespace LocalJSX {
           * @default '#ff0000'
          */
         "color"?: string;
-        "onColorChange"?: (event: ColorPickerCustomEvent<any>) => void;
+        /**
+          * @default false
+         */
+        "editMode"?: boolean;
+        "onColorAdded"?: (event: ColorPickerCustomEvent<string>) => void;
+        "onColorChange"?: (event: ColorPickerCustomEvent<string>) => void;
+        "onColorSelected"?: (event: ColorPickerCustomEvent<string>) => void;
+        /**
+          * @default []
+         */
+        "swatches"?: string[];
     }
     interface FileUploader {
         "label"?: string;

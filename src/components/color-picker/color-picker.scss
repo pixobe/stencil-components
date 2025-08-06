@@ -1,3 +1,5 @@
+@use '../../styles/button';
+
 :host {
   display: block;
   width: 216px;
@@ -192,6 +194,44 @@
       background-color: currentColor;
       background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0) 0%, #000 100%), linear-gradient(to right, #fff 0%, rgba(255, 255, 255, 0) 100%);
       cursor: pointer;
+    }
+
+    .clr-swatches {
+      display: flex;
+      flex-wrap: wrap;
+      padding: 8px;
+      gap: 8px;
+      justify-content: center;
+      box-sizing: border-box;
+      .clr-swatch {
+        height: 24px;
+        width: 24px;
+        border-radius: 50%;
+        cursor: pointer;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        .icon-trash {
+          opacity: 0.3;
+          height: 16px;
+          width: 16px;
+          display: none;
+        }
+
+        &:hover {
+          .icon-trash {
+            display: block;
+          }
+        }
+      }
+      .clr-add {
+        background-color: var(--secondary-background);
+        border: 1px solid #ccc;
+        border-radius: 50%;
+        cursor: pointer;
+        color: var(--text-tertiary);
+      }
     }
   }
 }

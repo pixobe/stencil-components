@@ -5,6 +5,12 @@ const meta: Meta<any> = {
   render: (args) => {
     const el = document.createElement("color-picker");
     el.color = args.color;
+    el.swatches = args.swatches;
+    el.editMode = args.editMode;
+
+    el.addEventListener("colorAdded", (e) => {
+      console.log(e.detail)
+    })
     return el;
 
   },
@@ -18,6 +24,15 @@ type Story = StoryObj<any>;
 export const TopLeft: Story = {
   args: {
     color: '#ff00ff',
+    swatches: ['#ff0000', '#00ff00', '#0000ff']
+  },
+};
+
+export const EditMode: Story = {
+  args: {
+    color: '#ff00ff',
+    editMode: true,
+    swatches: ['#ff0000', '#00ff00', '#0000ff']
   },
 };
 
