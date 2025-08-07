@@ -1,198 +1,183 @@
-export const strToRGBA = (str: string): { r: number; g: number; b: number; a: number } => {
-  // Default color if parsing fails
-  let rgba = { r: 0, g: 0, b: 0, a: 1 };
+// --- Types ---
+export interface ColorInfo {
+  hsl: HSL;
+  hsla: HSLA;
+  rgb: RGB;
+  rgba: RGBA;
+  hex: string;
+  cssColor: string;
+}
 
-  // Try to parse as hex
-  if (str.startsWith('#')) {
-    let hex = str.substring(1);
+export interface HSL {
+  h: number;
+  s: number;
+  l: number;
+}
 
-    // Convert shorthand hex (#RGB) to full hex (#RRGGBB)
-    if (hex.length === 3) {
-      hex = hex
-        .split('')
-        .map(c => c + c)
-        .join('');
-    }
+export interface HSLA extends HSL {
+  a: number;
+}
 
-    // Parse hex values
-    const r = parseInt(hex.substring(0, 2), 16);
-    const g = parseInt(hex.substring(2, 4), 16);
-    const b = parseInt(hex.substring(4, 6), 16);
+export interface RGB {
+  r: number;
+  g: number;
+  b: number;
+}
 
-    // Parse alpha if present (#RRGGBBAA)
-    let a = 1;
-    if (hex.length === 8) {
-      a = parseInt(hex.substring(6, 8), 16) / 255;
-    }
+export interface RGBA extends RGB {
+  a: number;
+}
 
-    if (!isNaN(r) && !isNaN(g) && !isNaN(b)) {
-      rgba = { r, g, b, a };
-    }
-  }
-  // Try to parse as rgb/rgba
-  else if (str.startsWith('rgb')) {
-    const match = str.match(/rgba?\((\d+),\s*(\d+),\s*(\d+)(?:,\s*(\d*\.?\d+))?\)/);
-    if (match) {
-      rgba = {
-        r: parseInt(match[1], 10),
-        g: parseInt(match[2], 10),
-        b: parseInt(match[3], 10),
-        a: match[4] ? parseFloat(match[4]) : 1,
-      };
-    }
-  }
-  // Try to parse as hsl/hsla
-  else if (str.startsWith('hsl')) {
-    const match = str.match(/hsla?\((\d+),\s*(\d+)%,\s*(\d+)%(?:,\s*(\d*\.?\d+))?\)/);
-    if (match) {
-      const h = parseInt(match[1], 10);
-      const s = parseInt(match[2], 10) / 100;
-      const l = parseInt(match[3], 10) / 100;
-      const a = match[4] ? parseFloat(match[4]) : 1;
+export interface ColorPosition {
+  x: number;
+  y?: number;
+}
 
-      // Convert HSL to RGB
-      const c = (1 - Math.abs(2 * l - 1)) * s;
-      const x = c * (1 - Math.abs(((h / 60) % 2) - 1));
-      const m = l - c / 2;
+export type ColorInput = string | RGB | RGBA | HSL | HSLA;
 
-      let r = 0,
-        g = 0,
-        b = 0;
+// --- Color Conversions ---
+export function HEXtoRGB(hex: string): RGB {
+  hex = hex.replace(/^#/, ''); // remove '#'
 
-      if (h >= 0 && h < 60) {
-        r = c;
-        g = x;
-        b = 0;
-      } else if (h >= 60 && h < 120) {
-        r = x;
-        g = c;
-        b = 0;
-      } else if (h >= 120 && h < 180) {
-        r = 0;
-        g = c;
-        b = x;
-      } else if (h >= 180 && h < 240) {
-        r = 0;
-        g = x;
-        b = c;
-      } else if (h >= 240 && h < 300) {
-        r = x;
-        g = 0;
-        b = c;
-      } else {
-        r = c;
-        g = 0;
-        b = x;
-      }
-
-      rgba = {
-        r: Math.round((r + m) * 255),
-        g: Math.round((g + m) * 255),
-        b: Math.round((b + m) * 255),
-        a: a,
-      };
-    }
+  if (hex.length === 3) {
+    hex = hex
+      .split('')
+      .map(c => c + c)
+      .join('');
   }
 
-  return rgba;
-};
+  const r = parseInt(hex.slice(0, 2), 16);
+  const g = parseInt(hex.slice(2, 4), 16);
+  const b = parseInt(hex.slice(4, 6), 16);
 
-export const RGBAtoHSVA = (rgba: { r: number; g: number; b: number; a: number }): { h: number; s: number; v: number; a: number } => {
-  const r = rgba.r / 255;
-  const g = rgba.g / 255;
-  const b = rgba.b / 255;
+  if ([r, g, b].some(c => isNaN(c))) {
+    return { r: 0, g: 0, b: 0 };
+  }
+
+  return { r, g, b };
+}
+
+export function RGBtoHSL({ r, g, b }: RGB): HSL {
+  r /= 255;
+  g /= 255;
+  b /= 255;
+
   const max = Math.max(r, g, b);
   const min = Math.min(r, g, b);
-  const delta = max - min;
+  const l = (max + min) / 2;
+
+  if (max === min) {
+    return { h: 0, s: 0, l: Math.round(l * 100) };
+  }
+
+  const d = max - min;
+  const s = l > 0.5 ? d / (2 - max - min) : d / (max + min);
 
   let h = 0;
-  let s = max === 0 ? 0 : delta / max;
-  const v = max;
-
-  if (delta !== 0) {
-    if (max === r) {
-      h = ((g - b) / delta) % 6;
-    } else if (max === g) {
-      h = (b - r) / delta + 2;
-    } else {
-      h = (r - g) / delta + 4;
-    }
-
-    h *= 60;
-    if (h < 0) h += 360;
+  switch (max) {
+    case r:
+      h = (g - b) / d + (g < b ? 6 : 0);
+      break;
+    case g:
+      h = (b - r) / d + 2;
+      break;
+    case b:
+      h = (r - g) / d + 4;
+      break;
   }
+
+  h = (h / 6) * 360;
 
   return {
     h: Math.round(h),
     s: Math.round(s * 100),
-    v: Math.round(v * 100),
-    a: rgba.a,
+    l: Math.round(l * 100),
   };
-};
+}
 
-export const HSVAtoRGBA = (hsva: { h: number; s: number; v: number; a: number }): { r: number; g: number; b: number; a: number } => {
-  const h = hsva.h;
-  const s = hsva.s / 100;
-  const v = hsva.v / 100;
+export function HSLtoRGB({ h, s, l }: HSL): RGB {
+  s /= 100;
+  l /= 100;
 
-  const c = v * s;
+  const c = (1 - Math.abs(2 * l - 1)) * s;
   const x = c * (1 - Math.abs(((h / 60) % 2) - 1));
-  const m = v - c;
+  const m = l - c / 2;
 
   let r = 0,
     g = 0,
     b = 0;
 
-  if (h >= 0 && h < 60) {
-    r = c;
-    g = x;
-    b = 0;
-  } else if (h >= 60 && h < 120) {
-    r = x;
-    g = c;
-    b = 0;
-  } else if (h >= 120 && h < 180) {
-    r = 0;
-    g = c;
-    b = x;
-  } else if (h >= 180 && h < 240) {
-    r = 0;
-    g = x;
-    b = c;
-  } else if (h >= 240 && h < 300) {
-    r = x;
-    g = 0;
-    b = c;
-  } else {
-    r = c;
-    g = 0;
-    b = x;
-  }
+  if (h < 60) [r, g, b] = [c, x, 0];
+  else if (h < 120) [r, g, b] = [x, c, 0];
+  else if (h < 180) [r, g, b] = [0, c, x];
+  else if (h < 240) [r, g, b] = [0, x, c];
+  else if (h < 300) [r, g, b] = [x, 0, c];
+  else [r, g, b] = [c, 0, x];
 
   return {
     r: Math.round((r + m) * 255),
     g: Math.round((g + m) * 255),
     b: Math.round((b + m) * 255),
-    a: hsva.a,
   };
-};
+}
 
-export const RGBAToHex = (rgba: { r: number; g: number; b: number; a: number }): string => {
-  let r = rgba.r.toString(16);
-  let g = rgba.g.toString(16);
-  let b = rgba.b.toString(16);
-  let a = '';
+export function RGBToHex({ r, g, b }: RGB): string {
+  return '#' + [r, g, b].map(val => val.toString(16).padStart(2, '0')).join('');
+}
 
-  if (rgba.r < 16) r = '0' + r;
-  if (rgba.g < 16) g = '0' + g;
-  if (rgba.b < 16) b = '0' + b;
+// --- Color Class ---
+export class Color {
+  a: number;
+  private _hex: string;
+  private _rgb: RGB;
+  private _hsl: HSL;
 
-  // Add alpha if it's not 1
-  if (rgba.a < 1) {
-    const alpha = Math.round(rgba.a * 255);
-    a = alpha.toString(16);
-    if (alpha < 16) a = '0' + a;
+  constructor(color: { hex?: string; rgb?: RGB; hsl?: HSL; a: number }) {
+    this.a = color.a;
+
+    if (color.hex) {
+      this._hex = color.hex;
+      this._rgb = HEXtoRGB(color.hex);
+      this._hsl = RGBtoHSL(this._rgb);
+    } else if (color.rgb) {
+      this._rgb = color.rgb;
+      this._hex = RGBToHex(color.rgb);
+      this._hsl = RGBtoHSL(color.rgb);
+    } else if (color.hsl) {
+      this._hsl = color.hsl;
+      this._rgb = HSLtoRGB(color.hsl);
+      this._hex = RGBToHex(this._rgb);
+    } else {
+      throw new Error('Invalid color input');
+    }
   }
 
-  return '#' + r + g + b + a;
-};
+  get rgb(): RGB {
+    return this._rgb;
+  }
+
+  get hsl(): HSL {
+    return this._hsl;
+  }
+
+  get hex(): string {
+    return this._hex;
+  }
+
+  get hsla(): string {
+    const { h, s, l } = this._hsl;
+    return `hsla(${h}, ${s}%, ${l}%, ${this.a})`;
+  }
+
+  get rgba(): string {
+    const { r, g, b } = this._rgb;
+    return `rgba(${r}, ${g}, ${b}, ${this.a})`;
+  }
+
+  get hexa(): string {
+    const alphaHex = Math.round(this.a * 255)
+      .toString(16)
+      .padStart(2, '0');
+    return `${this.hex}${alphaHex}`;
+  }
+}

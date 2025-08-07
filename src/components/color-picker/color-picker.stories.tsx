@@ -23,7 +23,7 @@ type Story = StoryObj<any>;
 
 export const TopLeft: Story = {
   args: {
-    color: '#ff00ff',
+    color: '#ff0000',
     swatches: ['#ff0000', '#00ff00', '#0000ff']
   },
 };
@@ -65,3 +65,4 @@ export const OverflowHidden: Story = {
     color: '',
   },
 };
+

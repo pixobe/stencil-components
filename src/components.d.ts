@@ -55,7 +55,7 @@ export namespace Components {
     }
     interface ColorPicker {
         /**
-          * @default '#ff0000'
+          * @default '#0000FF'
          */
         "color": string;
         /**
@@ -734,7 +734,7 @@ declare namespace LocalJSX {
     }
     interface ColorPicker {
         /**
-          * @default '#ff0000'
+          * @default '#0000FF'
          */
         "color"?: string;
         /**

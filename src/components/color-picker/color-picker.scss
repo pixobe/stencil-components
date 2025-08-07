@@ -6,6 +6,7 @@
   width: 216px;
   font-size: 16px;
   font-family: system-ui, sans-serif;
+
   .clr-picker {
     display: flex;
     flex-direction: column;
@@ -39,13 +40,14 @@
       width: 12px;
       height: 12px;
       margin: -6px 0 0 -6px;
-      border: 1px solid #fff;
       border-radius: 50%;
       cursor: pointer;
       background-color: currentColor;
       box-shadow: 0 0 2px rgba(0, 0, 0, 0.5);
       top: 0;
       left: 0;
+      color: rgba(255, 255, 255, 0.2);
+      border: 1px solid #fff;
 
       &:focus {
         outline: none;
@@ -63,7 +65,7 @@
       height: 28px;
       border-radius: 50%;
       overflow: hidden;
-      background-color: blue;
+      border: 1px solid var(--quaternary-background);
     }
     .clr-code {
       display: block;
@@ -77,6 +79,7 @@
       color: var(--text-primary);
       border: 1px solid var(--quarternary-background);
       background-color: var(--tertiary-background);
+      text-transform: uppercase;
       &:focus {
         outline: var(--quarternary-background);
       }
@@ -89,16 +92,16 @@
     justify-content: center;
     box-sizing: border-box;
     align-items: center;
-    gap: 6px;
+    gap: 8px;
     .clr-swatch {
-      height: 22px;
-      width: 22px;
+      height: 24px;
+      width: 24px;
       border-radius: 50%;
       cursor: pointer;
       display: flex;
       justify-content: center;
       align-items: center;
-
+      border: 1px solid var(--secondary-background);
       &:hover {
         .icon-trash {
           display: block;
@@ -106,10 +109,15 @@
       }
     }
     .add-swatch {
-      background-color: var(--secondary-background);
       border: 1px solid #ccc;
+      height: 24px;
+      width: 24px;
       border-radius: 50%;
       cursor: pointer;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background-color: var(--secondary-background);
       color: var(--text-tertiary);
     }
   }
@@ -127,23 +135,25 @@
 
   #clr-alpha-slider {
     &::-webkit-slider-runnable-track {
-      background-image: repeating-linear-gradient(45deg, #aaa 25%, transparent 25%, transparent 75%, #aaa 75%, #aaa),
-        repeating-linear-gradient(45deg, #aaa 25%, #fff 25%, #fff 75%, #aaa 75%, #aaa);
-      background-position: 0 0, 4px 4px;
-      background-size: 8px 8px;
+      background-image: linear-gradient(to right, rgba(var(--alpha-color), 0) 0%, rgba(var(--alpha-color), 1) 100%),
+        repeating-linear-gradient(45deg, #aaa 25%, transparent 25%, transparent 75%, #aaa 75%, #aaa), repeating-linear-gradient(45deg, #aaa 25%, #fff 25%, #fff 75%, #aaa 75%, #aaa);
+      background-repeat: no-repeat, repeat, repeat;
+      background-position: 0 0, 0 0, 4px 4px;
+      background-size: auto, 8px 8px, 8px 8px;
     }
     &::-moz-range-track {
-      background-image: repeating-linear-gradient(45deg, #aaa 25%, transparent 25%, transparent 75%, #aaa 75%, #aaa),
-        repeating-linear-gradient(45deg, #aaa 25%, #fff 25%, #fff 75%, #aaa 75%, #aaa);
-      background-position: 0 0, 4px 4px;
-      background-size: 8px 8px;
+      background-image: linear-gradient(to right, rgba(var(--alpha-color), 0) 0%, rgba(var(--alpha-color), 1) 100%),
+        repeating-linear-gradient(45deg, #aaa 25%, transparent 25%, transparent 75%, #aaa 75%, #aaa), repeating-linear-gradient(45deg, #aaa 25%, #fff 25%, #fff 75%, #aaa 75%, #aaa);
+      background-repeat: no-repeat, repeat, repeat;
+      background-position: 0 0, 0 0, 4px 4px;
+      background-size: auto, 8px 8px, 8px 8px;
     }
 
     &::-moz-range-thumb {
-      background-color: #ffffff;
+      background-color: var(--thumb-background, #ffffff);
     }
     &::-webkit-slider-thumb {
-      background-color: #ffffff;
+      background-color: var(--thumb-background, #ffffff);
     }
   }
 }

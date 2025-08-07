@@ -1,9 +1,9 @@
 import { Component, Element, Event, EventEmitter, h, Host, Prop, State } from '@stencil/core';
-import { strToRGBA, RGBAtoHSVA, RGBAToHex, HSVAtoRGBA } from './color-utils';
+import { strToRGBA, RGBAtoHSVA, RGBAToHex, } from './color-utils';
 import { background } from 'storybook/internal/theming';
 
 @Component({
-    tag: 'color-picker',
+    tag: 'color-picker-a',
     styleUrls: ['color-picker.scss'],
     shadow: true,
 })
@@ -422,10 +422,10 @@ export class ColorPicker {
         const { h, s, v } = this.getCurrentHSV();
 
         // Convert to RGBA
-        const rgba = HSVAtoRGBA({ h, s, v, a: this.alpha });
+        // const rgba =null// HSVAtoRGBA({ h, s, v, a: this.alpha });
 
-        // Convert to HEX
-        this.hexColor = RGBAToHex(rgba);
+        // // Convert to HEX
+        // this.hexColor = RGBAToHex(rgba);
 
         // Store the opaque version (without alpha)
         this.opaqueHexColor = this.hexColor.substring(0, 7);
