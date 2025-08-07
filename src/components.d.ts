@@ -55,7 +55,7 @@ export namespace Components {
     }
     interface ColorPicker {
         /**
-          * @default '#0000FF'
+          * @default '#000000'
          */
         "color": string;
         /**
@@ -306,9 +306,8 @@ declare global {
         new (): HTMLColorListElement;
     };
     interface HTMLColorPickerElementEventMap {
-        "changed": string;
-        "selected": string;
-        "added": string;
+        "colorInput": string;
+        "colorChange": string;
     }
     interface HTMLColorPickerElement extends Components.ColorPicker, HTMLStencilElement {
         addEventListener<K extends keyof HTMLColorPickerElementEventMap>(type: K, listener: (this: HTMLColorPickerElement, ev: ColorPickerCustomEvent<HTMLColorPickerElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
@@ -734,16 +733,15 @@ declare namespace LocalJSX {
     }
     interface ColorPicker {
         /**
-          * @default '#0000FF'
+          * @default '#000000'
          */
         "color"?: string;
         /**
           * @default false
          */
         "editMode"?: boolean;
-        "onAdded"?: (event: ColorPickerCustomEvent<string>) => void;
-        "onChanged"?: (event: ColorPickerCustomEvent<string>) => void;
-        "onSelected"?: (event: ColorPickerCustomEvent<string>) => void;
+        "onColorChange"?: (event: ColorPickerCustomEvent<string>) => void;
+        "onColorInput"?: (event: ColorPickerCustomEvent<string>) => void;
         /**
           * @default []
          */

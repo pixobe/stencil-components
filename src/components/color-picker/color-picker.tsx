@@ -19,7 +19,8 @@ function CssVars(
     const el = this.el;
     if (color && el) {
       const rgb = color.rgb;
-      el.style.setProperty('--thumb-background', `rgba(250,250,250, ${1 - color.a})`);
+      const beta = Number(color.a.toFixed(2));
+      el.style.setProperty('--thumb-background', `rgba(250,250,250, ${beta})`);
       el.style.setProperty('--alpha-color', `${rgb.r}, ${rgb.g}, ${rgb.b}`);
     }
     return result;
@@ -39,7 +40,7 @@ export class ColorPicker {
   el: HTMLElement;
 
   @Prop()
-  color: string = '#0000FF';
+  color: string = '#000000';
 
   @Prop({ mutable: true })
   swatches: string[] = [];
@@ -47,14 +48,12 @@ export class ColorPicker {
   @Prop()
   editMode: boolean = false;
 
-  @Event({ eventName: "changed" })
+  @Event({ eventName: "colorInput" })
   colorChangeEvent: EventEmitter<string>;
 
-  @Event({ eventName: "selected" })
+  @Event({ eventName: "colorChange" })
   colorSelectEvent: EventEmitter<string>;
 
-  @Event({ eventName: "added" })
-  colorAddEvent: EventEmitter<string>;
 
   @State()
   currentColor: Color;
@@ -73,7 +72,7 @@ export class ColorPicker {
 
   @CssVars
   componentWillLoad() {
-    const color = this.color || '#0000FF';
+    const color = this.color || '#000000';
     this.currentColor = new Color({ hex: color, a: this.alpha });
   }
 
@@ -85,7 +84,8 @@ export class ColorPicker {
   @CssVars
   onHueChange(e: any) {
     const hue = parseInt(e.target?.value, 10);
-    this.currentColor = new Color({ hsl: { h: hue, s: 100, l: 50 }, a: this.alpha });
+    const currentHsl = this.currentColor.hsl;
+    this.currentColor = new Color({ hsl: { h: hue, s: currentHsl.s, l: currentHsl.l }, a: this.alpha });
   };
 
   @CssVars
@@ -112,6 +112,7 @@ export class ColorPicker {
     const l = 100 - (y / rect.height) * 100;
     // Convert to RGBA
     this.currentColor = new Color({ hsl: { h, s, l }, a: this.alpha });
+    this.colorChangeEvent.emit(this.currentColor.hexa);
   };
 
   onPointerDown = (e: PointerEvent) => {
@@ -120,8 +121,16 @@ export class ColorPicker {
     this.onColorPickerMove(e);
   }
 
-  onPointerUp = () => {
+  onPointerUp = (e: PointerEvent) => {
     this.isPointerDown = false;
+    if (e.pointerId) {
+      try {
+        this.coloringAreaRef.releasePointerCapture(e.pointerId);
+      } catch (e) {
+        // Silently catch if the pointerId is no longer valid
+      }
+    }
+    this.colorChangeEvent.emit(this.currentColor.hexa);
   }
 
   updateMarkerPositionFromColor() {
@@ -146,7 +155,7 @@ export class ColorPicker {
     } else {
       this.currentColor = new Color({ hex: color, a: this.alpha });
       this.updateMarkerPositionFromColor();
-      this.colorSelectEvent.emit(color);
+      this.colorSelectEvent.emit(this.currentColor.hexa);
     }
   }
 
