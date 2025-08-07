@@ -25,29 +25,12 @@ export namespace Components {
         "value": string;
     }
     interface ColorInput {
-        "label"?: string;
-        "name": string;
         /**
           * @default 'checkbox'
          */
-        "theme": 'checkbox' | 'input' | 'swatch';
-        /**
-          * @default ''
-         */
-        "value": string;
-    }
-    interface ColorList {
-        "colors": string[];
-        /**
-          * @default false
-         */
-        "editMode": boolean;
+        "appearance": 'checkbox' | 'input';
         "label"?: string;
         "name": string;
-        /**
-          * @default false
-         */
-        "picker": boolean;
         /**
           * @default ''
          */
@@ -259,10 +242,6 @@ export namespace Components {
         "value": string;
     }
 }
-export interface ColorListCustomEvent<T> extends CustomEvent<T> {
-    detail: T;
-    target: HTMLColorListElement;
-}
 export interface ColorPickerCustomEvent<T> extends CustomEvent<T> {
     detail: T;
     target: HTMLColorPickerElement;
@@ -287,23 +266,6 @@ declare global {
     var HTMLColorInputElement: {
         prototype: HTMLColorInputElement;
         new (): HTMLColorInputElement;
-    };
-    interface HTMLColorListElementEventMap {
-        "colorSelect": string;
-    }
-    interface HTMLColorListElement extends Components.ColorList, HTMLStencilElement {
-        addEventListener<K extends keyof HTMLColorListElementEventMap>(type: K, listener: (this: HTMLColorListElement, ev: ColorListCustomEvent<HTMLColorListElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
-        addEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
-        addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
-        addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
-        removeEventListener<K extends keyof HTMLColorListElementEventMap>(type: K, listener: (this: HTMLColorListElement, ev: ColorListCustomEvent<HTMLColorListElementEventMap[K]>) => any, options?: boolean | EventListenerOptions): void;
-        removeEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
-        removeEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
-        removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
-    }
-    var HTMLColorListElement: {
-        prototype: HTMLColorListElement;
-        new (): HTMLColorListElement;
     };
     interface HTMLColorPickerElementEventMap {
         "colorInput": string;
@@ -636,7 +598,6 @@ declare global {
     interface HTMLElementTagNameMap {
         "check-box": HTMLCheckBoxElement;
         "color-input": HTMLColorInputElement;
-        "color-list": HTMLColorListElement;
         "color-picker": HTMLColorPickerElement;
         "file-uploader": HTMLFileUploaderElement;
         "font-picker": HTMLFontPickerElement;
@@ -702,30 +663,12 @@ declare namespace LocalJSX {
         "value"?: string;
     }
     interface ColorInput {
-        "label"?: string;
-        "name": string;
         /**
           * @default 'checkbox'
          */
-        "theme"?: 'checkbox' | 'input' | 'swatch';
-        /**
-          * @default ''
-         */
-        "value"?: string;
-    }
-    interface ColorList {
-        "colors": string[];
-        /**
-          * @default false
-         */
-        "editMode"?: boolean;
+        "appearance"?: 'checkbox' | 'input';
         "label"?: string;
         "name": string;
-        "onColorSelect"?: (event: ColorListCustomEvent<string>) => void;
-        /**
-          * @default false
-         */
-        "picker"?: boolean;
         /**
           * @default ''
          */
@@ -942,7 +885,6 @@ declare namespace LocalJSX {
     interface IntrinsicElements {
         "check-box": CheckBox;
         "color-input": ColorInput;
-        "color-list": ColorList;
         "color-picker": ColorPicker;
         "file-uploader": FileUploader;
         "font-picker": FontPicker;
@@ -1000,7 +942,6 @@ declare module "@stencil/core" {
         interface IntrinsicElements {
             "check-box": LocalJSX.CheckBox & JSXBase.HTMLAttributes<HTMLCheckBoxElement>;
             "color-input": LocalJSX.ColorInput & JSXBase.HTMLAttributes<HTMLColorInputElement>;
-            "color-list": LocalJSX.ColorList & JSXBase.HTMLAttributes<HTMLColorListElement>;
             "color-picker": LocalJSX.ColorPicker & JSXBase.HTMLAttributes<HTMLColorPickerElement>;
             "file-uploader": LocalJSX.FileUploader & JSXBase.HTMLAttributes<HTMLFileUploaderElement>;
             "font-picker": LocalJSX.FontPicker & JSXBase.HTMLAttributes<HTMLFontPickerElement>;

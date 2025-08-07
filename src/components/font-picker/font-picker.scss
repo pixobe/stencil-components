@@ -1,16 +1,11 @@
 @use 'src/styles/variables';
 @use 'src/styles/mixins' as *;
+@use 'src/styles/labels';
 
 :host {
   display: block;
   margin: 8px 0;
 
-  .menu-lbl {
-    font-weight: bold;
-    display: inline-block;
-    margin-bottom: 8px;
-    color: var(--text-secondary);
-  }
   .custom-dropdown {
     position: relative;
     width: 100%;
@@ -19,11 +14,30 @@
   }
 
   .custom-dropdown-trigger {
-    padding: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 8px;
     font-size: 16px;
     cursor: pointer;
     border-radius: 4px;
+    position: relative;
     @include theme-styles();
+
+    &::after {
+      content: '';
+      display: inline-block;
+      border: solid currentColor;
+      border-width: 0 2px 2px 0;
+      padding: 4px;
+      transform: rotate(45deg);
+      transition: transform 0.2s ease;
+      margin-left: 8px;
+    }
+
+    &.open::after {
+      transform: rotate(-135deg);
+    }
   }
 
   .custom-dropdown-menu {
@@ -38,8 +52,8 @@
     z-index: 999;
     box-sizing: border-box;
     color: var(--text-primary);
-    border: 1px solid var(--quaternary-background);
-    background-color: var(--quaternary-background);
+    border: 1px solid var(--tertiary-background);
+    background-color: var(--secondary-background);
     box-shadow: 1px 1px 3px var(--box-shadow);
   }
 
@@ -56,6 +70,6 @@
   }
 
   .custom-dropdown-item:hover {
-    background-color: var(--tertiary-background);
+    background-color: var(--quaternary-background);
   }
 }

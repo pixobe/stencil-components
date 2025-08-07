@@ -58,7 +58,7 @@ export class FontPicker {
         <div class="form-element">
           <label class="menu-lbl">{this.label || this.name}</label>
           <div class={{ 'custom-dropdown': true, 'open': this.open }}>
-            <div class="custom-dropdown-trigger" onClick={this.toggleDropdown}>
+            <div class={{ "custom-dropdown-trigger": true, "open": this.open }} onClick={this.toggleDropdown}>
               {this.value ? <div>{this.value}</div> : <div>Select one {this.label}</div>}
             </div>
             <div class="custom-dropdown-menu">

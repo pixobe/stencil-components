@@ -48,12 +48,11 @@ export class ColorPicker {
   @Prop()
   editMode: boolean = false;
 
-  @Event({ eventName: "colorInput" })
+  @Event({ eventName: "colorInput", bubbles: true, composed: false })
   colorChangeEvent: EventEmitter<string>;
 
-  @Event({ eventName: "colorChange" })
+  @Event({ eventName: "colorChange", bubbles: true, composed: false })
   colorSelectEvent: EventEmitter<string>;
-
 
   @State()
   currentColor: Color;
@@ -80,7 +79,6 @@ export class ColorPicker {
     this.updateMarkerPositionFromColor();
   }
 
-
   @CssVars
   onHueChange(e: any) {
     const hue = parseInt(e.target?.value, 10);
@@ -97,6 +95,7 @@ export class ColorPicker {
 
   @CssVars
   onColorPickerMove(e: PointerEvent) {
+    e.stopPropagation()
     if (!this.isPointerDown) return;
     const rect = this.coloringAreaRef.getBoundingClientRect();
     const x = Math.max(0, Math.min(rect.width, e.clientX - rect.left));
@@ -147,12 +146,13 @@ export class ColorPicker {
     this.swatches = [...this.swatches, color];
   }
 
-  onSwatchSelected = (color: string) => {
+  onSwatchSelected = (e: PointerEvent, color: string) => {
     if (this.editMode) {
       const index = this.swatches.findIndex(swatch => swatch === color);
       this.swatches.splice(index, 1);
       this.swatches = [...this.swatches];
     } else {
+      e.stopPropagation();
       this.currentColor = new Color({ hex: color, a: this.alpha });
       this.updateMarkerPositionFromColor();
       this.colorSelectEvent.emit(this.currentColor.hexa);
@@ -191,7 +191,7 @@ export class ColorPicker {
             <div class="clr-swatches">
               {
                 this.swatches.map(swatch => (
-                  <button style={{ backgroundColor: swatch }} class='clr-swatch' onClick={() => this.onSwatchSelected(swatch)}>
+                  <button style={{ backgroundColor: swatch }} class='clr-swatch' onClick={(e) => this.onSwatchSelected(e, swatch)}>
                   </button>))
               }
               {

@@ -1,18 +1,62 @@
-@use '../../styles/button';
-@use '../../styles/labels';
+@use 'src/styles/button';
+@use 'src/styles/labels';
+@use 'src/styles/mixins' as *;
+@use 'src/styles/elements';
 
 :host {
   display: block;
+  width: 100%;
+  height: max-content;
 
-  button {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-  }
-  .clr {
-    position: relative;
-    .clrpick-wrap {
-      position: absolute;
+  .horizontal {
+    button {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
     }
+    .clr-button {
+      position: relative;
+      .clrpick-wrap {
+        position: absolute;
+      }
+    }
+    .wrap-svg {
+      color: var(--current-color, #000000);
+    }
+  }
+
+  .vertical {
+    button {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      width: 100%;
+    }
+    .clr-button {
+      position: relative;
+      .clrpick-wrap {
+        position: absolute;
+      }
+
+      .wrap-svg {
+        width: 100%;
+        height: 32px;
+        border-radius: 8px;
+        overflow: hidden;
+        color: var(--current-color, #000000);
+      }
+    }
+  }
+
+  .clr-box {
+    display: block;
+    padding: 8px;
+    font-size: 15px;
+    box-sizing: border-box;
+    width: 100%;
+    height: 36px;
+    border-radius: 4px;
+    @include theme-styles();
   }
 }

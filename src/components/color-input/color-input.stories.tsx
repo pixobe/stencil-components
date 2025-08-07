@@ -13,11 +13,15 @@ const meta: Meta<any> = {
     const el = document.createElement("color-input");
     el.value = args.value;
     el.label = args.label;
+    el.appearance = args.appearance;
 
-
-    el.addEventListener('closePicker', () => {
-      console.log("cancelled")
+    el.addEventListener('colorChange', (e: any) => {
+      console.log("colorChange", e.detail)
     });
+    el.addEventListener('colorInput', (e: any) => {
+      console.log("colorChange", e.detail)
+    });
+
     wrapper.appendChild(el);
     return wrapper;
   },
@@ -27,10 +31,18 @@ export default meta;
 type Story = StoryObj<any>;
 
 
-export const DefaultView: Story = {
+export const Blue: Story = {
   args: {
     label: "Text Color",
-    value: '#ff0000'
+    value: '#000fff'
+  },
+};
+
+export const FullWidth: Story = {
+  args: {
+    label: "Text Color",
+    value: '#ff0000',
+    appearance: 'input'
   },
 };
 

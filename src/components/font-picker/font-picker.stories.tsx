@@ -1,22 +1,5 @@
-import { h } from '@stencil/core';
-import type { Meta, StoryObj } from '@stencil/storybook-plugin';
-import { FontPicker } from './font-picker';
+import type { Meta, StoryObj } from '@storybook/html-vite';
 
-const meta: Meta<FontPicker> = {
-  title: 'Font Loader',
-  component: FontPicker,
-  argTypes: {
-  },
-  args: {
-  },
-  render: (props) => {
-    function onValue(e: any) {
-      console.log(e.detail)
-    }
-
-    return <font-picker {...props} onInput={onValue}></font-picker>
-  },
-};
 
 const fonts = [
   {
@@ -41,28 +24,32 @@ const fonts = [
   }
 ];
 
+const meta: Meta<any> = {
+  title: 'FontPicker',
+  render: (args) => {
+    const el = document.createElement("font-picker");
+    Object.assign(el, args)
+    return el;
+  },
+  argTypes: {},
+};
 export default meta;
+type Story = StoryObj<any>;
 
-type Story = StoryObj<FontPicker>;
 
-export const FontSelector: Story = {
+export const NoValue: Story = {
   args: {
-    name: "Fonts",
-    fonts
-  },
-};
-export const FontSelectorValueSet: Story = {
-  args: {
-    name: "Fonts",
-    value: "Apple Chancery",
-    fonts
+    label: "Colors",
+    value: '',
+    name: "colors"
   },
 };
 
-export const FontSelectorWithLabel: Story = {
+export const WithFonts: Story = {
   args: {
-    name: "fonts",
-    label: "Select Text Color",
+    label: "Colors",
+    value: '',
+    name: "colors",
     fonts
   },
 };

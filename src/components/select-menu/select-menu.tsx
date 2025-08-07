@@ -75,7 +75,7 @@ export class SelectMenu {
           <label class="menu-lbl">{this.displayName}</label>
           <div class={{ 'custom-dropdown': true, 'open': this.open }}>
             <div class="custom-dropdown-trigger" onClick={this.toggleDropdown}>
-              {this.value ? <div>{this.selectedLabel}</div> : <div>Select {this.displayName}</div>}
+              {this.value ? <div>{this.selectedLabel}</div> : <div class="placeholder">Select {this.displayName}</div>}
             </div>
             <div class="custom-dropdown-menu">
               {this.options.map(opt => (
