@@ -131,6 +131,20 @@
   }
 }
 
+[data-color-theme='dark'] {
+  --text-primary: oklch(0.95 0 0); /* Near-white */
+  --text-secondary: oklch(0.75 0 0);
+  --text-tertiary: oklch(0.6 0 0);
+
+  --primary-background: oklch(0.18 0 0); /* Deep dark base */
+  --secondary-background: oklch(0.24 0 0); /* Slightly lifted dark gray */
+  --tertiary-background: oklch(0.32 0 0); /* Mid-tone background, headers/cards */
+  --quaternary-background: oklch(0.38 0 0);
+
+  --box-shadow: oklch(0.3 0 0); /* Subtle shadow tone for dark UI */
+  --placeholder: oklch(0.5 0 0);
+}
+
 .dark,
 .light,
 .blue {
@@ -168,21 +182,16 @@
 
 html,
 body {
-  background-color: #ffffff;
   height: 100%;
   width: 100%;
   margin: 0;
   padding: 0;
-}
-
-@media (prefers-color-scheme: dark) {
-  background-color: #111111;
+  background-color: var(--primary-background);
 }
 
 #storybook-root {
   height: 100%;
   width: 100%;
-  background-color: var(--primary-background);
 }
 
 .position-wrapper {
@@ -190,7 +199,6 @@ body {
   width: 100%;
   display: flex;
   position: relative;
-  background-color: #e9e9e9;
 }
 
 .top-right {

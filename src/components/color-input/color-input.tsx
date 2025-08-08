@@ -76,9 +76,8 @@ export class ColorInput {
     requestAnimationFrame(() => {
       this.isOpen = !this.isOpen;
       if (this.isOpen) {
-        const button = this.el.shadowRoot?.querySelector('button')!;
         const wrapper = this.el.shadowRoot?.querySelector('.clrpick-wrap')! as HTMLDivElement;
-        this.computedPosition = computePosition(button);
+        this.computedPosition = computePosition(wrapper);
         wrapper.style.top = this.computedPosition.top;
         wrapper.style.bottom = this.computedPosition.bottom;
         wrapper.style.left = this.computedPosition.left;

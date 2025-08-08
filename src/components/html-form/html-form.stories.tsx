@@ -1,81 +1,141 @@
-import { h } from '@stencil/core';
-import type { Meta, StoryObj } from '@stencil/storybook-plugin';
-import { HtmlForm } from './html-form'
+import type { Meta, StoryObj } from '@storybook/html-vite';
 
-const meta: Meta<HtmlForm> = {
-    title: 'HtmlForm',
-    component: HtmlForm,
-    argTypes: {},
-    args: {},
-    render: (props) => {
-        const data = props.data;
-        async function onSubmit(e: any) {
-            e.preventDefault();
-            const parent = e.target.parentElement;
-            const formData = await parent.formData();
-            console.table(formData);
-        }
-        const tag = <html-form data={data}>
-            <check-box label="Preview" name="preview"></check-box>
-            <div>
-                <input-text label="Name" name="firstname"></input-text>
-            </div>
-            <input-text label="Address Line 1" name="address.line1"></input-text>
-            <input-text label="Address Line 2" name="address.line2" ></input-text>
-            <input-text name="font[0].name" placeholder="Font name" ></input-text>
-            <input-text name="font[0].url" placeholder="Font URL" ></input-text>
-            <input-text name="gallery[0].name" placeholder="Font name" ></input-text>
-            <input-text name="gallery[0].images[0].src" placeholder="Font URL" ></input-text>
-            <input-text name="gallery[1].name" placeholder="Font name" ></input-text>
-            <input-text name="gallery[1].images[0].src" placeholder="Font URL" ></input-text>
-            <input-text name="gallery[1].images[1].src" placeholder="Font URL"></input-text>
-            <button onClick={onSubmit}>Submit</button>
-        </html-form>
-        return tag;
+
+const data = {
+    "preview": true,
+    "firstname": "Test",
+    "address": {
+        "line1": "Block 98",
+        "line2": "Yishun Avenue 1"
     },
-};
-
-export default meta;
-
-type Story = StoryObj<HTMLFormElement>;
-
-
-export const Unchecked: Story = {
-    args: {
-        data: {
-            "preview": true,
-            "firstname": "Test",
-            "address": {
-                "line1": "Block 98",
-                "line2": "Yishun Avenue 1"
-            },
-            "font": [
+    "font": [
+        {
+            "name": "Roboto",
+            "url": "https://roboto.com.sg"
+        }
+    ],
+    "gallery": [
+        {
+            "name": "Seasons",
+            "images": [
                 {
-                    "name": "Roboto",
-                    "url": "https://roboto.com.sg"
+                    "src": "https://seasons.com.sg"
                 }
-            ],
-            "gallery": [
+            ]
+        },
+        {
+            "name": "Animals",
+            "images": [
                 {
-                    "name": "Seasons",
-                    "images": [
-                        {
-                            "src": "https://seasons.com.sg"
-                        }
-                    ]
+                    "src": "https://animals.com.sg"
                 },
                 {
-                    "name": "Animals",
-                    "images": [
-                        {
-                            "src": "https://animals.com.sg"
-                        },
-                        {
-                            "src": "https://animals2.com.sg"
-                        }
-                    ]
+                    "src": "https://animals2.com.sg"
                 }
             ]
         }
+    ]
+};
+
+function createForm() {
+    // Create the form element
+    const form = document.createElement('html-form');
+
+    // Create the checkbox
+    const checkbox = document.createElement('check-box');
+    checkbox.setAttribute('label', 'Preview');
+    checkbox.setAttribute('name', 'preview');
+
+    const colorInput = document.createElement('color-input');
+    checkbox.setAttribute('label', 'Text Color');
+    checkbox.setAttribute('name', 'stroke');
+    checkbox.setAttribute('value', '#FFEE99');
+
+    // Create the input-text for Address Line 1
+    const inputText2 = document.createElement('input-text');
+    inputText2.setAttribute('label', 'Address Line 1');
+    inputText2.setAttribute('name', 'address.line1');
+
+    // Create the input-text for Address Line 2
+    const inputText3 = document.createElement('input-text');
+    inputText3.setAttribute('label', 'Address Line 2');
+    inputText3.setAttribute('name', 'address.line2');
+
+    // Create the input-text for Font name
+    const inputText4 = document.createElement('input-text');
+    inputText4.setAttribute('name', 'font[0].name');
+    inputText4.setAttribute('placeholder', 'Font name');
+
+    // Create the input-text for Font URL
+    const inputText5 = document.createElement('input-text');
+    inputText5.setAttribute('name', 'font[0].url');
+    inputText5.setAttribute('placeholder', 'Font URL');
+
+    // Create the input-text for Gallery name
+    const inputText6 = document.createElement('input-text');
+    inputText6.setAttribute('name', 'gallery[0].name');
+    inputText6.setAttribute('placeholder', 'Font name');
+
+    // Create the input-text for Gallery image URL
+    const inputText7 = document.createElement('input-text');
+    inputText7.setAttribute('name', 'gallery[0].images[0].src');
+    inputText7.setAttribute('placeholder', 'Font URL');
+
+    // Create the input-text for Gallery name
+    const inputText8 = document.createElement('input-text');
+    inputText8.setAttribute('name', 'gallery[1].name');
+    inputText8.setAttribute('placeholder', 'Font name');
+
+    // Create the input-text for Gallery image URL
+    const inputText9 = document.createElement('input-text');
+    inputText9.setAttribute('name', 'gallery[1].images[0].src');
+    inputText9.setAttribute('placeholder', 'Font URL');
+
+    // Create the input-text for Gallery image URL
+    const inputText10 = document.createElement('input-text');
+    inputText10.setAttribute('name', 'gallery[1].images[1].src');
+    inputText10.setAttribute('placeholder', 'Font URL');
+
+    // Append all elements to the desired container
+    form.appendChild(checkbox);
+    form.appendChild(colorInput);
+
+    form.appendChild(inputText2);
+    form.appendChild(inputText3);
+    form.appendChild(inputText4);
+    form.appendChild(inputText5);
+    form.appendChild(inputText6);
+    form.appendChild(inputText7);
+    form.appendChild(inputText8);
+    form.appendChild(inputText9);
+    form.appendChild(inputText10);
+    form.appendChild(colorInput)
+
+    // Append the form to the desired element (e.g., document.body or a specific container)
+    return form;
+}
+
+
+const meta: Meta<any> = {
+    title: 'HtmlForm',
+    render: (args) => {
+        const el = createForm();
+        el.data = args.data
+        return el;
+    },
+    argTypes: {},
+};
+export default meta;
+type Story = StoryObj<any>;
+
+
+export const NoValue: Story = {
+    args: {
+    },
+};
+
+export const WithData: Story = {
+    args: {
+        data
     },
 };
