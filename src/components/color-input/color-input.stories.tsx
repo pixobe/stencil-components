@@ -16,7 +16,7 @@ const meta: Meta<any> = {
     el.appearance = args.appearance;
 
     el.addEventListener('colorChange', (e: any) => {
-      console.log("colorChange", e.detail)
+      console.log("color selected:: ", e.detail)
     });
     el.addEventListener('colorInput', (e: any) => {
       console.log("colorChange", e.detail)

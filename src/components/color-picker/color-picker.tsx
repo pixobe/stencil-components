@@ -48,10 +48,10 @@ export class ColorPicker {
   @Prop()
   editMode: boolean = false;
 
-  @Event({ eventName: "colorInput", bubbles: true, composed: false })
+  @Event({ eventName: "colorInput", bubbles: true, composed: true })
   colorChangeEvent: EventEmitter<string>;
 
-  @Event({ eventName: "colorChange", bubbles: true, composed: false })
+  @Event({ eventName: "colorChange", bubbles: true, composed: true })
   colorSelectEvent: EventEmitter<string>;
 
   @State()

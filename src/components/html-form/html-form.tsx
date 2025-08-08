@@ -19,7 +19,6 @@ export class HtmlForm {
     this.setValue(newData);
   }
 
-  ref: HTMLFormElement;
 
   @Method()
   async formData() {
@@ -39,6 +38,8 @@ export class HtmlForm {
     }
     return data;
   }
+
+  ref: HTMLFormElement;
 
   componentDidLoad() {
     this.setValue(this.data);

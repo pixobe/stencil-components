@@ -34,7 +34,8 @@ const icons = [
   'preview',
   'trash',
   'add-cart',
-  'text'
+  'text',
+  'error'
 ];
 
 const meta: Meta<any> = {

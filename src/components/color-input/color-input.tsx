@@ -1,5 +1,5 @@
 
-import { AttachInternals, Component, Element, h, Host, Prop, State } from '@stencil/core';
+import { AttachInternals, Component, Element, h, Host, Prop, State, Event, EventEmitter, Watch } from '@stencil/core';
 import { computePosition, TPosition } from 'src/utils/position-utils';
 
 @Component({
@@ -31,16 +31,15 @@ export class ColorInput {
   isOpen: boolean = false;
 
   @State()
-  selectedColor: string = '';
-
-  @State()
   computedPosition: TPosition = { top: '100%', left: '0', bottom: 'auto', right: 'auto' };
+
+  @Event()
+  colorChange: EventEmitter<string>;
+  @Event()
+  colorInput: EventEmitter<string>;
 
   colorPickRef: HTMLColorPickerElement;
 
-  componentWillLoad() {
-    this.selectedColor = this.value;
-  }
 
   componentDidLoad() {
     document.addEventListener('keydown', this.handleKeydown);
@@ -65,10 +64,8 @@ export class ColorInput {
   };
 
   onColorSelect = (e: any) => {
-    const value = e.detail;
-    this.selectedColor = value;
-    this.value = value;
-    this.internals.setFormValue(value);
+    this.value = e.detail;
+    this.internals.setFormValue(this.value);
   };
 
   toggleColorPicker = (event: MouseEvent): void => {
@@ -97,7 +94,7 @@ export class ColorInput {
               <label htmlFor={this.name} class="text-lbl">
                 {this.label}
               </label>
-              <div class="wrap-svg" style={{ "--current-color": this.selectedColor }}>
+              <div class="wrap-svg" style={{ "--current-color": this.value }}>
                 <svg height="32" width="100%" viewBox="0 0 40 30" fill="none" preserveAspectRatio="none">
                   <rect width="40" height="30" fill="currentColor" />
                 </svg>
@@ -124,7 +121,7 @@ export class ColorInput {
             title={'Color Picker'}
             onClick={e => this.toggleColorPicker(e)}
             role="button">
-            <div class="wrap-svg" style={{ "--current-color": this.selectedColor }}>
+            <div class="wrap-svg" style={{ "--current-color": this.value }}>
               <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
                 <rect width="24" height="24" fill="currentColor" rx="4"></rect>
               </svg>

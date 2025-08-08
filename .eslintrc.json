@@ -1,5 +1,8 @@
 {
   "rules": {
     "react/no-inline-styles": "off"
-  }
+  },
+  "extends": [
+    "plugin:storybook/recommended"
+  ]
 }

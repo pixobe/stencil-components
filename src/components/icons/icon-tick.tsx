@@ -8,8 +8,8 @@ export class IconText {
   render() {
     return (
       <Host class="icon">
-        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
-          <path stroke-linecap="round" stroke-linejoin="round" d="m4.5 12.75 6 6 9-13.5" />
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+          <path fill="currentColor" d="m9.4501 17.8501 -5.6 -5.6 1.075 -1.075 4.525 4.525 9.6 -9.6 1.075 1.075 -10.675 10.675Z" stroke-width="0.5"></path>
         </svg>
       </Host>
     );

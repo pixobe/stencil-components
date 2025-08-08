@@ -111,6 +111,8 @@ export namespace Components {
     }
     interface IconEnvelope {
     }
+    interface IconError {
+    }
     interface IconFacebook {
     }
     interface IconFliph {
@@ -150,6 +152,8 @@ export namespace Components {
     interface IconText {
     }
     interface IconTick {
+    }
+    interface IconTickcircle {
     }
     interface IconTrash {
     }
@@ -219,9 +223,28 @@ export namespace Components {
          */
         "name": string;
     }
+    interface PixobeDialog {
+        "close": () => Promise<void>;
+        /**
+          * @default true
+         */
+        "modal": boolean;
+        "open": () => Promise<void>;
+    }
     interface PixobeSpinner {
         "header"?: string;
         "message"?: string;
+    }
+    interface PixobeToast {
+        "message": string;
+        /**
+          * @default 'success'
+         */
+        "status": 'success' | 'error';
+        /**
+          * @default 5
+         */
+        "timeout": number;
     }
     interface PixobeWatermark {
     }
@@ -242,6 +265,10 @@ export namespace Components {
         "value": string;
     }
 }
+export interface ColorInputCustomEvent<T> extends CustomEvent<T> {
+    detail: T;
+    target: HTMLColorInputElement;
+}
 export interface ColorPickerCustomEvent<T> extends CustomEvent<T> {
     detail: T;
     target: HTMLColorPickerElement;
@@ -261,7 +288,19 @@ declare global {
         prototype: HTMLCheckBoxElement;
         new (): HTMLCheckBoxElement;
     };
+    interface HTMLColorInputElementEventMap {
+        "colorChange": string;
+        "colorInput": string;
+    }
     interface HTMLColorInputElement extends Components.ColorInput, HTMLStencilElement {
+        addEventListener<K extends keyof HTMLColorInputElementEventMap>(type: K, listener: (this: HTMLColorInputElement, ev: ColorInputCustomEvent<HTMLColorInputElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLColorInputElementEventMap>(type: K, listener: (this: HTMLColorInputElement, ev: ColorInputCustomEvent<HTMLColorInputElementEventMap[K]>) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
     }
     var HTMLColorInputElement: {
         prototype: HTMLColorInputElement;
@@ -398,6 +437,12 @@ declare global {
         prototype: HTMLIconEnvelopeElement;
         new (): HTMLIconEnvelopeElement;
     };
+    interface HTMLIconErrorElement extends Components.IconError, HTMLStencilElement {
+    }
+    var HTMLIconErrorElement: {
+        prototype: HTMLIconErrorElement;
+        new (): HTMLIconErrorElement;
+    };
     interface HTMLIconFacebookElement extends Components.IconFacebook, HTMLStencilElement {
     }
     var HTMLIconFacebookElement: {
@@ -506,6 +551,12 @@ declare global {
         prototype: HTMLIconTickElement;
         new (): HTMLIconTickElement;
     };
+    interface HTMLIconTickcircleElement extends Components.IconTickcircle, HTMLStencilElement {
+    }
+    var HTMLIconTickcircleElement: {
+        prototype: HTMLIconTickcircleElement;
+        new (): HTMLIconTickcircleElement;
+    };
     interface HTMLIconTrashElement extends Components.IconTrash, HTMLStencilElement {
     }
     var HTMLIconTrashElement: {
@@ -577,11 +628,23 @@ declare global {
         prototype: HTMLPixobeBannerElement;
         new (): HTMLPixobeBannerElement;
     };
+    interface HTMLPixobeDialogElement extends Components.PixobeDialog, HTMLStencilElement {
+    }
+    var HTMLPixobeDialogElement: {
+        prototype: HTMLPixobeDialogElement;
+        new (): HTMLPixobeDialogElement;
+    };
     interface HTMLPixobeSpinnerElement extends Components.PixobeSpinner, HTMLStencilElement {
     }
     var HTMLPixobeSpinnerElement: {
         prototype: HTMLPixobeSpinnerElement;
         new (): HTMLPixobeSpinnerElement;
+    };
+    interface HTMLPixobeToastElement extends Components.PixobeToast, HTMLStencilElement {
+    }
+    var HTMLPixobeToastElement: {
+        prototype: HTMLPixobeToastElement;
+        new (): HTMLPixobeToastElement;
     };
     interface HTMLPixobeWatermarkElement extends Components.PixobeWatermark, HTMLStencilElement {
     }
@@ -616,6 +679,7 @@ declare global {
         "icon-done": HTMLIconDoneElement;
         "icon-edit": HTMLIconEditElement;
         "icon-envelope": HTMLIconEnvelopeElement;
+        "icon-error": HTMLIconErrorElement;
         "icon-facebook": HTMLIconFacebookElement;
         "icon-fliph": HTMLIconFliphElement;
         "icon-flipv": HTMLIconFlipvElement;
@@ -634,6 +698,7 @@ declare global {
         "icon-support": HTMLIconSupportElement;
         "icon-text": HTMLIconTextElement;
         "icon-tick": HTMLIconTickElement;
+        "icon-tickcircle": HTMLIconTickcircleElement;
         "icon-trash": HTMLIconTrashElement;
         "icon-upload": HTMLIconUploadElement;
         "icon-upload-image": HTMLIconUploadImageElement;
@@ -644,7 +709,9 @@ declare global {
         "menu-icon": HTMLMenuIconElement;
         "multi-line": HTMLMultiLineElement;
         "pixobe-banner": HTMLPixobeBannerElement;
+        "pixobe-dialog": HTMLPixobeDialogElement;
         "pixobe-spinner": HTMLPixobeSpinnerElement;
+        "pixobe-toast": HTMLPixobeToastElement;
         "pixobe-watermark": HTMLPixobeWatermarkElement;
         "select-menu": HTMLSelectMenuElement;
     }
@@ -669,6 +736,8 @@ declare namespace LocalJSX {
         "appearance"?: 'checkbox' | 'input';
         "label"?: string;
         "name": string;
+        "onColorChange"?: (event: ColorInputCustomEvent<string>) => void;
+        "onColorInput"?: (event: ColorInputCustomEvent<string>) => void;
         /**
           * @default ''
          */
@@ -751,6 +820,8 @@ declare namespace LocalJSX {
     }
     interface IconEnvelope {
     }
+    interface IconError {
+    }
     interface IconFacebook {
     }
     interface IconFliph {
@@ -790,6 +861,8 @@ declare namespace LocalJSX {
     interface IconText {
     }
     interface IconTick {
+    }
+    interface IconTickcircle {
     }
     interface IconTrash {
     }
@@ -860,9 +933,26 @@ declare namespace LocalJSX {
          */
         "name"?: string;
     }
+    interface PixobeDialog {
+        /**
+          * @default true
+         */
+        "modal"?: boolean;
+    }
     interface PixobeSpinner {
         "header"?: string;
         "message"?: string;
+    }
+    interface PixobeToast {
+        "message"?: string;
+        /**
+          * @default 'success'
+         */
+        "status"?: 'success' | 'error';
+        /**
+          * @default 5
+         */
+        "timeout"?: number;
     }
     interface PixobeWatermark {
     }
@@ -903,6 +993,7 @@ declare namespace LocalJSX {
         "icon-done": IconDone;
         "icon-edit": IconEdit;
         "icon-envelope": IconEnvelope;
+        "icon-error": IconError;
         "icon-facebook": IconFacebook;
         "icon-fliph": IconFliph;
         "icon-flipv": IconFlipv;
@@ -921,6 +1012,7 @@ declare namespace LocalJSX {
         "icon-support": IconSupport;
         "icon-text": IconText;
         "icon-tick": IconTick;
+        "icon-tickcircle": IconTickcircle;
         "icon-trash": IconTrash;
         "icon-upload": IconUpload;
         "icon-upload-image": IconUploadImage;
@@ -931,7 +1023,9 @@ declare namespace LocalJSX {
         "menu-icon": MenuIcon;
         "multi-line": MultiLine;
         "pixobe-banner": PixobeBanner;
+        "pixobe-dialog": PixobeDialog;
         "pixobe-spinner": PixobeSpinner;
+        "pixobe-toast": PixobeToast;
         "pixobe-watermark": PixobeWatermark;
         "select-menu": SelectMenu;
     }
@@ -960,6 +1054,7 @@ declare module "@stencil/core" {
             "icon-done": LocalJSX.IconDone & JSXBase.HTMLAttributes<HTMLIconDoneElement>;
             "icon-edit": LocalJSX.IconEdit & JSXBase.HTMLAttributes<HTMLIconEditElement>;
             "icon-envelope": LocalJSX.IconEnvelope & JSXBase.HTMLAttributes<HTMLIconEnvelopeElement>;
+            "icon-error": LocalJSX.IconError & JSXBase.HTMLAttributes<HTMLIconErrorElement>;
             "icon-facebook": LocalJSX.IconFacebook & JSXBase.HTMLAttributes<HTMLIconFacebookElement>;
             "icon-fliph": LocalJSX.IconFliph & JSXBase.HTMLAttributes<HTMLIconFliphElement>;
             "icon-flipv": LocalJSX.IconFlipv & JSXBase.HTMLAttributes<HTMLIconFlipvElement>;
@@ -978,6 +1073,7 @@ declare module "@stencil/core" {
             "icon-support": LocalJSX.IconSupport & JSXBase.HTMLAttributes<HTMLIconSupportElement>;
             "icon-text": LocalJSX.IconText & JSXBase.HTMLAttributes<HTMLIconTextElement>;
             "icon-tick": LocalJSX.IconTick & JSXBase.HTMLAttributes<HTMLIconTickElement>;
+            "icon-tickcircle": LocalJSX.IconTickcircle & JSXBase.HTMLAttributes<HTMLIconTickcircleElement>;
             "icon-trash": LocalJSX.IconTrash & JSXBase.HTMLAttributes<HTMLIconTrashElement>;
             "icon-upload": LocalJSX.IconUpload & JSXBase.HTMLAttributes<HTMLIconUploadElement>;
             "icon-upload-image": LocalJSX.IconUploadImage & JSXBase.HTMLAttributes<HTMLIconUploadImageElement>;
@@ -988,7 +1084,9 @@ declare module "@stencil/core" {
             "menu-icon": LocalJSX.MenuIcon & JSXBase.HTMLAttributes<HTMLMenuIconElement>;
             "multi-line": LocalJSX.MultiLine & JSXBase.HTMLAttributes<HTMLMultiLineElement>;
             "pixobe-banner": LocalJSX.PixobeBanner & JSXBase.HTMLAttributes<HTMLPixobeBannerElement>;
+            "pixobe-dialog": LocalJSX.PixobeDialog & JSXBase.HTMLAttributes<HTMLPixobeDialogElement>;
             "pixobe-spinner": LocalJSX.PixobeSpinner & JSXBase.HTMLAttributes<HTMLPixobeSpinnerElement>;
+            "pixobe-toast": LocalJSX.PixobeToast & JSXBase.HTMLAttributes<HTMLPixobeToastElement>;
             "pixobe-watermark": LocalJSX.PixobeWatermark & JSXBase.HTMLAttributes<HTMLPixobeWatermarkElement>;
             "select-menu": LocalJSX.SelectMenu & JSXBase.HTMLAttributes<HTMLSelectMenuElement>;
         }
