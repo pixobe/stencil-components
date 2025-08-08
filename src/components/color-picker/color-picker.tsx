@@ -19,9 +19,9 @@ function CssVars(
     const el = this.el;
     if (color && el) {
       const rgb = color.rgb;
-      const beta = Number(color.a.toFixed(2));
-      el.style.setProperty('--thumb-background', `rgba(250,250,250, ${beta})`);
-      el.style.setProperty('--alpha-color', `${rgb.r}, ${rgb.g}, ${rgb.b}`);
+      const beta = Number((1 - color.a).toFixed(2));
+      el.style.setProperty('--alpha-slider-thumb-background', `rgba(250,250,250, ${beta})`);
+      el.style.setProperty('--alpha-slider-track-background', `${rgb.r}, ${rgb.g}, ${rgb.b}`);
     }
     return result;
   };

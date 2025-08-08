@@ -132,14 +132,14 @@
 
   #clr-alpha-slider {
     &::-webkit-slider-runnable-track {
-      background-image: linear-gradient(to right, rgba(var(--alpha-color), 0) 0%, rgba(var(--alpha-color), 1) 100%),
+      background-image: linear-gradient(to right, rgba(var(--alpha-slider-track-background), 0) 0%, rgba(var(--alpha-slider-track-background), 1) 100%),
         repeating-linear-gradient(45deg, #aaa 25%, transparent 25%, transparent 75%, #aaa 75%, #aaa), repeating-linear-gradient(45deg, #aaa 25%, #fff 25%, #fff 75%, #aaa 75%, #aaa);
       background-repeat: no-repeat, repeat, repeat;
       background-position: 0 0, 0 0, 4px 4px;
       background-size: auto, 8px 8px, 8px 8px;
     }
     &::-moz-range-track {
-      background-image: linear-gradient(to right, rgba(var(--alpha-color), 0) 0%, rgba(var(--alpha-color), 1) 100%),
+      background-image: linear-gradient(to right, rgba(var(--alpha-slider-track-background), 0) 0%, rgba(var(--alpha-slider-track-background), 1) 100%),
         repeating-linear-gradient(45deg, #aaa 25%, transparent 25%, transparent 75%, #aaa 75%, #aaa), repeating-linear-gradient(45deg, #aaa 25%, #fff 25%, #fff 75%, #aaa 75%, #aaa);
       background-repeat: no-repeat, repeat, repeat;
       background-position: 0 0, 0 0, 4px 4px;
@@ -147,10 +147,10 @@
     }
 
     &::-moz-range-thumb {
-      background-color: var(--thumb-background, #ffffff);
+      background-color: var(--alpha-slider-thumb-background, #ffffff);
     }
     &::-webkit-slider-thumb {
-      background-color: var(--thumb-background, #ffffff);
+      background-color: var(--alpha-slider-thumb-background, #ffffff);
     }
   }
 }
