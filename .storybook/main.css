@@ -155,6 +155,7 @@
   padding: 8px;
   border-radius: 4px;
   background-color: #3d3d3d;
+  color: #ffffff;
   .icon {
     color: oklch(87.9% 0.169 91.605);
   }
@@ -216,4 +217,31 @@ body {
   width: 300px;
   height: 300px;
   position: fixed;
+}
+
+.full-layout-image {
+  height: 100%;
+  width: 100%;
+  background-image: url('/assets/background.jpg');
+  background-size: cover;
+  background-position: center;
+  background-color: var(--primary-background);
+}
+
+.icon-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 100px);
+  .icon-wrapper {
+    height: 100px;
+    width: 100px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    label {
+      display: block;
+      font-size: 10px;
+      text-transform: uppercase;
+    }
+  }
 }

@@ -5,9 +5,15 @@ import { PixobeSpinner } from './pixobe-spinner';
 const meta: Meta<any> = {
   title: 'Pixobe Spinner',
   render: (args) => {
+    const wrap = document.createElement("div");
+    wrap.classList.add("full-layout-image");
+
+
     const el = document.createElement("pixobe-spinner");
-    Object.assign(el, args)
-    return el;
+    Object.assign(el, args);
+
+    wrap.appendChild(el)
+    return wrap;
   },
   argTypes: {},
 };

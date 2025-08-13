@@ -145,6 +145,8 @@ export namespace Components {
     }
     interface IconRotate {
     }
+    interface IconSettings {
+    }
     interface IconSpinner {
     }
     interface IconSupport {
@@ -153,7 +155,7 @@ export namespace Components {
     }
     interface IconTick {
     }
-    interface IconTickcircle {
+    interface IconTickCircle {
     }
     interface IconTrash {
     }
@@ -527,6 +529,12 @@ declare global {
         prototype: HTMLIconRotateElement;
         new (): HTMLIconRotateElement;
     };
+    interface HTMLIconSettingsElement extends Components.IconSettings, HTMLStencilElement {
+    }
+    var HTMLIconSettingsElement: {
+        prototype: HTMLIconSettingsElement;
+        new (): HTMLIconSettingsElement;
+    };
     interface HTMLIconSpinnerElement extends Components.IconSpinner, HTMLStencilElement {
     }
     var HTMLIconSpinnerElement: {
@@ -551,11 +559,11 @@ declare global {
         prototype: HTMLIconTickElement;
         new (): HTMLIconTickElement;
     };
-    interface HTMLIconTickcircleElement extends Components.IconTickcircle, HTMLStencilElement {
+    interface HTMLIconTickCircleElement extends Components.IconTickCircle, HTMLStencilElement {
     }
-    var HTMLIconTickcircleElement: {
-        prototype: HTMLIconTickcircleElement;
-        new (): HTMLIconTickcircleElement;
+    var HTMLIconTickCircleElement: {
+        prototype: HTMLIconTickCircleElement;
+        new (): HTMLIconTickCircleElement;
     };
     interface HTMLIconTrashElement extends Components.IconTrash, HTMLStencilElement {
     }
@@ -694,11 +702,12 @@ declare global {
         "icon-preview": HTMLIconPreviewElement;
         "icon-redo": HTMLIconRedoElement;
         "icon-rotate": HTMLIconRotateElement;
+        "icon-settings": HTMLIconSettingsElement;
         "icon-spinner": HTMLIconSpinnerElement;
         "icon-support": HTMLIconSupportElement;
         "icon-text": HTMLIconTextElement;
         "icon-tick": HTMLIconTickElement;
-        "icon-tickcircle": HTMLIconTickcircleElement;
+        "icon-tick-circle": HTMLIconTickCircleElement;
         "icon-trash": HTMLIconTrashElement;
         "icon-upload": HTMLIconUploadElement;
         "icon-upload-image": HTMLIconUploadImageElement;
@@ -854,6 +863,8 @@ declare namespace LocalJSX {
     }
     interface IconRotate {
     }
+    interface IconSettings {
+    }
     interface IconSpinner {
     }
     interface IconSupport {
@@ -862,7 +873,7 @@ declare namespace LocalJSX {
     }
     interface IconTick {
     }
-    interface IconTickcircle {
+    interface IconTickCircle {
     }
     interface IconTrash {
     }
@@ -1008,11 +1019,12 @@ declare namespace LocalJSX {
         "icon-preview": IconPreview;
         "icon-redo": IconRedo;
         "icon-rotate": IconRotate;
+        "icon-settings": IconSettings;
         "icon-spinner": IconSpinner;
         "icon-support": IconSupport;
         "icon-text": IconText;
         "icon-tick": IconTick;
-        "icon-tickcircle": IconTickcircle;
+        "icon-tick-circle": IconTickCircle;
         "icon-trash": IconTrash;
         "icon-upload": IconUpload;
         "icon-upload-image": IconUploadImage;
@@ -1069,11 +1081,12 @@ declare module "@stencil/core" {
             "icon-preview": LocalJSX.IconPreview & JSXBase.HTMLAttributes<HTMLIconPreviewElement>;
             "icon-redo": LocalJSX.IconRedo & JSXBase.HTMLAttributes<HTMLIconRedoElement>;
             "icon-rotate": LocalJSX.IconRotate & JSXBase.HTMLAttributes<HTMLIconRotateElement>;
+            "icon-settings": LocalJSX.IconSettings & JSXBase.HTMLAttributes<HTMLIconSettingsElement>;
             "icon-spinner": LocalJSX.IconSpinner & JSXBase.HTMLAttributes<HTMLIconSpinnerElement>;
             "icon-support": LocalJSX.IconSupport & JSXBase.HTMLAttributes<HTMLIconSupportElement>;
             "icon-text": LocalJSX.IconText & JSXBase.HTMLAttributes<HTMLIconTextElement>;
             "icon-tick": LocalJSX.IconTick & JSXBase.HTMLAttributes<HTMLIconTickElement>;
-            "icon-tickcircle": LocalJSX.IconTickcircle & JSXBase.HTMLAttributes<HTMLIconTickcircleElement>;
+            "icon-tick-circle": LocalJSX.IconTickCircle & JSXBase.HTMLAttributes<HTMLIconTickCircleElement>;
             "icon-trash": LocalJSX.IconTrash & JSXBase.HTMLAttributes<HTMLIconTrashElement>;
             "icon-upload": LocalJSX.IconUpload & JSXBase.HTMLAttributes<HTMLIconUploadElement>;
             "icon-upload-image": LocalJSX.IconUploadImage & JSXBase.HTMLAttributes<HTMLIconUploadImageElement>;

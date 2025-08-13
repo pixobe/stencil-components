@@ -12,7 +12,6 @@ export interface DropdownOption {
   tag: 'menu-icon',
   styleUrl: 'menu-icon.scss',
   shadow: true,
-  formAssociated: true
 })
 export class DropdownMenu {
   @Element()

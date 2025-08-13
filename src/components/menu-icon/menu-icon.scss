@@ -3,10 +3,8 @@
 :host {
   width: fit-content;
   box-sizing: border-box;
-
   .dropdown {
     position: relative;
-
     .menu-label {
       display: grid;
       grid-template-columns: 1fr auto;

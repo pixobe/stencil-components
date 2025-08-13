@@ -35,20 +35,34 @@ const icons = [
   'trash',
   'add-cart',
   'text',
-  'error'
-];
+  'error',
+  "tick",
+  "tick-circle",
+  "settings",
+  "cog"
+].sort((a, b) => a.localeCompare(b));
 
 const meta: Meta<any> = {
   title: 'Icons',
   render: ({ ...args }) => {
     const div = document.createElement('div');
-    div.classList.add(args.theme);
+    div.classList.add(args.theme, 'icon-grid');
 
     icons.forEach(icon => {
+      const wrapper = document.createElement('div');
+      wrapper.classList.add('icon-wrapper');
+
       const name = `icon-${icon}`;
       const el = document.createElement(name);
-      div.append(el);
+      wrapper.append(el);
+
+      const label = document.createElement("label");
+      label.innerText = icon;
+      wrapper.append(label);
+
+      div.append(wrapper);
     });
+
     return div;
   },
   argTypes: {},
