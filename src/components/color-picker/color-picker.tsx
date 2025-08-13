@@ -39,8 +39,8 @@ export class ColorPicker {
   @Element()
   el: HTMLElement;
 
-  @Prop()
-  color: string = '#000000';
+  @Prop({ mutable: true, reflect: true })
+  color: string;
 
   @Prop({ mutable: true })
   swatches: string[] = [];
@@ -53,6 +53,9 @@ export class ColorPicker {
 
   @Event({ eventName: "colorChange", bubbles: true, composed: true })
   colorSelectEvent: EventEmitter<string>;
+
+  @Event({ eventName: "swatchChange", bubbles: true, composed: true })
+  swatchChangeEvent: EventEmitter<string[]>;
 
   @State()
   currentColor: Color;
@@ -71,8 +74,10 @@ export class ColorPicker {
 
   @CssVars
   componentWillLoad() {
-    const color = this.color || '#000000';
-    this.currentColor = new Color({ hex: color, a: this.alpha });
+    this.swatches = this.swatches ? this.swatches : [];
+    this.color = this.color ? this.color : "#000000";
+    this.alpha = this.alpha ? this.alpha : 1;
+    this.currentColor = new Color({ hex: this.color, a: this.alpha });
   }
 
   componentDidLoad() {
@@ -144,6 +149,7 @@ export class ColorPicker {
 
   addSwatch = (color: string) => {
     this.swatches = [...this.swatches, color];
+    this.swatchChangeEvent.emit(this.swatches);
   }
 
   onSwatchSelected = (e: PointerEvent, color: string) => {
@@ -151,6 +157,7 @@ export class ColorPicker {
       const index = this.swatches.findIndex(swatch => swatch === color);
       this.swatches.splice(index, 1);
       this.swatches = [...this.swatches];
+      this.swatchChangeEvent.emit(this.swatches);
     } else {
       e.stopPropagation();
       this.currentColor = new Color({ hex: color, a: this.alpha });
@@ -190,7 +197,7 @@ export class ColorPicker {
 
             <div class="clr-swatches">
               {
-                this.swatches.map(swatch => (
+                this.swatches?.map(swatch => (
                   <button style={{ backgroundColor: swatch }} class='clr-swatch' onClick={(e) => this.onSwatchSelected(e, swatch)}>
                   </button>))
               }

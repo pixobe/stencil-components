@@ -5,12 +5,10 @@
  * @param rootObject
  * @returns
  */
-export function valueMapper(rootObject: Record<string, any>, key: string, value: any) {
+export function valueMapper(rootObject: Record<string, any>, name: string, value: any) {
   const regex = /[^.[\]]+/g;
-  const tokens = key.match(regex) || [];
-
+  const tokens = name.match(regex) || [];
   let current = rootObject;
-
   for (let i = 0; i < tokens.length; i++) {
     const token = tokens[i];
     const nextToken = tokens[i + 1];
@@ -24,14 +22,11 @@ export function valueMapper(rootObject: Record<string, any>, key: string, value:
       }
       return;
     }
-
     // Determine if the next token is a number => array
     const nextIsArrayIndex = nextToken && !isNaN(Number(nextToken));
-
     if (!current[token]) {
       current[token] = nextIsArrayIndex ? [] : {};
     }
-
     current = current[token];
   }
 }

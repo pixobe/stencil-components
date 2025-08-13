@@ -15,14 +15,20 @@ export class ColorInput {
   @Prop({ reflect: true, mutable: true })
   name!: string;
 
+  @Prop({ reflect: true, mutable: true })
+  value: string;
+
   @Prop({ mutable: true })
-  value: string = '';
+  swatches: string;
 
   @Prop({ reflect: true })
   label?: string;
 
-  @Prop({ reflect: true })
+  @Prop()
   appearance: 'checkbox' | 'input' = 'checkbox';
+
+  @Prop()
+  editable: string | undefined = 'false';
 
   @AttachInternals()
   internals!: ElementInternals;
@@ -35,11 +41,29 @@ export class ColorInput {
 
   @Event()
   colorChange: EventEmitter<string>;
+
   @Event()
   colorInput: EventEmitter<string>;
 
+  @State()
+  swatchList: string[] = [];
+
+  @State()
+  selectedColor: string;
+
   colorPickRef: HTMLColorPickerElement;
 
+  connectedCallback() {
+    this.selectedColor = this.value;
+  }
+
+  componentWillLoad() {
+    if (this.swatches) {
+      this.swatchList = this.swatches.split(",");
+    }
+    const value = this.editable ? this.swatches : this.value;
+    this.internals.setFormValue(value);
+  }
 
   componentDidLoad() {
     document.addEventListener('keydown', this.handleKeydown);
@@ -64,9 +88,19 @@ export class ColorInput {
   };
 
   onColorSelect = (e: any) => {
-    this.value = e.detail;
-    this.internals.setFormValue(this.value);
+    this.selectedColor = e.detail;
+    if (!this.editable) {
+      this.value = this.selectedColor;
+      this.internals.setFormValue(this.value);
+    }
   };
+
+  onSwatchChange(e: CustomEvent) {
+    this.swatchList = e.detail;
+    const swatches = this.swatchList.join(",");
+    this.value = swatches;
+    this.internals.setFormValue(this.value);
+  }
 
   toggleColorPicker = (event: MouseEvent): void => {
     event.stopPropagation();
@@ -83,6 +117,23 @@ export class ColorInput {
     });
   };
 
+  renderColorPicker = () => {
+    return (
+      <div class="clrpick-wrap" onClick={e => e.stopPropagation()}>
+        {this.isOpen && (
+          <color-picker
+            ref={el => (this.colorPickRef = el!)}
+            onColorChange={e => this.onColorSelect(e)}
+            onColorInput={e => this.onColorSelect(e)}
+            swatches={this.swatchList}
+            editMode={this.editable === 'true'}
+            onSwatchChange={(e) => this.onSwatchChange(e)}
+            color={this.value}></color-picker>
+        )}
+      </div>
+    )
+  }
+
   render() {
     if (this.appearance === 'input') {
       return (
@@ -94,21 +145,13 @@ export class ColorInput {
               <label htmlFor={this.name} class="text-lbl">
                 {this.label}
               </label>
-              <div class="wrap-svg" style={{ "--current-color": this.value }}>
+              <div class="wrap-svg" style={{ "--current-color": this.selectedColor }}>
                 <svg height="32" width="100%" viewBox="0 0 40 30" fill="none" preserveAspectRatio="none">
                   <rect width="40" height="30" fill="currentColor" />
                 </svg>
               </div>
             </button>
-            <div class="clrpick-wrap" onClick={e => e.stopPropagation()}>
-              {this.isOpen && (
-                <color-picker
-                  ref={el => (this.colorPickRef = el!)}
-                  onColorChange={e => this.onColorSelect(e)}
-                  onColorInput={e => this.onColorSelect(e)}
-                  color={this.value}></color-picker>
-              )}
-            </div>
+            {this.renderColorPicker()}
           </div>
         </Host>
       );
@@ -121,25 +164,14 @@ export class ColorInput {
             title={'Color Picker'}
             onClick={e => this.toggleColorPicker(e)}
             role="button">
-            <div class="wrap-svg" style={{ "--current-color": this.value }}>
+            <div class="wrap-svg" style={{ "--current-color": this.selectedColor }}>
               <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
                 <rect width="24" height="24" fill="currentColor" rx="4"></rect>
               </svg>
             </div>
             <label>{this.label}</label>
           </button>
-          <div class="clrpick-wrap" onClick={e => e.stopPropagation()} >
-            {
-              this.isOpen && (
-                <color-picker
-                  ref={el => (this.colorPickRef = el!)}
-                  onColorChange={e => this.onColorSelect(e)}
-                  onColorInput={e => this.onColorSelect(e)}
-                  color={this.value}
-                ></color-picker>
-              )
-            }
-          </div>
+          {this.renderColorPicker()}
         </div>
       </Host>
     );

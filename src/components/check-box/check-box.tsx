@@ -18,7 +18,7 @@ export class CheckBox {
   label?: string;
 
   @Prop({ mutable: true })
-  value: string = '';
+  value: string = 'false';
 
   @Prop()
   required: boolean = true;
@@ -48,7 +48,6 @@ export class CheckBox {
               type="checkbox"
               name={this.name}
               id={this.name}
-              value={this.value}
               onInput={this.onInputFn}
               aria-label={this.label}
               checked={this.value === 'true'}

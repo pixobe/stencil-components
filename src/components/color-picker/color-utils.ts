@@ -202,7 +202,7 @@ export class Color {
   private _rgb: RGB;
   private _hsl: HSL;
 
-  constructor(color: { hex?: string; rgb?: RGB; hsl?: HSL; a: number }) {
+  constructor(color: { hex?: string; rgb?: RGB; hsl?: HSL; a: number } = { a: 1, hex: '#000000' }) {
     this.a = color.a;
     if (color.hex) {
       this._hex = color.hex;

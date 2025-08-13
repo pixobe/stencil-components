@@ -46,10 +46,17 @@ function createForm() {
     const checkbox = document.createElement('check-box');
     checkbox.setAttribute('label', 'Preview');
     checkbox.setAttribute('name', 'preview');
+    checkbox.setAttribute('value', 'true');
 
     const colorInput = document.createElement('color-input');
     colorInput.setAttribute('label', 'Text Color');
     colorInput.setAttribute('name', 'stroke');
+    colorInput.setAttribute('value', '#ff00ff');
+
+    const editableColor = document.createElement('color-input');
+    editableColor.setAttribute('label', 'Colors');
+    editableColor.setAttribute('name', 'colors');
+    editableColor.setAttribute('editable', 'true');
 
     // Create the input-text for Address Line 1
     // const inputText2 = document.createElement('input-text');
@@ -96,8 +103,17 @@ function createForm() {
     // inputText10.setAttribute('name', 'gallery[1].images[1].src');
     // inputText10.setAttribute('placeholder', 'Font URL');
 
+    const button = document.createElement('button');
+    button.innerText = "Submit";
+    button.addEventListener("click", async () => {
+        const data = await form.formData();
+        console.log(data);
+    })
+
     // Append all elements to the desired container
     form.appendChild(checkbox);
+
+
 
     // form.appendChild(inputText2);
     // form.appendChild(inputText3);
@@ -108,7 +124,11 @@ function createForm() {
     // form.appendChild(inputText8);
     // form.appendChild(inputText9);
     // form.appendChild(inputText10);
-    form.appendChild(colorInput)
+    form.appendChild(colorInput);
+    form.appendChild(editableColor);
+    form.appendChild(button);
+
+
 
     // Append the form to the desired element (e.g., document.body or a specific container)
     return form;

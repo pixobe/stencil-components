@@ -14,6 +14,8 @@ const meta: Meta<any> = {
     el.value = args.value;
     el.label = args.label;
     el.appearance = args.appearance;
+    el.swatches = args.swatches;
+    el.editable = args.editable;
 
     el.addEventListener('colorChange', (e: any) => {
       console.log("color selected:: ", e.detail)
@@ -76,5 +78,23 @@ export const Center: Story = {
     label: "Colors",
     value: '',
     className: 'center-middle'
+  },
+};
+
+
+export const EditMode: Story = {
+  args: {
+    label: "Colors",
+    value: '#ff0000',
+    editable: true,
+    swatches: ['#ff0000', '#ffAA00', '#ff00FF'].join(",")
+  },
+};
+
+export const Swatches: Story = {
+  args: {
+    label: "Colors",
+    value: '#ff0000',
+    swatches: ['#ff0000', '#ffAA00', '#ff00FF'].join(",")
   },
 };
