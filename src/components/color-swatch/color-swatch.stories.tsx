@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/html-vite';
 
 
 const meta: Meta<any> = {
-  title: 'Color Input',
+  title: 'Color Swatch',
   render: (args) => {
     const wrapper = document.createElement("div");
     const className = args.className || ''
@@ -17,6 +17,7 @@ const meta: Meta<any> = {
     el.label = args.label;
     el.name = args.name;
     el.value = args.value;
+    el.editable = args.editable;
 
     if (args.style)
       el.classList.add(args.style);
@@ -38,13 +39,6 @@ type Story = StoryObj<any>;
 
 
 export const Primary: Story = {
-  args: {
-    label: "Text Color",
-    value: '#000fff'
-  },
-};
-
-export const InputStyle: Story = {
   args: {
     label: "Text Color",
     value: '#000fff'
@@ -96,25 +90,22 @@ export const Center: Story = {
 export const EditMode: Story = {
   args: {
     label: "Colors",
-    value: '#ff0000',
     editable: true,
-    swatches: ['#ff0000', '#ffAA00', '#ff00FF'].join(",")
+    value: ['#ff0000', '#ffAA00', '#ff00FF'].join(",")
   },
 };
 
 export const Swatches: Story = {
   args: {
     label: "Colors",
-    value: '#ff0000',
-    swatches: ['#ff0000', '#ffAA00', '#ff00FF'].join(",")
+    value: ['#ff0000', '#ffAA00', '#ff00FF'].join(",")
   },
 };
 
 export const BlockStyle: Story = {
   args: {
     label: "Colors",
-    value: '#ff0000',
-    swatches: ['#ff0000', '#ffAA00', '#ff00FF'].join(","),
+    value: ['#ff0000', '#ffAA00', '#ff00FF'].join(","),
     style: "block-style"
   },
 };

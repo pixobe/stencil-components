@@ -6,7 +6,7 @@ const meta: Meta<any> = {
     const el = document.createElement("color-picker");
     el.color = args.color;
     el.swatches = args.swatches;
-    el.editMode = args.editMode;
+    el.editable = args.editMode;
 
     el.addEventListener("colorChange", (e) => {
       console.log("Color Changed", e.detail)

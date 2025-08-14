@@ -46,7 +46,7 @@ export class ColorPicker {
   swatches: string[] = [];
 
   @Prop()
-  editMode: boolean = false;
+  editable: boolean = false;
 
   @Event({ eventName: "colorInput", bubbles: true, composed: true })
   colorChangeEvent: EventEmitter<string>;
@@ -153,7 +153,7 @@ export class ColorPicker {
   }
 
   onSwatchSelected = (e: PointerEvent, color: string) => {
-    if (this.editMode) {
+    if (this.editable) {
       const index = this.swatches.findIndex(swatch => swatch === color);
       this.swatches.splice(index, 1);
       this.swatches = [...this.swatches];
@@ -202,7 +202,7 @@ export class ColorPicker {
                   </button>))
               }
               {
-                this.editMode && <button class='clr-add' onClick={() => this.addSwatch(this.currentColor.hex)}><icon-add></icon-add></button>
+                this.editable && <button class='clr-add' onClick={() => this.addSwatch(this.currentColor.hex)}><icon-add></icon-add></button>
               }
             </div>
           </div>

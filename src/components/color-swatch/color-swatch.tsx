@@ -1,10 +1,9 @@
-
 import { AttachInternals, Component, Element, h, Host, Prop, State, Event, EventEmitter, Watch } from '@stencil/core';
 import { computePosition, TPosition } from 'src/utils/position-utils';
 
 @Component({
-  tag: 'color-input',
-  styleUrl: 'color-input.scss',
+  tag: 'color-swatch',
+  styleUrl: 'color-swatch.scss',
   shadow: true,
   formAssociated: true
 })
@@ -16,10 +15,13 @@ export class ColorSwatch {
   name!: string;
 
   @Prop({ reflect: true, mutable: true })
-  value: string = '#cacaca';
+  value: string;
 
   @Prop({ reflect: true })
   label?: string;
+
+  @Prop()
+  editable: boolean;
 
   @AttachInternals()
   internals!: ElementInternals;
@@ -33,11 +35,17 @@ export class ColorSwatch {
   @Event()
   colorInput: EventEmitter<string>;
 
-  colorPickRef: HTMLColorPickerElement;
+  @State()
+  swatchList: string[] = [];
 
+  colorPickRef: HTMLColorPickerElement;
 
   componentWillLoad() {
     this.internals.setFormValue(this.value);
+    if (this.value) {
+      this.swatchList = this.value.split(",");
+    }
+    console.log(this.swatchList, this.value)
   }
 
   componentDidLoad() {
@@ -68,6 +76,13 @@ export class ColorSwatch {
     this.internals.setFormValue(this.value);
   };
 
+  onSwatchChange(e: CustomEvent) {
+    this.swatchList = e.detail;
+    const swatches = this.swatchList.join(",");
+    this.value = swatches;
+    this.internals.setFormValue(this.value);
+  }
+
   toggleColorPicker = (event: MouseEvent): void => {
     event.stopPropagation();
     requestAnimationFrame(() => {
@@ -88,10 +103,12 @@ export class ColorSwatch {
       <div class="clrpick-wrap" onClick={e => e.stopPropagation()}>
         {this.isOpen && (
           <color-picker
+            editable={this.editable}
             ref={el => (this.colorPickRef = el!)}
             onColorChange={e => this.onColorSelect(e)}
             onColorInput={e => this.onColorSelect(e)}
-            color={this.value}></color-picker>
+            onSwatchChange={(e) => this.onSwatchChange(e)}
+            swatches={this.swatchList}></color-picker>
         )}
       </div>
     )

@@ -245,3 +245,7 @@ body {
     }
   }
 }
+
+.full-width {
+  width: 100%;
+}

@@ -1,44 +1,12 @@
 import type { Meta, StoryObj } from '@storybook/html-vite';
 
-
 const data = {
     "preview": true,
-    "firstname": "Test",
-    "stroke": "#ff00ff",
-    "address": {
-        "line1": "Block 98",
-        "line2": "Yishun Avenue 1"
-    },
-    "font": [
-        {
-            "name": "Roboto",
-            "url": "https://roboto.com.sg"
-        }
-    ],
-    "gallery": [
-        {
-            "name": "Seasons",
-            "images": [
-                {
-                    "src": "https://seasons.com.sg"
-                }
-            ]
-        },
-        {
-            "name": "Animals",
-            "images": [
-                {
-                    "src": "https://animals.com.sg"
-                },
-                {
-                    "src": "https://animals2.com.sg"
-                }
-            ]
-        }
-    ]
+    "stroke": "#cacaff"
 };
 
-function createForm() {
+function createForm(data: any) {
+    const div = document.createElement("web-wrapper");
     // Create the form element
     const form = document.createElement('html-form');
 
@@ -127,21 +95,17 @@ function createForm() {
     form.appendChild(colorInput);
     form.appendChild(editableColor);
     form.appendChild(button);
-
-
+    div.appendChild(form);
+    form.data = data;
 
     // Append the form to the desired element (e.g., document.body or a specific container)
-    return form;
+    return div;
 }
 
 
 const meta: Meta<any> = {
     title: 'HtmlForm',
-    render: (args) => {
-        const el = createForm();
-        el.data = args.data
-        return el;
-    },
+    render: (args) => createForm(args.data),
     argTypes: {},
 };
 export default meta;

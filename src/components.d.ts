@@ -25,17 +25,11 @@ export namespace Components {
         "value": string;
     }
     interface ColorInput {
-        /**
-          * @default 'checkbox'
-         */
-        "appearance": 'checkbox' | 'input';
-        /**
-          * @default 'false'
-         */
-        "editable": string | undefined;
         "label"?: string;
         "name": string;
-        "swatches": string;
+        /**
+          * @default '#cacaca'
+         */
         "value": string;
     }
     interface ColorPicker {
@@ -43,11 +37,17 @@ export namespace Components {
         /**
           * @default false
          */
-        "editMode": boolean;
+        "editable": boolean;
         /**
           * @default []
          */
         "swatches": string[];
+    }
+    interface ColorSwatch {
+        "editable": boolean;
+        "label"?: string;
+        "name": string;
+        "value": string;
     }
     interface FileUploader {
         "label"?: string;
@@ -76,9 +76,6 @@ export namespace Components {
         "value": string;
     }
     interface HtmlForm {
-        /**
-          * @default {}
-         */
         "data": Record<string, any>;
         "formData": () => Promise<Record<string, any>>;
     }
@@ -274,6 +271,10 @@ export interface ColorPickerCustomEvent<T> extends CustomEvent<T> {
     detail: T;
     target: HTMLColorPickerElement;
 }
+export interface ColorSwatchCustomEvent<T> extends CustomEvent<T> {
+    detail: T;
+    target: HTMLColorSwatchElement;
+}
 export interface FileUploaderCustomEvent<T> extends CustomEvent<T> {
     detail: T;
     target: HTMLFileUploaderElement;
@@ -325,6 +326,24 @@ declare global {
     var HTMLColorPickerElement: {
         prototype: HTMLColorPickerElement;
         new (): HTMLColorPickerElement;
+    };
+    interface HTMLColorSwatchElementEventMap {
+        "colorChange": string;
+        "colorInput": string;
+    }
+    interface HTMLColorSwatchElement extends Components.ColorSwatch, HTMLStencilElement {
+        addEventListener<K extends keyof HTMLColorSwatchElementEventMap>(type: K, listener: (this: HTMLColorSwatchElement, ev: ColorSwatchCustomEvent<HTMLColorSwatchElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLColorSwatchElementEventMap>(type: K, listener: (this: HTMLColorSwatchElement, ev: ColorSwatchCustomEvent<HTMLColorSwatchElementEventMap[K]>) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
+    }
+    var HTMLColorSwatchElement: {
+        prototype: HTMLColorSwatchElement;
+        new (): HTMLColorSwatchElement;
     };
     interface HTMLFileUploaderElementEventMap {
         "fileInput": any;
@@ -670,6 +689,7 @@ declare global {
         "check-box": HTMLCheckBoxElement;
         "color-input": HTMLColorInputElement;
         "color-picker": HTMLColorPickerElement;
+        "color-swatch": HTMLColorSwatchElement;
         "file-uploader": HTMLFileUploaderElement;
         "font-picker": HTMLFontPickerElement;
         "html-form": HTMLHtmlFormElement;
@@ -739,19 +759,13 @@ declare namespace LocalJSX {
         "value"?: string;
     }
     interface ColorInput {
-        /**
-          * @default 'checkbox'
-         */
-        "appearance"?: 'checkbox' | 'input';
-        /**
-          * @default 'false'
-         */
-        "editable"?: string | undefined;
         "label"?: string;
         "name": string;
         "onColorChange"?: (event: ColorInputCustomEvent<string>) => void;
         "onColorInput"?: (event: ColorInputCustomEvent<string>) => void;
-        "swatches"?: string;
+        /**
+          * @default '#cacaca'
+         */
         "value"?: string;
     }
     interface ColorPicker {
@@ -759,7 +773,7 @@ declare namespace LocalJSX {
         /**
           * @default false
          */
-        "editMode"?: boolean;
+        "editable"?: boolean;
         "onColorChange"?: (event: ColorPickerCustomEvent<string>) => void;
         "onColorInput"?: (event: ColorPickerCustomEvent<string>) => void;
         "onSwatchChange"?: (event: ColorPickerCustomEvent<string[]>) => void;
@@ -767,6 +781,14 @@ declare namespace LocalJSX {
           * @default []
          */
         "swatches"?: string[];
+    }
+    interface ColorSwatch {
+        "editable"?: boolean;
+        "label"?: string;
+        "name": string;
+        "onColorChange"?: (event: ColorSwatchCustomEvent<string>) => void;
+        "onColorInput"?: (event: ColorSwatchCustomEvent<string>) => void;
+        "value"?: string;
     }
     interface FileUploader {
         "label"?: string;
@@ -796,9 +818,6 @@ declare namespace LocalJSX {
         "value"?: string;
     }
     interface HtmlForm {
-        /**
-          * @default {}
-         */
         "data"?: Record<string, any>;
     }
     interface IconAdd {
@@ -987,6 +1006,7 @@ declare namespace LocalJSX {
         "check-box": CheckBox;
         "color-input": ColorInput;
         "color-picker": ColorPicker;
+        "color-swatch": ColorSwatch;
         "file-uploader": FileUploader;
         "font-picker": FontPicker;
         "html-form": HtmlForm;
@@ -1049,6 +1069,7 @@ declare module "@stencil/core" {
             "check-box": LocalJSX.CheckBox & JSXBase.HTMLAttributes<HTMLCheckBoxElement>;
             "color-input": LocalJSX.ColorInput & JSXBase.HTMLAttributes<HTMLColorInputElement>;
             "color-picker": LocalJSX.ColorPicker & JSXBase.HTMLAttributes<HTMLColorPickerElement>;
+            "color-swatch": LocalJSX.ColorSwatch & JSXBase.HTMLAttributes<HTMLColorSwatchElement>;
             "file-uploader": LocalJSX.FileUploader & JSXBase.HTMLAttributes<HTMLFileUploaderElement>;
             "font-picker": LocalJSX.FontPicker & JSXBase.HTMLAttributes<HTMLFontPickerElement>;
             "html-form": LocalJSX.HtmlForm & JSXBase.HTMLAttributes<HTMLHtmlFormElement>;

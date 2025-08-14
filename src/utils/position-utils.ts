@@ -38,16 +38,16 @@ export function computePosition(parent: HTMLElement): TPosition {
   }
 
   const spaceRight = viewportWidth - (rect.right + options.spacing);
-  const spaceLeft = rect.left - options.spacing;
 
-  if (spaceLeft >= options.childWidth) {
-    verticalPosition.right = '0';
-  } else if (spaceRight >= options.childWidth) {
+  if (spaceRight >= options.childWidth) {
+    // enough space on the right → default position
     verticalPosition.left = '0';
+    verticalPosition.right = 'auto';
   } else {
-    verticalPosition.left = `${(rect.width - options.childWidth) / 2}px`;
+    // not enough space → align to right
+    verticalPosition.left = 'auto';
+    verticalPosition.right = '0';
   }
-
   return {
     top: verticalPosition.top || 'auto',
     bottom: verticalPosition.bottom || 'auto',

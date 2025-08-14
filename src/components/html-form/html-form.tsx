@@ -11,13 +11,14 @@ export class HtmlForm {
   @Element()
   el: HTMLElement
 
-  @Prop({ mutable: true })
-  data: Record<string, any> = {};
+  @Prop({ mutable: true, reflect: true })
+  data: Record<string, any>;
 
   ref: HTMLFormElement;
 
   @Watch("data")
   onDataChanges(newData: Record<string, any>) {
+    console.log(newData)
     this.setValue(newData);
   }
 
@@ -40,6 +41,7 @@ export class HtmlForm {
   }
 
   componentDidLoad() {
+    console.log(this.data)
     this.setValue(this.data);
   }
 
