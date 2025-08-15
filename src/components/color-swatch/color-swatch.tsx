@@ -1,5 +1,5 @@
 import { AttachInternals, Component, Element, h, Host, Prop, State, Event, EventEmitter, Watch } from '@stencil/core';
-import { computePosition, TPosition } from 'src/utils/position-utils';
+import { computePosition } from 'src/utils/position-utils';
 
 @Component({
   tag: 'color-swatch',
@@ -49,12 +49,12 @@ export class ColorSwatch {
 
   componentDidLoad() {
     document.addEventListener('keydown', this.handleKeydown);
-    document.addEventListener('click', this.handleOutsideClick);
+    document.addEventListener('pointerup', this.handleOutsideClick);
   }
 
   disconnectedCallback() {
     document.removeEventListener('keydown', this.handleKeydown);
-    document.removeEventListener('click', this.handleOutsideClick);
+    document.removeEventListener('pointerup', this.handleOutsideClick);
   }
 
   handleKeydown = (event: KeyboardEvent) => {
@@ -63,26 +63,14 @@ export class ColorSwatch {
     }
   };
 
-  handleOutsideClick = (event: MouseEvent) => {
-    if (!this.el?.contains(event.target as Node)) {
+  handleOutsideClick = (event: PointerEvent) => {
+    if (!this.colorPickRef?.contains(event.target as Node)) {
       this.isOpen = false;
     }
   };
 
-  onColorSelect = (e: any) => {
-    const color = e.detail;
-    this.value = color;
-    this.internals.setFormValue(this.value);
-  };
 
-  onSwatchChange(e: CustomEvent) {
-    this.swatchList = e.detail;
-    const swatches = this.swatchList.join(",");
-    this.value = swatches;
-    this.internals.setFormValue(this.value);
-  }
-
-  toggleColorPicker = (event: MouseEvent): void => {
+  toggleColorPicker = (event: PointerEvent): void => {
     event.stopPropagation();
     requestAnimationFrame(() => {
       this.isOpen = !this.isOpen;
@@ -96,6 +84,20 @@ export class ColorSwatch {
       }
     });
   };
+
+
+  onColorSelect = (e: any) => {
+    const color = e.detail;
+    this.value = color;
+    this.internals.setFormValue(this.value);
+  };
+
+  onSwatchChange(e: CustomEvent) {
+    this.swatchList = e.detail;
+    const swatches = this.swatchList.join(",");
+    this.value = swatches;
+    this.internals.setFormValue(this.value);
+  }
 
   renderColorPicker = () => {
     return (
@@ -117,17 +119,15 @@ export class ColorSwatch {
     return (
       <Host>
         <div class="form-element">
-          <label>
-            <button
+          <button onPointerUp={e => this.toggleColorPicker(e)}>
+            <div
+              class="clr-block"
               style={{ backgroundColor: this.value }}
               title="Pick color"
-              onClick={e => this.toggleColorPicker(e)}
               role="button">
-              <div class="clr-block">
-              </div>
-            </button>
-            <span> {this.label}</span>
-          </label>
+            </div>
+            <label> {this.label}</label>
+          </button>
           {this.renderColorPicker()}
         </div>
       </Host >

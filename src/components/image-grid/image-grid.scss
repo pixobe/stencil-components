@@ -1,0 +1,47 @@
+@use 'src/styles/button';
+:host {
+  display: block;
+  max-width: 500px;
+  margin: auto;
+  color: var(--text-secondary);
+
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 8px;
+  }
+
+  .grid-item {
+    position: relative;
+    .button-rounded {
+      position: absolute;
+      background-color: var(--tertiary-background);
+      top: -8px;
+      right: -8px;
+      .icon {
+        height: 16px;
+        width: 16px;
+      }
+      &:hover {
+        box-shadow: 0 0 1px 0 var(--box-shadow);
+        background-color: var(--quaternary-background);
+      }
+    }
+
+    .gallery-image {
+      width: 100%;
+      height: auto;
+      display: block;
+      object-fit: cover;
+      background: #f3f3f3;
+      min-height: 80px;
+    }
+  }
+
+  /* On small screens, full width */
+  @media (max-width: 600px) {
+    .grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+}

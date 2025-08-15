@@ -251,3 +251,11 @@ body {
   gap: 8px;
   flex-direction: column;
 }
+
+.hero {
+  background-image: url('assets/images/background.jpg');
+  background-size: cover;
+  background-position: center;
+  height: 100dvh;
+  width: 100dvw;
+}

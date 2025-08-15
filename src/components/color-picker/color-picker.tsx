@@ -120,12 +120,14 @@ export class ColorPicker {
   };
 
   onPointerDown = (e: PointerEvent) => {
+    e.stopPropagation();
     this.isPointerDown = true;
     this.coloringAreaRef.setPointerCapture(e.pointerId);
     this.onColorPickerMove(e);
   }
 
   onPointerUp = (e: PointerEvent) => {
+    e.stopPropagation();
     this.isPointerDown = false;
     if (e.pointerId) {
       try {
@@ -153,13 +155,13 @@ export class ColorPicker {
   }
 
   onSwatchSelected = (e: PointerEvent, color: string) => {
+    e.stopPropagation();
     if (this.editable) {
       const index = this.swatches.findIndex(swatch => swatch === color);
       this.swatches.splice(index, 1);
       this.swatches = [...this.swatches];
       this.swatchChangeEvent.emit(this.swatches);
     } else {
-      e.stopPropagation();
       this.currentColor = new Color({ hex: color, a: this.alpha });
       this.updateMarkerPositionFromColor();
       this.colorSelectEvent.emit(this.currentColor.hexa);
@@ -169,8 +171,7 @@ export class ColorPicker {
   render() {
     return (
       <Host>
-        <div class="clr-picker"
-          onPointerUp={this.onPointerUp}>
+        <div class="clr-picker" onPointerUp={this.onPointerUp}>
           <div id="clr-color-area" class="clr-matrix" role="application" style={{ color: this.matrixColor }}
             onPointerMove={(e) => this.onColorPickerMove(e)}
             onPointerDown={this.onPointerDown}
@@ -192,7 +193,7 @@ export class ColorPicker {
             </div>
             <div class="clr-info">
               <button id="clr-color-preview" class="clr-preview" type="button" aria-label="Current color" style={{ backgroundColor: this.currentColor.rgba }}></button>
-              <input id="clr-color-value" class="clr-code" type="text" aria-label="Color value field" value={this.currentColor.hexa} />
+              <input id="clr-color-value" class="clr-code" type="text" aria-label="Color value field" value={this.currentColor.hex} />
             </div>
 
             <div class="clr-swatches">

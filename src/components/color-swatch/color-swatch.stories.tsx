@@ -12,7 +12,6 @@ const meta: Meta<any> = {
     }
 
     const divWrap = document.createElement("div");
-    divWrap.classList.add("full-width")
     const el = document.createElement("color-swatch");
     el.label = args.label;
     el.name = args.name;

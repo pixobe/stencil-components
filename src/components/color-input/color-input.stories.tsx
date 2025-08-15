@@ -11,9 +11,7 @@ const meta: Meta<any> = {
       wrapper.classList.add(className)
     }
 
-    const divWrap = document.createElement("div");
-    divWrap.classList.add("full-width")
-    const el = document.createElement("color-swatch");
+    const el = document.createElement("color-input");
     el.label = args.label;
     el.name = args.name;
     el.value = args.value;
@@ -27,8 +25,7 @@ const meta: Meta<any> = {
     el.addEventListener('colorInput', (e: any) => {
       console.log("colorChange", e.detail)
     });
-    divWrap.appendChild(el)
-    wrapper.appendChild(divWrap);
+    wrapper.appendChild(el);
     return wrapper;
   },
   argTypes: {},
@@ -106,7 +103,6 @@ export const Swatches: Story = {
   args: {
     label: "Colors",
     value: '#ff0000',
-    swatches: ['#ff0000', '#ffAA00', '#ff00FF'].join(",")
   },
 };
 
@@ -114,7 +110,6 @@ export const BlockStyle: Story = {
   args: {
     label: "Colors",
     value: '#ff0000',
-    swatches: ['#ff0000', '#ffAA00', '#ff00FF'].join(","),
     style: "block-style"
   },
 };

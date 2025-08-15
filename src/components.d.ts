@@ -172,7 +172,18 @@ export namespace Components {
         "rounded": boolean;
     }
     interface ImageGallery {
-        "gallery": Gallery[];
+        /**
+          * @default "wp"
+         */
+        "platform": string;
+        "value": Gallery[];
+    }
+    interface ImageGrid {
+        /**
+          * Array of image URLs
+          * @default []
+         */
+        "images": string[];
     }
     interface InputText {
         "label"?: string;
@@ -224,13 +235,16 @@ export namespace Components {
          */
         "name": string;
     }
-    interface PixobeDialog {
-        "close": () => Promise<void>;
+    interface PixobeModal {
         /**
-          * @default true
+          * @default false
          */
-        "modal": boolean;
-        "open": () => Promise<void>;
+        "closeButton": boolean;
+        /**
+          * Control whether the modal is open
+          * @default false
+         */
+        "open": boolean;
     }
     interface PixobeSpinner {
         "header"?: string;
@@ -287,6 +301,14 @@ export interface ColorSwatchCustomEvent<T> extends CustomEvent<T> {
 export interface FileUploaderCustomEvent<T> extends CustomEvent<T> {
     detail: T;
     target: HTMLFileUploaderElement;
+}
+export interface ImageGalleryCustomEvent<T> extends CustomEvent<T> {
+    detail: T;
+    target: HTMLImageGalleryElement;
+}
+export interface ImageGridCustomEvent<T> extends CustomEvent<T> {
+    detail: T;
+    target: HTMLImageGridElement;
 }
 export interface MenuIconCustomEvent<T> extends CustomEvent<T> {
     detail: T;
@@ -629,11 +651,39 @@ declare global {
         prototype: HTMLIcontextGroupElement;
         new (): HTMLIcontextGroupElement;
     };
+    interface HTMLImageGalleryElementEventMap {
+        "mediaFrameEvent": { name: string };
+    }
     interface HTMLImageGalleryElement extends Components.ImageGallery, HTMLStencilElement {
+        addEventListener<K extends keyof HTMLImageGalleryElementEventMap>(type: K, listener: (this: HTMLImageGalleryElement, ev: ImageGalleryCustomEvent<HTMLImageGalleryElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLImageGalleryElementEventMap>(type: K, listener: (this: HTMLImageGalleryElement, ev: ImageGalleryCustomEvent<HTMLImageGalleryElementEventMap[K]>) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
     }
     var HTMLImageGalleryElement: {
         prototype: HTMLImageGalleryElement;
         new (): HTMLImageGalleryElement;
+    };
+    interface HTMLImageGridElementEventMap {
+        "imageDelete": string;
+    }
+    interface HTMLImageGridElement extends Components.ImageGrid, HTMLStencilElement {
+        addEventListener<K extends keyof HTMLImageGridElementEventMap>(type: K, listener: (this: HTMLImageGridElement, ev: ImageGridCustomEvent<HTMLImageGridElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLImageGridElementEventMap>(type: K, listener: (this: HTMLImageGridElement, ev: ImageGridCustomEvent<HTMLImageGridElementEventMap[K]>) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
+    }
+    var HTMLImageGridElement: {
+        prototype: HTMLImageGridElement;
+        new (): HTMLImageGridElement;
     };
     interface HTMLInputTextElement extends Components.InputText, HTMLStencilElement {
     }
@@ -670,11 +720,11 @@ declare global {
         prototype: HTMLPixobeBannerElement;
         new (): HTMLPixobeBannerElement;
     };
-    interface HTMLPixobeDialogElement extends Components.PixobeDialog, HTMLStencilElement {
+    interface HTMLPixobeModalElement extends Components.PixobeModal, HTMLStencilElement {
     }
-    var HTMLPixobeDialogElement: {
-        prototype: HTMLPixobeDialogElement;
-        new (): HTMLPixobeDialogElement;
+    var HTMLPixobeModalElement: {
+        prototype: HTMLPixobeModalElement;
+        new (): HTMLPixobeModalElement;
     };
     interface HTMLPixobeSpinnerElement extends Components.PixobeSpinner, HTMLStencilElement {
     }
@@ -756,11 +806,12 @@ declare global {
         "icon-wrench": HTMLIconWrenchElement;
         "icontext-group": HTMLIcontextGroupElement;
         "image-gallery": HTMLImageGalleryElement;
+        "image-grid": HTMLImageGridElement;
         "input-text": HTMLInputTextElement;
         "menu-icon": HTMLMenuIconElement;
         "multi-line": HTMLMultiLineElement;
         "pixobe-banner": HTMLPixobeBannerElement;
-        "pixobe-dialog": HTMLPixobeDialogElement;
+        "pixobe-modal": HTMLPixobeModalElement;
         "pixobe-spinner": HTMLPixobeSpinnerElement;
         "pixobe-tabs": HTMLPixobeTabsElement;
         "pixobe-toast": HTMLPixobeToastElement;
@@ -936,7 +987,20 @@ declare namespace LocalJSX {
         "rounded"?: boolean;
     }
     interface ImageGallery {
-        "gallery"?: Gallery[];
+        "onMediaFrameEvent"?: (event: ImageGalleryCustomEvent<{ name: string }>) => void;
+        /**
+          * @default "wp"
+         */
+        "platform"?: string;
+        "value"?: Gallery[];
+    }
+    interface ImageGrid {
+        /**
+          * Array of image URLs
+          * @default []
+         */
+        "images"?: string[];
+        "onImageDelete"?: (event: ImageGridCustomEvent<string>) => void;
     }
     interface InputText {
         "label"?: string;
@@ -989,11 +1053,16 @@ declare namespace LocalJSX {
          */
         "name"?: string;
     }
-    interface PixobeDialog {
+    interface PixobeModal {
         /**
-          * @default true
+          * @default false
          */
-        "modal"?: boolean;
+        "closeButton"?: boolean;
+        /**
+          * Control whether the modal is open
+          * @default false
+         */
+        "open"?: boolean;
     }
     interface PixobeSpinner {
         "header"?: string;
@@ -1084,11 +1153,12 @@ declare namespace LocalJSX {
         "icon-wrench": IconWrench;
         "icontext-group": IcontextGroup;
         "image-gallery": ImageGallery;
+        "image-grid": ImageGrid;
         "input-text": InputText;
         "menu-icon": MenuIcon;
         "multi-line": MultiLine;
         "pixobe-banner": PixobeBanner;
-        "pixobe-dialog": PixobeDialog;
+        "pixobe-modal": PixobeModal;
         "pixobe-spinner": PixobeSpinner;
         "pixobe-tabs": PixobeTabs;
         "pixobe-toast": PixobeToast;
@@ -1149,11 +1219,12 @@ declare module "@stencil/core" {
             "icon-wrench": LocalJSX.IconWrench & JSXBase.HTMLAttributes<HTMLIconWrenchElement>;
             "icontext-group": LocalJSX.IcontextGroup & JSXBase.HTMLAttributes<HTMLIcontextGroupElement>;
             "image-gallery": LocalJSX.ImageGallery & JSXBase.HTMLAttributes<HTMLImageGalleryElement>;
+            "image-grid": LocalJSX.ImageGrid & JSXBase.HTMLAttributes<HTMLImageGridElement>;
             "input-text": LocalJSX.InputText & JSXBase.HTMLAttributes<HTMLInputTextElement>;
             "menu-icon": LocalJSX.MenuIcon & JSXBase.HTMLAttributes<HTMLMenuIconElement>;
             "multi-line": LocalJSX.MultiLine & JSXBase.HTMLAttributes<HTMLMultiLineElement>;
             "pixobe-banner": LocalJSX.PixobeBanner & JSXBase.HTMLAttributes<HTMLPixobeBannerElement>;
-            "pixobe-dialog": LocalJSX.PixobeDialog & JSXBase.HTMLAttributes<HTMLPixobeDialogElement>;
+            "pixobe-modal": LocalJSX.PixobeModal & JSXBase.HTMLAttributes<HTMLPixobeModalElement>;
             "pixobe-spinner": LocalJSX.PixobeSpinner & JSXBase.HTMLAttributes<HTMLPixobeSpinnerElement>;
             "pixobe-tabs": LocalJSX.PixobeTabs & JSXBase.HTMLAttributes<HTMLPixobeTabsElement>;
             "pixobe-toast": LocalJSX.PixobeToast & JSXBase.HTMLAttributes<HTMLPixobeToastElement>;

@@ -1,5 +1,6 @@
-import { Component, Host, h, State, Prop } from '@stencil/core';
+import { Component, Host, h, State, Prop, Event, EventEmitter, Watch } from '@stencil/core';
 
+declare const wp: any;
 
 interface Gallery {
   name: string;
@@ -15,11 +16,16 @@ interface Gallery {
 export class ImageGallery {
 
   @Prop({ mutable: true })
-  gallery: Gallery[];
+  value: Gallery[];
 
+  @Prop()
+  platform: string = "wp";
 
   @State()
   newGalleryName: string = '';
+
+  @Event()
+  mediaFrameEvent: EventEmitter<{ name: string }>;
 
   private handleNameInput(event: Event) {
     const target = event.target as HTMLInputElement;
@@ -29,7 +35,7 @@ export class ImageGallery {
   private addGallery() {
     const name = this.newGalleryName.trim();
     if (!name) return;
-    this.gallery = [...this.gallery, { name, images: [] }];
+    this.value = [...this.value, { name, images: [] }];
     this.newGalleryName = '';
   }
 
@@ -39,13 +45,57 @@ export class ImageGallery {
     }
   }
 
-  private uploadImages(galleryIndex: number) {
-    console.log(`Upload clicked for gallery: ${this.gallery[galleryIndex].name}`);
+  private uploadImages(gallery: Gallery) {
+    if (this.platform === 'wp') {
+      this.uploadWordPress(gallery);
+    }
   }
 
-  private deleteImage(galleryIndex: number, imageIndex: number) {
-    this.gallery[galleryIndex].images = this.gallery[galleryIndex].images.filter((_, i) => i !== imageIndex);
-    this.gallery = [...this.gallery];
+  private deleteImage(galleryIndex: number, imageSrc: string) {
+    const newGallery = [...this.value];
+    newGallery[galleryIndex] = {
+      ...newGallery[galleryIndex],
+      images: newGallery[galleryIndex].images.filter(img => img !== imageSrc)
+    };
+    this.value = newGallery;
+  }
+
+  /**
+   * 
+   * @param e 
+   * @returns 
+   */
+  private uploadWordPress(gallery: Gallery) {
+    if (!gallery) {
+      alert("Gallery name is required.");
+      return;
+    }
+
+    if (!wp) {
+      alert("Unable to find Wordpress Environment");
+    }
+
+    const frame = wp.media({
+      title: "Select Image",
+      button: {
+        text: "Use this image",
+      },
+      multiple: "add",
+      library: {
+        type: "image",
+      },
+    });
+
+    frame.on("select", () => {
+      // Get media attachment details from the frame state
+      const attachments = frame.state().get("selection").toJSON();
+      if (attachments.length > 0) {
+        const images = attachments.map((attachment: any) => attachment.url);
+        gallery.images = [...gallery.images, ...images];
+        this.value = [...this.value];
+      }
+    });
+    frame.open();
   }
 
   render() {
@@ -64,29 +114,20 @@ export class ImageGallery {
           </div>
 
           <div class="gallery-list">
-            {this.gallery.length === 0 ? (
+            {this.value.length === 0 ? (
               <p class="empty-message">No galleries yet.</p>
             ) : (
-              this.gallery.map((gallery, index) => (
-                <div class="gallery-item">
+              this.value.map((gallery, index) => (
+                <div class="gallery-item" key={index}>
                   <div class="gallery-header">
                     <h3>{gallery.name}</h3>
-                    <button onClick={() => this.uploadImages(index)}>
+                    <button onClick={() => this.uploadImages(gallery)}>
                       <icon-add-image></icon-add-image>
                     </button>
                   </div>
-                  {gallery.images.length === 0 ? (
-                    <p class="no-images">No images yet.</p>
-                  ) : (
-                    <div class="image-list">
-                      {gallery.images.map((img, imageIndex) => (
-                        <div class="image-list__item">
-                          <img src={img} alt="Gallery image" />
-                          <button class="button-rounded" onClick={() => this.deleteImage(index, imageIndex)}><icon-close></icon-close></button>
-                        </div>
-                      ))}
-                    </div>
-                  )}
+                  <div class="gallery-content">
+                    <image-grid images={gallery.images} onImageDelete={(e) => this.deleteImage(index, e.detail)}></image-grid>
+                  </div>
                 </div>
               ))
             )}
