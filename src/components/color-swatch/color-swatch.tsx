@@ -45,7 +45,6 @@ export class ColorSwatch {
     if (this.value) {
       this.swatchList = this.value.split(",");
     }
-    console.log(this.swatchList, this.value)
   }
 
   componentDidLoad() {

@@ -171,6 +171,9 @@ export namespace Components {
          */
         "rounded": boolean;
     }
+    interface ImageGallery {
+        "gallery": Gallery[];
+    }
     interface InputText {
         "label"?: string;
         "name": string;
@@ -232,6 +235,12 @@ export namespace Components {
     interface PixobeSpinner {
         "header"?: string;
         "message"?: string;
+    }
+    interface PixobeTabs {
+        /**
+          * @default []
+         */
+        "tabs": string[];
     }
     interface PixobeToast {
         "message": string;
@@ -620,6 +629,12 @@ declare global {
         prototype: HTMLIcontextGroupElement;
         new (): HTMLIcontextGroupElement;
     };
+    interface HTMLImageGalleryElement extends Components.ImageGallery, HTMLStencilElement {
+    }
+    var HTMLImageGalleryElement: {
+        prototype: HTMLImageGalleryElement;
+        new (): HTMLImageGalleryElement;
+    };
     interface HTMLInputTextElement extends Components.InputText, HTMLStencilElement {
     }
     var HTMLInputTextElement: {
@@ -666,6 +681,12 @@ declare global {
     var HTMLPixobeSpinnerElement: {
         prototype: HTMLPixobeSpinnerElement;
         new (): HTMLPixobeSpinnerElement;
+    };
+    interface HTMLPixobeTabsElement extends Components.PixobeTabs, HTMLStencilElement {
+    }
+    var HTMLPixobeTabsElement: {
+        prototype: HTMLPixobeTabsElement;
+        new (): HTMLPixobeTabsElement;
     };
     interface HTMLPixobeToastElement extends Components.PixobeToast, HTMLStencilElement {
     }
@@ -734,12 +755,14 @@ declare global {
         "icon-whatsapp": HTMLIconWhatsappElement;
         "icon-wrench": HTMLIconWrenchElement;
         "icontext-group": HTMLIcontextGroupElement;
+        "image-gallery": HTMLImageGalleryElement;
         "input-text": HTMLInputTextElement;
         "menu-icon": HTMLMenuIconElement;
         "multi-line": HTMLMultiLineElement;
         "pixobe-banner": HTMLPixobeBannerElement;
         "pixobe-dialog": HTMLPixobeDialogElement;
         "pixobe-spinner": HTMLPixobeSpinnerElement;
+        "pixobe-tabs": HTMLPixobeTabsElement;
         "pixobe-toast": HTMLPixobeToastElement;
         "pixobe-watermark": HTMLPixobeWatermarkElement;
         "select-menu": HTMLSelectMenuElement;
@@ -912,6 +935,9 @@ declare namespace LocalJSX {
          */
         "rounded"?: boolean;
     }
+    interface ImageGallery {
+        "gallery"?: Gallery[];
+    }
     interface InputText {
         "label"?: string;
         "name": string;
@@ -972,6 +998,12 @@ declare namespace LocalJSX {
     interface PixobeSpinner {
         "header"?: string;
         "message"?: string;
+    }
+    interface PixobeTabs {
+        /**
+          * @default []
+         */
+        "tabs"?: string[];
     }
     interface PixobeToast {
         "message"?: string;
@@ -1051,12 +1083,14 @@ declare namespace LocalJSX {
         "icon-whatsapp": IconWhatsapp;
         "icon-wrench": IconWrench;
         "icontext-group": IcontextGroup;
+        "image-gallery": ImageGallery;
         "input-text": InputText;
         "menu-icon": MenuIcon;
         "multi-line": MultiLine;
         "pixobe-banner": PixobeBanner;
         "pixobe-dialog": PixobeDialog;
         "pixobe-spinner": PixobeSpinner;
+        "pixobe-tabs": PixobeTabs;
         "pixobe-toast": PixobeToast;
         "pixobe-watermark": PixobeWatermark;
         "select-menu": SelectMenu;
@@ -1114,12 +1148,14 @@ declare module "@stencil/core" {
             "icon-whatsapp": LocalJSX.IconWhatsapp & JSXBase.HTMLAttributes<HTMLIconWhatsappElement>;
             "icon-wrench": LocalJSX.IconWrench & JSXBase.HTMLAttributes<HTMLIconWrenchElement>;
             "icontext-group": LocalJSX.IcontextGroup & JSXBase.HTMLAttributes<HTMLIcontextGroupElement>;
+            "image-gallery": LocalJSX.ImageGallery & JSXBase.HTMLAttributes<HTMLImageGalleryElement>;
             "input-text": LocalJSX.InputText & JSXBase.HTMLAttributes<HTMLInputTextElement>;
             "menu-icon": LocalJSX.MenuIcon & JSXBase.HTMLAttributes<HTMLMenuIconElement>;
             "multi-line": LocalJSX.MultiLine & JSXBase.HTMLAttributes<HTMLMultiLineElement>;
             "pixobe-banner": LocalJSX.PixobeBanner & JSXBase.HTMLAttributes<HTMLPixobeBannerElement>;
             "pixobe-dialog": LocalJSX.PixobeDialog & JSXBase.HTMLAttributes<HTMLPixobeDialogElement>;
             "pixobe-spinner": LocalJSX.PixobeSpinner & JSXBase.HTMLAttributes<HTMLPixobeSpinnerElement>;
+            "pixobe-tabs": LocalJSX.PixobeTabs & JSXBase.HTMLAttributes<HTMLPixobeTabsElement>;
             "pixobe-toast": LocalJSX.PixobeToast & JSXBase.HTMLAttributes<HTMLPixobeToastElement>;
             "pixobe-watermark": LocalJSX.PixobeWatermark & JSXBase.HTMLAttributes<HTMLPixobeWatermarkElement>;
             "select-menu": LocalJSX.SelectMenu & JSXBase.HTMLAttributes<HTMLSelectMenuElement>;

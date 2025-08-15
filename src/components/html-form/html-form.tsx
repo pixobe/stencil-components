@@ -18,7 +18,6 @@ export class HtmlForm {
 
   @Watch("data")
   onDataChanges(newData: Record<string, any>) {
-    console.log(newData)
     this.setValue(newData);
   }
 
@@ -41,7 +40,6 @@ export class HtmlForm {
   }
 
   componentDidLoad() {
-    console.log(this.data)
     this.setValue(this.data);
   }
 

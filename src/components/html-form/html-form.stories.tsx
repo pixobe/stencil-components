@@ -2,13 +2,16 @@ import type { Meta, StoryObj } from '@storybook/html-vite';
 
 const data = {
     "preview": true,
-    "stroke": "#cacaff"
+    "stroke": "#000000"
 };
 
 function createForm(data: any) {
-    const div = document.createElement("web-wrapper");
     // Create the form element
     const form = document.createElement('html-form');
+
+    const div = document.createElement("web-wrapper");
+
+    div.classList.add('flex');
 
     // Create the checkbox
     const checkbox = document.createElement('check-box');
@@ -19,9 +22,8 @@ function createForm(data: any) {
     const colorInput = document.createElement('color-input');
     colorInput.setAttribute('label', 'Text Color');
     colorInput.setAttribute('name', 'stroke');
-    colorInput.setAttribute('value', '#ff00ff');
 
-    const editableColor = document.createElement('color-input');
+    const editableColor = document.createElement('color-swatch');
     editableColor.setAttribute('label', 'Colors');
     editableColor.setAttribute('name', 'colors');
     editableColor.setAttribute('editable', 'true');
@@ -79,9 +81,7 @@ function createForm(data: any) {
     })
 
     // Append all elements to the desired container
-    form.appendChild(checkbox);
-
-
+    div.appendChild(checkbox);
 
     // form.appendChild(inputText2);
     // form.appendChild(inputText3);
@@ -92,14 +92,17 @@ function createForm(data: any) {
     // form.appendChild(inputText8);
     // form.appendChild(inputText9);
     // form.appendChild(inputText10);
-    form.appendChild(colorInput);
-    form.appendChild(editableColor);
-    form.appendChild(button);
-    div.appendChild(form);
+    div.appendChild(colorInput);
+    div.appendChild(editableColor);
+    div.appendChild(button);
+
     form.data = data;
 
+
+    form.appendChild(div);
+
     // Append the form to the desired element (e.g., document.body or a specific container)
-    return div;
+    return form;
 }
 
 

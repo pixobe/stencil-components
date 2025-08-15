@@ -90,21 +90,17 @@
   --text-primary: oklch(0.2 0.03 260);
   --text-secondary: oklch(0.4 0.02 260);
   --text-tertiary: oklch(0.7 0.01 260);
-
   --primary-background: #f5f5f5;
   --secondary-background: oklch(0.96 0 0);
   --tertiary-background: oklch(0.92 0 0);
   --quaternary-background: oklch(0.88 0 0);
-
   --button-primary: oklch(0.65 0.15 230);
   --button-text-primary: oklch(0.98 0 0);
   --button-secondary: oklch(0.85 0.02 250);
   --button-text-secondary: oklch(0.3 0.01 260);
-
   --icon-bg: var(--tertiary-background);
   --icon-border: var(--tertiary-background);
   --icon-color: var(--text-secondary);
-
   --box-shadow: oklch(0.9 0 0);
   --placeholder: oklch(0.68 0.01 260);
 
@@ -248,4 +244,10 @@ body {
 
 .full-width {
   width: 100%;
+}
+
+.flex {
+  display: flex;
+  gap: 8px;
+  flex-direction: column;
 }

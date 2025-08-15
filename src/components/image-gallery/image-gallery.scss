@@ -1,0 +1,84 @@
+@use 'src/styles/button';
+
+:host {
+  display: block;
+  .gallery-container {
+    font-family: sans-serif;
+    max-width: 500px;
+  }
+
+  .gallery-input {
+    display: flex;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+
+    input {
+      flex: 1;
+      padding: 0.5rem;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+
+    button {
+      padding: 0.5rem 1rem;
+      background: #0078d7;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+  }
+
+  .gallery-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .gallery-item {
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    padding: 0.75rem;
+  }
+
+  .gallery-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .no-images {
+    color: #999;
+  }
+
+  .image-list {
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+
+    .image-list__item {
+      position: relative;
+      .button-rounded {
+        position: absolute;
+        background-color: var(--tertiary-background);
+        top: -5px;
+        right: -5px;
+        .icon {
+          height: 16px;
+          width: 16px;
+        }
+        &:hover {
+          box-shadow: 0 0 1px 0 var(--box-shadow);
+          background-color: var(--quaternary-background);
+        }
+      }
+
+      img {
+        width: 100px;
+        height: 100px;
+        object-fit: cover;
+        border-radius: 4px;
+      }
+    }
+  }
+}
