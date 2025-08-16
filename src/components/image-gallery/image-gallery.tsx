@@ -1,4 +1,4 @@
-import { Component, Host, h, State, Prop, Event, EventEmitter, Watch } from '@stencil/core';
+import { Component, Host, h, State, Prop, Event, EventEmitter, Watch, AttachInternals } from '@stencil/core';
 
 declare const wp: any;
 
@@ -12,20 +12,36 @@ interface Gallery {
   tag: 'image-gallery',
   styleUrl: 'image-gallery.scss',
   shadow: true,
+  formAssociated: true
 })
 export class ImageGallery {
 
+
+  @Prop({ reflect: true })
+  name!: string;
+
   @Prop({ mutable: true })
-  value: Gallery[];
+  value: Gallery[] = [];
 
   @Prop()
-  platform: string = "wp";
+  platform: string;
 
   @State()
   newGalleryName: string = '';
 
   @Event()
   mediaFrameEvent: EventEmitter<{ name: string }>;
+
+  @AttachInternals()
+  internals!: ElementInternals;
+
+  componentWillLoad() {
+    this.internals.setFormValue(JSON.stringify(this.value));
+  }
+
+  componentDidRender() {
+    this.internals.setFormValue(JSON.stringify(this.value));
+  }
 
   private handleNameInput(event: Event) {
     const target = event.target as HTMLInputElement;
@@ -114,10 +130,10 @@ export class ImageGallery {
           </div>
 
           <div class="gallery-list">
-            {this.value.length === 0 ? (
+            {this.value?.length === 0 ? (
               <p class="empty-message">No galleries yet.</p>
             ) : (
-              this.value.map((gallery, index) => (
+              this.value?.map((gallery, index) => (
                 <div class="gallery-item" key={index}>
                   <div class="gallery-header">
                     <h3>{gallery.name}</h3>

@@ -2,7 +2,8 @@ import type { Meta, StoryObj } from '@storybook/html-vite';
 
 const data = {
     "preview": true,
-    "stroke": "#000000"
+    "stroke": "#000000",
+    "colors": "#cacaca,#aa00ee,#00ff00,#0000ff"
 };
 
 function createForm(data: any) {

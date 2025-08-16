@@ -168,6 +168,15 @@ export class ColorPicker {
     }
   }
 
+  handleHexKeyDown(event: KeyboardEvent) {
+    if (event.key === 'Enter') {
+      const color = (event.target as HTMLInputElement).value;
+      this.currentColor = new Color({ hex: color, a: this.alpha });
+      this.updateMarkerPositionFromColor();
+      this.colorChangeEvent.emit(this.currentColor.hexa);
+    }
+  }
+
   render() {
     return (
       <Host>
@@ -193,7 +202,14 @@ export class ColorPicker {
             </div>
             <div class="clr-info">
               <button id="clr-color-preview" class="clr-preview" type="button" aria-label="Current color" style={{ backgroundColor: this.currentColor.rgba }}></button>
-              <input id="clr-color-value" class="clr-code" type="text" aria-label="Color value field" value={this.currentColor.hex} />
+              <input
+                id="clr-color-value"
+                class="clr-code"
+                type="text"
+                aria-label="Color value field"
+                value={this.currentColor.hex}
+                name="hex"
+                onKeyDown={this.handleHexKeyDown.bind(this)} />
             </div>
 
             <div class="clr-swatches">
@@ -212,6 +228,3 @@ export class ColorPicker {
     );
   }
 }
-
-
-

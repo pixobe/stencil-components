@@ -13,6 +13,12 @@
 
   .grid-item {
     position: relative;
+    border: 1px solid var(--tertiary-background);
+    border-radius: 4px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
     .button-rounded {
       position: absolute;
       background-color: var(--tertiary-background);
@@ -33,7 +39,7 @@
       height: auto;
       display: block;
       object-fit: cover;
-      background: #f3f3f3;
+      background: var(--tertiary-background);
       min-height: 80px;
     }
   }
@@ -43,5 +49,11 @@
     .grid {
       grid-template-columns: repeat(2, 1fr);
     }
+  }
+}
+
+:host(.view-only) {
+  .button-delete {
+    display: none;
   }
 }

@@ -23,6 +23,6 @@ export const NoValue: Story = {
 export const DefaultValue: Story = {
   args: {
     label: "Colors",
-    value: '#ff0000'
+    value: 'true'
   },
 };

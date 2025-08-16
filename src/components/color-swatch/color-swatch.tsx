@@ -11,7 +11,7 @@ export class ColorSwatch {
   @Element()
   el: HTMLElement;
 
-  @Prop({ reflect: true, mutable: true })
+  @Prop({ reflect: true })
   name!: string;
 
   @Prop({ reflect: true, mutable: true })
@@ -40,7 +40,7 @@ export class ColorSwatch {
 
   colorPickRef: HTMLColorPickerElement;
 
-  componentWillLoad() {
+  componentWillRender() {
     this.internals.setFormValue(this.value);
     if (this.value) {
       this.swatchList = this.value.split(",");

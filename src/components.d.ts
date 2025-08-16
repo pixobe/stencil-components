@@ -172,10 +172,11 @@ export namespace Components {
         "rounded": boolean;
     }
     interface ImageGallery {
-        /**
-          * @default "wp"
-         */
+        "name": string;
         "platform": string;
+        /**
+          * @default []
+         */
         "value": Gallery[];
     }
     interface ImageGrid {
@@ -184,6 +185,7 @@ export namespace Components {
           * @default []
          */
         "images": string[];
+        "viewonly": boolean;
     }
     interface InputText {
         "label"?: string;
@@ -670,6 +672,7 @@ declare global {
     };
     interface HTMLImageGridElementEventMap {
         "imageDelete": string;
+        "imageSelect": string;
     }
     interface HTMLImageGridElement extends Components.ImageGrid, HTMLStencilElement {
         addEventListener<K extends keyof HTMLImageGridElementEventMap>(type: K, listener: (this: HTMLImageGridElement, ev: ImageGridCustomEvent<HTMLImageGridElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
@@ -987,11 +990,12 @@ declare namespace LocalJSX {
         "rounded"?: boolean;
     }
     interface ImageGallery {
+        "name": string;
         "onMediaFrameEvent"?: (event: ImageGalleryCustomEvent<{ name: string }>) => void;
-        /**
-          * @default "wp"
-         */
         "platform"?: string;
+        /**
+          * @default []
+         */
         "value"?: Gallery[];
     }
     interface ImageGrid {
@@ -1001,6 +1005,8 @@ declare namespace LocalJSX {
          */
         "images"?: string[];
         "onImageDelete"?: (event: ImageGridCustomEvent<string>) => void;
+        "onImageSelect"?: (event: ImageGridCustomEvent<string>) => void;
+        "viewonly"?: boolean;
     }
     interface InputText {
         "label"?: string;

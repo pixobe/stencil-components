@@ -9,10 +9,17 @@ export class ImageGrid {
   @Element() el: HTMLElement;
 
   /** Array of image URLs */
-  @Prop() images: string[] = [];
+  @Prop()
+  images: string[] = [];
+
+  @Prop()
+  viewonly: boolean;
 
   @Event({ eventName: "imageDelete" })
   imageDeleteEvent: EventEmitter<string>;
+
+  @Event({ eventName: "imageSelect" })
+  imageSelectEvent: EventEmitter<string>;
 
   private observer: IntersectionObserver;
 
@@ -43,19 +50,23 @@ export class ImageGrid {
     imgs.forEach(img => this.observer.observe(img));
   }
 
-  render() {
+  private onImageSelectEvent(src: string) {
+    this.imageSelectEvent.emit(src)
+  }
 
+  render() {
     if (!this.images?.length) {
       return <Host>Upload images to the gallery.</Host>
     }
-
     return (
-      <Host>
+      <Host class={{ "view-only": this.viewonly }}>
         <div class="grid">
           {this.images.map((src, idx) => (
             <div class="grid-item">
-              <img class="gallery-image" data-src={src} alt={`image-${idx}`} src={src} />
-              <button class="button-rounded" onClick={() => this.imageDeleteEvent.emit(src)}>
+              <button onClick={() => this.onImageSelectEvent(src)}>
+                <img class="gallery-image" data-src={src} alt={`image-${idx}`} src={src} />
+              </button>
+              <button class="button-rounded button-delete" onClick={() => this.imageDeleteEvent.emit(src)}>
                 <icon-close></icon-close>
               </button>
             </div>

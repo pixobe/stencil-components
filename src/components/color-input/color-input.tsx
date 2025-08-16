@@ -12,7 +12,7 @@ export class ColorSwatch {
   @Element()
   el: HTMLElement;
 
-  @Prop({ reflect: true, mutable: true })
+  @Prop({ reflect: true })
   name!: string;
 
   @Prop({ reflect: true, mutable: true })

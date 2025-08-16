@@ -8,17 +8,22 @@ import { Component, Host, h, Prop, Element, State } from '@stencil/core';
 
 export class PixobeToast {
   @Element() el: HTMLElement;
-  @Prop() message: string;
-  @Prop() status: 'success' | 'error' = 'success';
-  @Prop() timeout: number = 5;
-  @State() isClosing: boolean = false;
+  @Prop()
+  message: string;
+  @Prop()
+  status: 'success' | 'error' = 'success';
+  @Prop()
+  timeout: number = 5;
+  @State()
+  isClosing: boolean = false;
 
-  private fadeTimeout: number;
+  private fadeTimeout: any;
 
   componentDidLoad() {
-    this.fadeTimeout = window.setTimeout(() => {
+    const timeout = this.timeout || 5;
+    this.fadeTimeout = setTimeout(() => {
       this.closeToast();
-    }, this.timeout * 1000);
+    }, timeout * 1000);
   }
 
   disconnectedCallback() {
