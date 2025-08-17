@@ -20,10 +20,10 @@ const meta: Meta<any> = {
       el.classList.add(args.style);
 
     el.addEventListener('colorChange', (e: any) => {
-      console.log("color selected:: ", e.detail)
+      console.log("colorChange:: ", e.detail)
     });
     el.addEventListener('colorInput', (e: any) => {
-      console.log("colorChange", e.detail)
+      console.log("colorInput::", e.detail)
     });
     wrapper.appendChild(el);
     return wrapper;

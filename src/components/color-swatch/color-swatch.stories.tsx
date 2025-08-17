@@ -40,14 +40,12 @@ type Story = StoryObj<any>;
 export const Primary: Story = {
   args: {
     label: "Text Color",
-    value: '#000fff'
   },
 };
 
 export const FullWidth: Story = {
   args: {
     label: "Please select the color that fits best on the rendered Product item, and click save once color is selected",
-    value: '#ff0000',
     appearance: 'input'
   },
 };
@@ -90,21 +88,21 @@ export const EditMode: Story = {
   args: {
     label: "Colors",
     editable: true,
-    value: ['#ff0000', '#ffAA00', '#ff00FF'].join(",")
+    value: "#ff0000,#00ff00,#0000ff"
   },
 };
 
 export const Swatches: Story = {
   args: {
     label: "Colors",
-    value: ['#ff0000', '#ffAA00', '#ff00FF'].join(",")
+    value: "#ff0000,#00ff00,#0000ff"
   },
 };
 
 export const BlockStyle: Story = {
   args: {
     label: "Colors",
-    value: ['#ff0000', '#ffAA00', '#ff00FF'].join(","),
+    value: "#ff0000,#00ff00,#0000ff",
     style: "block-style"
   },
 };

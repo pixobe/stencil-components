@@ -39,27 +39,34 @@ export class ColorPicker {
   @Element()
   el: HTMLElement;
 
-  @Prop({ mutable: true, reflect: true })
+  @Prop({ reflect: true })
   color: string;
 
-  @Prop({ mutable: true })
-  swatches: string[] = [];
+  @Prop()
+  swatches: string;
 
   @Prop()
   editable: boolean = false;
 
   @Event({ eventName: "colorChange", bubbles: true, composed: true })
-  colorSelectEvent: EventEmitter<string>;
+  colorChangeEvent: EventEmitter<string>;
+
+  @Event({ eventName: "colorInput", bubbles: true, composed: true })
+  colorInputEvent: EventEmitter<string>;
 
   @Event({ eventName: "swatchUpdate", bubbles: true, composed: true })
-  swatchUpdateEvent: EventEmitter<string[]>;
+  swatchUpdateEvent: EventEmitter<string>;
 
   @State()
   currentColor: Color;
 
   @State()
+  swatchList: string[] = []
+
+  @State()
   alpha: number = 1;
 
+  currentPoint: { x: number, y: number } = { x: 0, y: 0 };
   coloringAreaRef: HTMLDivElement;
   markerRef: HTMLDivElement;
   isPointerDown: boolean = false;
@@ -71,10 +78,10 @@ export class ColorPicker {
 
   @CssVars
   componentWillLoad() {
-    this.swatches = this.swatches ? this.swatches : [];
-    this.color = this.color ? this.color : "#000000";
+    this.swatchList = this.swatches ? this.swatches.split(",") : [];
     this.alpha = this.alpha ? this.alpha : 1;
-    this.currentColor = new Color({ hex: this.color, a: this.alpha });
+    const color = this.color ?? this.swatchList[0] ?? "#cacaca";
+    this.currentColor = new Color({ hex: color, a: this.alpha });
   }
 
   componentDidLoad() {
@@ -102,6 +109,7 @@ export class ColorPicker {
     const rect = this.coloringAreaRef.getBoundingClientRect();
     const x = Math.max(0, Math.min(rect.width, e.clientX - rect.left));
     const y = Math.max(0, Math.min(rect.height, e.clientY - rect.top));
+
     // Move the marker
     const marker = this.markerRef;
     if (marker) {
@@ -113,7 +121,7 @@ export class ColorPicker {
     const l = 100 - (y / rect.height) * 100;
     // Convert to RGBA
     this.currentColor = new Color({ hsl: { h, s, l }, a: this.alpha });
-    this.colorSelectEvent.emit(this.currentColor.hexa);
+    this.colorInputEvent.emit(this.currentColor.hexa);
   };
 
   onPointerDown = (e: PointerEvent) => {
@@ -133,7 +141,7 @@ export class ColorPicker {
         console.error(e);
       }
     }
-    this.colorSelectEvent.emit(this.currentColor.hexa);
+    this.colorChangeEvent.emit(this.currentColor.hexa);
   }
 
   updateMarkerPositionFromColor() {
@@ -147,21 +155,22 @@ export class ColorPicker {
   }
 
   addSwatch = (color: string) => {
-    this.swatches = [...this.swatches, color];
-    this.swatchUpdateEvent.emit(this.swatches);
+    this.swatchList.push(color);
+    this.swatchList = [...this.swatchList];
+    this.swatchUpdateEvent.emit(this.swatchList.join(","));
   }
 
   onSwatchSelected = (e: PointerEvent, color: string) => {
     e.stopPropagation();
     if (this.editable) {
-      const index = this.swatches.findIndex(swatch => swatch === color);
-      this.swatches.splice(index, 1);
-      this.swatches = [...this.swatches];
-      this.swatchUpdateEvent.emit(this.swatches);
+      const index = this.swatchList.findIndex(swatch => swatch === color);
+      this.swatchList.splice(index, 1);
+      this.swatchList = [...this.swatchList];
+      this.swatchUpdateEvent.emit(this.swatchList.join(","));
     } else {
       this.currentColor = new Color({ hex: color, a: this.alpha });
       this.updateMarkerPositionFromColor();
-      this.colorSelectEvent.emit(this.currentColor.hexa);
+      this.colorChangeEvent.emit(this.currentColor.hexa);
     }
   }
 
@@ -170,7 +179,7 @@ export class ColorPicker {
       const color = (event.target as HTMLInputElement).value;
       this.currentColor = new Color({ hex: color, a: this.alpha });
       this.updateMarkerPositionFromColor();
-      this.colorSelectEvent.emit(this.currentColor.hexa);
+      this.colorChangeEvent.emit(this.currentColor.hexa);
     }
   }
 
@@ -211,12 +220,16 @@ export class ColorPicker {
 
             <div class="clr-swatches">
               {
-                this.swatches?.map(swatch => (
-                  <button style={{ backgroundColor: swatch }} class='clr-swatch' onClick={(e) => this.onSwatchSelected(e, swatch)}>
+                this.swatchList?.map(swatch => (
+                  <button
+                    style={{ backgroundColor: swatch }}
+                    class='clr-swatch'
+                    onPointerUp={(e) => this.onSwatchSelected(e, swatch)}>
                   </button>))
               }
               {
-                this.editable && <button class='clr-add' onClick={() => this.addSwatch(this.currentColor.hex)}><icon-add></icon-add></button>
+                this.editable &&
+                <button class='clr-add' onPointerUp={() => this.addSwatch(this.currentColor.hex)}><icon-add></icon-add></button>
               }
             </div>
           </div>

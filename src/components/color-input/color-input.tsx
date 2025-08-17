@@ -21,21 +21,16 @@ export class ColorInput {
   @Element() el: HTMLElement;
 
   @Prop({ reflect: true }) name!: string;
-  @Prop({ reflect: true, mutable: true }) value: string = '#cacaca';
+  @Prop({ reflect: true, mutable: true }) value: string;
   @Prop({ reflect: true }) label?: string;
 
   @AttachInternals() internals!: ElementInternals;
 
   @State() isOpen: boolean = false;
-
   @Event() colorChange: EventEmitter<string>;
-  @Event() colorSelect: EventEmitter<string>;
-
-  private colorPickRef: HTMLColorPickerElement;
-  private buttonRef: HTMLButtonElement;
+  @Event() colorInput: EventEmitter<string>;
 
   componentWillLoad() {
-    // Initialize form value
     this.internals.setFormValue(this.value);
   }
 
@@ -66,7 +61,7 @@ export class ColorInput {
       requestAnimationFrame(() => {
         const wrapper = this.el.shadowRoot?.querySelector('.clrpick-wrap') as HTMLDivElement;
         if (wrapper) {
-          const pos = computePosition(wrapper);
+          const pos = computePosition(this.el);
           Object.assign(wrapper.style, {
             top: pos.top,
             bottom: pos.bottom,
@@ -87,13 +82,23 @@ export class ColorInput {
     });
   };
 
+  private onColorInput = (event: CustomEvent<string>) => {
+    const color = event.detail;
+    requestAnimationFrame(() => {
+      this.value = color;
+      this.internals.setFormValue(this.value);
+      this.colorInput.emit(this.value);
+    });
+  };
+
+
   private renderColorPicker = () => (
     <div class="clrpick-wrap" onClick={e => e.stopPropagation()}>
       {this.isOpen && (
         <color-picker
-          ref={el => (this.colorPickRef = el!)}
           color={this.value}
           onColorChange={this.onColorChange}
+          onColorInput={this.onColorInput}
         ></color-picker>
       )}
     </div>
@@ -104,7 +109,6 @@ export class ColorInput {
       <Host>
         <div class="form-element">
           <button
-            ref={el => (this.buttonRef = el!)}
             onPointerUp={e => this.toggleColorPicker(e)}
             type="button"
           >
@@ -115,8 +119,8 @@ export class ColorInput {
               role="button"
             />
             <label>{this.label}</label>
-            {this.renderColorPicker()}
           </button>
+          {this.renderColorPicker()}
         </div>
       </Host>
     );

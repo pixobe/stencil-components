@@ -11,6 +11,10 @@ const meta: Meta<any> = {
     el.addEventListener("colorChange", (e) => {
       console.log("Color Changed", e.detail)
     });
+    el.addEventListener("colorInput", (e) => {
+      console.log("Color Input", e.detail)
+    });
+
     return el;
 
   },
@@ -20,11 +24,10 @@ export default meta;
 type Story = StoryObj<any>;
 
 
-
 export const TopLeft: Story = {
   args: {
     color: '#ff0000',
-    swatches: ['#ff0000ff', '#00ff00', '#ff00ff7a']
+    swatches: ['#ff0000ff', '#00ff00', '#ff00ff7a'].join(",")
   },
 };
 
@@ -32,7 +35,7 @@ export const EditMode: Story = {
   args: {
     color: '#ff00ff',
     editMode: true,
-    swatches: ['#ff0000', '#00ff00', '#0000ff']
+    swatches: ['#ff0000', '#00ff00', '#0000ff'].join(",")
   },
 };
 

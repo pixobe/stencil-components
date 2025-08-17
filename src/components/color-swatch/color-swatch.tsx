@@ -35,16 +35,10 @@ export class ColorSwatch {
   @Event()
   colorInput: EventEmitter<string>;
 
-  @State()
-  swatchList: string[] = [];
-
   colorPickRef: HTMLColorPickerElement;
 
   componentWillRender() {
     this.internals.setFormValue(this.value);
-    if (this.value) {
-      this.swatchList = this.value.split(",");
-    }
   }
 
   componentDidLoad() {
@@ -93,9 +87,7 @@ export class ColorSwatch {
   };
 
   onSwatchUpdate(e: CustomEvent) {
-    this.swatchList = e.detail;
-    const swatches = this.swatchList.join(",");
-    this.value = swatches;
+    this.value = e.detail;
     this.internals.setFormValue(this.value);
   }
 
@@ -108,7 +100,7 @@ export class ColorSwatch {
             ref={el => (this.colorPickRef = el!)}
             onColorChange={e => this.onColorSelect(e)}
             onSwatchUpdate={(e) => this.onSwatchUpdate(e)}
-            swatches={this.swatchList}></color-picker>
+            swatches={this.value}></color-picker>
         )}
       </div>
     )

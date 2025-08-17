@@ -27,9 +27,6 @@ export namespace Components {
     interface ColorInput {
         "label"?: string;
         "name": string;
-        /**
-          * @default '#cacaca'
-         */
         "value": string;
     }
     interface ColorPicker {
@@ -38,10 +35,7 @@ export namespace Components {
           * @default false
          */
         "editable": boolean;
-        /**
-          * @default []
-         */
-        "swatches": string[];
+        "swatches": string;
     }
     interface ColorSwatch {
         "editable": boolean;
@@ -325,7 +319,7 @@ declare global {
     };
     interface HTMLColorInputElementEventMap {
         "colorChange": string;
-        "colorSelect": string;
+        "colorInput": string;
     }
     interface HTMLColorInputElement extends Components.ColorInput, HTMLStencilElement {
         addEventListener<K extends keyof HTMLColorInputElementEventMap>(type: K, listener: (this: HTMLColorInputElement, ev: ColorInputCustomEvent<HTMLColorInputElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
@@ -343,7 +337,8 @@ declare global {
     };
     interface HTMLColorPickerElementEventMap {
         "colorChange": string;
-        "swatchUpdate": string[];
+        "colorInput": string;
+        "swatchUpdate": string;
     }
     interface HTMLColorPickerElement extends Components.ColorPicker, HTMLStencilElement {
         addEventListener<K extends keyof HTMLColorPickerElementEventMap>(type: K, listener: (this: HTMLColorPickerElement, ev: ColorPickerCustomEvent<HTMLColorPickerElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
@@ -838,10 +833,7 @@ declare namespace LocalJSX {
         "label"?: string;
         "name": string;
         "onColorChange"?: (event: ColorInputCustomEvent<string>) => void;
-        "onColorSelect"?: (event: ColorInputCustomEvent<string>) => void;
-        /**
-          * @default '#cacaca'
-         */
+        "onColorInput"?: (event: ColorInputCustomEvent<string>) => void;
         "value"?: string;
     }
     interface ColorPicker {
@@ -851,11 +843,9 @@ declare namespace LocalJSX {
          */
         "editable"?: boolean;
         "onColorChange"?: (event: ColorPickerCustomEvent<string>) => void;
-        "onSwatchUpdate"?: (event: ColorPickerCustomEvent<string[]>) => void;
-        /**
-          * @default []
-         */
-        "swatches"?: string[];
+        "onColorInput"?: (event: ColorPickerCustomEvent<string>) => void;
+        "onSwatchUpdate"?: (event: ColorPickerCustomEvent<string>) => void;
+        "swatches"?: string;
     }
     interface ColorSwatch {
         "editable"?: boolean;
