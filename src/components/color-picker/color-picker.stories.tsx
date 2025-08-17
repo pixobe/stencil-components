@@ -11,10 +11,6 @@ const meta: Meta<any> = {
     el.addEventListener("colorChange", (e) => {
       console.log("Color Changed", e.detail)
     });
-
-    el.addEventListener("colorInput", (e) => {
-      console.log("Color Input", e.detail)
-    })
     return el;
 
   },

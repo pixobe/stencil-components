@@ -48,14 +48,11 @@ export class ColorPicker {
   @Prop()
   editable: boolean = false;
 
-  @Event({ eventName: "colorInput", bubbles: true, composed: true })
-  colorChangeEvent: EventEmitter<string>;
-
   @Event({ eventName: "colorChange", bubbles: true, composed: true })
   colorSelectEvent: EventEmitter<string>;
 
-  @Event({ eventName: "swatchChange", bubbles: true, composed: true })
-  swatchChangeEvent: EventEmitter<string[]>;
+  @Event({ eventName: "swatchUpdate", bubbles: true, composed: true })
+  swatchUpdateEvent: EventEmitter<string[]>;
 
   @State()
   currentColor: Color;
@@ -116,7 +113,7 @@ export class ColorPicker {
     const l = 100 - (y / rect.height) * 100;
     // Convert to RGBA
     this.currentColor = new Color({ hsl: { h, s, l }, a: this.alpha });
-    this.colorChangeEvent.emit(this.currentColor.hexa);
+    this.colorSelectEvent.emit(this.currentColor.hexa);
   };
 
   onPointerDown = (e: PointerEvent) => {
@@ -133,10 +130,10 @@ export class ColorPicker {
       try {
         this.coloringAreaRef.releasePointerCapture(e.pointerId);
       } catch (e) {
-        // Silently catch if the pointerId is no longer valid
+        console.error(e);
       }
     }
-    this.colorChangeEvent.emit(this.currentColor.hexa);
+    this.colorSelectEvent.emit(this.currentColor.hexa);
   }
 
   updateMarkerPositionFromColor() {
@@ -151,7 +148,7 @@ export class ColorPicker {
 
   addSwatch = (color: string) => {
     this.swatches = [...this.swatches, color];
-    this.swatchChangeEvent.emit(this.swatches);
+    this.swatchUpdateEvent.emit(this.swatches);
   }
 
   onSwatchSelected = (e: PointerEvent, color: string) => {
@@ -160,7 +157,7 @@ export class ColorPicker {
       const index = this.swatches.findIndex(swatch => swatch === color);
       this.swatches.splice(index, 1);
       this.swatches = [...this.swatches];
-      this.swatchChangeEvent.emit(this.swatches);
+      this.swatchUpdateEvent.emit(this.swatches);
     } else {
       this.currentColor = new Color({ hex: color, a: this.alpha });
       this.updateMarkerPositionFromColor();
@@ -173,7 +170,7 @@ export class ColorPicker {
       const color = (event.target as HTMLInputElement).value;
       this.currentColor = new Color({ hex: color, a: this.alpha });
       this.updateMarkerPositionFromColor();
-      this.colorChangeEvent.emit(this.currentColor.hexa);
+      this.colorSelectEvent.emit(this.currentColor.hexa);
     }
   }
 

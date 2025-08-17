@@ -92,7 +92,7 @@ export class ColorSwatch {
     this.internals.setFormValue(this.value);
   };
 
-  onSwatchChange(e: CustomEvent) {
+  onSwatchUpdate(e: CustomEvent) {
     this.swatchList = e.detail;
     const swatches = this.swatchList.join(",");
     this.value = swatches;
@@ -107,8 +107,7 @@ export class ColorSwatch {
             editable={this.editable}
             ref={el => (this.colorPickRef = el!)}
             onColorChange={e => this.onColorSelect(e)}
-            onColorInput={e => this.onColorSelect(e)}
-            onSwatchChange={(e) => this.onSwatchChange(e)}
+            onSwatchUpdate={(e) => this.onSwatchUpdate(e)}
             swatches={this.swatchList}></color-picker>
         )}
       </div>

@@ -325,7 +325,7 @@ declare global {
     };
     interface HTMLColorInputElementEventMap {
         "colorChange": string;
-        "colorInput": string;
+        "colorSelect": string;
     }
     interface HTMLColorInputElement extends Components.ColorInput, HTMLStencilElement {
         addEventListener<K extends keyof HTMLColorInputElementEventMap>(type: K, listener: (this: HTMLColorInputElement, ev: ColorInputCustomEvent<HTMLColorInputElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
@@ -342,9 +342,8 @@ declare global {
         new (): HTMLColorInputElement;
     };
     interface HTMLColorPickerElementEventMap {
-        "colorInput": string;
         "colorChange": string;
-        "swatchChange": string[];
+        "swatchUpdate": string[];
     }
     interface HTMLColorPickerElement extends Components.ColorPicker, HTMLStencilElement {
         addEventListener<K extends keyof HTMLColorPickerElementEventMap>(type: K, listener: (this: HTMLColorPickerElement, ev: ColorPickerCustomEvent<HTMLColorPickerElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
@@ -839,7 +838,7 @@ declare namespace LocalJSX {
         "label"?: string;
         "name": string;
         "onColorChange"?: (event: ColorInputCustomEvent<string>) => void;
-        "onColorInput"?: (event: ColorInputCustomEvent<string>) => void;
+        "onColorSelect"?: (event: ColorInputCustomEvent<string>) => void;
         /**
           * @default '#cacaca'
          */
@@ -852,8 +851,7 @@ declare namespace LocalJSX {
          */
         "editable"?: boolean;
         "onColorChange"?: (event: ColorPickerCustomEvent<string>) => void;
-        "onColorInput"?: (event: ColorPickerCustomEvent<string>) => void;
-        "onSwatchChange"?: (event: ColorPickerCustomEvent<string[]>) => void;
+        "onSwatchUpdate"?: (event: ColorPickerCustomEvent<string[]>) => void;
         /**
           * @default []
          */
