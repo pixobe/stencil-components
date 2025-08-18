@@ -1,10 +1,11 @@
 import { Component, Host, h, State, Prop, Event, EventEmitter, Watch, AttachInternals } from '@stencil/core';
+import { GridImageProp } from '../image-grid/image-grid';
 
 declare const wp: any;
 
 interface Gallery {
   name: string;
-  images: string[];
+  images: GridImageProp[];
 }
 
 
@@ -16,7 +17,6 @@ interface Gallery {
 })
 export class ImageGallery {
 
-
   @Prop({ reflect: true })
   name!: string;
 
@@ -24,7 +24,10 @@ export class ImageGallery {
   value: Gallery[] = [];
 
   @Prop()
-  platform: string;
+  viewonly: boolean = false;
+
+  @Prop()
+  platform: string = "wp";
 
   @State()
   newGalleryName: string = '';
@@ -51,8 +54,15 @@ export class ImageGallery {
   private addGallery() {
     const name = this.newGalleryName.trim();
     if (!name) return;
-    this.value = [...this.value, { name, images: [] }];
+    this.value = [{ name, images: [] }, ...this.value];
     this.newGalleryName = '';
+    this.internals.setFormValue(JSON.stringify(this.value));
+  }
+
+  private deleteGallery(galleryIndex: number) {
+    const newGallery = this.value.filter((_, index) => index !== galleryIndex);
+    this.value = [...newGallery];
+    this.internals.setFormValue(JSON.stringify(this.value));
   }
 
   private handleKeyDown(event: KeyboardEvent) {
@@ -67,13 +77,14 @@ export class ImageGallery {
     }
   }
 
-  private deleteImage(galleryIndex: number, imageSrc: string) {
+  private deleteImage(galleryIndex: number, selectedImage: GridImageProp) {
     const newGallery = [...this.value];
     newGallery[galleryIndex] = {
       ...newGallery[galleryIndex],
-      images: newGallery[galleryIndex].images.filter(img => img !== imageSrc)
+      images: newGallery[galleryIndex].images.filter(img => img !== selectedImage)
     };
     this.value = newGallery;
+    this.internals.setFormValue(JSON.stringify(this.value));
   }
 
   /**
@@ -106,7 +117,7 @@ export class ImageGallery {
       // Get media attachment details from the frame state
       const attachments = frame.state().get("selection").toJSON();
       if (attachments.length > 0) {
-        const images = attachments.map((attachment: any) => attachment.url);
+        const images = attachments.map((attachment: any) => ({ src: attachment.url }));
         gallery.images = [...gallery.images, ...images];
         this.value = [...this.value];
       }
@@ -116,7 +127,7 @@ export class ImageGallery {
 
   render() {
     return (
-      <Host>
+      <Host class={{ "view-only": this.viewonly }}>
         <div class="gallery-container">
           <div class="gallery-input">
             <input
@@ -137,12 +148,17 @@ export class ImageGallery {
                 <div class="gallery-item" key={index}>
                   <div class="gallery-header">
                     <h3>{gallery.name}</h3>
-                    <button onClick={() => this.uploadImages(gallery)}>
-                      <icon-add-image></icon-add-image>
-                    </button>
+                    <div class="button-group button-actions">
+                      <button onClick={() => this.uploadImages(gallery)}>
+                        <icon-add-image></icon-add-image>
+                      </button>
+                      <button onClick={() => this.deleteGallery(index)}>
+                        <icon-trash></icon-trash>
+                      </button>
+                    </div>
                   </div>
                   <div class="gallery-content">
-                    <image-grid images={gallery.images} onImageDelete={(e) => this.deleteImage(index, e.detail)}></image-grid>
+                    <image-grid images={gallery.images} viewonly={this.viewonly} onImageDelete={(e) => this.deleteImage(index, e.detail)}></image-grid>
                   </div>
                 </div>
               ))

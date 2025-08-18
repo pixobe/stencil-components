@@ -68,7 +68,7 @@ export const NoValue: Story = {
 export const BottomLeft: Story = {
   args: {
     label: "Colors",
-    value: '',
+    value: '#ff00ff',
     className: 'bottom-left'
   },
 };

@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/html-vite';
+
 (window as any).wp = {
   media: ({ title, button }: any) => {
     let selectCallback: Function | null = null;
@@ -87,18 +88,27 @@ import type { Meta, StoryObj } from '@storybook/html-vite';
   }
 };
 
+const gallery = [
+  {
+    name: "Animals",
+    platform: "wp",
+    images: [
+      "/assets/images/monster-car.jpg",
+      "/assets/images/unicorn.jpg",
+      "/assets/images/windmill.jpg"
+    ].map(src => ({ src }))
+  }
+]
+
 
 const meta: Meta<any> = {
   title: 'Image Gallery',
   render: (args) => {
     const el = document.createElement("image-gallery");
-    Object.assign(el, args);
-
-    el.addEventListener("mediaFrame", (e: any) => {
-      const name = e.detail;
-
+    el.addEventListener("imageSelect", (e: any) => {
+      console.log(e.detail);
     });
-
+    Object.assign(el, args);
     return el;
   },
   argTypes: {},
@@ -117,18 +127,17 @@ export const Empty: Story = {
 };
 
 
+
+export const NoDelete: Story = {
+  args: {
+    viewonly: true,
+    value: gallery
+  },
+};
+
 export const Gallery: Story = {
   args: {
-    value: [
-      {
-        name: "Animals",
-        images: [
-          "/assets/images/monster-car.jpg",
-          "/assets/images/unicorn.jpg",
-          "/assets/images/windmill.jpg"
-        ]
-      }
-    ]
+    value: gallery
   },
 };
 

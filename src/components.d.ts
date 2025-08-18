@@ -6,9 +6,11 @@
  */
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
 import { FontItem } from "@pixobe/ui-utils";
+import { GridImageProp } from "./components/image-grid/image-grid";
 import { DropdownOption } from "./components/menu-icon/menu-icon";
 import { OptionItem } from "./components/select-menu/select-menu";
 export { FontItem } from "@pixobe/ui-utils";
+export { GridImageProp } from "./components/image-grid/image-grid";
 export { DropdownOption } from "./components/menu-icon/menu-icon";
 export { OptionItem } from "./components/select-menu/select-menu";
 export namespace Components {
@@ -167,18 +169,25 @@ export namespace Components {
     }
     interface ImageGallery {
         "name": string;
+        /**
+          * @default "wp"
+         */
         "platform": string;
         /**
           * @default []
          */
         "value": Gallery[];
+        /**
+          * @default false
+         */
+        "viewonly": boolean;
     }
     interface ImageGrid {
         /**
           * Array of image URLs
           * @default []
          */
-        "images": string[];
+        "images": Array<GridImageProp>;
         "viewonly": boolean;
     }
     interface InputText {
@@ -665,8 +674,8 @@ declare global {
         new (): HTMLImageGalleryElement;
     };
     interface HTMLImageGridElementEventMap {
-        "imageDelete": string;
-        "imageSelect": string;
+        "imageDelete": GridImageProp;
+        "imageSelect": GridImageProp;
     }
     interface HTMLImageGridElement extends Components.ImageGrid, HTMLStencilElement {
         addEventListener<K extends keyof HTMLImageGridElementEventMap>(type: K, listener: (this: HTMLImageGridElement, ev: ImageGridCustomEvent<HTMLImageGridElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
@@ -980,20 +989,27 @@ declare namespace LocalJSX {
     interface ImageGallery {
         "name": string;
         "onMediaFrameEvent"?: (event: ImageGalleryCustomEvent<{ name: string }>) => void;
+        /**
+          * @default "wp"
+         */
         "platform"?: string;
         /**
           * @default []
          */
         "value"?: Gallery[];
+        /**
+          * @default false
+         */
+        "viewonly"?: boolean;
     }
     interface ImageGrid {
         /**
           * Array of image URLs
           * @default []
          */
-        "images"?: string[];
-        "onImageDelete"?: (event: ImageGridCustomEvent<string>) => void;
-        "onImageSelect"?: (event: ImageGridCustomEvent<string>) => void;
+        "images"?: Array<GridImageProp>;
+        "onImageDelete"?: (event: ImageGridCustomEvent<GridImageProp>) => void;
+        "onImageSelect"?: (event: ImageGridCustomEvent<GridImageProp>) => void;
         "viewonly"?: boolean;
     }
     interface InputText {

@@ -80,7 +80,11 @@ export class ColorPicker {
   componentWillLoad() {
     this.swatchList = this.swatches ? this.swatches.split(",") : [];
     this.alpha = this.alpha ? this.alpha : 1;
-    const color = this.color ?? this.swatchList[0] ?? "#cacaca";
+    const color =
+      (this.color && this.color.trim() !== "" ? this.color : null) ??
+      (this.swatchList[0] && this.swatchList[0].trim() !== "" ? this.swatchList[0] : null) ??
+      "#0000ff";
+
     this.currentColor = new Color({ hex: color, a: this.alpha });
   }
 

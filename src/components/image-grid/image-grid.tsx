@@ -1,5 +1,7 @@
 import { Component, Host, h, Element, Prop, Event, EventEmitter } from '@stencil/core';
 
+export type GridImageProp = { src: string }
+
 @Component({
   tag: 'image-grid',
   styleUrl: 'image-grid.scss',
@@ -10,16 +12,16 @@ export class ImageGrid {
 
   /** Array of image URLs */
   @Prop()
-  images: string[] = [];
+  images: Array<GridImageProp> = [];
 
   @Prop()
   viewonly: boolean;
 
   @Event({ eventName: "imageDelete" })
-  imageDeleteEvent: EventEmitter<string>;
+  imageDeleteEvent: EventEmitter<GridImageProp>;
 
   @Event({ eventName: "imageSelect" })
-  imageSelectEvent: EventEmitter<string>;
+  imageSelectEvent: EventEmitter<GridImageProp>;
 
   private observer: IntersectionObserver;
 
@@ -50,8 +52,8 @@ export class ImageGrid {
     imgs.forEach(img => this.observer.observe(img));
   }
 
-  private onImageSelectEvent(src: string) {
-    this.imageSelectEvent.emit(src)
+  private onImageSelectEvent(image: GridImageProp) {
+    this.imageSelectEvent.emit(image);
   }
 
   render() {
@@ -61,12 +63,12 @@ export class ImageGrid {
     return (
       <Host class={{ "view-only": this.viewonly }}>
         <div class="grid">
-          {this.images.map((src, idx) => (
-            <div class="grid-item">
-              <button onClick={() => this.onImageSelectEvent(src)}>
-                <img class="gallery-image" data-src={src} alt={`image-${idx}`} src={src} />
+          {this.images.map((image, idx) => (
+            <div class="grid-item" key={`${image.src}_${idx}`}>
+              <button onClick={() => this.onImageSelectEvent(image)}>
+                <img class="gallery-image" data-src={image.src} alt={`image-${idx}`} />
               </button>
-              <button class="button-rounded button-delete" onClick={() => this.imageDeleteEvent.emit(src)}>
+              <button class="button-rounded button-delete" onClick={() => this.imageDeleteEvent.emit(image)}>
                 <icon-close></icon-close>
               </button>
             </div>

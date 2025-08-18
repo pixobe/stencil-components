@@ -5,53 +5,42 @@ export interface TPosition {
   right: string;
 }
 
-interface ComputePositionOptions {
-  childWidth?: number;
-  childHeight?: number;
-  spacing?: number;
-}
-
 /**
  * Computes position for an absolutely positioned child element relative to a parent.
  * If there's not enough space below, places the child above with `bottom: 100%`.
  * Otherwise places the child below with `top: 100%`.
  */
 export function computePosition(parent: HTMLElement): TPosition {
-  const options = { childWidth: 200, childHeight: 250, spacing: 2 };
+  const options = { childWidth: 200, childHeight: 264, spacing: 2 };
 
   const rect = parent.getBoundingClientRect();
-  const viewportHeight = window.innerHeight;
   const viewportWidth = window.innerWidth;
+  const viewportHeight = window.innerHeight;
 
   const spaceBelow = viewportHeight - (rect.bottom + options.spacing);
   const spaceAbove = rect.top - options.spacing;
 
-  const offset = `calc(100% + ${options.spacing}px)`;
-
-  const verticalPosition: Record<string, string> = {};
+  // Vertical positioning
+  let top: string = 'auto';
+  let bottom: string = 'auto';
   if (spaceBelow >= options.childHeight) {
-    verticalPosition.top = offset;
+    top = `calc(100% + ${options.spacing}px)`; // below parent
   } else if (spaceAbove >= options.childHeight) {
-    verticalPosition.bottom = offset;
+    bottom = `calc(100% + ${options.spacing}px)`; // above parent
   } else {
-    verticalPosition.top = `${(rect.height - options.childHeight) / 2}px`;
+    // center relative to parent if not enough space
+    top = `${Math.max((rect.height - options.childHeight) / 2, 0)}px`;
   }
 
-  const spaceRight = viewportWidth - (rect.right + options.spacing);
-
-  if (spaceRight >= options.childWidth) {
-    // enough space on the right → default position
-    verticalPosition.left = '0';
-    verticalPosition.right = 'auto';
-  } else {
-    // not enough space → align to right
-    verticalPosition.left = 'auto';
-    verticalPosition.right = '0';
+  // Horizontal positioning
+  let left: string = '0';
+  let right: string = 'auto';
+  const spaceRight = viewportWidth - (rect.left + options.childWidth + options.spacing);
+  if (spaceRight < 0) {
+    // not enough space on the right → flip to right edge
+    left = 'auto';
+    right = '0';
   }
-  return {
-    top: verticalPosition.top || 'auto',
-    bottom: verticalPosition.bottom || 'auto',
-    left: verticalPosition.left || 'auto',
-    right: verticalPosition.right || 'auto',
-  };
+
+  return { top, bottom, left, right };
 }

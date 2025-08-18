@@ -37,7 +37,7 @@ export const Gallery: Story = {
       "/assets/images/monster-car.jpg",
       "/assets/images/unicorn.jpg",
       "/assets/images/windmill.jpg"
-    ]
+    ].map(src => ({ src }))
   },
 };
 
@@ -47,7 +47,7 @@ export const ViewOnly: Story = {
       "/assets/images/monster-car.jpg",
       "/assets/images/unicorn.jpg",
       "/assets/images/windmill.jpg"
-    ],
+    ].map(src => ({ src })),
     viewonly: true
   },
 };
