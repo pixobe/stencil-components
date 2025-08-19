@@ -3,7 +3,10 @@
   display: block;
   max-width: 500px;
   margin: auto;
-  color: var(--text-secondary);
+  color: var(--text-primary);
+  background-color: var(--primary-background);
+  padding: 1rem;
+  box-sizing: border-box;
 
   .grid {
     display: grid;
@@ -14,6 +17,7 @@
   .grid-item {
     position: relative;
     border: 1px solid var(--tertiary-background);
+    background-color: var(--secondary-background);
     background-color: #ffffff;
     border-radius: 4px;
     display: flex;
@@ -42,6 +46,13 @@
       object-fit: cover;
       background: var(--tertiary-background);
       min-height: 80px;
+      border-radius: 4px;
+    }
+
+    &:hover {
+      img {
+        filter: grayscale(100%) sepia(100%) hue-rotate(190deg) saturate(500%);
+      }
     }
   }
 

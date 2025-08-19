@@ -10,7 +10,7 @@ export class PixobeModal {
   el: HTMLElement;
 
   /** Control whether the modal is open */
-  @Prop({ reflect: true })
+  @Prop({ reflect: true, mutable: true })
   open: boolean = false;
 
   @Prop({ reflect: true })
@@ -20,34 +20,38 @@ export class PixobeModal {
 
   @Watch('open')
   watchOpen(newValue: boolean) {
-    if (newValue) {
-      this.dialog.showModal();
-    } else {
-      this.dialog.close();
-    }
+    this.dialog.open = newValue === true;
+    document.body.style.overflow = newValue === true ? 'hidden' : '';
   }
 
   componentDidLoad() {
-    this.dialog = this.el.shadowRoot!.querySelector('dialog')!;
-    if (this.open) {
-      this.dialog.showModal();
-    }
     this.dialog.addEventListener('cancel', (event: Event) => {
       event.preventDefault();
       this.open = false;
     });
+
+    document.addEventListener("keyup", (event) => {
+      if (event.key === 'Escape') {
+        const modal = this.dialog;
+        if (modal && modal.open) {
+          this.open = false;
+        }
+      }
+    })
+  }
+
+  closeDialog() {
+    this.open = false;
   }
 
   render() {
     return (
       <Host>
-        <dialog>
+        <dialog ref={(el) => this.dialog = el!}>
           <slot></slot>
           <button
             class="button-rounded button-close"
-            onClick={() => {
-              this.open = false;
-            }}
+            onClick={() => this.closeDialog()}
           >
             <icon-close></icon-close>
           </button>

@@ -17,7 +17,9 @@ const meta: Meta<any> = {
         const toggleBtn = document.createElement("button");
         toggleBtn.textContent = "Toggle Modal";
         toggleBtn.style.marginBottom = "1rem";
+
         toggleBtn.addEventListener("click", () => {
+            console.log(el.open, "current state")
             el.open = !el.open;
         });
 
@@ -42,6 +44,6 @@ type Story = StoryObj<any>;
 
 export const Primary: Story = {
     args: {
-        open: 'true'
+        open: 'false'
     },
 };
