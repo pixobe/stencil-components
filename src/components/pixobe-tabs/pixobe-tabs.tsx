@@ -10,14 +10,17 @@ export class PixobeTabs {
   tabs: string[] = [];
 
   @State()
-  activeIndex: number = 0;
+  activeIndex: number;
 
   private selectTab(index: number) {
     this.activeIndex = index;
   }
 
+  componentWillLoad() {
+    this.activeIndex = 0;
+  }
+
   render() {
-    const activeSlotIndex = this.activeIndex || 0;
     return (
       <div class="tabs-container">
         <div class="tab-headers">
@@ -31,7 +34,7 @@ export class PixobeTabs {
           ))}
         </div>
         <div class="tab-content">
-          <slot name={`tab-${activeSlotIndex}`}></slot>
+          <slot name={`tab-${this.activeIndex}`}></slot>
         </div>
       </div>
     );
