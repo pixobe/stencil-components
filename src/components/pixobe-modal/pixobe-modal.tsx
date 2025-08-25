@@ -48,13 +48,16 @@ export class PixobeModal {
     return (
       <Host>
         <dialog ref={(el) => this.dialog = el!}>
-          <slot></slot>
-          <button
-            class="button-rounded button-close"
-            onClick={() => this.closeDialog()}
-          >
-            <icon-close></icon-close>
-          </button>
+          <div class="content">
+            <slot></slot>
+          </div>
+          {this.closeButton &&
+            <button
+              class="button-rounded button-close"
+              onClick={() => this.closeDialog()}
+            >
+              <icon-close></icon-close>
+            </button>}
         </dialog>
       </Host>
     );

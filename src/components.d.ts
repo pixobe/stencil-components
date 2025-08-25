@@ -128,10 +128,6 @@ export namespace Components {
     interface IconPixobe {
     }
     interface IconPreview {
-        /**
-          * @default true
-         */
-        "on": boolean;
     }
     interface IconRedo {
     }
@@ -947,10 +943,6 @@ declare namespace LocalJSX {
     interface IconPixobe {
     }
     interface IconPreview {
-        /**
-          * @default true
-         */
-        "on"?: boolean;
     }
     interface IconRedo {
     }

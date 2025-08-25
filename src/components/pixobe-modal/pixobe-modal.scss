@@ -18,18 +18,33 @@
     outline: none;
     overflow: auto;
     z-index: 99999;
-
+    background-color: rgba(0, 0, 0, 0.5);
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
-    background-color: var(--primary-background);
+    padding: 1rem;
+    box-sizing: border-box;
+
+    @media only screen and (max-width: 600px) {
+      padding: 0;
+    }
+
+    .content {
+      background-color: var(--primary-background, #ffffff);
+      color: var(--text-primary, #3d3d3d);
+      border-radius: 8px;
+      text-align: center;
+      position: relative;
+      height: 100%;
+      width: 100%;
+    }
 
     .button-close {
       position: absolute;
-      top: 18px;
-      right: 18px;
+      top: 0.5rem;
+      right: 0.5rem;
       background-color: var(--tertiary-background);
+      color: var(--text-primary);
       transition: background-color 0.3s ease;
-
       &:hover {
         background-color: var(--quaternary-background);
       }
