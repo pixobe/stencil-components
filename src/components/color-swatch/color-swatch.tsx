@@ -79,13 +79,6 @@ export class ColorSwatch {
     });
   };
 
-
-  onColorSelect = (e: any) => {
-    const color = e.detail;
-    this.value = color;
-    this.internals.setFormValue(this.value);
-  };
-
   onSwatchUpdate(e: CustomEvent) {
     this.value = e.detail;
     this.internals.setFormValue(this.value);
@@ -98,12 +91,11 @@ export class ColorSwatch {
           <color-picker
             editable={this.editable}
             ref={el => (this.colorPickRef = el!)}
-            onColorChange={e => this.onColorSelect(e)}
             onSwatchUpdate={(e) => this.onSwatchUpdate(e)}
             swatches={this.value}></color-picker>
         )}
       </div>
-    )
+    );
   }
 
   render() {

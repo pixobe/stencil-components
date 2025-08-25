@@ -3,7 +3,7 @@ import type { Meta, StoryObj } from '@storybook/html-vite';
 const data = {
     "preview": true,
     "stroke": "#000000",
-    "colors": "#cacaca,#aa00ee,#00ff00,#0000ff"
+    "coloricker": "#cacaca,#aa00ee,#00ff00,#0000ff"
 };
 
 function createForm(data: any) {
@@ -24,10 +24,18 @@ function createForm(data: any) {
     colorInput.setAttribute('label', 'Text Color');
     colorInput.setAttribute('name', 'stroke');
 
-    const editableColor = document.createElement('color-swatch');
-    editableColor.setAttribute('label', 'Colors');
-    editableColor.setAttribute('name', 'colors');
-    editableColor.setAttribute('editable', 'true');
+    // const editableColor = document.createElement('color-swatch');
+    // editableColor.setAttribute('label', 'Colors');
+    // editableColor.setAttribute('name', 'colors');
+    // editableColor.setAttribute('editable', 'true');
+
+
+    const colorSwatch = document.createElement('color-swatch');
+    colorSwatch.setAttribute('label', 'Color Picker');
+    colorSwatch.setAttribute('name', 'coloricker');
+    colorSwatch.setAttribute('editable', 'false');
+    // colorSwatch.setAttribute('value', '#a5a5c2,#2626eb,#9bb07f');
+
 
     // Create the input-text for Address Line 1
     // const inputText2 = document.createElement('input-text');
@@ -94,7 +102,8 @@ function createForm(data: any) {
     // form.appendChild(inputText9);
     // form.appendChild(inputText10);
     div.appendChild(colorInput);
-    div.appendChild(editableColor);
+    // div.appendChild(editableColor);
+    div.appendChild(colorSwatch);
     div.appendChild(button);
 
     form.data = data;
