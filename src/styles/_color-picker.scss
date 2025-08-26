@@ -1,5 +1,4 @@
 @use 'src/styles/elements';
-@use 'src/styles/labels';
 @use 'src/styles/button';
 
 :host {
@@ -16,7 +15,7 @@
     width: 100%;
     button {
       display: grid;
-      grid-template-columns: 24px 1fr;
+      grid-template-columns: 18px 1fr;
       align-items: center;
       gap: 8px;
       padding: 0;
@@ -28,22 +27,17 @@
 
       .clr-block {
         display: block;
-        width: 24px;
-        height: 24px;
+        width: 16px;
+        height: 16px;
         margin-bottom: 0;
         border-radius: 4px;
+        border: 1px solid var(--text-tertiary);
         background-color: var(--tertiary-background);
-      }
-      label {
-        font-weight: bold;
-        color: var(--text-primary);
-        margin-bottom: 0;
       }
     }
   }
 }
 
-/* BLOCK STYLE */
 :host(.block-style) {
   .form-element {
     button {
@@ -51,7 +45,7 @@
       flex-direction: column-reverse;
       align-items: start;
       .clr-block {
-        height: 24px;
+        height: 16px;
         padding: 4px;
         width: 100%;
       }

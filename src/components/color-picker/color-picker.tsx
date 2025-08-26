@@ -83,8 +83,7 @@ export class ColorPicker {
     const color =
       (this.color && this.color.trim() !== "" ? this.color : null) ??
       (this.swatchList[0] && this.swatchList[0].trim() !== "" ? this.swatchList[0] : null) ??
-      "#0000ff";
-
+      "#cacaca";
     this.currentColor = new Color({ hex: color, a: this.alpha });
   }
 
@@ -113,7 +112,6 @@ export class ColorPicker {
     const rect = this.coloringAreaRef.getBoundingClientRect();
     const x = Math.max(0, Math.min(rect.width, e.clientX - rect.left));
     const y = Math.max(0, Math.min(rect.height, e.clientY - rect.top));
-
     // Move the marker
     const marker = this.markerRef;
     if (marker) {

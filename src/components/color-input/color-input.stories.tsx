@@ -15,6 +15,7 @@ const meta: Meta<any> = {
     el.label = args.label;
     el.name = args.name;
     el.value = args.value;
+    el.swatches = args.swatches || '';
 
     if (args.style)
       el.classList.add(args.style);
@@ -90,19 +91,12 @@ export const Center: Story = {
 };
 
 
-export const EditMode: Story = {
+export const Swatch: Story = {
   args: {
     label: "Colors",
     value: '#ff0000',
     editable: true,
     swatches: ['#ff0000', '#ffAA00', '#ff00FF'].join(",")
-  },
-};
-
-export const Swatches: Story = {
-  args: {
-    label: "Colors",
-    value: '#ff0000',
   },
 };
 

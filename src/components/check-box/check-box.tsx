@@ -42,20 +42,24 @@ export class CheckBox {
   render() {
     return (
       <Host>
-        <div class="form-element">
-          <label htmlFor={this.name} class="text-lbl">
-            <input
-              type="checkbox"
-              name={this.name}
-              id={this.name}
-              onInput={this.onInputFn}
-              aria-label={this.label}
-              checked={this.value === 'true'}
-            />
-            <div class="checkbox" aria-hidden="true">
-              <icon-tick></icon-tick>
+        <div class="form-element horizontal">
+          <label htmlFor={this.name}>
+            <div class="checkbox-wrapper">
+              <input
+                type="checkbox"
+                name={this.name}
+                id={this.name}
+                onInput={this.onInputFn}
+                aria-label={this.label}
+                checked={this.value === 'true'}
+              />
+              <div class="checkbox" aria-hidden="true">
+                <icon-tick></icon-tick>
+              </div>
+              <span>
+                {this.label}
+              </span>
             </div>
-            {this.label}
           </label>
         </div>
       </Host>

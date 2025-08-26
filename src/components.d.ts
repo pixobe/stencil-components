@@ -29,6 +29,7 @@ export namespace Components {
     interface ColorInput {
         "label"?: string;
         "name": string;
+        "swatches": string;
         "value": string;
     }
     interface ColorPicker {
@@ -40,7 +41,6 @@ export namespace Components {
         "swatches": string;
     }
     interface ColorSwatch {
-        "editable": boolean;
         "label"?: string;
         "name": string;
         "value": string;
@@ -839,6 +839,7 @@ declare namespace LocalJSX {
         "name": string;
         "onColorChange"?: (event: ColorInputCustomEvent<string>) => void;
         "onColorInput"?: (event: ColorInputCustomEvent<string>) => void;
+        "swatches"?: string;
         "value"?: string;
     }
     interface ColorPicker {
@@ -853,7 +854,6 @@ declare namespace LocalJSX {
         "swatches"?: string;
     }
     interface ColorSwatch {
-        "editable"?: boolean;
         "label"?: string;
         "name": string;
         "onColorChange"?: (event: ColorSwatchCustomEvent<string>) => void;

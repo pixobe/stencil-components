@@ -20,15 +20,26 @@ import { computePosition } from 'src/utils/position-utils';
 export class ColorInput {
   @Element() el: HTMLElement;
 
-  @Prop({ reflect: true }) name!: string;
-  @Prop({ reflect: true, mutable: true }) value: string;
-  @Prop({ reflect: true }) label?: string;
+  @Prop({ reflect: true })
+  name!: string;
+
+  @Prop({ reflect: true, mutable: true })
+  value: string;
+
+  @Prop({ reflect: true })
+  label?: string;
+
+  @Prop()
+  swatches: string;
+
+  @State()
+  isOpen: boolean = false;
+  @Event()
+  colorChange: EventEmitter<string>;
+  @Event()
+  colorInput: EventEmitter<string>;
 
   @AttachInternals() internals!: ElementInternals;
-
-  @State() isOpen: boolean = false;
-  @Event() colorChange: EventEmitter<string>;
-  @Event() colorInput: EventEmitter<string>;
 
   componentWillLoad() {
     this.internals.setFormValue(this.value);
@@ -99,6 +110,7 @@ export class ColorInput {
           color={this.value}
           onColorChange={this.onColorChange}
           onColorInput={this.onColorInput}
+          swatches={this.swatches}
         ></color-picker>
       )}
     </div>
@@ -107,7 +119,7 @@ export class ColorInput {
   render() {
     return (
       <Host>
-        <div class="form-element">
+        <div class="form-element horizontal">
           <button
             onPointerUp={e => this.toggleColorPicker(e)}
             type="button"

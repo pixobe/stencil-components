@@ -16,7 +16,6 @@ const meta: Meta<any> = {
     el.label = args.label;
     el.name = args.name;
     el.value = args.value;
-    el.editable = args.editable;
 
     if (args.style)
       el.classList.add(args.style);

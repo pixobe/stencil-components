@@ -50,16 +50,14 @@ export class MultiLineText {
           <label htmlFor={this.name} class="text-lbl">
             {this.label}
           </label>
-          <div>
-            <textarea
-              name={this.name}
-              onInput={this.onInputFn}
-              id={this.name}
-              value={this.value}
-              required={this.required}
-              placeholder={this.placeholder}
-              rows={this.rows}></textarea>
-          </div>
+          <textarea
+            name={this.name}
+            onInput={this.onInputFn}
+            id={this.name}
+            value={this.value}
+            required={this.required}
+            placeholder={this.placeholder}
+            rows={this.rows}></textarea>
         </div>
       </Host>
     );

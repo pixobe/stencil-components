@@ -39,7 +39,7 @@ type Story = StoryObj<any>;
 
 export const NoValue: Story = {
   args: {
-    label: "Colors",
+    label: "Fonts",
     value: '',
     name: "colors"
   },
@@ -47,9 +47,17 @@ export const NoValue: Story = {
 
 export const WithFonts: Story = {
   args: {
-    label: "Colors",
+    label: "Fonts",
     value: '',
-    name: "colors",
+    name: "fonts",
+    fonts
+  },
+};
+export const WithValue: Story = {
+  args: {
+    label: "Fonts",
+    value: 'Frigole',
+    name: "fonts",
     fonts
   },
 };

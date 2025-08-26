@@ -20,9 +20,6 @@ export class ColorSwatch {
   @Prop({ reflect: true })
   label?: string;
 
-  @Prop()
-  editable: boolean;
-
   @AttachInternals()
   internals!: ElementInternals;
 
@@ -89,7 +86,7 @@ export class ColorSwatch {
       <div class="clrpick-wrap" onClick={e => e.stopPropagation()}>
         {this.isOpen && (
           <color-picker
-            editable={this.editable}
+            editable={true}
             ref={el => (this.colorPickRef = el!)}
             onSwatchUpdate={(e) => this.onSwatchUpdate(e)}
             swatches={this.value}></color-picker>
@@ -101,7 +98,7 @@ export class ColorSwatch {
   render() {
     return (
       <Host>
-        <div class="form-element">
+        <div class="form-element horizontal">
           <button onPointerUp={e => this.toggleColorPicker(e)}>
             <div
               class="clr-block"

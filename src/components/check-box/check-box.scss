@@ -1,47 +1,39 @@
-@use 'src/styles/variables';
+@use 'src/styles/elements';
 
 :host {
   display: block;
-  .text-lbl {
+  .checkbox-wrapper {
     position: relative;
     display: flex;
     align-items: center;
     gap: 0.5rem;
-    color: var(--text-primary);
-    font-weight: bold;
-    font-size: 14px;
-    font-family: system-ui, sans-serif;
 
     input[type='checkbox'] {
       display: none;
     }
 
     .checkbox {
-      width: 18px;
-      height: 18px;
-      border-radius: 4px;
-      background-color: transparent;
       display: flex;
       align-items: center;
       justify-content: center;
+      border-radius: 4px;
       transition: background-color 0.1s ease, border-color 0.1s ease;
-      border: 2px solid var(--text-tertiary);
+      border: 1px solid var(--text-tertiary);
       background-color: var(--tertiary-background);
     }
 
-    input[type='checkbox']:checked ~ .checkbox {
-      background-color: #3b82f6;
-      border: 2px solid #3b82f6;
-      box-shadow: 0 0 0 1px rgba(59, 130, 246, 0.3);
-
-      icon-tick {
-        display: inherit;
+    input[type='checkbox']:checked + .checkbox {
+      background-color: #3d3d3d;
+      color: #f9f9f9;
+      .icon {
+        visibility: visible;
       }
     }
 
-    icon-tick {
-      display: none;
-      color: white;
+    .icon {
+      height: 16px;
+      width: 16px;
+      visibility: hidden;
     }
   }
 }
