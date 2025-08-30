@@ -5,15 +5,19 @@
   display: block;
   margin: 8px 0;
   font-size: 15px;
+  text-align: left;
 
   .custom-dropdown {
     position: relative;
     width: 100%;
+    height: 36px;
     -webkit-user-select: none;
     user-select: none;
   }
 
   .custom-dropdown-trigger {
+    height: 100%;
+    box-sizing: border-box;
     position: relative;
     display: flex;
     align-items: center;

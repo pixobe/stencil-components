@@ -1,25 +1,29 @@
 @use './mixins' as *;
+@use 'src/styles/variables' as *;
 
 :host {
   .form-element {
     position: relative;
 
     label {
-      display: inline-block;
+      display: block;
       color: var(--text-primary);
       font-size: 14px;
       font-weight: 450;
       margin-bottom: 4px;
       font-family: system-ui, -apple-system;
+      text-align: left;
     }
 
     textarea,
     input,
     select {
+      all: unset;
       display: block;
       box-sizing: border-box;
       width: 100%;
-      border-radius: 8px;
+      height: 36px;
+      border-radius: $border-radius;
       padding-bottom: 6px;
       padding-left: 12px;
       padding-right: 12px;
@@ -51,6 +55,10 @@
       &::-ms-input-placeholder {
         color: var(--placeholder);
       }
+    }
+
+    textarea {
+      height: auto;
     }
   }
 

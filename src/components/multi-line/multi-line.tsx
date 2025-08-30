@@ -26,6 +26,7 @@ export class MultiLineText {
 
   @Prop()
   required: boolean = true;
+
   @Prop()
   rows: number = 5;
 

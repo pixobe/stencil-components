@@ -1,4 +1,4 @@
-@use 'src/styles/variables';
+@use 'src/styles/variables' as *;
 @use 'src/styles/mixins' as *;
 
 :host {
@@ -13,7 +13,7 @@
     height: 100%;
     padding: 0.5rem 1rem;
     box-sizing: border-box;
-    border-radius: 4px;
+    border-radius: $border-radius;
     text-align: center;
     stroke-dasharray: 2px, 5px;
     @include theme-styles();
