@@ -8,7 +8,7 @@ export class IconSpinner {
     render() {
         return (
             <Host class="icon">
-                <div class="spinner"></div>
+                <span class="spinner" role="status" aria-label="Loading"></span>
             </Host>
         );
     }

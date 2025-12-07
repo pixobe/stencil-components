@@ -242,7 +242,6 @@ export namespace Components {
          */
         "closeButton": boolean;
         /**
-          * Control whether the modal is open
           * @default false
          */
         "open": boolean;
@@ -1061,7 +1060,6 @@ declare namespace LocalJSX {
          */
         "closeButton"?: boolean;
         /**
-          * Control whether the modal is open
           * @default false
          */
         "open"?: boolean;

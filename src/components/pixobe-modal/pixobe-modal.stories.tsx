@@ -47,3 +47,10 @@ export const Primary: Story = {
         open: 'false'
     },
 };
+
+export const WithCloseButton: Story = {
+    args: {
+        open: 'false',
+        closeButton: true
+    },
+};
