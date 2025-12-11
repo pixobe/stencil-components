@@ -3,11 +3,12 @@ import { Component, h, Host } from '@stencil/core';
 @Component({
   styleUrl: 'icon-styles.scss',
   tag: 'icon-wrench',
+  shadow: true,
 })
 export class IconWrench {
   render() {
     return (
-      <Host class="icon">
+      <Host>
         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
           <path
             stroke-linecap="round"
@@ -20,3 +21,4 @@ export class IconWrench {
     );
   }
 }
+

@@ -3,11 +3,12 @@ import { Component, h, Host } from '@stencil/core';
 @Component({
   styleUrl: 'icon-styles.scss',
   tag: 'icon-rotate',
+  shadow: true,
 })
 export class IconRotate {
   render() {
     return (
-      <Host class="icon">
+      <Host>
         <svg fill="currentColor" viewBox="0 0 1920 1920" xmlns="http://www.w3.org/2000/svg" width="100%" height="100%">
           <g>
             <path
@@ -21,3 +22,4 @@ export class IconRotate {
     );
   }
 }
+

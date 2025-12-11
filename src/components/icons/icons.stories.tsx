@@ -39,7 +39,8 @@ const icons = [
   "tick",
   "tick-circle",
   "settings",
-  "cog"
+  "cog",
+  "download"
 ].sort((a, b) => a.localeCompare(b));
 
 const meta: Meta<any> = {
@@ -54,6 +55,7 @@ const meta: Meta<any> = {
 
       const name = `icon-${icon}`;
       const el = document.createElement(name);
+      // el.classList.add("large")
       wrapper.append(el);
 
       const label = document.createElement("label");

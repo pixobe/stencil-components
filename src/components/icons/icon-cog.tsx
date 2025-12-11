@@ -3,11 +3,12 @@ import { Component, h, Host } from '@stencil/core';
 @Component({
   tag: 'icon-cog',
   styleUrl: 'icon-styles.scss',
+  shadow: true,
 })
 export class IconCog {
   render() {
     return (
-      <Host class="icon">
+      <Host>
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" height="100%" width="100%">
           <path
             fill-rule="evenodd"

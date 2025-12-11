@@ -3,11 +3,12 @@ import { Component, h, Host } from '@stencil/core';
 @Component({
   tag: 'icon-trash',
   styleUrl: 'icon-styles.scss',
+  shadow: true,
 })
 export class IconTrash {
   render() {
     return (
-      <Host class="icon">
+      <Host>
         <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
           <path
             fill-rule="evenodd"
@@ -19,3 +20,4 @@ export class IconTrash {
     );
   }
 }
+

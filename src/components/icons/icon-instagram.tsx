@@ -3,13 +3,14 @@ import { Component, h, Host } from '@stencil/core';
 @Component({
   styleUrl: 'icon-styles.scss',
   tag: 'icon-instagram',
+  shadow: true
 })
 export class IconFacebook {
   render() {
     return (
-      <Host class="icon">
+      <Host>
         <svg width="100%" height="100%" viewBox="0 0 2500 2500" xmlns="http://www.w3.org/2000/svg" fill="currentColor">
-          <g id="SVGRepo_iconCarrier">
+          <g>
             <defs>
               <radialGradient id="0" cx="332.14" cy="2511.81" r="3263.54" gradientUnits="userSpaceOnUse">
                 <stop offset=".09" stop-color="#fa8f21"></stop>

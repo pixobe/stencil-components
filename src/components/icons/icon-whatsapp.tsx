@@ -3,11 +3,12 @@ import { Component, h, Host } from '@stencil/core';
 @Component({
   styleUrl: 'icon-styles.scss',
   tag: 'icon-whatsapp',
+  shadow: true,
 })
 export class IconAdd {
   render() {
     return (
-      <Host class="icon">
+      <Host>
         <svg width="100%" height="100%" fill="#25D366" version="1.1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 30.667 30.667">
           <g>
             <g>
@@ -19,3 +20,4 @@ export class IconAdd {
     );
   }
 }
+

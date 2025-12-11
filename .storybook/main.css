@@ -152,9 +152,13 @@
   border-radius: 4px;
   background-color: #3d3d3d;
   color: #ffffff;
-  .icon {
+  .pixobe-icon {
     color: oklch(87.9% 0.169 91.605);
   }
+}
+
+.pixobe-icon {
+  color: orange;
 }
 
 html,

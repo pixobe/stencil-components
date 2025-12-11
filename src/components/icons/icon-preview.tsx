@@ -3,11 +3,12 @@ import { Component, h, Host } from '@stencil/core';
 @Component({
   styleUrl: 'icon-styles.scss',
   tag: 'icon-preview',
+  shadow: true,
 })
 export class IconPdf {
   render() {
     return (
-      <Host class="icon">
+      <Host>
         <svg width="100%" height="100%" viewBox="0 0 24 24" fill="currentColor">
           <path d="M12 15a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z" />
           <path
@@ -20,3 +21,4 @@ export class IconPdf {
     );
   }
 }
+

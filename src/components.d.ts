@@ -99,6 +99,8 @@ export namespace Components {
     }
     interface IconDone {
     }
+    interface IconDownload {
+    }
     interface IconEdit {
     }
     interface IconEnvelope {
@@ -477,6 +479,12 @@ declare global {
         prototype: HTMLIconDoneElement;
         new (): HTMLIconDoneElement;
     };
+    interface HTMLIconDownloadElement extends Components.IconDownload, HTMLStencilElement {
+    }
+    var HTMLIconDownloadElement: {
+        prototype: HTMLIconDownloadElement;
+        new (): HTMLIconDownloadElement;
+    };
     interface HTMLIconEditElement extends Components.IconEdit, HTMLStencilElement {
     }
     var HTMLIconEditElement: {
@@ -777,6 +785,7 @@ declare global {
         "icon-close": HTMLIconCloseElement;
         "icon-cog": HTMLIconCogElement;
         "icon-done": HTMLIconDoneElement;
+        "icon-download": HTMLIconDownloadElement;
         "icon-edit": HTMLIconEditElement;
         "icon-envelope": HTMLIconEnvelopeElement;
         "icon-error": HTMLIconErrorElement;
@@ -912,6 +921,8 @@ declare namespace LocalJSX {
     interface IconCog {
     }
     interface IconDone {
+    }
+    interface IconDownload {
     }
     interface IconEdit {
     }
@@ -1123,6 +1134,7 @@ declare namespace LocalJSX {
         "icon-close": IconClose;
         "icon-cog": IconCog;
         "icon-done": IconDone;
+        "icon-download": IconDownload;
         "icon-edit": IconEdit;
         "icon-envelope": IconEnvelope;
         "icon-error": IconError;
@@ -1189,6 +1201,7 @@ declare module "@stencil/core" {
             "icon-close": LocalJSX.IconClose & JSXBase.HTMLAttributes<HTMLIconCloseElement>;
             "icon-cog": LocalJSX.IconCog & JSXBase.HTMLAttributes<HTMLIconCogElement>;
             "icon-done": LocalJSX.IconDone & JSXBase.HTMLAttributes<HTMLIconDoneElement>;
+            "icon-download": LocalJSX.IconDownload & JSXBase.HTMLAttributes<HTMLIconDownloadElement>;
             "icon-edit": LocalJSX.IconEdit & JSXBase.HTMLAttributes<HTMLIconEditElement>;
             "icon-envelope": LocalJSX.IconEnvelope & JSXBase.HTMLAttributes<HTMLIconEnvelopeElement>;
             "icon-error": LocalJSX.IconError & JSXBase.HTMLAttributes<HTMLIconErrorElement>;

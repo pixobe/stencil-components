@@ -3,11 +3,12 @@ import { Component, h, Host } from '@stencil/core';
 @Component({
   styleUrl: 'icon-styles.scss',
   tag: 'icon-edit',
+  shadow: true
 })
 export class IconEdit {
   render() {
     return (
-      <Host class="icon">
+      <Host>
         <svg width="100%" height="100%" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
           <g stroke-linecap="round" stroke-linejoin="round">
             <path
