@@ -6,12 +6,12 @@ import { AttachInternals, Component, Element, h, Host, Prop } from '@stencil/cor
   shadow: true,
   formAssociated: true
 })
-export class PixobeCheckBox {
+export class PixobeCheckBoxElement {
 
   @Element()
   el!: HTMLElement
 
-  @Prop()
+  @Prop({ reflect: true })
   name!: string;
 
   @Prop()
@@ -33,6 +33,7 @@ export class PixobeCheckBox {
 
   componentWillLoad() {
     this.internals.setFormValue(this.value);
+    console.log("Thisi s bond");
   }
 
   onInputFn = (e: any) => {

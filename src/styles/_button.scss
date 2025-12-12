@@ -6,17 +6,35 @@
     border: none;
     outline: none;
     margin: 0;
-    padding: 0;
+    padding: 4px;
     background-color: transparent;
+    border-radius: 4px;
+    font-size: 13px;
+    cursor: pointer;
   }
 
   button.button-rounded {
     border-radius: 50%;
-    padding: 4px;
+  }
+  button.btn-primary {
+    background-color: var(--button-primary);
+    color: var(--button-text-primary);
+    &:hover {
+      box-shadow: 0 0 2px var(--box-shadow);
+    }
+  }
+  button.btn-secondary {
+    background-color: var(--button-secondary);
+    color: var(--button-text-secondary);
+    &:hover {
+      box-shadow: 0 0 2px var(--box-shadow);
+    }
   }
 
-  .button-group {
+  .btn-group {
+    margin: 1rem 0;
     display: flex;
-    gap: 1rem;
+    gap: 8px;
+    flex-direction: row-reverse;
   }
 }

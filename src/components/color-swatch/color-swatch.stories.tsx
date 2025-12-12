@@ -3,7 +3,7 @@ import { h } from '@stencil/core';
 import { PixobeColorSwatchesElement } from './color-swatch';
 
 const meta = {
-  title: 'ColorSwatches',
+  title: 'Checkbox',
   component: PixobeColorSwatchesElement,
   parameters: {
     layout: 'centered',
@@ -18,9 +18,10 @@ type Story = StoryObj<PixobeColorSwatchesElement>;
 
 export const Basic: Story = {
   args: {
-    label: 'Brand palette'
+    label: 'Brand palette',
+    name: "agreement"
   },
   render: (props) => {
-    return <p-colorswatch {...props} />;
+    return <p-checkbox {...props} />;
   }
 };

@@ -41,14 +41,14 @@ export const WithAlpha: Story = {
 export const WithValue: Story = {
     args: {
         alpha: true,
-        color: "#FF0000"
+        value: "#FF0000"
     },
 };
 
 export const WithLabel: Story = {
     args: {
         alpha: true,
-        color: "#FF0000",
+        value: "#FF0000",
         label: "Font Color"
     },
 };

@@ -1,36 +1,26 @@
-import type { Meta, StoryObj } from '@storybook/html-vite';
+import type { Meta, StoryObj } from '@stencil/storybook-plugin';
+import { h } from '@stencil/core';
+import { PixobeCheckBoxElement } from './check-box';
 
-const meta: Meta<any> = {
-  title: 'Checkbox',
-  render: (args) => {
-    const el = document.createElement("p-checkbox");
-    Object.assign(el, args)
-    return el;
+const meta = {
+  title: 'ColorSwatches',
+  component: PixobeCheckBoxElement,
+  parameters: {
+    layout: 'centered',
   },
-  argTypes: {},
-};
+  argTypes: {
+  },
+  args: {},
+} satisfies Meta<PixobeCheckBoxElement>;
+
 export default meta;
-type Story = StoryObj<any>;
+type Story = StoryObj<PixobeCheckBoxElement>;
 
-
-export const NoValue: Story = {
+export const Basic: Story = {
   args: {
-    label: "Colors",
-    value: ''
+    label: 'Brand palette'
   },
-};
-
-export const DefaultValue: Story = {
-  args: {
-    label: "Colors",
-    value: 'true'
-  },
-};
-
-export const WithDetails: Story = {
-  args: {
-    label: "Agree",
-    value: 'true',
-    details: "Ensure you read the documents"
-  },
+  render: (props) => {
+    return <p-colorswatch {...props} />;
+  }
 };

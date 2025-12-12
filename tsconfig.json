@@ -4,7 +4,7 @@
     "allowUnreachableCode": false,
     "declaration": false,
     "experimentalDecorators": true,
-    "lib": ["dom", "ES2024"],
+    "lib": ["DOM", "ES2024", "DOM.Iterable"],
     "module": "esnext",
     "moduleResolution": "bundler",
     "target": "es2024",

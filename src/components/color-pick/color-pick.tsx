@@ -12,17 +12,18 @@ export class PixobeColorPickerElement {
   @Element()
   el: HTMLElement;
 
+  @Prop({ reflect: true })
+  name!: string;
+
   @Prop()
-  color: string;
+  label?: string;
+
+  @Prop({ mutable: true })
+  value: string;
 
   @Prop()
   alpha: boolean = false;
 
-  @Prop()
-  name: string;
-
-  @Prop()
-  label?: string;
 
   @Event({ eventName: "colorChange", bubbles: true, composed: true })
   colorChangeEvent: EventEmitter<string>;
@@ -43,6 +44,20 @@ export class PixobeColorPickerElement {
   markerRef: HTMLDivElement;
   isPointerDown: boolean = false;
 
+  private propagateColor(options: { emitInput?: boolean; emitChange?: boolean } = {}) {
+    if (!this.currentColor) {
+      return;
+    }
+    const hexa = this.currentColor.hexa;
+    this.internals?.setFormValue(hexa);
+    if (options.emitInput) {
+      this.colorInputEvent.emit(hexa);
+    }
+    if (options.emitChange) {
+      this.colorChangeEvent.emit(hexa);
+    }
+  }
+
   get matrixColor(): string {
     return `hsla(${this.currentColor.hsl.h}, 100%, 50%)`;
   }
@@ -50,24 +65,28 @@ export class PixobeColorPickerElement {
   @CssVars
   componentWillLoad() {
     this.opacity = this.opacity || 1;
-    const color = this.color?.trim() || "#cacaca";
+    const color = this.value?.trim() || "#cacaca";
+    console.log(this.value)
     this.currentColor = new Color({ hex: color, a: this.opacity });
   }
 
   componentDidLoad() {
     this.updateMarkerPositionFromColor();
+    this.propagateColor();
   }
 
   onHueChange(e: Event) {
     const hue = parseInt((e.target as HTMLInputElement).value, 10);
     const { s, l } = this.currentColor.hsl;
     this.currentColor = new Color({ hsl: { h: hue, s, l }, a: this.opacity });
+    this.propagateColor({ emitInput: true });
   }
 
   @CssVars
   onAlphaChange(e: Event) {
     this.opacity = parseInt((e.target as HTMLInputElement).value, 10) / 100;
     this.currentColor.a = this.opacity;
+    this.propagateColor({ emitInput: true });
   }
 
   @CssVars
@@ -87,8 +106,7 @@ export class PixobeColorPickerElement {
     const l = 100 - (y / rect.height) * 100;
 
     this.currentColor = new Color({ hsl: { h, s, l }, a: this.opacity });
-    this.internals.setFormValue(this.currentColor.hexa);
-    this.colorInputEvent.emit(this.currentColor.hexa);
+    this.propagateColor({ emitInput: true });
   }
 
   onPointerDown = (e: PointerEvent) => {
@@ -108,8 +126,7 @@ export class PixobeColorPickerElement {
         console.error(error);
       }
     }
-    this.internals.setFormValue(this.currentColor.hexa);
-    this.colorChangeEvent.emit(this.currentColor.hexa);
+    this.propagateColor({ emitChange: true });
   }
 
   updateMarkerPositionFromColor() {
@@ -138,21 +155,19 @@ export class PixobeColorPickerElement {
 
     this.currentColor = new Color({ hex: color, a: this.opacity });
     this.updateMarkerPositionFromColor();
-    const hexa = this.currentColor.hexa;
-    this.internals.setFormValue(color);
-    this.colorInputEvent.emit(hexa);
-    this.colorChangeEvent.emit(hexa);
+    this.propagateColor({ emitInput: true, emitChange: true });
   }
 
   render() {
     return (
       <Host>
-        <div class="clr-picker" onPointerUp={this.onPointerUp}>
+        <div class="clr-picker" >
           <div
             id="clr-color-area"
             class="clr-matrix"
             role="application"
             style={{ color: this.matrixColor }}
+            onPointerUp={this.onPointerUp}
             onPointerMove={this.onColorPickerMove.bind(this)}
             onPointerDown={this.onPointerDown}
             ref={(el) => this.coloringAreaRef = el!}

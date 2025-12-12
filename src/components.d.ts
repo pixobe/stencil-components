@@ -120,9 +120,9 @@ export namespace Components {
           * @default false
          */
         "alpha": boolean;
-        "color": string;
         "label"?: string;
         "name": string;
+        "value": string;
     }
     interface PColorswatch {
         "label"?: string;
@@ -157,10 +157,6 @@ export namespace Components {
           * @default ''
          */
         "value": string;
-    }
-    interface PForm {
-        "data": Record<string, any>;
-        "formData": () => Promise<Record<string, any>>;
     }
     interface PGallery {
         "name": string;
@@ -613,12 +609,6 @@ declare global {
         prototype: HTMLPFontpickerElement;
         new (): HTMLPFontpickerElement;
     };
-    interface HTMLPFormElement extends Components.PForm, HTMLStencilElement {
-    }
-    var HTMLPFormElement: {
-        prototype: HTMLPFormElement;
-        new (): HTMLPFormElement;
-    };
     interface HTMLPGalleryElementEventMap {
         "mediaFrameEvent": { name: string };
     }
@@ -773,7 +763,6 @@ declare global {
         "p-colorswatch": HTMLPColorswatchElement;
         "p-fileuploader": HTMLPFileuploaderElement;
         "p-fontpicker": HTMLPFontpickerElement;
-        "p-form": HTMLPFormElement;
         "p-gallery": HTMLPGalleryElement;
         "p-icontext": HTMLPIcontextElement;
         "p-imagegrid": HTMLPImagegridElement;
@@ -895,15 +884,15 @@ declare namespace LocalJSX {
           * @default false
          */
         "alpha"?: boolean;
-        "color"?: string;
         "label"?: string;
-        "name"?: string;
+        "name": string;
         "onColorChange"?: (event: PColorpickerCustomEvent<string>) => void;
         "onColorInput"?: (event: PColorpickerCustomEvent<string>) => void;
+        "value"?: string;
     }
     interface PColorswatch {
         "label"?: string;
-        "name"?: string;
+        "name": string;
         /**
           * @default ''
          */
@@ -935,9 +924,6 @@ declare namespace LocalJSX {
           * @default ''
          */
         "value"?: string;
-    }
-    interface PForm {
-        "data"?: Record<string, any>;
     }
     interface PGallery {
         "name": string;
@@ -1115,7 +1101,6 @@ declare namespace LocalJSX {
         "p-colorswatch": PColorswatch;
         "p-fileuploader": PFileuploader;
         "p-fontpicker": PFontpicker;
-        "p-form": PForm;
         "p-gallery": PGallery;
         "p-icontext": PIcontext;
         "p-imagegrid": PImagegrid;
@@ -1181,7 +1166,6 @@ declare module "@stencil/core" {
             "p-colorswatch": LocalJSX.PColorswatch & JSXBase.HTMLAttributes<HTMLPColorswatchElement>;
             "p-fileuploader": LocalJSX.PFileuploader & JSXBase.HTMLAttributes<HTMLPFileuploaderElement>;
             "p-fontpicker": LocalJSX.PFontpicker & JSXBase.HTMLAttributes<HTMLPFontpickerElement>;
-            "p-form": LocalJSX.PForm & JSXBase.HTMLAttributes<HTMLPFormElement>;
             "p-gallery": LocalJSX.PGallery & JSXBase.HTMLAttributes<HTMLPGalleryElement>;
             "p-icontext": LocalJSX.PIcontext & JSXBase.HTMLAttributes<HTMLPIcontextElement>;
             "p-imagegrid": LocalJSX.PImagegrid & JSXBase.HTMLAttributes<HTMLPImagegridElement>;

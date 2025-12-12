@@ -1,6 +1,7 @@
 @use 'src/styles/colors';
 
 :host {
+  margin: 1rem 0;
   display: block;
   width: 100%;
 
@@ -11,7 +12,6 @@
   }
 
   .color-swatch__label {
-    font-size: 13px;
     font-weight: 500;
     color: var(--text-secondary);
   }

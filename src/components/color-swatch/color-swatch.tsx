@@ -10,8 +10,8 @@ export class PixobeColorSwatchesElement {
   @Element()
   el: HTMLElement;
 
-  @Prop()
-  name: string;
+  @Prop({ reflect: true })
+  name!: string;
 
   @Prop({ mutable: true, reflect: true })
   value: string = '';
@@ -65,7 +65,6 @@ export class PixobeColorSwatchesElement {
     }
 
     const normalizedColor = rawColor.startsWith('#') ? rawColor.toUpperCase() : rawColor;
-
     this.selectedColors = [...this.selectedColors, normalizedColor];
     this.syncFormValue();
   };
@@ -100,7 +99,7 @@ export class PixobeColorSwatchesElement {
               </div>
             ))}
           </div>
-          <p-colorpicker onColorChange={this.onColorSelect}></p-colorpicker>
+          <p-colorpicker onColorChange={this.onColorSelect} name={this.name}></p-colorpicker>
         </div>
       </Host >
     );

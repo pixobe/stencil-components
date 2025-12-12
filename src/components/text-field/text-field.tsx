@@ -33,7 +33,8 @@ export class PixobeTextFieldElement {
   @AttachInternals()
   internals!: ElementInternals;
 
-  componentWillLoad() {
+  componentDidLoad() {
+    console.log("Text field value in did Load ", this.value)
     this.internals.setFormValue(this.value);
   }
 
@@ -41,6 +42,7 @@ export class PixobeTextFieldElement {
     const inputEvent = e as InputEvent;
     const value = (inputEvent.target as HTMLInputElement).value;
     this.value = value;
+    console.log(this.value, "<< got text fiel value")
     this.internals.setFormValue(value);
   }
 
