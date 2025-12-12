@@ -1,23 +1,19 @@
 {
   "compilerOptions": {
-    "baseUrl": ".",
     "allowSyntheticDefaultImports": true,
     "allowUnreachableCode": false,
     "declaration": false,
     "experimentalDecorators": true,
-    "lib": ["ES2022", "DOM.Iterable", "DOM"],
-    "moduleResolution": "node",
+    "lib": ["dom", "ES2024"],
     "module": "esnext",
-    "target": "es2022",
-    "noUnusedLocals": false,
+    "moduleResolution": "bundler",
+    "target": "es2024",
+    "noUnusedLocals": true,
     "noUnusedParameters": true,
     "jsx": "react",
     "jsxFactory": "h",
-    "jsxFragmentFactory": "Fragment",
     "skipLibCheck": true,
-    "forceConsistentCasingInFileNames": true,
-    "strict": true,
-    "strictPropertyInitialization": false
+    "jsxFragmentFactory": "Fragment"
   },
   "include": ["src"],
   "exclude": ["node_modules", "**/*.stories.ts"]

@@ -3,7 +3,7 @@ import type { Meta, StoryObj } from '@storybook/html-vite';
 
 const meta: Meta<any> = {
   title: 'SelectMneu',
-  render: (args) => {
+  render: (args: any) => {
     const el = document.createElement("select-menu");
     Object.assign(el, args)
     return el;

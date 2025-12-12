@@ -9,7 +9,7 @@ import {
   Event,
   EventEmitter,
 } from '@stencil/core';
-import { computePosition } from 'src/utils/position-utils';
+import { computePosition } from '../../utils/position-utils';
 
 @Component({
   tag: 'color-input',

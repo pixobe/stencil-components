@@ -1,4 +1,4 @@
-import { Component, Host, h, State, Prop, EventEmitter, Element } from '@stencil/core';
+import { Component, h, State, Prop } from '@stencil/core';
 
 @Component({
   tag: 'pixobe-tabs',

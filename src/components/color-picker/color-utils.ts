@@ -85,10 +85,10 @@ export function HEXtoRGB(hex: string): RGB {
   const b = parseInt(hex.substring(4, 6), 16);
 
   // Parse alpha if present (#RRGGBBAA)
-  let a = 1;
-  if (hex.length === 8) {
-    a = parseInt(hex.substring(6, 8), 16) / 255;
-  }
+  // let a = 1;
+  // if (hex.length === 8) {
+  //   a = parseInt(hex.substring(6, 8), 16) / 255;
+  // }
 
   if (!isNaN(r) && !isNaN(g) && !isNaN(b)) {
     return { r, g, b };

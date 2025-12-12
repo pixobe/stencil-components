@@ -1,5 +1,4 @@
 import type { Meta, StoryObj } from '@storybook/html-vite';
-import { time } from 'console';
 
 
 const meta: Meta<any> = {

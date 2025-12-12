@@ -1,4 +1,4 @@
-import { Component, Host, h, State, Prop, Event, EventEmitter, Watch, AttachInternals } from '@stencil/core';
+import { Component, Host, h, State, Prop, Event, EventEmitter, AttachInternals } from '@stencil/core';
 import { GridImageProp } from '../image-grid/image-grid';
 
 declare const wp: any;

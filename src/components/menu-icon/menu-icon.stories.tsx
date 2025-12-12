@@ -6,10 +6,6 @@ const meta: Meta<any> = {
   render: (args) => {
     const el = document.createElement("menu-icon");
     Object.assign(el, args);
-
-    const thicknessList = [1, 2, 3, 4, 5];
-
-
     el.innerHTML = `
     
               <div class="icon" slot="menu-icon">

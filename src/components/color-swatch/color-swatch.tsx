@@ -1,5 +1,5 @@
-import { AttachInternals, Component, Element, h, Host, Prop, State, Event, EventEmitter, Watch } from '@stencil/core';
-import { computePosition } from 'src/utils/position-utils';
+import { AttachInternals, Component, Element, h, Host, Prop, State, Event, EventEmitter } from '@stencil/core';
+import { computePosition } from '../../utils/position-utils';
 
 @Component({
   tag: 'color-swatch',
