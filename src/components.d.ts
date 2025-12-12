@@ -14,20 +14,6 @@ export { GridImageProp } from "./components/image-grid/image-grid";
 export { DropdownOption } from "./components/menu-icon/menu-icon";
 export { OptionItem } from "./components/select-menu/select-menu";
 export namespace Components {
-    interface ColorInput {
-        "label"?: string;
-        "name": string;
-        "swatches": string;
-        "value": string;
-    }
-    interface ColorPicker {
-        "color": string;
-        /**
-          * @default false
-         */
-        "editable": boolean;
-        "swatches": string;
-    }
     interface IconAdd {
     }
     interface IconAddCart {
@@ -301,14 +287,6 @@ export namespace Components {
     interface PWatermark {
     }
 }
-export interface ColorInputCustomEvent<T> extends CustomEvent<T> {
-    detail: T;
-    target: HTMLColorInputElement;
-}
-export interface ColorPickerCustomEvent<T> extends CustomEvent<T> {
-    detail: T;
-    target: HTMLColorPickerElement;
-}
 export interface PColorpickerCustomEvent<T> extends CustomEvent<T> {
     detail: T;
     target: HTMLPColorpickerElement;
@@ -330,43 +308,6 @@ export interface PMenuiconCustomEvent<T> extends CustomEvent<T> {
     target: HTMLPMenuiconElement;
 }
 declare global {
-    interface HTMLColorInputElementEventMap {
-        "colorChange": string;
-        "colorInput": string;
-    }
-    interface HTMLColorInputElement extends Components.ColorInput, HTMLStencilElement {
-        addEventListener<K extends keyof HTMLColorInputElementEventMap>(type: K, listener: (this: HTMLColorInputElement, ev: ColorInputCustomEvent<HTMLColorInputElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
-        addEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
-        addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
-        addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
-        removeEventListener<K extends keyof HTMLColorInputElementEventMap>(type: K, listener: (this: HTMLColorInputElement, ev: ColorInputCustomEvent<HTMLColorInputElementEventMap[K]>) => any, options?: boolean | EventListenerOptions): void;
-        removeEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
-        removeEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
-        removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
-    }
-    var HTMLColorInputElement: {
-        prototype: HTMLColorInputElement;
-        new (): HTMLColorInputElement;
-    };
-    interface HTMLColorPickerElementEventMap {
-        "colorChange": string;
-        "colorInput": string;
-        "swatchUpdate": string;
-    }
-    interface HTMLColorPickerElement extends Components.ColorPicker, HTMLStencilElement {
-        addEventListener<K extends keyof HTMLColorPickerElementEventMap>(type: K, listener: (this: HTMLColorPickerElement, ev: ColorPickerCustomEvent<HTMLColorPickerElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
-        addEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
-        addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
-        addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
-        removeEventListener<K extends keyof HTMLColorPickerElementEventMap>(type: K, listener: (this: HTMLColorPickerElement, ev: ColorPickerCustomEvent<HTMLColorPickerElementEventMap[K]>) => any, options?: boolean | EventListenerOptions): void;
-        removeEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
-        removeEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
-        removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
-    }
-    var HTMLColorPickerElement: {
-        prototype: HTMLColorPickerElement;
-        new (): HTMLColorPickerElement;
-    };
     interface HTMLIconAddElement extends Components.IconAdd, HTMLStencilElement {
     }
     var HTMLIconAddElement: {
@@ -785,8 +726,6 @@ declare global {
         new (): HTMLPWatermarkElement;
     };
     interface HTMLElementTagNameMap {
-        "color-input": HTMLColorInputElement;
-        "color-picker": HTMLColorPickerElement;
         "icon-add": HTMLIconAddElement;
         "icon-add-cart": HTMLIconAddCartElement;
         "icon-add-image": HTMLIconAddImageElement;
@@ -850,25 +789,6 @@ declare global {
     }
 }
 declare namespace LocalJSX {
-    interface ColorInput {
-        "label"?: string;
-        "name": string;
-        "onColorChange"?: (event: ColorInputCustomEvent<string>) => void;
-        "onColorInput"?: (event: ColorInputCustomEvent<string>) => void;
-        "swatches"?: string;
-        "value"?: string;
-    }
-    interface ColorPicker {
-        "color"?: string;
-        /**
-          * @default false
-         */
-        "editable"?: boolean;
-        "onColorChange"?: (event: ColorPickerCustomEvent<string>) => void;
-        "onColorInput"?: (event: ColorPickerCustomEvent<string>) => void;
-        "onSwatchUpdate"?: (event: ColorPickerCustomEvent<string>) => void;
-        "swatches"?: string;
-    }
     interface IconAdd {
     }
     interface IconAddCart {
@@ -1148,8 +1068,6 @@ declare namespace LocalJSX {
     interface PWatermark {
     }
     interface IntrinsicElements {
-        "color-input": ColorInput;
-        "color-picker": ColorPicker;
         "icon-add": IconAdd;
         "icon-add-cart": IconAddCart;
         "icon-add-image": IconAddImage;
@@ -1216,8 +1134,6 @@ export { LocalJSX as JSX };
 declare module "@stencil/core" {
     export namespace JSX {
         interface IntrinsicElements {
-            "color-input": LocalJSX.ColorInput & JSXBase.HTMLAttributes<HTMLColorInputElement>;
-            "color-picker": LocalJSX.ColorPicker & JSXBase.HTMLAttributes<HTMLColorPickerElement>;
             "icon-add": LocalJSX.IconAdd & JSXBase.HTMLAttributes<HTMLIconAddElement>;
             "icon-add-cart": LocalJSX.IconAddCart & JSXBase.HTMLAttributes<HTMLIconAddCartElement>;
             "icon-add-image": LocalJSX.IconAddImage & JSXBase.HTMLAttributes<HTMLIconAddImageElement>;

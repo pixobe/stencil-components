@@ -7,7 +7,7 @@ import { AttachInternals, Component, Element, h, Host, Prop } from '@stencil/cor
   shadow: true,
   formAssociated: true
 })
-export class PixobeTextField {
+export class PixobeTextFieldElement {
 
   @Element()
   el!: HTMLElement

@@ -1,37 +1,27 @@
-import type { Meta, StoryObj } from '@storybook/html-vite';
+import type { Meta, StoryObj } from '@stencil/storybook-plugin';
+import { h } from '@stencil/core';
+import { PixobeTextAreaElement } from './textarea';
 
-
-const meta: Meta<any> = {
+const meta = {
   title: 'Textarea',
-  render: (args) => {
-    const el = document.createElement("multi-line");
-    Object.assign(el, args)
-    return el;
+  component: PixobeTextAreaElement,
+  parameters: {
+    layout: 'centered',
   },
-  argTypes: {},
-};
+  argTypes: {
+  },
+  args: {},
+} satisfies Meta<PixobeTextAreaElement>;
+
 export default meta;
-type Story = StoryObj<any>;
+type Story = StoryObj<PixobeTextAreaElement>;
 
-
-export const Primary: Story = {
+export const Basic: Story = {
   args: {
-    name: "firstName",
-    label: "First Name"
+    label: 'Comments',
+    placeholder: "Write your comments"
   },
+  render: (props) => {
+    return <p-textarea {...props} />;
+  }
 };
-
-export const Secondary: Story = {
-  args: {
-    name: "Text",
-    label: "Text"
-  },
-};
-export const WithPlaceholder: Story = {
-  args: {
-    name: "Notes",
-    label: "Notes",
-    placeholder: "Enter your comments here..."
-  },
-};
-

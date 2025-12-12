@@ -1,36 +1,27 @@
-import type { Meta, StoryObj } from '@storybook/html-vite';
+import type { Meta, StoryObj } from '@stencil/storybook-plugin';
+import { h } from '@stencil/core';
+import { PixobeTextFieldElement } from './text-field';
 
-
-const meta: Meta<any> = {
-  title: 'Text Field',
-  render: (args) => {
-    const el = document.createElement("p-textfield");
-    Object.assign(el, args)
-    return el;
+const meta = {
+  title: 'TextField',
+  component: PixobeTextFieldElement,
+  parameters: {
+    layout: 'centered',
   },
-  argTypes: {},
-};
+  argTypes: {
+  },
+  args: {},
+} satisfies Meta<PixobeTextFieldElement>;
+
 export default meta;
-type Story = StoryObj<any>;
+type Story = StoryObj<PixobeTextFieldElement>;
 
-
-export const Primary: Story = {
+export const Basic: Story = {
   args: {
-    name: "firstName",
-    label: "First Name"
+    label: 'Comments',
+    placeholder: "Write your comments"
   },
-};
-
-export const Secondary: Story = {
-  args: {
-    name: "Text",
-    label: "Text"
-  },
-};
-export const WithPlaceholder: Story = {
-  args: {
-    name: "Notes",
-    label: "Notes",
-    placeholder: "Enter your comments here..."
-  },
+  render: (props) => {
+    return <p-textfield {...props} />;
+  }
 };
