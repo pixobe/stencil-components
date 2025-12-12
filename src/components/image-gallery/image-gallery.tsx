@@ -10,7 +10,7 @@ interface Gallery {
 
 
 @Component({
-  tag: 'image-gallery',
+  tag: 'p-gallery',
   styleUrl: 'image-gallery.scss',
   shadow: true,
   formAssociated: true

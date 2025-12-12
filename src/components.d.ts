@@ -14,18 +14,6 @@ export { GridImageProp } from "./components/image-grid/image-grid";
 export { DropdownOption } from "./components/menu-icon/menu-icon";
 export { OptionItem } from "./components/select-menu/select-menu";
 export namespace Components {
-    interface CheckBox {
-        "label"?: string;
-        "name": string;
-        /**
-          * @default true
-         */
-        "required": boolean;
-        /**
-          * @default 'false'
-         */
-        "value": string;
-    }
     interface ColorInput {
         "label"?: string;
         "name": string;
@@ -39,41 +27,6 @@ export namespace Components {
          */
         "editable": boolean;
         "swatches": string;
-    }
-    interface ColorSwatch {
-        "label"?: string;
-        "name": string;
-        "value": string;
-    }
-    interface FileUploader {
-        "label"?: string;
-        /**
-          * @default "File"
-         */
-        "name": string;
-        /**
-          * @default ''
-         */
-        "value": string;
-    }
-    interface FontPicker {
-        /**
-          * @default []
-         */
-        "fonts": FontItem[];
-        "label"?: string;
-        /**
-          * @default "Fonts"
-         */
-        "name": string;
-        /**
-          * @default ''
-         */
-        "value": string;
-    }
-    interface HtmlForm {
-        "data": Record<string, any>;
-        "formData": () => Promise<Record<string, any>>;
     }
     interface IconAdd {
     }
@@ -157,15 +110,73 @@ export namespace Components {
     }
     interface IconWrench {
     }
-    interface IcontextGroup {
-        "icon": string;
-        "label": string;
+    interface PBanner {
+        /**
+          * @default 'Pixobe'
+         */
+        "name": string;
+    }
+    interface PCheckbox {
+        "details"?: string;
+        "label"?: string;
+        "name": string;
+        /**
+          * @default true
+         */
+        "required": boolean;
+        /**
+          * @default 'false'
+         */
+        "value": string;
+    }
+    interface PColorpicker {
         /**
           * @default false
          */
-        "rounded": boolean;
+        "alpha": boolean;
+        "color": string;
+        "label"?: string;
+        "name": string;
     }
-    interface ImageGallery {
+    interface PColorswatch {
+        "label"?: string;
+        "name": string;
+        /**
+          * @default ''
+         */
+        "value": string;
+    }
+    interface PFileuploader {
+        "label"?: string;
+        /**
+          * @default "File"
+         */
+        "name": string;
+        /**
+          * @default ''
+         */
+        "value": string;
+    }
+    interface PFontpicker {
+        /**
+          * @default []
+         */
+        "fonts": FontItem[];
+        "label"?: string;
+        /**
+          * @default "Fonts"
+         */
+        "name": string;
+        /**
+          * @default ''
+         */
+        "value": string;
+    }
+    interface PForm {
+        "data": Record<string, any>;
+        "formData": () => Promise<Record<string, any>>;
+    }
+    interface PGallery {
         "name": string;
         /**
           * @default "wp"
@@ -180,7 +191,15 @@ export namespace Components {
          */
         "viewonly": boolean;
     }
-    interface ImageGrid {
+    interface PIcontext {
+        "icon": string;
+        "label": string;
+        /**
+          * @default false
+         */
+        "rounded": boolean;
+    }
+    interface PImagegrid {
         /**
           * Array of image URLs
           * @default []
@@ -188,31 +207,47 @@ export namespace Components {
         "images": Array<GridImageProp>;
         "viewonly": boolean;
     }
-    interface InputText {
+    interface PMenuicon {
+        "options"?: DropdownOption[];
+        "value": any;
+    }
+    interface PModal {
+        /**
+          * @default false
+         */
+        "closeButton": boolean;
+        /**
+          * @default false
+         */
+        "open": boolean;
+    }
+    interface PSelect {
         "label"?: string;
         "name": string;
         /**
-          * @default ''
+          * @default []
          */
-        "placeholder"?: string;
+        "options": OptionItem[];
         /**
           * @default true
          */
         "required": boolean;
         /**
-          * @default 'text'
-         */
-        "type": string;
-        /**
           * @default ''
          */
         "value": string;
     }
-    interface MenuIcon {
-        "options"?: DropdownOption[];
-        "value": any;
+    interface PSpinner {
+        "header"?: string;
+        "message"?: string;
     }
-    interface MultiLine {
+    interface PTabs {
+        /**
+          * @default []
+         */
+        "tabs": string[];
+    }
+    interface PTextarea {
         "label"?: string;
         "name": string;
         /**
@@ -232,33 +267,27 @@ export namespace Components {
          */
         "value": string;
     }
-    interface PixobeBanner {
-        /**
-          * @default 'Pixobe'
-         */
+    interface PTextfield {
+        "label"?: string;
         "name": string;
-    }
-    interface PixobeModal {
         /**
-          * @default false
+          * @default ''
          */
-        "closeButton": boolean;
+        "placeholder"?: string;
         /**
-          * @default false
+          * @default true
          */
-        "open": boolean;
-    }
-    interface PixobeSpinner {
-        "header"?: string;
-        "message"?: string;
-    }
-    interface PixobeTabs {
+        "required": boolean;
         /**
-          * @default []
+          * @default 'text'
          */
-        "tabs": string[];
+        "type": string;
+        /**
+          * @default ''
+         */
+        "value": string;
     }
-    interface PixobeToast {
+    interface PToast {
         "message": string;
         /**
           * @default 'success'
@@ -269,23 +298,7 @@ export namespace Components {
          */
         "timeout": number;
     }
-    interface PixobeWatermark {
-    }
-    interface SelectMenu {
-        "label"?: string;
-        "name": string;
-        /**
-          * @default []
-         */
-        "options": OptionItem[];
-        /**
-          * @default true
-         */
-        "required": boolean;
-        /**
-          * @default ''
-         */
-        "value": string;
+    interface PWatermark {
     }
 }
 export interface ColorInputCustomEvent<T> extends CustomEvent<T> {
@@ -296,33 +309,27 @@ export interface ColorPickerCustomEvent<T> extends CustomEvent<T> {
     detail: T;
     target: HTMLColorPickerElement;
 }
-export interface ColorSwatchCustomEvent<T> extends CustomEvent<T> {
+export interface PColorpickerCustomEvent<T> extends CustomEvent<T> {
     detail: T;
-    target: HTMLColorSwatchElement;
+    target: HTMLPColorpickerElement;
 }
-export interface FileUploaderCustomEvent<T> extends CustomEvent<T> {
+export interface PFileuploaderCustomEvent<T> extends CustomEvent<T> {
     detail: T;
-    target: HTMLFileUploaderElement;
+    target: HTMLPFileuploaderElement;
 }
-export interface ImageGalleryCustomEvent<T> extends CustomEvent<T> {
+export interface PGalleryCustomEvent<T> extends CustomEvent<T> {
     detail: T;
-    target: HTMLImageGalleryElement;
+    target: HTMLPGalleryElement;
 }
-export interface ImageGridCustomEvent<T> extends CustomEvent<T> {
+export interface PImagegridCustomEvent<T> extends CustomEvent<T> {
     detail: T;
-    target: HTMLImageGridElement;
+    target: HTMLPImagegridElement;
 }
-export interface MenuIconCustomEvent<T> extends CustomEvent<T> {
+export interface PMenuiconCustomEvent<T> extends CustomEvent<T> {
     detail: T;
-    target: HTMLMenuIconElement;
+    target: HTMLPMenuiconElement;
 }
 declare global {
-    interface HTMLCheckBoxElement extends Components.CheckBox, HTMLStencilElement {
-    }
-    var HTMLCheckBoxElement: {
-        prototype: HTMLCheckBoxElement;
-        new (): HTMLCheckBoxElement;
-    };
     interface HTMLColorInputElementEventMap {
         "colorChange": string;
         "colorInput": string;
@@ -359,53 +366,6 @@ declare global {
     var HTMLColorPickerElement: {
         prototype: HTMLColorPickerElement;
         new (): HTMLColorPickerElement;
-    };
-    interface HTMLColorSwatchElementEventMap {
-        "colorChange": string;
-        "colorInput": string;
-    }
-    interface HTMLColorSwatchElement extends Components.ColorSwatch, HTMLStencilElement {
-        addEventListener<K extends keyof HTMLColorSwatchElementEventMap>(type: K, listener: (this: HTMLColorSwatchElement, ev: ColorSwatchCustomEvent<HTMLColorSwatchElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
-        addEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
-        addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
-        addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
-        removeEventListener<K extends keyof HTMLColorSwatchElementEventMap>(type: K, listener: (this: HTMLColorSwatchElement, ev: ColorSwatchCustomEvent<HTMLColorSwatchElementEventMap[K]>) => any, options?: boolean | EventListenerOptions): void;
-        removeEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
-        removeEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
-        removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
-    }
-    var HTMLColorSwatchElement: {
-        prototype: HTMLColorSwatchElement;
-        new (): HTMLColorSwatchElement;
-    };
-    interface HTMLFileUploaderElementEventMap {
-        "fileInput": any;
-    }
-    interface HTMLFileUploaderElement extends Components.FileUploader, HTMLStencilElement {
-        addEventListener<K extends keyof HTMLFileUploaderElementEventMap>(type: K, listener: (this: HTMLFileUploaderElement, ev: FileUploaderCustomEvent<HTMLFileUploaderElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
-        addEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
-        addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
-        addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
-        removeEventListener<K extends keyof HTMLFileUploaderElementEventMap>(type: K, listener: (this: HTMLFileUploaderElement, ev: FileUploaderCustomEvent<HTMLFileUploaderElementEventMap[K]>) => any, options?: boolean | EventListenerOptions): void;
-        removeEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
-        removeEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
-        removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
-    }
-    var HTMLFileUploaderElement: {
-        prototype: HTMLFileUploaderElement;
-        new (): HTMLFileUploaderElement;
-    };
-    interface HTMLFontPickerElement extends Components.FontPicker, HTMLStencilElement {
-    }
-    var HTMLFontPickerElement: {
-        prototype: HTMLFontPickerElement;
-        new (): HTMLFontPickerElement;
-    };
-    interface HTMLHtmlFormElement extends Components.HtmlForm, HTMLStencilElement {
-    }
-    var HTMLHtmlFormElement: {
-        prototype: HTMLHtmlFormElement;
-        new (): HTMLHtmlFormElement;
     };
     interface HTMLIconAddElement extends Components.IconAdd, HTMLStencilElement {
     }
@@ -653,126 +613,180 @@ declare global {
         prototype: HTMLIconWrenchElement;
         new (): HTMLIconWrenchElement;
     };
-    interface HTMLIcontextGroupElement extends Components.IcontextGroup, HTMLStencilElement {
+    interface HTMLPBannerElement extends Components.PBanner, HTMLStencilElement {
     }
-    var HTMLIcontextGroupElement: {
-        prototype: HTMLIcontextGroupElement;
-        new (): HTMLIcontextGroupElement;
+    var HTMLPBannerElement: {
+        prototype: HTMLPBannerElement;
+        new (): HTMLPBannerElement;
     };
-    interface HTMLImageGalleryElementEventMap {
-        "mediaFrameEvent": { name: string };
+    interface HTMLPCheckboxElement extends Components.PCheckbox, HTMLStencilElement {
     }
-    interface HTMLImageGalleryElement extends Components.ImageGallery, HTMLStencilElement {
-        addEventListener<K extends keyof HTMLImageGalleryElementEventMap>(type: K, listener: (this: HTMLImageGalleryElement, ev: ImageGalleryCustomEvent<HTMLImageGalleryElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
+    var HTMLPCheckboxElement: {
+        prototype: HTMLPCheckboxElement;
+        new (): HTMLPCheckboxElement;
+    };
+    interface HTMLPColorpickerElementEventMap {
+        "colorChange": string;
+        "colorInput": string;
+    }
+    interface HTMLPColorpickerElement extends Components.PColorpicker, HTMLStencilElement {
+        addEventListener<K extends keyof HTMLPColorpickerElementEventMap>(type: K, listener: (this: HTMLPColorpickerElement, ev: PColorpickerCustomEvent<HTMLPColorpickerElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
         addEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
         addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
         addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
-        removeEventListener<K extends keyof HTMLImageGalleryElementEventMap>(type: K, listener: (this: HTMLImageGalleryElement, ev: ImageGalleryCustomEvent<HTMLImageGalleryElementEventMap[K]>) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLPColorpickerElementEventMap>(type: K, listener: (this: HTMLPColorpickerElement, ev: PColorpickerCustomEvent<HTMLPColorpickerElementEventMap[K]>) => any, options?: boolean | EventListenerOptions): void;
         removeEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
         removeEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
         removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
     }
-    var HTMLImageGalleryElement: {
-        prototype: HTMLImageGalleryElement;
-        new (): HTMLImageGalleryElement;
+    var HTMLPColorpickerElement: {
+        prototype: HTMLPColorpickerElement;
+        new (): HTMLPColorpickerElement;
     };
-    interface HTMLImageGridElementEventMap {
+    interface HTMLPColorswatchElement extends Components.PColorswatch, HTMLStencilElement {
+    }
+    var HTMLPColorswatchElement: {
+        prototype: HTMLPColorswatchElement;
+        new (): HTMLPColorswatchElement;
+    };
+    interface HTMLPFileuploaderElementEventMap {
+        "fileInput": any;
+    }
+    interface HTMLPFileuploaderElement extends Components.PFileuploader, HTMLStencilElement {
+        addEventListener<K extends keyof HTMLPFileuploaderElementEventMap>(type: K, listener: (this: HTMLPFileuploaderElement, ev: PFileuploaderCustomEvent<HTMLPFileuploaderElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLPFileuploaderElementEventMap>(type: K, listener: (this: HTMLPFileuploaderElement, ev: PFileuploaderCustomEvent<HTMLPFileuploaderElementEventMap[K]>) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
+    }
+    var HTMLPFileuploaderElement: {
+        prototype: HTMLPFileuploaderElement;
+        new (): HTMLPFileuploaderElement;
+    };
+    interface HTMLPFontpickerElement extends Components.PFontpicker, HTMLStencilElement {
+    }
+    var HTMLPFontpickerElement: {
+        prototype: HTMLPFontpickerElement;
+        new (): HTMLPFontpickerElement;
+    };
+    interface HTMLPFormElement extends Components.PForm, HTMLStencilElement {
+    }
+    var HTMLPFormElement: {
+        prototype: HTMLPFormElement;
+        new (): HTMLPFormElement;
+    };
+    interface HTMLPGalleryElementEventMap {
+        "mediaFrameEvent": { name: string };
+    }
+    interface HTMLPGalleryElement extends Components.PGallery, HTMLStencilElement {
+        addEventListener<K extends keyof HTMLPGalleryElementEventMap>(type: K, listener: (this: HTMLPGalleryElement, ev: PGalleryCustomEvent<HTMLPGalleryElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLPGalleryElementEventMap>(type: K, listener: (this: HTMLPGalleryElement, ev: PGalleryCustomEvent<HTMLPGalleryElementEventMap[K]>) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
+    }
+    var HTMLPGalleryElement: {
+        prototype: HTMLPGalleryElement;
+        new (): HTMLPGalleryElement;
+    };
+    interface HTMLPIcontextElement extends Components.PIcontext, HTMLStencilElement {
+    }
+    var HTMLPIcontextElement: {
+        prototype: HTMLPIcontextElement;
+        new (): HTMLPIcontextElement;
+    };
+    interface HTMLPImagegridElementEventMap {
         "imageDelete": GridImageProp;
         "imageSelect": GridImageProp;
     }
-    interface HTMLImageGridElement extends Components.ImageGrid, HTMLStencilElement {
-        addEventListener<K extends keyof HTMLImageGridElementEventMap>(type: K, listener: (this: HTMLImageGridElement, ev: ImageGridCustomEvent<HTMLImageGridElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
+    interface HTMLPImagegridElement extends Components.PImagegrid, HTMLStencilElement {
+        addEventListener<K extends keyof HTMLPImagegridElementEventMap>(type: K, listener: (this: HTMLPImagegridElement, ev: PImagegridCustomEvent<HTMLPImagegridElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
         addEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
         addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
         addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
-        removeEventListener<K extends keyof HTMLImageGridElementEventMap>(type: K, listener: (this: HTMLImageGridElement, ev: ImageGridCustomEvent<HTMLImageGridElementEventMap[K]>) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLPImagegridElementEventMap>(type: K, listener: (this: HTMLPImagegridElement, ev: PImagegridCustomEvent<HTMLPImagegridElementEventMap[K]>) => any, options?: boolean | EventListenerOptions): void;
         removeEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
         removeEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
         removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
     }
-    var HTMLImageGridElement: {
-        prototype: HTMLImageGridElement;
-        new (): HTMLImageGridElement;
+    var HTMLPImagegridElement: {
+        prototype: HTMLPImagegridElement;
+        new (): HTMLPImagegridElement;
     };
-    interface HTMLInputTextElement extends Components.InputText, HTMLStencilElement {
-    }
-    var HTMLInputTextElement: {
-        prototype: HTMLInputTextElement;
-        new (): HTMLInputTextElement;
-    };
-    interface HTMLMenuIconElementEventMap {
+    interface HTMLPMenuiconElementEventMap {
         "valueChanged": string;
     }
-    interface HTMLMenuIconElement extends Components.MenuIcon, HTMLStencilElement {
-        addEventListener<K extends keyof HTMLMenuIconElementEventMap>(type: K, listener: (this: HTMLMenuIconElement, ev: MenuIconCustomEvent<HTMLMenuIconElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
+    interface HTMLPMenuiconElement extends Components.PMenuicon, HTMLStencilElement {
+        addEventListener<K extends keyof HTMLPMenuiconElementEventMap>(type: K, listener: (this: HTMLPMenuiconElement, ev: PMenuiconCustomEvent<HTMLPMenuiconElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
         addEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
         addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
         addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
-        removeEventListener<K extends keyof HTMLMenuIconElementEventMap>(type: K, listener: (this: HTMLMenuIconElement, ev: MenuIconCustomEvent<HTMLMenuIconElementEventMap[K]>) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLPMenuiconElementEventMap>(type: K, listener: (this: HTMLPMenuiconElement, ev: PMenuiconCustomEvent<HTMLPMenuiconElementEventMap[K]>) => any, options?: boolean | EventListenerOptions): void;
         removeEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
         removeEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
         removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
     }
-    var HTMLMenuIconElement: {
-        prototype: HTMLMenuIconElement;
-        new (): HTMLMenuIconElement;
+    var HTMLPMenuiconElement: {
+        prototype: HTMLPMenuiconElement;
+        new (): HTMLPMenuiconElement;
     };
-    interface HTMLMultiLineElement extends Components.MultiLine, HTMLStencilElement {
+    interface HTMLPModalElement extends Components.PModal, HTMLStencilElement {
     }
-    var HTMLMultiLineElement: {
-        prototype: HTMLMultiLineElement;
-        new (): HTMLMultiLineElement;
+    var HTMLPModalElement: {
+        prototype: HTMLPModalElement;
+        new (): HTMLPModalElement;
     };
-    interface HTMLPixobeBannerElement extends Components.PixobeBanner, HTMLStencilElement {
+    interface HTMLPSelectElement extends Components.PSelect, HTMLStencilElement {
     }
-    var HTMLPixobeBannerElement: {
-        prototype: HTMLPixobeBannerElement;
-        new (): HTMLPixobeBannerElement;
+    var HTMLPSelectElement: {
+        prototype: HTMLPSelectElement;
+        new (): HTMLPSelectElement;
     };
-    interface HTMLPixobeModalElement extends Components.PixobeModal, HTMLStencilElement {
+    interface HTMLPSpinnerElement extends Components.PSpinner, HTMLStencilElement {
     }
-    var HTMLPixobeModalElement: {
-        prototype: HTMLPixobeModalElement;
-        new (): HTMLPixobeModalElement;
+    var HTMLPSpinnerElement: {
+        prototype: HTMLPSpinnerElement;
+        new (): HTMLPSpinnerElement;
     };
-    interface HTMLPixobeSpinnerElement extends Components.PixobeSpinner, HTMLStencilElement {
+    interface HTMLPTabsElement extends Components.PTabs, HTMLStencilElement {
     }
-    var HTMLPixobeSpinnerElement: {
-        prototype: HTMLPixobeSpinnerElement;
-        new (): HTMLPixobeSpinnerElement;
+    var HTMLPTabsElement: {
+        prototype: HTMLPTabsElement;
+        new (): HTMLPTabsElement;
     };
-    interface HTMLPixobeTabsElement extends Components.PixobeTabs, HTMLStencilElement {
+    interface HTMLPTextareaElement extends Components.PTextarea, HTMLStencilElement {
     }
-    var HTMLPixobeTabsElement: {
-        prototype: HTMLPixobeTabsElement;
-        new (): HTMLPixobeTabsElement;
+    var HTMLPTextareaElement: {
+        prototype: HTMLPTextareaElement;
+        new (): HTMLPTextareaElement;
     };
-    interface HTMLPixobeToastElement extends Components.PixobeToast, HTMLStencilElement {
+    interface HTMLPTextfieldElement extends Components.PTextfield, HTMLStencilElement {
     }
-    var HTMLPixobeToastElement: {
-        prototype: HTMLPixobeToastElement;
-        new (): HTMLPixobeToastElement;
+    var HTMLPTextfieldElement: {
+        prototype: HTMLPTextfieldElement;
+        new (): HTMLPTextfieldElement;
     };
-    interface HTMLPixobeWatermarkElement extends Components.PixobeWatermark, HTMLStencilElement {
+    interface HTMLPToastElement extends Components.PToast, HTMLStencilElement {
     }
-    var HTMLPixobeWatermarkElement: {
-        prototype: HTMLPixobeWatermarkElement;
-        new (): HTMLPixobeWatermarkElement;
+    var HTMLPToastElement: {
+        prototype: HTMLPToastElement;
+        new (): HTMLPToastElement;
     };
-    interface HTMLSelectMenuElement extends Components.SelectMenu, HTMLStencilElement {
+    interface HTMLPWatermarkElement extends Components.PWatermark, HTMLStencilElement {
     }
-    var HTMLSelectMenuElement: {
-        prototype: HTMLSelectMenuElement;
-        new (): HTMLSelectMenuElement;
+    var HTMLPWatermarkElement: {
+        prototype: HTMLPWatermarkElement;
+        new (): HTMLPWatermarkElement;
     };
     interface HTMLElementTagNameMap {
-        "check-box": HTMLCheckBoxElement;
         "color-input": HTMLColorInputElement;
         "color-picker": HTMLColorPickerElement;
-        "color-swatch": HTMLColorSwatchElement;
-        "file-uploader": HTMLFileUploaderElement;
-        "font-picker": HTMLFontPickerElement;
-        "html-form": HTMLHtmlFormElement;
         "icon-add": HTMLIconAddElement;
         "icon-add-cart": HTMLIconAddCartElement;
         "icon-add-image": HTMLIconAddImageElement;
@@ -814,34 +828,28 @@ declare global {
         "icon-upload-image": HTMLIconUploadImageElement;
         "icon-whatsapp": HTMLIconWhatsappElement;
         "icon-wrench": HTMLIconWrenchElement;
-        "icontext-group": HTMLIcontextGroupElement;
-        "image-gallery": HTMLImageGalleryElement;
-        "image-grid": HTMLImageGridElement;
-        "input-text": HTMLInputTextElement;
-        "menu-icon": HTMLMenuIconElement;
-        "multi-line": HTMLMultiLineElement;
-        "pixobe-banner": HTMLPixobeBannerElement;
-        "pixobe-modal": HTMLPixobeModalElement;
-        "pixobe-spinner": HTMLPixobeSpinnerElement;
-        "pixobe-tabs": HTMLPixobeTabsElement;
-        "pixobe-toast": HTMLPixobeToastElement;
-        "pixobe-watermark": HTMLPixobeWatermarkElement;
-        "select-menu": HTMLSelectMenuElement;
+        "p-banner": HTMLPBannerElement;
+        "p-checkbox": HTMLPCheckboxElement;
+        "p-colorpicker": HTMLPColorpickerElement;
+        "p-colorswatch": HTMLPColorswatchElement;
+        "p-fileuploader": HTMLPFileuploaderElement;
+        "p-fontpicker": HTMLPFontpickerElement;
+        "p-form": HTMLPFormElement;
+        "p-gallery": HTMLPGalleryElement;
+        "p-icontext": HTMLPIcontextElement;
+        "p-imagegrid": HTMLPImagegridElement;
+        "p-menuicon": HTMLPMenuiconElement;
+        "p-modal": HTMLPModalElement;
+        "p-select": HTMLPSelectElement;
+        "p-spinner": HTMLPSpinnerElement;
+        "p-tabs": HTMLPTabsElement;
+        "p-textarea": HTMLPTextareaElement;
+        "p-textfield": HTMLPTextfieldElement;
+        "p-toast": HTMLPToastElement;
+        "p-watermark": HTMLPWatermarkElement;
     }
 }
 declare namespace LocalJSX {
-    interface CheckBox {
-        "label"?: string;
-        "name": string;
-        /**
-          * @default true
-         */
-        "required"?: boolean;
-        /**
-          * @default 'false'
-         */
-        "value"?: string;
-    }
     interface ColorInput {
         "label"?: string;
         "name": string;
@@ -860,43 +868,6 @@ declare namespace LocalJSX {
         "onColorInput"?: (event: ColorPickerCustomEvent<string>) => void;
         "onSwatchUpdate"?: (event: ColorPickerCustomEvent<string>) => void;
         "swatches"?: string;
-    }
-    interface ColorSwatch {
-        "label"?: string;
-        "name": string;
-        "onColorChange"?: (event: ColorSwatchCustomEvent<string>) => void;
-        "onColorInput"?: (event: ColorSwatchCustomEvent<string>) => void;
-        "value"?: string;
-    }
-    interface FileUploader {
-        "label"?: string;
-        /**
-          * @default "File"
-         */
-        "name"?: string;
-        "onFileInput"?: (event: FileUploaderCustomEvent<any>) => void;
-        /**
-          * @default ''
-         */
-        "value"?: string;
-    }
-    interface FontPicker {
-        /**
-          * @default []
-         */
-        "fonts"?: FontItem[];
-        "label"?: string;
-        /**
-          * @default "Fonts"
-         */
-        "name"?: string;
-        /**
-          * @default ''
-         */
-        "value"?: string;
-    }
-    interface HtmlForm {
-        "data"?: Record<string, any>;
     }
     interface IconAdd {
     }
@@ -980,17 +951,77 @@ declare namespace LocalJSX {
     }
     interface IconWrench {
     }
-    interface IcontextGroup {
-        "icon": string;
-        "label": string;
+    interface PBanner {
+        /**
+          * @default 'Pixobe'
+         */
+        "name"?: string;
+    }
+    interface PCheckbox {
+        "details"?: string;
+        "label"?: string;
+        "name": string;
+        /**
+          * @default true
+         */
+        "required"?: boolean;
+        /**
+          * @default 'false'
+         */
+        "value"?: string;
+    }
+    interface PColorpicker {
         /**
           * @default false
          */
-        "rounded"?: boolean;
+        "alpha"?: boolean;
+        "color"?: string;
+        "label"?: string;
+        "name"?: string;
+        "onColorChange"?: (event: PColorpickerCustomEvent<string>) => void;
+        "onColorInput"?: (event: PColorpickerCustomEvent<string>) => void;
     }
-    interface ImageGallery {
+    interface PColorswatch {
+        "label"?: string;
+        "name"?: string;
+        /**
+          * @default ''
+         */
+        "value"?: string;
+    }
+    interface PFileuploader {
+        "label"?: string;
+        /**
+          * @default "File"
+         */
+        "name"?: string;
+        "onFileInput"?: (event: PFileuploaderCustomEvent<any>) => void;
+        /**
+          * @default ''
+         */
+        "value"?: string;
+    }
+    interface PFontpicker {
+        /**
+          * @default []
+         */
+        "fonts"?: FontItem[];
+        "label"?: string;
+        /**
+          * @default "Fonts"
+         */
+        "name"?: string;
+        /**
+          * @default ''
+         */
+        "value"?: string;
+    }
+    interface PForm {
+        "data"?: Record<string, any>;
+    }
+    interface PGallery {
         "name": string;
-        "onMediaFrameEvent"?: (event: ImageGalleryCustomEvent<{ name: string }>) => void;
+        "onMediaFrameEvent"?: (event: PGalleryCustomEvent<{ name: string }>) => void;
         /**
           * @default "wp"
          */
@@ -1004,42 +1035,66 @@ declare namespace LocalJSX {
          */
         "viewonly"?: boolean;
     }
-    interface ImageGrid {
+    interface PIcontext {
+        "icon": string;
+        "label": string;
+        /**
+          * @default false
+         */
+        "rounded"?: boolean;
+    }
+    interface PImagegrid {
         /**
           * Array of image URLs
           * @default []
          */
         "images"?: Array<GridImageProp>;
-        "onImageDelete"?: (event: ImageGridCustomEvent<GridImageProp>) => void;
-        "onImageSelect"?: (event: ImageGridCustomEvent<GridImageProp>) => void;
+        "onImageDelete"?: (event: PImagegridCustomEvent<GridImageProp>) => void;
+        "onImageSelect"?: (event: PImagegridCustomEvent<GridImageProp>) => void;
         "viewonly"?: boolean;
     }
-    interface InputText {
+    interface PMenuicon {
+        "onValueChanged"?: (event: PMenuiconCustomEvent<string>) => void;
+        "options"?: DropdownOption[];
+        "value"?: any;
+    }
+    interface PModal {
+        /**
+          * @default false
+         */
+        "closeButton"?: boolean;
+        /**
+          * @default false
+         */
+        "open"?: boolean;
+    }
+    interface PSelect {
         "label"?: string;
         "name": string;
         /**
-          * @default ''
+          * @default []
          */
-        "placeholder"?: string;
+        "options"?: OptionItem[];
         /**
           * @default true
          */
         "required"?: boolean;
         /**
-          * @default 'text'
-         */
-        "type"?: string;
-        /**
           * @default ''
          */
         "value"?: string;
     }
-    interface MenuIcon {
-        "onValueChanged"?: (event: MenuIconCustomEvent<string>) => void;
-        "options"?: DropdownOption[];
-        "value"?: any;
+    interface PSpinner {
+        "header"?: string;
+        "message"?: string;
     }
-    interface MultiLine {
+    interface PTabs {
+        /**
+          * @default []
+         */
+        "tabs"?: string[];
+    }
+    interface PTextarea {
         "label"?: string;
         "name": string;
         /**
@@ -1059,33 +1114,27 @@ declare namespace LocalJSX {
          */
         "value"?: string;
     }
-    interface PixobeBanner {
+    interface PTextfield {
+        "label"?: string;
+        "name": string;
         /**
-          * @default 'Pixobe'
+          * @default ''
          */
-        "name"?: string;
-    }
-    interface PixobeModal {
+        "placeholder"?: string;
         /**
-          * @default false
+          * @default true
          */
-        "closeButton"?: boolean;
+        "required"?: boolean;
         /**
-          * @default false
+          * @default 'text'
          */
-        "open"?: boolean;
-    }
-    interface PixobeSpinner {
-        "header"?: string;
-        "message"?: string;
-    }
-    interface PixobeTabs {
+        "type"?: string;
         /**
-          * @default []
+          * @default ''
          */
-        "tabs"?: string[];
+        "value"?: string;
     }
-    interface PixobeToast {
+    interface PToast {
         "message"?: string;
         /**
           * @default 'success'
@@ -1096,32 +1145,11 @@ declare namespace LocalJSX {
          */
         "timeout"?: number;
     }
-    interface PixobeWatermark {
-    }
-    interface SelectMenu {
-        "label"?: string;
-        "name": string;
-        /**
-          * @default []
-         */
-        "options"?: OptionItem[];
-        /**
-          * @default true
-         */
-        "required"?: boolean;
-        /**
-          * @default ''
-         */
-        "value"?: string;
+    interface PWatermark {
     }
     interface IntrinsicElements {
-        "check-box": CheckBox;
         "color-input": ColorInput;
         "color-picker": ColorPicker;
-        "color-swatch": ColorSwatch;
-        "file-uploader": FileUploader;
-        "font-picker": FontPicker;
-        "html-form": HtmlForm;
         "icon-add": IconAdd;
         "icon-add-cart": IconAddCart;
         "icon-add-image": IconAddImage;
@@ -1163,32 +1191,33 @@ declare namespace LocalJSX {
         "icon-upload-image": IconUploadImage;
         "icon-whatsapp": IconWhatsapp;
         "icon-wrench": IconWrench;
-        "icontext-group": IcontextGroup;
-        "image-gallery": ImageGallery;
-        "image-grid": ImageGrid;
-        "input-text": InputText;
-        "menu-icon": MenuIcon;
-        "multi-line": MultiLine;
-        "pixobe-banner": PixobeBanner;
-        "pixobe-modal": PixobeModal;
-        "pixobe-spinner": PixobeSpinner;
-        "pixobe-tabs": PixobeTabs;
-        "pixobe-toast": PixobeToast;
-        "pixobe-watermark": PixobeWatermark;
-        "select-menu": SelectMenu;
+        "p-banner": PBanner;
+        "p-checkbox": PCheckbox;
+        "p-colorpicker": PColorpicker;
+        "p-colorswatch": PColorswatch;
+        "p-fileuploader": PFileuploader;
+        "p-fontpicker": PFontpicker;
+        "p-form": PForm;
+        "p-gallery": PGallery;
+        "p-icontext": PIcontext;
+        "p-imagegrid": PImagegrid;
+        "p-menuicon": PMenuicon;
+        "p-modal": PModal;
+        "p-select": PSelect;
+        "p-spinner": PSpinner;
+        "p-tabs": PTabs;
+        "p-textarea": PTextarea;
+        "p-textfield": PTextfield;
+        "p-toast": PToast;
+        "p-watermark": PWatermark;
     }
 }
 export { LocalJSX as JSX };
 declare module "@stencil/core" {
     export namespace JSX {
         interface IntrinsicElements {
-            "check-box": LocalJSX.CheckBox & JSXBase.HTMLAttributes<HTMLCheckBoxElement>;
             "color-input": LocalJSX.ColorInput & JSXBase.HTMLAttributes<HTMLColorInputElement>;
             "color-picker": LocalJSX.ColorPicker & JSXBase.HTMLAttributes<HTMLColorPickerElement>;
-            "color-swatch": LocalJSX.ColorSwatch & JSXBase.HTMLAttributes<HTMLColorSwatchElement>;
-            "file-uploader": LocalJSX.FileUploader & JSXBase.HTMLAttributes<HTMLFileUploaderElement>;
-            "font-picker": LocalJSX.FontPicker & JSXBase.HTMLAttributes<HTMLFontPickerElement>;
-            "html-form": LocalJSX.HtmlForm & JSXBase.HTMLAttributes<HTMLHtmlFormElement>;
             "icon-add": LocalJSX.IconAdd & JSXBase.HTMLAttributes<HTMLIconAddElement>;
             "icon-add-cart": LocalJSX.IconAddCart & JSXBase.HTMLAttributes<HTMLIconAddCartElement>;
             "icon-add-image": LocalJSX.IconAddImage & JSXBase.HTMLAttributes<HTMLIconAddImageElement>;
@@ -1230,19 +1259,25 @@ declare module "@stencil/core" {
             "icon-upload-image": LocalJSX.IconUploadImage & JSXBase.HTMLAttributes<HTMLIconUploadImageElement>;
             "icon-whatsapp": LocalJSX.IconWhatsapp & JSXBase.HTMLAttributes<HTMLIconWhatsappElement>;
             "icon-wrench": LocalJSX.IconWrench & JSXBase.HTMLAttributes<HTMLIconWrenchElement>;
-            "icontext-group": LocalJSX.IcontextGroup & JSXBase.HTMLAttributes<HTMLIcontextGroupElement>;
-            "image-gallery": LocalJSX.ImageGallery & JSXBase.HTMLAttributes<HTMLImageGalleryElement>;
-            "image-grid": LocalJSX.ImageGrid & JSXBase.HTMLAttributes<HTMLImageGridElement>;
-            "input-text": LocalJSX.InputText & JSXBase.HTMLAttributes<HTMLInputTextElement>;
-            "menu-icon": LocalJSX.MenuIcon & JSXBase.HTMLAttributes<HTMLMenuIconElement>;
-            "multi-line": LocalJSX.MultiLine & JSXBase.HTMLAttributes<HTMLMultiLineElement>;
-            "pixobe-banner": LocalJSX.PixobeBanner & JSXBase.HTMLAttributes<HTMLPixobeBannerElement>;
-            "pixobe-modal": LocalJSX.PixobeModal & JSXBase.HTMLAttributes<HTMLPixobeModalElement>;
-            "pixobe-spinner": LocalJSX.PixobeSpinner & JSXBase.HTMLAttributes<HTMLPixobeSpinnerElement>;
-            "pixobe-tabs": LocalJSX.PixobeTabs & JSXBase.HTMLAttributes<HTMLPixobeTabsElement>;
-            "pixobe-toast": LocalJSX.PixobeToast & JSXBase.HTMLAttributes<HTMLPixobeToastElement>;
-            "pixobe-watermark": LocalJSX.PixobeWatermark & JSXBase.HTMLAttributes<HTMLPixobeWatermarkElement>;
-            "select-menu": LocalJSX.SelectMenu & JSXBase.HTMLAttributes<HTMLSelectMenuElement>;
+            "p-banner": LocalJSX.PBanner & JSXBase.HTMLAttributes<HTMLPBannerElement>;
+            "p-checkbox": LocalJSX.PCheckbox & JSXBase.HTMLAttributes<HTMLPCheckboxElement>;
+            "p-colorpicker": LocalJSX.PColorpicker & JSXBase.HTMLAttributes<HTMLPColorpickerElement>;
+            "p-colorswatch": LocalJSX.PColorswatch & JSXBase.HTMLAttributes<HTMLPColorswatchElement>;
+            "p-fileuploader": LocalJSX.PFileuploader & JSXBase.HTMLAttributes<HTMLPFileuploaderElement>;
+            "p-fontpicker": LocalJSX.PFontpicker & JSXBase.HTMLAttributes<HTMLPFontpickerElement>;
+            "p-form": LocalJSX.PForm & JSXBase.HTMLAttributes<HTMLPFormElement>;
+            "p-gallery": LocalJSX.PGallery & JSXBase.HTMLAttributes<HTMLPGalleryElement>;
+            "p-icontext": LocalJSX.PIcontext & JSXBase.HTMLAttributes<HTMLPIcontextElement>;
+            "p-imagegrid": LocalJSX.PImagegrid & JSXBase.HTMLAttributes<HTMLPImagegridElement>;
+            "p-menuicon": LocalJSX.PMenuicon & JSXBase.HTMLAttributes<HTMLPMenuiconElement>;
+            "p-modal": LocalJSX.PModal & JSXBase.HTMLAttributes<HTMLPModalElement>;
+            "p-select": LocalJSX.PSelect & JSXBase.HTMLAttributes<HTMLPSelectElement>;
+            "p-spinner": LocalJSX.PSpinner & JSXBase.HTMLAttributes<HTMLPSpinnerElement>;
+            "p-tabs": LocalJSX.PTabs & JSXBase.HTMLAttributes<HTMLPTabsElement>;
+            "p-textarea": LocalJSX.PTextarea & JSXBase.HTMLAttributes<HTMLPTextareaElement>;
+            "p-textfield": LocalJSX.PTextfield & JSXBase.HTMLAttributes<HTMLPTextfieldElement>;
+            "p-toast": LocalJSX.PToast & JSXBase.HTMLAttributes<HTMLPToastElement>;
+            "p-watermark": LocalJSX.PWatermark & JSXBase.HTMLAttributes<HTMLPWatermarkElement>;
         }
     }
 }

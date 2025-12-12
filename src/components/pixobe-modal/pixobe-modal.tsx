@@ -1,10 +1,10 @@
 import { Component, Host, h, Prop, Watch, Element } from '@stencil/core';
 
 @Component({
-  tag: 'pixobe-modal',
+  tag: 'p-modal',
   styleUrl: 'pixobe-modal.scss',
 })
-export class PixobeModal {
+export class PixobeModalElement {
   @Element()
   el: HTMLElement;
 

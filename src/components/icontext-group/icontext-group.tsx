@@ -1,7 +1,7 @@
 import { Component, h, Host, Prop } from '@stencil/core';
 
 @Component({
-  tag: 'icontext-group',
+  tag: 'p-icontext',
   styleUrl: 'icontext-group.scss',
   shadow: true,
 })

@@ -12,7 +12,7 @@ const meta: Meta<any> = {
   <div slot="tab-2">Settings form</div>
         `;
 
-        el.tabs = ["Home", "Profile", "Settings"]
+        // el.tabs = ["Home", "Profile", "Settings"]
         return el;
     },
     argTypes: {},

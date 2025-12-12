@@ -1,4 +1,6 @@
-import type { Meta, StoryObj } from '@storybook/html-vite';
+import type { Meta, StoryObj } from '@stencil/storybook-plugin';
+import { h } from '@stencil/core';
+
 const icons = [
   'spinner',
   'whatsapp',
@@ -43,50 +45,44 @@ const icons = [
   "download"
 ].sort((a, b) => a.localeCompare(b));
 
-const meta: Meta<any> = {
-  title: 'Icons',
-  render: ({ ...args }) => {
-    const div = document.createElement('div');
-    div.classList.add(args.theme, 'icon-grid');
 
-    icons.forEach(icon => {
-      const wrapper = document.createElement('div');
-      wrapper.classList.add('icon-wrapper');
 
-      const name = `icon-${icon}`;
-      const el = document.createElement(name);
-      // el.classList.add("large")
-      wrapper.append(el);
-
-      const label = document.createElement("label");
-      label.innerText = icon;
-      wrapper.append(label);
-
-      div.append(wrapper);
-    });
-
-    return div;
+const meta = {
+  title: 'IconsPack',
+  parameters: {
+    layout: 'centered',
   },
-  argTypes: {},
-};
+  argTypes: {
+  },
+  args: {},
+  // Define common render function at meta level
+  render: (args) => {
+    const cls = `icons ${args.className}`;
+    return <div class={cls}>{icons.map((icon) => {
+      const T = `icon-${icon}`;
+      return <T></T>;
+    })}</div>;
+  }
+} satisfies Meta<any>;
 
 export default meta;
 type Story = StoryObj<any>;
 
+// Now stories only need to specify their args
 export const Light: Story = {
   args: {
-    theme: 'light',
+    className: "light"
   },
 };
 
-export const Dark = {
+export const Dark: Story = {
   args: {
-    theme: 'dark',
+    className: "dark"
   },
 };
 
-export const Blue = {
+export const Custom: Story = {
   args: {
-    theme: 'blue',
+    className: "custom"
   },
 };

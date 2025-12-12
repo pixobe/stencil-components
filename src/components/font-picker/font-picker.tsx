@@ -2,7 +2,7 @@ import { FontItem, fontLoader } from '@pixobe/ui-utils';
 import { AttachInternals, Component, Element, h, Host, Prop, State } from '@stencil/core';
 
 @Component({
-  tag: 'font-picker',
+  tag: 'p-fontpicker',
   styleUrl: 'font-picker.scss',
   shadow: true,
   formAssociated: true

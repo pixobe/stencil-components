@@ -9,7 +9,7 @@ export interface DropdownOption {
 }
 
 @Component({
-  tag: 'menu-icon',
+  tag: 'p-menuicon',
   styleUrl: 'menu-icon.scss',
   shadow: true,
 })

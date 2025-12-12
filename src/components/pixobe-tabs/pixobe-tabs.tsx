@@ -1,11 +1,11 @@
 import { Component, h, State, Prop } from '@stencil/core';
 
 @Component({
-  tag: 'pixobe-tabs',
+  tag: 'p-tabs',
   styleUrl: 'pixobe-tabs.scss',
   shadow: true,
 })
-export class PixobeTabs {
+export class PixobeTabsElement {
   @Prop()
   tabs: string[] = [];
 

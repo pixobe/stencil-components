@@ -1,11 +1,11 @@
 import { Component, h, Host, Prop } from '@stencil/core';
 
 @Component({
-  tag: 'pixobe-spinner',
+  tag: 'p-spinner',
   styleUrl: 'pixobe-spinner.scss',
   shadow: true,
 })
-export class PixobeSpinner {
+export class PixobeSpinnerElement {
 
   @Prop({ mutable: true })
   header?: string;

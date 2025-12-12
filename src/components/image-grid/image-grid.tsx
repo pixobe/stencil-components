@@ -3,7 +3,7 @@ import { Component, Host, h, Element, Prop, Event, EventEmitter } from '@stencil
 export type GridImageProp = { src: string }
 
 @Component({
-  tag: 'image-grid',
+  tag: 'p-imagegrid',
   styleUrl: 'image-grid.scss',
   shadow: true,
 })

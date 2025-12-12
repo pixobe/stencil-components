@@ -2,18 +2,21 @@ import { AttachInternals, Component, Element, h, Host, Prop } from '@stencil/cor
 
 
 @Component({
-  tag: 'multi-line',
-  styleUrl: 'multi-line.scss',
+  tag: 'p-textfield',
+  styleUrl: 'text-field.scss',
   shadow: true,
   formAssociated: true
 })
-export class MultiLineText {
+export class PixobeTextField {
 
   @Element()
   el!: HTMLElement
 
   @Prop({ reflect: true })
   name!: string;
+
+  @Prop({ reflect: true })
+  type: string = 'text';
 
   @Prop({ reflect: true })
   label?: string;
@@ -27,9 +30,6 @@ export class MultiLineText {
   @Prop()
   required: boolean = true;
 
-  @Prop()
-  rows: number = 5;
-
   @AttachInternals()
   internals!: ElementInternals;
 
@@ -39,7 +39,7 @@ export class MultiLineText {
 
   onInputFn = (e: any) => {
     const inputEvent = e as InputEvent;
-    const value = (inputEvent.target as HTMLTextAreaElement).value;
+    const value = (inputEvent.target as HTMLInputElement).value;
     this.value = value;
     this.internals.setFormValue(value);
   }
@@ -51,14 +51,9 @@ export class MultiLineText {
           <label htmlFor={this.name} class="text-lbl">
             {this.label}
           </label>
-          <textarea
-            name={this.name}
-            onInput={this.onInputFn}
-            id={this.name}
-            value={this.value}
-            required={this.required}
-            placeholder={this.placeholder}
-            rows={this.rows}></textarea>
+          <div>
+            <input type={this.type} name={this.name} onInput={this.onInputFn} id={this.name} value={this.value} required={this.required} placeholder={this.placeholder} />
+          </div>
         </div>
       </Host>
     );

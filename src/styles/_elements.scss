@@ -23,7 +23,7 @@
       box-sizing: border-box;
       width: 100%;
       height: 36px;
-      border-radius: $border-radius;
+      border-radius: var(--p-border-radius);
       padding-bottom: 6px;
       padding-left: 12px;
       padding-right: 12px;

@@ -2,9 +2,9 @@ import type { Meta, StoryObj } from '@storybook/html-vite';
 
 
 const meta: Meta<any> = {
-  title: 'Text',
+  title: 'Text Field',
   render: (args) => {
-    const el = document.createElement("input-text");
+    const el = document.createElement("p-textfield");
     Object.assign(el, args)
     return el;
   },

@@ -13,7 +13,7 @@
     height: 100%;
     padding: 0.5rem 1rem;
     box-sizing: border-box;
-    border-radius: $border-radius;
+    border-radius: var(--p-border-radius);
     text-align: center;
     stroke-dasharray: 2px, 5px;
     @include theme-styles();

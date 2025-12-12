@@ -18,10 +18,10 @@ const meta: Meta<any> = {
         toggleBtn.textContent = "Toggle Modal";
         toggleBtn.style.marginBottom = "1rem";
 
-        toggleBtn.addEventListener("click", () => {
-            console.log(el.open, "current state")
-            el.open = !el.open;
-        });
+        // toggleBtn.addEventListener("click", () => {
+        //     console.log(el.open, "current state")
+        //     el.open = !el.open;
+        // });
 
         // Wrap everything in a container
         const container = document.createElement("div");

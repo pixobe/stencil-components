@@ -1,21 +1,24 @@
 import { AttachInternals, Component, Element, h, Host, Prop } from '@stencil/core';
 
 @Component({
-  tag: 'check-box',
+  tag: 'p-checkbox',
   styleUrl: 'check-box.scss',
   shadow: true,
   formAssociated: true
 })
-export class CheckBox {
+export class PixobeCheckBox {
 
   @Element()
   el!: HTMLElement
 
-  @Prop({ reflect: true })
+  @Prop()
   name!: string;
 
-  @Prop({ reflect: true })
+  @Prop()
   label?: string;
+
+  @Prop()
+  details?: string;
 
   @Prop({ mutable: true })
   value: string = 'false';
@@ -42,26 +45,20 @@ export class CheckBox {
   render() {
     return (
       <Host>
-        <div class="form-element horizontal">
-          <label htmlFor={this.name}>
-            <div class="checkbox-wrapper">
-              <input
-                type="checkbox"
-                name={this.name}
-                id={this.name}
-                onInput={this.onInputFn}
-                aria-label={this.label}
-                checked={this.value === 'true'}
-              />
-              <div class="checkbox" aria-hidden="true">
-                <icon-tick></icon-tick>
-              </div>
-              <span>
-                {this.label}
-              </span>
-            </div>
-          </label>
-        </div>
+        <label htmlFor={this.name}>
+          <input
+            type="checkbox"
+            name={this.name}
+            id={this.name}
+            onInput={this.onInputFn}
+            aria-label={this.label}
+            checked={this.value === 'true'}
+          />
+          <span>{this.label}</span>
+        </label>
+        <p>
+          {this.details}
+        </p>
       </Host>
     );
   }

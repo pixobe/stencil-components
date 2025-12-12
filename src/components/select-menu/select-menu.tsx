@@ -6,12 +6,12 @@ export interface OptionItem {
 }
 
 @Component({
-  tag: 'select-menu',
+  tag: 'p-select',
   styleUrl: 'select-menu.scss',
   shadow: true,
   formAssociated: true
 })
-export class SelectMenu {
+export class SelectMenuElement {
 
   @Element()
   el!: HTMLElement

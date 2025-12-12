@@ -1,11 +1,11 @@
 import { Component, h, Host, Prop } from '@stencil/core';
 
 @Component({
-  tag: 'pixobe-banner',
+  tag: 'p-banner',
   styleUrl: 'pixobe-banner.scss',
   shadow: true,
 })
-export class PixobeBanner {
+export class PixobeBannerElement {
   @Prop()
   name: string = 'Pixobe';
 

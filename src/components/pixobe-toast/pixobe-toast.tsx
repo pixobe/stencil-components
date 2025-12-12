@@ -1,12 +1,12 @@
 import { Component, Host, h, Prop, Element, State } from '@stencil/core';
 
 @Component({
-  tag: 'pixobe-toast',
+  tag: 'p-toast',
   styleUrl: 'pixobe-toast.scss',
   shadow: true,
 })
 
-export class PixobeToast {
+export class PixobeToastElement {
   @Element() el: HTMLElement;
   @Prop()
   message: string;

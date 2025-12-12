@@ -1,32 +1,5 @@
 import { Component, Element, Event, EventEmitter, h, Host, Prop, State } from '@stencil/core';
-import { Color } from './color-utils';
-
-
-interface CssVarsContext {
-  el: HTMLElement;
-  currentColor: Color;
-}
-
-function CssVars(
-  _u: any,
-  _v: string,
-  descriptor: PropertyDescriptor
-) {
-  const originalMethod = descriptor.value;
-  descriptor.value = function (this: CssVarsContext, ...args: any[]) {
-    const result = originalMethod.apply(this, args);
-    const color = this.currentColor;
-    const el = this.el;
-    if (color && el) {
-      const rgb = color.rgb;
-      const beta = Number((1 - color.a).toFixed(2));
-      el.style.setProperty('--alpha-slider-thumb-background', `rgba(250,250,250, ${beta})`);
-      el.style.setProperty('--alpha-slider-track-background', `${rgb.r}, ${rgb.g}, ${rgb.b}`);
-    }
-    return result;
-  };
-  return descriptor;
-}
+import { Color, CssVars } from '../../utils/color-utils';
 
 
 @Component({

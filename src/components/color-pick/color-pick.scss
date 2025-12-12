@@ -1,0 +1,156 @@
+@use 'src/styles/slider';
+@use 'src/styles/colors';
+
+:host {
+  display: block;
+  width: 196px;
+  aspect-ratio: 4 / 3;
+  font-size: 14px;
+
+  .clr-picker {
+    display: flex;
+    flex-direction: column;
+    border-radius: 8px;
+    direction: ltr;
+    -moz-user-select: none;
+    -webkit-user-select: none;
+    user-select: none;
+    border: 1px solid var(--box-shadow);
+    overflow: hidden;
+  }
+
+  .clr-controls {
+    display: flex;
+    flex-direction: column;
+    padding: 16px;
+    gap: 16px;
+    background-color: var(--primary-background);
+  }
+
+  .clr-matrix {
+    position: relative;
+    width: 100%;
+    height: 100px;
+    border-radius: 3px 3px 0 0;
+    background-color: currentColor;
+    background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0) 0%, #000 100%), linear-gradient(to right, #fff 0%, rgba(255, 255, 255, 0) 100%);
+    cursor: pointer;
+
+    .clr-marker {
+      position: absolute;
+      width: 12px;
+      height: 12px;
+      margin: -6px 0 0 -6px;
+      border-radius: 50%;
+      cursor: pointer;
+      background-color: currentColor;
+      box-shadow: 0 0 2px rgba(0, 0, 0, 0.5);
+      top: 0;
+      left: 0;
+      color: rgba(255, 255, 255, 0.2);
+      border: 3px solid #fff;
+      &:focus {
+        outline: none;
+      }
+    }
+  }
+
+  .clr-info {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 8px;
+    .clr-preview {
+      position: relative;
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      overflow: hidden;
+      border: 1px solid var(--quaternary-background);
+    }
+    .clr-code {
+      display: block;
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      width: 100%;
+      border-radius: 16px;
+      padding: 0 8px;
+      text-align: center;
+      color: var(--text-primary);
+      border: 1px solid var(--quarternary-background);
+      background-color: var(--tertiary-background);
+      text-transform: uppercase;
+      &:focus {
+        outline: var(--quarternary-background);
+      }
+    }
+  }
+
+  .clr-swatches {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    box-sizing: border-box;
+    align-items: center;
+    gap: 8px;
+
+    .clr-swatch,
+    .clr-add {
+      cursor: pointer;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 24px;
+      width: 24px;
+      border-radius: 50%;
+      border: 1px solid var(--quaternary-background);
+    }
+
+    .clr-swatch {
+      &:hover {
+        .icon-trash {
+          display: block;
+        }
+      }
+    }
+    .clr-add {
+      color: var(--text-tertiary);
+      background-color: var(--tertiary-background);
+    }
+  }
+}
+
+:host {
+  #clr-hue-slider {
+    &::-webkit-slider-runnable-track {
+      background-image: linear-gradient(to right, #f00 0%, #ff0 16.66%, #0f0 33.33%, #0ff 50%, #00f 66.66%, #f0f 83.33%, #f00 100%);
+    }
+    &::-moz-range-track {
+      background-image: linear-gradient(to right, #f00 0%, #ff0 16.66%, #0f0 33.33%, #0ff 50%, #00f 66.66%, #f0f 83.33%, #f00 100%);
+    }
+  }
+
+  #clr-alpha-slider {
+    &::-webkit-slider-runnable-track {
+      background-image: linear-gradient(to right, rgba(var(--alpha-slider-track-background), 0) 0%, rgba(var(--alpha-slider-track-background), 1) 100%),
+        repeating-linear-gradient(45deg, #aaa 25%, transparent 25%, transparent 75%, #aaa 75%, #aaa), repeating-linear-gradient(45deg, #aaa 25%, #fff 25%, #fff 75%, #aaa 75%, #aaa);
+      background-repeat: no-repeat, repeat, repeat;
+      background-position: 0 0, 0 0, 4px 4px;
+      background-size: auto, 8px 8px, 8px 8px;
+    }
+    &::-moz-range-track {
+      background-image: linear-gradient(to right, rgba(var(--alpha-slider-track-background), 0) 0%, rgba(var(--alpha-slider-track-background), 1) 100%),
+        repeating-linear-gradient(45deg, #aaa 25%, transparent 25%, transparent 75%, #aaa 75%, #aaa), repeating-linear-gradient(45deg, #aaa 25%, #fff 25%, #fff 75%, #aaa 75%, #aaa);
+      background-repeat: no-repeat, repeat, repeat;
+      background-position: 0 0, 0 0, 4px 4px;
+      background-size: auto, 8px 8px, 8px 8px;
+    }
+
+    &::-moz-range-thumb {
+      background-color: var(--alpha-slider-thumb-background, #ffffff);
+    }
+    &::-webkit-slider-thumb {
+      background-color: var(--alpha-slider-thumb-background, #ffffff);
+    }
+  }
+}

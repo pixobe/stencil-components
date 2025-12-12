@@ -2,11 +2,11 @@ import { Component, Host, h, Method, Prop, Element, Watch } from '@stencil/core'
 import { getValueByPath, valueMapper } from './form-utils';
 
 @Component({
-  tag: 'html-form',
+  tag: 'p-form',
   styleUrl: 'html-form.scss',
   shadow: true
 })
-export class HtmlForm {
+export class PixobeHtmlFormElement {
 
   @Element()
   el: HTMLElement

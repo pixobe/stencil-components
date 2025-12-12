@@ -1,11 +1,11 @@
 import { Component, Host, h } from '@stencil/core';
 
 @Component({
-  tag: 'pixobe-watermark',
+  tag: 'p-watermark',
   styleUrl: 'pixobe-watermark.scss',
   shadow: true,
 })
-export class PixobeWatermark {
+export class PixobeWatermarkElement {
   render() {
     return (
       <Host>

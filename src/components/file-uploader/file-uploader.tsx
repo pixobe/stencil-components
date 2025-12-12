@@ -1,7 +1,7 @@
 import { AttachInternals, Component, Element, Event, EventEmitter, h, Host, Prop } from '@stencil/core';
 
 @Component({
-  tag: 'file-uploader',
+  tag: 'p-fileuploader',
   styleUrl: 'file-uploader.scss',
   shadow: true,
   formAssociated: true

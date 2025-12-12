@@ -2,21 +2,18 @@ import { AttachInternals, Component, Element, h, Host, Prop } from '@stencil/cor
 
 
 @Component({
-  tag: 'input-text',
-  styleUrl: 'input-text.scss',
+  tag: 'p-textarea',
+  styleUrl: 'textarea.scss',
   shadow: true,
   formAssociated: true
 })
-export class InputText {
+export class PixobeTextAreaElement {
 
   @Element()
   el!: HTMLElement
 
   @Prop({ reflect: true })
   name!: string;
-
-  @Prop({ reflect: true })
-  type: string = 'text';
 
   @Prop({ reflect: true })
   label?: string;
@@ -30,6 +27,9 @@ export class InputText {
   @Prop()
   required: boolean = true;
 
+  @Prop()
+  rows: number = 5;
+
   @AttachInternals()
   internals!: ElementInternals;
 
@@ -39,7 +39,7 @@ export class InputText {
 
   onInputFn = (e: any) => {
     const inputEvent = e as InputEvent;
-    const value = (inputEvent.target as HTMLInputElement).value;
+    const value = (inputEvent.target as HTMLTextAreaElement).value;
     this.value = value;
     this.internals.setFormValue(value);
   }
@@ -51,9 +51,14 @@ export class InputText {
           <label htmlFor={this.name} class="text-lbl">
             {this.label}
           </label>
-          <div>
-            <input type={this.type} name={this.name} onInput={this.onInputFn} id={this.name} value={this.value} required={this.required} placeholder={this.placeholder} />
-          </div>
+          <textarea
+            name={this.name}
+            onInput={this.onInputFn}
+            id={this.name}
+            value={this.value}
+            required={this.required}
+            placeholder={this.placeholder}
+            rows={this.rows}></textarea>
         </div>
       </Host>
     );

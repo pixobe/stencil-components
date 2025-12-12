@@ -1,5 +1,4 @@
 import type { Meta, StoryObj } from '@storybook/html-vite';
-import { PixobeSpinner } from './pixobe-spinner';
 
 
 const meta: Meta<any> = {
@@ -18,7 +17,7 @@ const meta: Meta<any> = {
   argTypes: {},
 };
 export default meta;
-type Story = StoryObj<PixobeSpinner>;
+type Story = StoryObj<any>;
 
 
 export const Spinner: Story = {

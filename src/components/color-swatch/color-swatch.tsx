@@ -1,114 +1,106 @@
-import { AttachInternals, Component, Element, h, Host, Prop, State, Event, EventEmitter } from '@stencil/core';
-import { computePosition } from '../../utils/position-utils';
+import { AttachInternals, Component, Element, h, Host, Prop, State, Watch } from '@stencil/core';
 
 @Component({
-  tag: 'color-swatch',
+  tag: 'p-colorswatch',
   styleUrl: 'color-swatch.scss',
   shadow: true,
   formAssociated: true
 })
-export class ColorSwatch {
+export class PixobeColorSwatchesElement {
   @Element()
   el: HTMLElement;
 
-  @Prop({ reflect: true })
-  name!: string;
+  @Prop()
+  name: string;
 
-  @Prop({ reflect: true, mutable: true })
-  value: string;
+  @Prop({ mutable: true, reflect: true })
+  value: string = '';
 
-  @Prop({ reflect: true })
+  @Prop()
   label?: string;
+
+  @State()
+  selectedColors: string[] = [];
 
   @AttachInternals()
   internals!: ElementInternals;
 
-  @State()
-  isOpen: boolean = false;
-
-  @Event()
-  colorChange: EventEmitter<string>;
-
-  @Event()
-  colorInput: EventEmitter<string>;
-
-  colorPickRef: HTMLColorPickerElement;
-
-  componentWillRender() {
-    this.internals.setFormValue(this.value);
+  componentWillLoad() {
+    this.hydrateFromValue(this.value);
+    this.syncFormValue();
   }
 
-  componentDidLoad() {
-    document.addEventListener('keydown', this.handleKeydown);
-    document.addEventListener('pointerup', this.handleOutsideClick);
+  @Watch('value')
+  handleValueChange(newValue: string) {
+    this.hydrateFromValue(newValue);
   }
 
-  disconnectedCallback() {
-    document.removeEventListener('keydown', this.handleKeydown);
-    document.removeEventListener('pointerup', this.handleOutsideClick);
+  private hydrateFromValue(value?: string) {
+    this.selectedColors = this.parseValue(value);
   }
 
-  handleKeydown = (event: KeyboardEvent) => {
-    if (event.key === 'Escape') {
-      this.isOpen = false;
+  private parseValue(value?: string): string[] {
+    if (!value) {
+      return [];
     }
-  };
 
-  handleOutsideClick = (event: PointerEvent) => {
-    if (!this.colorPickRef?.contains(event.target as Node)) {
-      this.isOpen = false;
+    return value
+      .split(',')
+      .map(color => color.trim())
+      .filter(Boolean);
+  }
+
+  private syncFormValue() {
+    const serializedValue = this.selectedColors.join(',');
+    if (this.value !== serializedValue) {
+      this.value = serializedValue;
     }
-  };
-
-
-  toggleColorPicker = (event: PointerEvent): void => {
-    event.stopPropagation();
-    requestAnimationFrame(() => {
-      this.isOpen = !this.isOpen;
-      if (this.isOpen) {
-        const wrapper = this.el.shadowRoot?.querySelector('.clrpick-wrap')! as HTMLDivElement;
-        const computedPosition = computePosition(wrapper);
-        wrapper.style.top = computedPosition.top;
-        wrapper.style.bottom = computedPosition.bottom;
-        wrapper.style.left = computedPosition.left;
-        wrapper.style.right = computedPosition.right;
-      }
-    });
-  };
-
-  onSwatchUpdate(e: CustomEvent) {
-    this.value = e.detail;
-    this.internals.setFormValue(this.value);
+    this.internals?.setFormValue(serializedValue);
   }
 
-  renderColorPicker = () => {
-    return (
-      <div class="clrpick-wrap" onClick={e => e.stopPropagation()}>
-        {this.isOpen && (
-          <color-picker
-            editable={true}
-            ref={el => (this.colorPickRef = el!)}
-            onSwatchUpdate={(e) => this.onSwatchUpdate(e)}
-            swatches={this.value}></color-picker>
-        )}
-      </div>
-    );
-  }
+  private onColorSelect = (event: CustomEvent<string>) => {
+    const rawColor = (event?.detail || '').trim();
+    if (!rawColor) {
+      return;
+    }
+
+    const normalizedColor = rawColor.startsWith('#') ? rawColor.toUpperCase() : rawColor;
+
+    this.selectedColors = [...this.selectedColors, normalizedColor];
+    this.syncFormValue();
+  };
+
+  private removeColor = (index: number) => {
+    this.selectedColors = this.selectedColors.filter((_, swatchIndex) => swatchIndex !== index);
+    this.syncFormValue();
+  };
 
   render() {
     return (
       <Host>
-        <div class="form-element horizontal">
-          <button onPointerUp={e => this.toggleColorPicker(e)}>
-            <div
-              class="clr-block"
-              style={{ backgroundColor: this.value }}
-              title="Pick color"
-              role="button">
-            </div>
-            <label> {this.label}</label>
-          </button>
-          {this.renderColorPicker()}
+        <div class="color-swatch">
+          {this.label && <label class="color-swatch__label">{this.label}</label>}
+          <div class="color-swatch__grid" role="list">
+            {this.selectedColors.length === 0 && (
+              <div class="color-swatch__placeholder" role="note">
+                Pick a color to start building your palette.
+              </div>
+            )}
+            {this.selectedColors.map((color, index) => (
+              <div class="color-swatch__item" role="listitem" key={`${color}-${index}`}>
+                <span class="color-swatch__chip" style={{ backgroundColor: color }} aria-label={color}></span>
+                <button
+                  type="button"
+                  class="color-swatch__remove"
+                  aria-label={`Remove ${color} from palette`}
+                  onPointerUp={() => this.removeColor(index)}
+                >
+                  &times;
+                </button>
+              </div>
+            ))}
+          </div>
+          <p-colorpicker onColorChange={this.onColorSelect}></p-colorpicker>
         </div>
       </Host >
     );

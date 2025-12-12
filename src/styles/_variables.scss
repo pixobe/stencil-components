@@ -1,8 +1,13 @@
-$border-radius: 8px;
 :host {
   display: block;
   font-family: system-ui, sans-serif;
   font-size: inherit;
   font-weight: normal;
   color: var(--text-primary);
+  --font-family: system-ui, sans-serif;
+  --font-size: 14px;
+  --font-weight: 400;
+  --label-weight: 450;
+  --p-height: 32px;
+  --p-border-radius: 4px;
 }
