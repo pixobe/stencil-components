@@ -1,55 +1,99 @@
-import { Component, Host, h, Prop, Watch, Element } from '@stencil/core';
+import { Component, Host, h, Prop, Element, Method, Event, EventEmitter } from '@stencil/core';
 
 @Component({
   tag: 'p-modal',
   styleUrl: 'pixobe-modal.scss',
+  shadow: true
 })
 export class PixobeModalElement {
   @Element()
   el: HTMLElement;
 
-  @Prop({ reflect: true, mutable: true })
-  open: boolean = false;
+  private dialogEl?: HTMLDialogElement;
 
-  @Prop({ reflect: true })
-  closeButton: boolean = false;
+  /**
+   * Controls the open/closed state of the modal
+   */
+  @Prop({ mutable: true, reflect: true }) open: boolean = false;
 
-  @Watch('open')
-  watchOpen(newValue: boolean) {
-    document.body.style.overflow = newValue === true ? 'hidden' : '';
+  /**
+   * Emitted when the modal is opened
+   */
+  @Event() modalOpen: EventEmitter<void>;
+
+  /**
+   * Emitted when the modal is closed
+   */
+  @Event() modalClose: EventEmitter<void>;
+
+  /**
+   * Emitted when backdrop is clicked (if you want to handle it separately)
+   */
+  @Event() backdropClick: EventEmitter<void>;
+
+  /**
+   * Method to open the modal programmatically
+   */
+  @Method()
+  async openModal() {
+    this.open = true;
+  }
+
+  /**
+   * Method to close the modal programmatically
+   */
+  @Method()
+  async closeModal() {
+    this.open = false;
   }
 
   componentDidLoad() {
-    document.addEventListener("keyup", (event) => {
-      if (event.key === 'Escape') {
-        this.closeDialog(event);
-      }
-    })
+    // Handle native dialog close event (like ESC key)
+    this.dialogEl?.addEventListener('close', () => {
+      this.open = false;
+    });
   }
 
-  closeDialog(event: Event) {
-    event.preventDefault();
-    if (this.open) {
-      this.open = false;
-      document.body.style.overflow = '';
+  componentDidUpdate() {
+    if (this.open && this.dialogEl && !this.dialogEl.open) {
+      this.dialogEl.showModal();
+      this.modalOpen.emit();
+    } else if (!this.open && this.dialogEl?.open) {
+      this.dialogEl.close();
+      this.modalClose.emit();
     }
   }
+
+  private handleBackdropClick = (e: MouseEvent) => {
+    // Close only if clicking on the backdrop (not the dialog content)
+    if (e.target === this.dialogEl) {
+      this.backdropClick.emit();
+      this.closeModal();
+    }
+  };
+
+  private handleCloseClick = () => {
+    this.closeModal();
+  };
 
   render() {
     return (
       <Host>
-        <div class="dialog" data-open={this.open}>
-          <div class="content">
-            <slot></slot>
-          </div>
-          {this.closeButton &&
+        <dialog
+          ref={(el) => this.dialogEl = el}
+          onClick={this.handleBackdropClick}
+        >
+          <div class="modal-content">
             <button
-              class="button-rounded button-close"
-              onClick={(e) => this.closeDialog(e)}
+              class="close-button"
+              onClick={this.handleCloseClick}
+              aria-label="Close modal"
             >
               <icon-close></icon-close>
-            </button>}
-        </div>
+            </button>
+            <slot />
+          </div>
+        </dialog>
       </Host>
     );
   }

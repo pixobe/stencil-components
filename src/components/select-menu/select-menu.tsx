@@ -49,7 +49,7 @@ export class SelectMenuElement {
     this.open = !this.open;
   };
 
-  componentWillLoad() {
+  componentDidLoad() {
     this.internals.setFormValue(this.value);
   }
 

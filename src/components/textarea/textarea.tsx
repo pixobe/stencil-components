@@ -33,7 +33,7 @@ export class PixobeTextAreaElement {
   @AttachInternals()
   internals!: ElementInternals;
 
-  componentWillLoad() {
+  componentDidLoad() {
     this.internals.setFormValue(this.value);
   }
 

@@ -1,4 +1,4 @@
-@use 'src/styles/colors';
+@use 'src/styles/variables';
 
 :host {
   margin: 1rem 0;
@@ -8,12 +8,12 @@
   .color-swatch {
     display: flex;
     flex-direction: column;
-    gap: 16px;
   }
 
   .color-swatch__label {
     font-weight: 500;
     color: var(--text-secondary);
+    margin: var(--p-element-margin) 0;
   }
 
   .color-swatch__grid {
@@ -22,12 +22,11 @@
     justify-content: flex-start;
     width: 196px;
     gap: 4px;
-    padding: 4px;
+    padding: var(--p-section-padding);
     box-sizing: border-box;
-    border-radius: 8px;
+    border-radius: var(--p-border-radius);
     background-color: var(--secondary-background);
     border: 1px dashed var(--quaternary-background);
-    min-height: 72px;
   }
 
   .color-swatch__placeholder {

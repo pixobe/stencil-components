@@ -16,7 +16,7 @@ export class PixobeColorSwatchesElement {
   @Prop({ mutable: true, reflect: true })
   value: string = '';
 
-  @Prop()
+  @Prop({ reflect: true })
   label?: string;
 
   @State()
@@ -82,7 +82,7 @@ export class PixobeColorSwatchesElement {
           <div class="color-swatch__grid" role="list">
             {this.selectedColors.length === 0 && (
               <div class="color-swatch__placeholder" role="note">
-                Pick a color to start building your palette.
+                Pick a color to add to your palette.
               </div>
             )}
             {this.selectedColors.map((color, index) => (

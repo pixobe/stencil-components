@@ -24,7 +24,6 @@ export class PixobeColorPickerElement {
   @Prop()
   alpha: boolean = false;
 
-
   @Event({ eventName: "colorChange", bubbles: true, composed: true })
   colorChangeEvent: EventEmitter<string>;
 
@@ -48,14 +47,17 @@ export class PixobeColorPickerElement {
     if (!this.currentColor) {
       return;
     }
-    const hexa = this.currentColor.hexa;
-    this.internals?.setFormValue(hexa);
+    const outputHex = this.alpha ? this.currentColor.hexa : this.currentColor.hex;
+
+    this.internals?.setFormValue(outputHex);
+
     if (options.emitInput) {
-      this.colorInputEvent.emit(hexa);
+      this.colorInputEvent.emit(outputHex);
     }
     if (options.emitChange) {
-      this.colorChangeEvent.emit(hexa);
+      this.colorChangeEvent.emit(outputHex);
     }
+
   }
 
   get matrixColor(): string {
@@ -66,7 +68,6 @@ export class PixobeColorPickerElement {
   componentWillLoad() {
     this.opacity = this.opacity || 1;
     const color = this.value?.trim() || "#cacaca";
-    console.log(this.value)
     this.currentColor = new Color({ hex: color, a: this.opacity });
   }
 
@@ -131,7 +132,6 @@ export class PixobeColorPickerElement {
 
   updateMarkerPositionFromColor() {
     if (!this.coloringAreaRef || !this.markerRef) return;
-
     const { s, l } = this.currentColor.hsl;
     const rect = this.coloringAreaRef.getBoundingClientRect();
     const x = (s / 100) * rect.width;
@@ -152,7 +152,6 @@ export class PixobeColorPickerElement {
     if (!color) {
       return;
     }
-
     this.currentColor = new Color({ hex: color, a: this.opacity });
     this.updateMarkerPositionFromColor();
     this.propagateColor({ emitInput: true, emitChange: true });
@@ -161,6 +160,9 @@ export class PixobeColorPickerElement {
   render() {
     return (
       <Host>
+        <label>
+          {this.label}
+        </label>
         <div class="clr-picker" >
           <div
             id="clr-color-area"

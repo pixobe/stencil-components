@@ -1,56 +1,53 @@
-import type { Meta, StoryObj } from '@storybook/html-vite';
+import type { Meta, StoryObj } from '@stencil/storybook-plugin';
+import { h } from '@stencil/core';
+import { PixobeModalElement } from './pixobe-modal';
 
-const meta: Meta<any> = {
-    title: 'Modal',
-    render: (args) => {
-        // Create the modal element
-        const el = document.createElement("pixobe-modal");
-        Object.assign(el, args);
-
-        // Add slot content
-        const content = document.createElement("div");
-        content.style.padding = "1rem";
-        content.textContent = args.slotContent || "Default slot content";
-        el.appendChild(content);
-
-        // Create a button to toggle open/close
-        const toggleBtn = document.createElement("button");
-        toggleBtn.textContent = "Toggle Modal";
-        toggleBtn.style.marginBottom = "1rem";
-
-        // toggleBtn.addEventListener("click", () => {
-        //     console.log(el.open, "current state")
-        //     el.open = !el.open;
-        // });
-
-        // Wrap everything in a container
-        const container = document.createElement("div");
-        container.classList.add("hero")
-        container.appendChild(toggleBtn);
-        container.appendChild(el);
-
-        return container;
+const meta = {
+    title: 'Dialog',
+    component: PixobeModalElement,
+    parameters: {
+        layout: 'centered',
     },
     argTypes: {
-        open: {
-            options: ['true', 'false'],
-            control: { type: 'radio' },
-        },
     },
-};
+    args: {},
+    // Define common render function at meta level
+    render: () => {
+
+        let dialog;
+        // Open on button click
+        // btn.addEventListener('click', () => {
+        //     dialog.open = true;
+        // });
+
+        // // Listen to close event
+        // dialog.addEventListener('modalClose', () => {
+        //     console.log('Modal closed!');
+        // });
+
+        const open = () => {
+            dialog.open = true;
+        }
+
+        return <div>
+            <button id="openBtn" onClick={open}>Open Modal</button>
+            <p-modal id="myModal" open={false} ref={(el) => dialog = el}>
+                <h2>Modal Content</h2>
+                <p>Your content here</p>
+            </p-modal>
+        </div>;
+    }
+} satisfies Meta<PixobeModalElement>;
+
 export default meta;
-type Story = StoryObj<any>;
+type Story = StoryObj<PixobeModalElement>;
 
-
-export const Primary: Story = {
-    args: {
-        open: 'false'
-    },
+// Now stories only need to specify their args
+export const Basic: Story = {
+    args: {},
 };
 
-export const WithCloseButton: Story = {
+export const WithAlpha: Story = {
     args: {
-        open: 'false',
-        closeButton: true
     },
 };

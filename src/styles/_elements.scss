@@ -2,6 +2,7 @@
 @use 'src/styles/variables' as *;
 
 :host {
+  margin: 1rem 0;
   .form-element {
     position: relative;
 

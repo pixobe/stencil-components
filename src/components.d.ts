@@ -195,13 +195,18 @@ export namespace Components {
     }
     interface PModal {
         /**
-          * @default false
+          * Method to close the modal programmatically
          */
-        "closeButton": boolean;
+        "closeModal": () => Promise<void>;
         /**
+          * Controls the open/closed state of the modal
           * @default false
          */
         "open": boolean;
+        /**
+          * Method to open the modal programmatically
+         */
+        "openModal": () => Promise<void>;
     }
     interface PSelect {
         "label"?: string;
@@ -302,6 +307,10 @@ export interface PImagegridCustomEvent<T> extends CustomEvent<T> {
 export interface PMenuiconCustomEvent<T> extends CustomEvent<T> {
     detail: T;
     target: HTMLPMenuiconElement;
+}
+export interface PModalCustomEvent<T> extends CustomEvent<T> {
+    detail: T;
+    target: HTMLPModalElement;
 }
 declare global {
     interface HTMLIconAddElement extends Components.IconAdd, HTMLStencilElement {
@@ -667,7 +676,20 @@ declare global {
         prototype: HTMLPMenuiconElement;
         new (): HTMLPMenuiconElement;
     };
+    interface HTMLPModalElementEventMap {
+        "modalOpen": void;
+        "modalClose": void;
+        "backdropClick": void;
+    }
     interface HTMLPModalElement extends Components.PModal, HTMLStencilElement {
+        addEventListener<K extends keyof HTMLPModalElementEventMap>(type: K, listener: (this: HTMLPModalElement, ev: PModalCustomEvent<HTMLPModalElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLPModalElementEventMap>(type: K, listener: (this: HTMLPModalElement, ev: PModalCustomEvent<HTMLPModalElementEventMap[K]>) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
     }
     var HTMLPModalElement: {
         prototype: HTMLPModalElement;
@@ -966,10 +988,19 @@ declare namespace LocalJSX {
     }
     interface PModal {
         /**
-          * @default false
+          * Emitted when backdrop is clicked (if you want to handle it separately)
          */
-        "closeButton"?: boolean;
+        "onBackdropClick"?: (event: PModalCustomEvent<void>) => void;
         /**
+          * Emitted when the modal is closed
+         */
+        "onModalClose"?: (event: PModalCustomEvent<void>) => void;
+        /**
+          * Emitted when the modal is opened
+         */
+        "onModalOpen"?: (event: PModalCustomEvent<void>) => void;
+        /**
+          * Controls the open/closed state of the modal
           * @default false
          */
         "open"?: boolean;
