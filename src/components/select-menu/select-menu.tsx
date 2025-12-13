@@ -66,8 +66,6 @@ export class SelectMenuElement {
     this.open = false;
   }
 
-
-
   render() {
     return (
       <Host>

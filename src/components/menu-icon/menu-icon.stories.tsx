@@ -1,46 +1,40 @@
-import type { Meta, StoryObj } from '@storybook/html-vite';
+import type { Meta, StoryObj } from '@stencil/storybook-plugin';
+import { h } from '@stencil/core';
+import { MenuIconElement } from './menu-icon';
 
-
-const meta: Meta<any> = {
+const meta = {
   title: 'MenuIcon',
-  render: (args) => {
-    const el = document.createElement("menu-icon");
-    Object.assign(el, args);
-    el.innerHTML = `
-    
-              <div class="icon" slot="menu-icon">
-                <IconLineThickness></IconLineThickness>
-              </div>
-              <div slot="menu-items">
-              </div>
-              <div class="menu-label" slot="menu-text">
-                <div class="icon">
-                  <ThickLine thickness={this.strokeWidth / 5}></ThickLine>
-                </div>
-              </div>
-    
-    `;
-    return el;
+  component: MenuIconElement,
+  parameters: {
+    layout: 'centered',
   },
-  argTypes: {},
-};
+  argTypes: {
+  },
+  args: {},
+  // Define common render function at meta level
+  render: (props) => {
+    return <p-menuicon {...props}>
+      <div class="icon" slot="menu-icon">
+        <icon-circle></icon-circle>
+      </div>
+      <div slot="menu-items">
+      </div>
+      <div class="menu-label" slot="menu-text">
+        <div class="icon">
+          <icon-circle></icon-circle>
+        </div>
+      </div>
+    </p-menuicon>;
+  }
+} satisfies Meta<MenuIconElement>;
+
 export default meta;
-type Story = StoryObj<any>;
+type Story = StoryObj<MenuIconElement>;
 
-
-export const NoValue: Story = {
+// Now stories only need to specify their args
+export const Basic: Story = {
   args: {
-    label: "Colors",
     value: '',
-    name: "colors"
-  },
-};
-
-export const Default: Story = {
-  args: {
-    label: "Colors",
-    value: '',
-    name: "colors",
     options: [
       {
         label: "Monday",
@@ -71,6 +65,5 @@ export const Default: Story = {
         value: "Sunday"
       }
     ]
-  },
+  }
 };
-

@@ -33,7 +33,6 @@ export class PixobeCheckBoxElement {
 
   componentDidLoad() {
     this.internals.setFormValue(this.value);
-    console.log("componentDidLoad here", this.value);
   }
 
   onInputFn = (e: any) => {

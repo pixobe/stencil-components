@@ -13,7 +13,7 @@ export interface DropdownOption {
   styleUrl: 'menu-icon.scss',
   shadow: true,
 })
-export class DropdownMenu {
+export class MenuIconElement {
   @Element()
   el: HTMLElement;
 
@@ -34,10 +34,10 @@ export class DropdownMenu {
   onSelect = (e: Event) => {
     const target = e.currentTarget as HTMLElement;
     const value = target.dataset.value;
-    this.valueChanged.emit(value);
     this.checkbox.checked = false;
     this.value = value;
     this.activateItem(target);
+    this.valueChanged.emit(value);
   }
 
   onSlotChange = (e: any) => {
