@@ -2,10 +2,8 @@
 @use 'src/styles/variables' as *;
 
 :host {
-  margin: 1rem 0;
   .form-element {
     position: relative;
-
     label {
       display: block;
       color: var(--text-primary);
@@ -15,7 +13,6 @@
       font-family: system-ui, -apple-system;
       text-align: left;
     }
-
     textarea,
     input,
     select {
@@ -63,7 +60,6 @@
       height: auto;
     }
   }
-
   .form-element.horizontal {
     display: flex;
     flex-direction: row;

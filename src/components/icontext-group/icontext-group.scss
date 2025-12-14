@@ -4,12 +4,6 @@
   display: flex;
   gap: 8px;
   align-items: center;
-  font-size: 17px;
-  .icon {
-    height: 28px;
-    width: 28px;
-    display: block;
-  }
 }
 
 :host(.rounded) {

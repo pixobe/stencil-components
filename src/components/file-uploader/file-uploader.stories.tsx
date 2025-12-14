@@ -20,8 +20,6 @@ export const FileUploader: Story = {
   },
 };
 
-
-
 export const FileUpladerWithLabel: Story = {
   args: {
     name: "image",

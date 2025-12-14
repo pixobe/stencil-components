@@ -4,6 +4,7 @@
   margin: 1rem 0;
   display: block;
   width: 100%;
+  max-width: 316px;
 
   .color-swatch {
     display: flex;
@@ -18,9 +19,9 @@
 
   .color-swatch__grid {
     display: grid;
-    grid-template-columns: repeat(5, 1fr);
+    grid-template-columns: repeat(10, 1fr);
     justify-content: flex-start;
-    width: 196px;
+    width: 100%;
     gap: 4px;
     padding: var(--p-section-padding);
     box-sizing: border-box;
@@ -41,7 +42,7 @@
     position: relative;
     width: 28px;
     height: 28px;
-    border-radius: 8px;
+    border-radius: 4px;
     background-color: var(--primary-background);
     border: 1px solid var(--quaternary-background);
     box-shadow: inset 0 0 0 1px var(--box-shadow);
