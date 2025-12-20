@@ -1,35 +1,34 @@
-import type { Meta, StoryObj } from '@storybook/html-vite';
+import type { Meta, StoryObj } from '@stencil/storybook-plugin';
+import { h } from '@stencil/core';
+import { PixobeSpinnerElement } from './pixobe-spinner';
 
-
-const meta: Meta<any> = {
-  title: 'Pixobe Spinner',
-  render: (args) => {
-    const wrap = document.createElement("div");
-    wrap.classList.add("full-layout-image");
-
-
-    const el = document.createElement("pixobe-spinner");
-    Object.assign(el, args);
-
-    wrap.appendChild(el)
-    return wrap;
+const meta = {
+  title: 'Page Spinner',
+  component: PixobeSpinnerElement,
+  parameters: {
+    layout: 'centered',
   },
-  argTypes: {},
-};
-export default meta;
-type Story = StoryObj<any>;
-
-
-export const Spinner: Story = {
+  argTypes: {
+  },
   args: {},
+} satisfies Meta<PixobeSpinnerElement>;
+
+export default meta;
+type Story = StoryObj<PixobeSpinnerElement>;
+
+export const Basic: Story = {
+  args: {},
+  render: (props) => {
+    return <p-spinner {...props} > </p-spinner>;
+  }
 };
 
-
-
-export const SpinnerWithMessage: Story = {
+export const Info: Story = {
   args: {
-    header: "Generating Images",
-    message: "Please wait, it may take a while..."
+    header: "Loading",
+    message: "Please wait, loading backend information"
   },
+  render: (props) => {
+    return <p-spinner {...props} > </p-spinner>;
+  }
 };
-

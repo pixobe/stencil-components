@@ -20,6 +20,9 @@
   --error-border: #f5c6cb;
   --active-border: oklch(0.75 0.13 260);
   --background-transparent: rgba(230, 230, 230, 0.6);
+  --p-border-radius: 4px;
+  --p-element-gap: 4px;
+  --p-section-background: oklch(1 0 0);
 }
 @media (prefers-color-scheme: dark) {
   :host {
@@ -33,9 +36,9 @@
     --box-shadow: oklch(0.3 0 0);
     --placeholder: oklch(0.5 0 0);
     --background-transparent: rgba(30, 30, 30, 0.6);
+    --p-section-background: oklch(0 0 0);
   }
 }
-
 :host {
   --font-family: system-ui, sans-serif;
   --font-size: 14px;

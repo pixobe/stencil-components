@@ -212,6 +212,8 @@ export namespace Components {
          */
         "showX": boolean;
     }
+    interface PSection {
+    }
     interface PSelect {
         "label"?: string;
         "name": string;
@@ -699,6 +701,12 @@ declare global {
         prototype: HTMLPModalElement;
         new (): HTMLPModalElement;
     };
+    interface HTMLPSectionElement extends Components.PSection, HTMLStencilElement {
+    }
+    var HTMLPSectionElement: {
+        prototype: HTMLPSectionElement;
+        new (): HTMLPSectionElement;
+    };
     interface HTMLPSelectElement extends Components.PSelect, HTMLStencilElement {
     }
     var HTMLPSelectElement: {
@@ -794,6 +802,7 @@ declare global {
         "p-imagegrid": HTMLPImagegridElement;
         "p-menuicon": HTMLPMenuiconElement;
         "p-modal": HTMLPModalElement;
+        "p-section": HTMLPSectionElement;
         "p-select": HTMLPSelectElement;
         "p-spinner": HTMLPSpinnerElement;
         "p-tabs": HTMLPTabsElement;
@@ -1013,6 +1022,8 @@ declare namespace LocalJSX {
          */
         "showX"?: boolean;
     }
+    interface PSection {
+    }
     interface PSelect {
         "label"?: string;
         "name": string;
@@ -1145,6 +1156,7 @@ declare namespace LocalJSX {
         "p-imagegrid": PImagegrid;
         "p-menuicon": PMenuicon;
         "p-modal": PModal;
+        "p-section": PSection;
         "p-select": PSelect;
         "p-spinner": PSpinner;
         "p-tabs": PTabs;
@@ -1210,6 +1222,7 @@ declare module "@stencil/core" {
             "p-imagegrid": LocalJSX.PImagegrid & JSXBase.HTMLAttributes<HTMLPImagegridElement>;
             "p-menuicon": LocalJSX.PMenuicon & JSXBase.HTMLAttributes<HTMLPMenuiconElement>;
             "p-modal": LocalJSX.PModal & JSXBase.HTMLAttributes<HTMLPModalElement>;
+            "p-section": LocalJSX.PSection & JSXBase.HTMLAttributes<HTMLPSectionElement>;
             "p-select": LocalJSX.PSelect & JSXBase.HTMLAttributes<HTMLPSelectElement>;
             "p-spinner": LocalJSX.PSpinner & JSXBase.HTMLAttributes<HTMLPSpinnerElement>;
             "p-tabs": LocalJSX.PTabs & JSXBase.HTMLAttributes<HTMLPTabsElement>;

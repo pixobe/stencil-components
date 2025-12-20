@@ -1,0 +1,8 @@
+@use 'src/styles/variables';
+:host {
+  display: block;
+  padding: var(--p-section-padding, 8px);
+  border-radius: var(--p-border-radius, 4px);
+  background-color: var(--p-section-background, #ffffff);
+  box-shadow: 0 0 2px var(--box-shadow);
+}
