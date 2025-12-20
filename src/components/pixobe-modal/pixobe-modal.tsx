@@ -39,13 +39,8 @@ export class PixobeModalElement {
   backdropClick: EventEmitter<void>;
 
   @Watch('open')
-  handleOpen() {
-    document.body.style.overflow = 'hidden';
-  }
-
-  @Watch('open')
-  handleClose() {
-    document.body.style.overflow = '';
+  handleOpen(v: boolean) {
+    document.body.style.overflow = v === true ? 'hidden' : '';
   }
 
   /**

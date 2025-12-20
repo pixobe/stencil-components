@@ -43,7 +43,7 @@ export const Loader: Story = {
         const open = () => {
             dialog.open = true;
         }
-        return <div>
+        return <div style={{ height: "3000px" }}>
             <button id="openBtn" onClick={open}>Open Modal</button>
             <p-modal id="myModal" open={false} ref={(el) => dialog = el}>
                 <p-spinner></p-spinner>
