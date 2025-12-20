@@ -1,11 +1,9 @@
 @use 'src/styles/variables';
 
 :host {
-  margin: 1rem 0;
   display: block;
   width: 100%;
-  max-width: 316px;
-
+  max-width: 288px;
   .color-swatch {
     display: flex;
     flex-direction: column;
@@ -19,15 +17,24 @@
 
   .color-swatch__grid {
     display: grid;
-    grid-template-columns: repeat(10, 1fr);
-    justify-content: flex-start;
-    width: 100%;
+    grid-template-columns: repeat(10, minmax(0, 1fr));
     gap: 4px;
+    width: 100%;
     padding: var(--p-section-padding);
     box-sizing: border-box;
     border-radius: var(--p-border-radius);
     background-color: var(--secondary-background);
     border: 1px dashed var(--quaternary-background);
+  }
+
+  .color-swatch__item {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    border-radius: 4px;
+    background-color: var(--primary-background);
+    border: 1px solid var(--quaternary-background);
+    box-shadow: inset 0 0 0 1px var(--box-shadow);
   }
 
   .color-swatch__placeholder {
@@ -36,16 +43,6 @@
     color: var(--text-tertiary);
     font-size: 13px;
     margin: 0 auto;
-  }
-
-  .color-swatch__item {
-    position: relative;
-    width: 28px;
-    height: 28px;
-    border-radius: 4px;
-    background-color: var(--primary-background);
-    border: 1px solid var(--quaternary-background);
-    box-shadow: inset 0 0 0 1px var(--box-shadow);
   }
 
   .color-swatch__chip {

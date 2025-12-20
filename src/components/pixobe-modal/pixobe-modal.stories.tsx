@@ -13,22 +13,10 @@ const meta = {
     args: {},
     // Define common render function at meta level
     render: () => {
-
         let dialog;
-        // Open on button click
-        // btn.addEventListener('click', () => {
-        //     dialog.open = true;
-        // });
-
-        // // Listen to close event
-        // dialog.addEventListener('modalClose', () => {
-        //     console.log('Modal closed!');
-        // });
-
         const open = () => {
             dialog.open = true;
         }
-
         return <div>
             <button id="openBtn" onClick={open}>Open Modal</button>
             <p-modal id="myModal" open={false} ref={(el) => dialog = el}>
@@ -47,7 +35,19 @@ export const Basic: Story = {
     args: {},
 };
 
-export const WithAlpha: Story = {
+export const Loader: Story = {
     args: {
     },
+    render: () => {
+        let dialog;
+        const open = () => {
+            dialog.open = true;
+        }
+        return <div>
+            <button id="openBtn" onClick={open}>Open Modal</button>
+            <p-modal id="myModal" open={false} ref={(el) => dialog = el}>
+                <p-spinner></p-spinner>
+            </p-modal>
+        </div>;
+    }
 };

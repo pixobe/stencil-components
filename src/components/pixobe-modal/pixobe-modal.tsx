@@ -1,4 +1,4 @@
-import { Component, Host, h, Prop, Element, Method, Event, EventEmitter } from '@stencil/core';
+import { Component, Host, h, Prop, Element, Method, Event, EventEmitter, Watch } from '@stencil/core';
 
 @Component({
   tag: 'p-modal',
@@ -14,22 +14,39 @@ export class PixobeModalElement {
   /**
    * Controls the open/closed state of the modal
    */
-  @Prop({ mutable: true, reflect: true }) open: boolean = false;
+  @Prop({ mutable: true, reflect: true })
+  open: boolean = false;
+
+  @Prop({ reflect: true })
+  showX: boolean = true;
 
   /**
    * Emitted when the modal is opened
    */
-  @Event() modalOpen: EventEmitter<void>;
+  @Event()
+  modalOpen: EventEmitter<void>;
 
   /**
    * Emitted when the modal is closed
    */
-  @Event() modalClose: EventEmitter<void>;
+  @Event()
+  modalClose: EventEmitter<void>;
 
   /**
    * Emitted when backdrop is clicked (if you want to handle it separately)
    */
-  @Event() backdropClick: EventEmitter<void>;
+  @Event()
+  backdropClick: EventEmitter<void>;
+
+  @Watch('open')
+  handleOpen() {
+    document.body.style.overflow = 'hidden';
+  }
+
+  @Watch('open')
+  handleClose() {
+    document.body.style.overflow = '';
+  }
 
   /**
    * Method to open the modal programmatically
@@ -72,7 +89,8 @@ export class PixobeModalElement {
     }
   };
 
-  private handleCloseClick = () => {
+  private handleCloseClick = (e) => {
+    e.stopPropagation();
     this.closeModal();
   };
 
@@ -84,14 +102,15 @@ export class PixobeModalElement {
           onClick={this.handleBackdropClick}
         >
           <div class="modal-content">
-            <button
+            <slot />
+            {this.showX && <button
               class="close-button"
               onClick={this.handleCloseClick}
               aria-label="Close modal"
+              type="button"
             >
               <icon-close></icon-close>
-            </button>
-            <slot />
+            </button>}
           </div>
         </dialog>
       </Host>

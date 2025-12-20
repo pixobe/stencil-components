@@ -207,6 +207,10 @@ export namespace Components {
           * Method to open the modal programmatically
          */
         "openModal": () => Promise<void>;
+        /**
+          * @default true
+         */
+        "showX": boolean;
     }
     interface PSelect {
         "label"?: string;
@@ -1004,6 +1008,10 @@ declare namespace LocalJSX {
           * @default false
          */
         "open"?: boolean;
+        /**
+          * @default true
+         */
+        "showX"?: boolean;
     }
     interface PSelect {
         "label"?: string;
