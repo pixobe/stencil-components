@@ -21,8 +21,8 @@ export class PixobeTextFieldElement {
   @Prop({ reflect: true })
   label?: string;
 
-  @Prop({ reflect: false })
-  placeholder?: string = '';
+  @Prop({ reflect: true })
+  placeholder?: string;
 
   @Prop({ mutable: true })
   value: string = '';

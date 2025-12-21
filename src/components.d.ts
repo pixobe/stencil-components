@@ -158,6 +158,8 @@ export namespace Components {
          */
         "value": string;
     }
+    interface PForm {
+    }
     interface PGallery {
         "name": string;
         /**
@@ -188,6 +190,14 @@ export namespace Components {
          */
         "images": Array<GridImageProp>;
         "viewonly": boolean;
+    }
+    interface PLineitems {
+        "label": string;
+        "name": string;
+        /**
+          * @default []
+         */
+        "value": any[];
     }
     interface PMenuicon {
         "options"?: DropdownOption[];
@@ -263,9 +273,6 @@ export namespace Components {
     interface PTextfield {
         "label"?: string;
         "name": string;
-        /**
-          * @default ''
-         */
         "placeholder"?: string;
         /**
           * @default true
@@ -301,6 +308,10 @@ export interface PColorpickerCustomEvent<T> extends CustomEvent<T> {
 export interface PFileuploaderCustomEvent<T> extends CustomEvent<T> {
     detail: T;
     target: HTMLPFileuploaderElement;
+}
+export interface PFormCustomEvent<T> extends CustomEvent<T> {
+    detail: T;
+    target: HTMLPFormElement;
 }
 export interface PGalleryCustomEvent<T> extends CustomEvent<T> {
     detail: T;
@@ -624,6 +635,23 @@ declare global {
         prototype: HTMLPFontpickerElement;
         new (): HTMLPFontpickerElement;
     };
+    interface HTMLPFormElementEventMap {
+        "formSubmit": Record<string, any>;
+    }
+    interface HTMLPFormElement extends Components.PForm, HTMLStencilElement {
+        addEventListener<K extends keyof HTMLPFormElementEventMap>(type: K, listener: (this: HTMLPFormElement, ev: PFormCustomEvent<HTMLPFormElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLPFormElementEventMap>(type: K, listener: (this: HTMLPFormElement, ev: PFormCustomEvent<HTMLPFormElementEventMap[K]>) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
+    }
+    var HTMLPFormElement: {
+        prototype: HTMLPFormElement;
+        new (): HTMLPFormElement;
+    };
     interface HTMLPGalleryElementEventMap {
         "mediaFrameEvent": { name: string };
     }
@@ -664,6 +692,12 @@ declare global {
     var HTMLPImagegridElement: {
         prototype: HTMLPImagegridElement;
         new (): HTMLPImagegridElement;
+    };
+    interface HTMLPLineitemsElement extends Components.PLineitems, HTMLStencilElement {
+    }
+    var HTMLPLineitemsElement: {
+        prototype: HTMLPLineitemsElement;
+        new (): HTMLPLineitemsElement;
     };
     interface HTMLPMenuiconElementEventMap {
         "valueChanged": string;
@@ -797,9 +831,11 @@ declare global {
         "p-colorswatch": HTMLPColorswatchElement;
         "p-fileuploader": HTMLPFileuploaderElement;
         "p-fontpicker": HTMLPFontpickerElement;
+        "p-form": HTMLPFormElement;
         "p-gallery": HTMLPGalleryElement;
         "p-icontext": HTMLPIcontextElement;
         "p-imagegrid": HTMLPImagegridElement;
+        "p-lineitems": HTMLPLineitemsElement;
         "p-menuicon": HTMLPMenuiconElement;
         "p-modal": HTMLPModalElement;
         "p-section": HTMLPSectionElement;
@@ -960,6 +996,9 @@ declare namespace LocalJSX {
          */
         "value"?: string;
     }
+    interface PForm {
+        "onFormSubmit"?: (event: PFormCustomEvent<Record<string, any>>) => void;
+    }
     interface PGallery {
         "name": string;
         "onMediaFrameEvent"?: (event: PGalleryCustomEvent<{ name: string }>) => void;
@@ -993,6 +1032,14 @@ declare namespace LocalJSX {
         "onImageDelete"?: (event: PImagegridCustomEvent<GridImageProp>) => void;
         "onImageSelect"?: (event: PImagegridCustomEvent<GridImageProp>) => void;
         "viewonly"?: boolean;
+    }
+    interface PLineitems {
+        "label"?: string;
+        "name"?: string;
+        /**
+          * @default []
+         */
+        "value"?: any[];
     }
     interface PMenuicon {
         "onValueChanged"?: (event: PMenuiconCustomEvent<string>) => void;
@@ -1073,9 +1120,6 @@ declare namespace LocalJSX {
     interface PTextfield {
         "label"?: string;
         "name": string;
-        /**
-          * @default ''
-         */
         "placeholder"?: string;
         /**
           * @default true
@@ -1151,9 +1195,11 @@ declare namespace LocalJSX {
         "p-colorswatch": PColorswatch;
         "p-fileuploader": PFileuploader;
         "p-fontpicker": PFontpicker;
+        "p-form": PForm;
         "p-gallery": PGallery;
         "p-icontext": PIcontext;
         "p-imagegrid": PImagegrid;
+        "p-lineitems": PLineitems;
         "p-menuicon": PMenuicon;
         "p-modal": PModal;
         "p-section": PSection;
@@ -1217,9 +1263,11 @@ declare module "@stencil/core" {
             "p-colorswatch": LocalJSX.PColorswatch & JSXBase.HTMLAttributes<HTMLPColorswatchElement>;
             "p-fileuploader": LocalJSX.PFileuploader & JSXBase.HTMLAttributes<HTMLPFileuploaderElement>;
             "p-fontpicker": LocalJSX.PFontpicker & JSXBase.HTMLAttributes<HTMLPFontpickerElement>;
+            "p-form": LocalJSX.PForm & JSXBase.HTMLAttributes<HTMLPFormElement>;
             "p-gallery": LocalJSX.PGallery & JSXBase.HTMLAttributes<HTMLPGalleryElement>;
             "p-icontext": LocalJSX.PIcontext & JSXBase.HTMLAttributes<HTMLPIcontextElement>;
             "p-imagegrid": LocalJSX.PImagegrid & JSXBase.HTMLAttributes<HTMLPImagegridElement>;
+            "p-lineitems": LocalJSX.PLineitems & JSXBase.HTMLAttributes<HTMLPLineitemsElement>;
             "p-menuicon": LocalJSX.PMenuicon & JSXBase.HTMLAttributes<HTMLPMenuiconElement>;
             "p-modal": LocalJSX.PModal & JSXBase.HTMLAttributes<HTMLPModalElement>;
             "p-section": LocalJSX.PSection & JSXBase.HTMLAttributes<HTMLPSectionElement>;

@@ -1,0 +1,26 @@
+:host {
+  display: block;
+  .line-items-container {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .line-item {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .line-item-content {
+    flex: 1;
+  }
+
+  .line-item-actions {
+    display: flex;
+    cursor: pointer;
+  }
+  .template-slot {
+    display: none;
+  }
+}
