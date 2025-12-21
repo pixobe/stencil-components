@@ -160,21 +160,6 @@ export namespace Components {
     }
     interface PForm {
     }
-    interface PGallery {
-        "name": string;
-        /**
-          * @default "wp"
-         */
-        "platform": string;
-        /**
-          * @default []
-         */
-        "value": Gallery[];
-        /**
-          * @default false
-         */
-        "viewonly": boolean;
-    }
     interface PIcontext {
         "icon": string;
         "label": string;
@@ -184,6 +169,11 @@ export namespace Components {
         "rounded": boolean;
     }
     interface PImagegrid {
+        /**
+          * Array of image URLs
+          * @default 8
+         */
+        "cols": number;
         /**
           * Array of image URLs
           * @default []
@@ -300,6 +290,21 @@ export namespace Components {
     }
     interface PWatermark {
     }
+    interface PWpgallery {
+        "name": string;
+        /**
+          * @default "wp"
+         */
+        "platform": string;
+        /**
+          * @default []
+         */
+        "value": Gallery[];
+        /**
+          * @default false
+         */
+        "viewonly": boolean;
+    }
 }
 export interface PColorpickerCustomEvent<T> extends CustomEvent<T> {
     detail: T;
@@ -313,10 +318,6 @@ export interface PFormCustomEvent<T> extends CustomEvent<T> {
     detail: T;
     target: HTMLPFormElement;
 }
-export interface PGalleryCustomEvent<T> extends CustomEvent<T> {
-    detail: T;
-    target: HTMLPGalleryElement;
-}
 export interface PImagegridCustomEvent<T> extends CustomEvent<T> {
     detail: T;
     target: HTMLPImagegridElement;
@@ -328,6 +329,10 @@ export interface PMenuiconCustomEvent<T> extends CustomEvent<T> {
 export interface PModalCustomEvent<T> extends CustomEvent<T> {
     detail: T;
     target: HTMLPModalElement;
+}
+export interface PWpgalleryCustomEvent<T> extends CustomEvent<T> {
+    detail: T;
+    target: HTMLPWpgalleryElement;
 }
 declare global {
     interface HTMLIconAddElement extends Components.IconAdd, HTMLStencilElement {
@@ -652,23 +657,6 @@ declare global {
         prototype: HTMLPFormElement;
         new (): HTMLPFormElement;
     };
-    interface HTMLPGalleryElementEventMap {
-        "mediaFrameEvent": { name: string };
-    }
-    interface HTMLPGalleryElement extends Components.PGallery, HTMLStencilElement {
-        addEventListener<K extends keyof HTMLPGalleryElementEventMap>(type: K, listener: (this: HTMLPGalleryElement, ev: PGalleryCustomEvent<HTMLPGalleryElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
-        addEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
-        addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
-        addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
-        removeEventListener<K extends keyof HTMLPGalleryElementEventMap>(type: K, listener: (this: HTMLPGalleryElement, ev: PGalleryCustomEvent<HTMLPGalleryElementEventMap[K]>) => any, options?: boolean | EventListenerOptions): void;
-        removeEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
-        removeEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
-        removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
-    }
-    var HTMLPGalleryElement: {
-        prototype: HTMLPGalleryElement;
-        new (): HTMLPGalleryElement;
-    };
     interface HTMLPIcontextElement extends Components.PIcontext, HTMLStencilElement {
     }
     var HTMLPIcontextElement: {
@@ -783,6 +771,23 @@ declare global {
         prototype: HTMLPWatermarkElement;
         new (): HTMLPWatermarkElement;
     };
+    interface HTMLPWpgalleryElementEventMap {
+        "mediaFrameEvent": { name: string };
+    }
+    interface HTMLPWpgalleryElement extends Components.PWpgallery, HTMLStencilElement {
+        addEventListener<K extends keyof HTMLPWpgalleryElementEventMap>(type: K, listener: (this: HTMLPWpgalleryElement, ev: PWpgalleryCustomEvent<HTMLPWpgalleryElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLPWpgalleryElementEventMap>(type: K, listener: (this: HTMLPWpgalleryElement, ev: PWpgalleryCustomEvent<HTMLPWpgalleryElementEventMap[K]>) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
+    }
+    var HTMLPWpgalleryElement: {
+        prototype: HTMLPWpgalleryElement;
+        new (): HTMLPWpgalleryElement;
+    };
     interface HTMLElementTagNameMap {
         "icon-add": HTMLIconAddElement;
         "icon-add-cart": HTMLIconAddCartElement;
@@ -832,7 +837,6 @@ declare global {
         "p-fileuploader": HTMLPFileuploaderElement;
         "p-fontpicker": HTMLPFontpickerElement;
         "p-form": HTMLPFormElement;
-        "p-gallery": HTMLPGalleryElement;
         "p-icontext": HTMLPIcontextElement;
         "p-imagegrid": HTMLPImagegridElement;
         "p-lineitems": HTMLPLineitemsElement;
@@ -846,6 +850,7 @@ declare global {
         "p-textfield": HTMLPTextfieldElement;
         "p-toast": HTMLPToastElement;
         "p-watermark": HTMLPWatermarkElement;
+        "p-wpgallery": HTMLPWpgalleryElement;
     }
 }
 declare namespace LocalJSX {
@@ -999,22 +1004,6 @@ declare namespace LocalJSX {
     interface PForm {
         "onFormSubmit"?: (event: PFormCustomEvent<Record<string, any>>) => void;
     }
-    interface PGallery {
-        "name": string;
-        "onMediaFrameEvent"?: (event: PGalleryCustomEvent<{ name: string }>) => void;
-        /**
-          * @default "wp"
-         */
-        "platform"?: string;
-        /**
-          * @default []
-         */
-        "value"?: Gallery[];
-        /**
-          * @default false
-         */
-        "viewonly"?: boolean;
-    }
     interface PIcontext {
         "icon": string;
         "label": string;
@@ -1024,6 +1013,11 @@ declare namespace LocalJSX {
         "rounded"?: boolean;
     }
     interface PImagegrid {
+        /**
+          * Array of image URLs
+          * @default 8
+         */
+        "cols"?: number;
         /**
           * Array of image URLs
           * @default []
@@ -1147,6 +1141,22 @@ declare namespace LocalJSX {
     }
     interface PWatermark {
     }
+    interface PWpgallery {
+        "name": string;
+        "onMediaFrameEvent"?: (event: PWpgalleryCustomEvent<{ name: string }>) => void;
+        /**
+          * @default "wp"
+         */
+        "platform"?: string;
+        /**
+          * @default []
+         */
+        "value"?: Gallery[];
+        /**
+          * @default false
+         */
+        "viewonly"?: boolean;
+    }
     interface IntrinsicElements {
         "icon-add": IconAdd;
         "icon-add-cart": IconAddCart;
@@ -1196,7 +1206,6 @@ declare namespace LocalJSX {
         "p-fileuploader": PFileuploader;
         "p-fontpicker": PFontpicker;
         "p-form": PForm;
-        "p-gallery": PGallery;
         "p-icontext": PIcontext;
         "p-imagegrid": PImagegrid;
         "p-lineitems": PLineitems;
@@ -1210,6 +1219,7 @@ declare namespace LocalJSX {
         "p-textfield": PTextfield;
         "p-toast": PToast;
         "p-watermark": PWatermark;
+        "p-wpgallery": PWpgallery;
     }
 }
 export { LocalJSX as JSX };
@@ -1264,7 +1274,6 @@ declare module "@stencil/core" {
             "p-fileuploader": LocalJSX.PFileuploader & JSXBase.HTMLAttributes<HTMLPFileuploaderElement>;
             "p-fontpicker": LocalJSX.PFontpicker & JSXBase.HTMLAttributes<HTMLPFontpickerElement>;
             "p-form": LocalJSX.PForm & JSXBase.HTMLAttributes<HTMLPFormElement>;
-            "p-gallery": LocalJSX.PGallery & JSXBase.HTMLAttributes<HTMLPGalleryElement>;
             "p-icontext": LocalJSX.PIcontext & JSXBase.HTMLAttributes<HTMLPIcontextElement>;
             "p-imagegrid": LocalJSX.PImagegrid & JSXBase.HTMLAttributes<HTMLPImagegridElement>;
             "p-lineitems": LocalJSX.PLineitems & JSXBase.HTMLAttributes<HTMLPLineitemsElement>;
@@ -1278,6 +1287,7 @@ declare module "@stencil/core" {
             "p-textfield": LocalJSX.PTextfield & JSXBase.HTMLAttributes<HTMLPTextfieldElement>;
             "p-toast": LocalJSX.PToast & JSXBase.HTMLAttributes<HTMLPToastElement>;
             "p-watermark": LocalJSX.PWatermark & JSXBase.HTMLAttributes<HTMLPWatermarkElement>;
+            "p-wpgallery": LocalJSX.PWpgallery & JSXBase.HTMLAttributes<HTMLPWpgalleryElement>;
         }
     }
 }

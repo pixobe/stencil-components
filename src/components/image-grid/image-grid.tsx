@@ -1,18 +1,22 @@
 import { Component, Host, h, Element, Prop, Event, EventEmitter } from '@stencil/core';
 
-export type GridImageProp = { src: string }
+export type GridImageProp = { url: string }
 
 @Component({
   tag: 'p-imagegrid',
   styleUrl: 'image-grid.scss',
   shadow: true,
 })
-export class ImageGrid {
+export class PixobeImageGridElement {
   @Element() el: HTMLElement;
 
   /** Array of image URLs */
   @Prop()
   images: Array<GridImageProp> = [];
+
+  /** Array of image URLs */
+  @Prop()
+  cols: number = 8
 
   @Prop()
   viewonly: boolean;
@@ -61,12 +65,15 @@ export class ImageGrid {
       return <Host>Upload images to the gallery.</Host>
     }
     return (
-      <Host class={{ "view-only": this.viewonly }}>
+      <Host class={{ "view-only": this.viewonly }}
+        style={{
+          "--grid-cols": `${this.cols}`
+        }}>
         <div class="grid">
           {this.images.map((image, idx) => (
-            <div class="grid-item" key={`${image.src}_${idx}`}>
+            <div class="grid-item" key={`${image.url}_${idx}`}>
               <button onClick={() => this.onImageSelectEvent(image)}>
-                <img class="gallery-image" data-src={image.src} alt={`image-${idx}`} />
+                <img class="gallery-image" data-src={image.url} alt={`image-${idx}`} />
               </button>
               <button class="button-rounded button-delete" onClick={() => this.imageDeleteEvent.emit(image)}>
                 <icon-close></icon-close>

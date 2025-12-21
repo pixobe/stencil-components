@@ -26,13 +26,21 @@ export const Basic: Story = {
     }
     return <p-form id="myForm" onFormSubmit={onSubmit}>
       <p-textfield type="text" placeholder="First Name" name="firstname" />
-      <p-textfield type="number" placeholder="Age" name="age" />
-      <p-lineitems name="products">
-        <div slot="template" style={{ display: "grid", gridTemplateColumns: "repeat(2, 1fr)", gap: "10px" }}>
-          <p-textfield type="text" placeholder="Item name" name="name" data-ignore={true} />
-          <p-textfield type="number" placeholder="Quantity" name="quantity" data-ignore={true} />
+      <div>
+        <div>
+          <p-textfield type="number" placeholder="Age" name="age" />
         </div>
-      </p-lineitems>
+      </div>
+      <div>
+        <div>
+          <p-lineitems name="products">
+            <div slot="template" style={{ display: "grid", gridTemplateColumns: "repeat(2, 1fr)", gap: "10px" }}>
+              <p-textfield type="text" placeholder="Item name" name="name" data-ignore={true} />
+              <p-textfield type="number" placeholder="Quantity" name="quantity" data-ignore={true} />
+            </div>
+          </p-lineitems>
+        </div>
+      </div>
       <button type="submit">Submit</button>
     </p-form>;
   }

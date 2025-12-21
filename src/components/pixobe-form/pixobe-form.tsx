@@ -9,46 +9,49 @@ import { Component, Host, h, Event, EventEmitter, Element } from '@stencil/core'
 export class PixobeFormElement {
   @Element() el: HTMLElement;
 
-  @Event() formSubmit: EventEmitter<Record<string, any>>;
+  @Event()
+  formSubmit: EventEmitter<Record<string, any>>;
 
   formElement: HTMLFormElement;
 
   componentDidLoad() {
-    // Attach click listeners to slotted submit buttons
-    const slot = this.el.shadowRoot.querySelector('slot') as HTMLSlotElement;
+    const slot = this.getSlot();
+    if (!slot) return;
 
     const attachListeners = () => {
-      const slottedElements = slot.assignedElements({ flatten: true });
-
-      // Find all submit buttons in slotted content
-      const findSubmitButtons = (elements: Element[]): HTMLButtonElement[] => {
-        const buttons: HTMLButtonElement[] = [];
-
-        elements.forEach(element => {
-          if (element instanceof HTMLButtonElement && element.type === 'submit') {
-            buttons.push(element);
-          }
-          // Also check children
-          if (element.children.length > 0) {
-            buttons.push(...findSubmitButtons(Array.from(element.children)));
-          }
-        });
-
-        return buttons;
-      };
-
-      const submitButtons = findSubmitButtons(slottedElements);
-
-      submitButtons.forEach(button => {
-        button.addEventListener('click', this.handleButtonClick);
-      });
+      this.getSubmitButtons(slot).forEach(button =>
+        button.addEventListener('click', this.handleButtonClick),
+      );
     };
 
-    // Attach listeners initially
     attachListeners();
-
-    // Re-attach when slot changes
     slot.addEventListener('slotchange', attachListeners);
+  }
+
+  disconnectedCallback() {
+    const slot = this.getSlot();
+    if (!slot) return;
+
+    this.getSubmitButtons(slot).forEach(button =>
+      button.removeEventListener('click', this.handleButtonClick),
+    );
+  }
+
+  private getSlot(): HTMLSlotElement | null {
+    return this.el.shadowRoot?.querySelector('slot') ?? null;
+  }
+
+  private getSubmitButtons(slot: HTMLSlotElement): HTMLButtonElement[] {
+    const buttons = slot
+      .assignedElements({ flatten: true })
+      .flatMap(el => {
+        // If the assigned element itself is a button, include it
+        const self = el.tagName === 'BUTTON' ? [el] : [];
+        // Find all nested buttons inside this assigned element (e.g., inside your div)
+        const nested = Array.from(el.querySelectorAll('button'));
+        return [...self, ...nested];
+      }) as HTMLButtonElement[];
+    return buttons;
   }
 
   private handleButtonClick = (e: Event) => {
@@ -64,108 +67,83 @@ export class PixobeFormElement {
   };
 
   private collectAndEmitFormData = () => {
-    // Get all slotted elements
-    const slot = this.el.shadowRoot.querySelector('slot') as HTMLSlotElement;
-    const slottedElements = slot.assignedElements({ flatten: true });
-    // Collect form data
+    const slot = this.getSlot();
+    if (!slot) return;
+
     const formData: Record<string, any> = {};
+    const visited = new Set<Element>();
 
-    // Process each slotted element
-    const collectFormData = (elements: Element[]) => {
-      elements.forEach(element => {
-        // Skip buttons
-        if (element instanceof HTMLButtonElement) {
+    const hasName = (el: Element): el is Element & { name: string } =>
+      el.hasAttribute('name');
+
+    const resolveValue = (el: Element): any => {
+      // Native value
+      if ('value' in el) {
+        const input = el as HTMLInputElement;
+
+        if (input.type === 'checkbox') return input.checked;
+        if (input.type === 'radio') return input.checked ? input.value : undefined;
+        return (el as any).value;
+      }
+
+      // Shadow DOM value
+      if ((el as HTMLElement).shadowRoot) {
+        const inner = (el as HTMLElement).shadowRoot!.querySelector(
+          'input, select, textarea',
+        ) as HTMLInputElement | null;
+
+        if (!inner) return undefined;
+
+        if (inner.type === 'checkbox') return inner.checked;
+        if (inner.type === 'radio')
+          return inner.checked ? inner.value : undefined;
+
+        return inner.value;
+      }
+
+      return undefined;
+    };
+
+    const collect = (elements: Element[]) => {
+      elements.forEach(el => {
+        if (visited.has(el)) return;
+        visited.add(el);
+
+        if (
+          el instanceof HTMLButtonElement ||
+          (el as HTMLElement).dataset?.ignore !== undefined
+        ) {
           return;
         }
 
-        const ignore = (element as HTMLInputElement).dataset.ignore;
-
-        if (ignore !== undefined) {
-          return;
-        }
-
-        // Check if element has a name attribute
-        const name = element.getAttribute('name');
-
-        if (name) {
-          let value: any;
-
-          // Check if element has a value property (custom components)
-          if ('value' in element) {
-            value = (element as any).value;
-          }
-          // Handle native input elements
-          else if (element instanceof HTMLInputElement) {
-            if (element.type === 'checkbox') {
-              value = element.checked;
-            } else if (element.type === 'radio') {
-              if (element.checked) {
-                value = element.value;
-              } else {
-                return; // Skip unchecked radio buttons
-              }
-            } else {
-              value = element.value;
-            }
-          } else if (element instanceof HTMLSelectElement) {
-            value = element.value;
-          } else if (element instanceof HTMLTextAreaElement) {
-            value = element.value;
-          }
-          // Try to get value from shadow DOM input
-          else if (element.shadowRoot) {
-            const input = element.shadowRoot.querySelector('input, select, textarea') as HTMLInputElement;
-            if (input) {
-              value = input.type === 'checkbox' ? input.checked : input.value;
-            }
-          }
+        if (hasName(el)) {
+          const name = el.getAttribute('name')!;
+          const value = resolveValue(el);
 
           if (value !== undefined) {
             formData[name] = value;
           }
         }
 
-        // Check direct children (not in shadow DOM)
-        if (element.children.length > 0) {
-          collectFormData(Array.from(element.children));
+        if ((el as HTMLElement).shadowRoot) {
+          collect(Array.from((el as HTMLElement).shadowRoot!.children));
+        }
+
+        if (el.children.length) {
+          collect(Array.from(el.children));
         }
       });
     };
 
-    collectFormData(slottedElements);
-
+    collect(slot.assignedElements({ flatten: true }));
     this.formSubmit.emit(formData);
   };
 
-  disconnectedCallback() {
-    // Clean up event listeners
-    const slot = this.el.shadowRoot?.querySelector('slot') as HTMLSlotElement;
-    if (slot) {
-      const slottedElements = slot.assignedElements({ flatten: true });
-      const findSubmitButtons = (elements: Element[]): HTMLButtonElement[] => {
-        const buttons: HTMLButtonElement[] = [];
-        elements.forEach(element => {
-          if (element instanceof HTMLButtonElement && element.type === 'submit') {
-            buttons.push(element);
-          }
-          if (element.children.length > 0) {
-            buttons.push(...findSubmitButtons(Array.from(element.children)));
-          }
-        });
-        return buttons;
-      };
-
-      const submitButtons = findSubmitButtons(slottedElements);
-      submitButtons.forEach(button => {
-        button.removeEventListener('click', this.handleButtonClick);
-      });
-    }
-  }
 
   render() {
     return (
       <Host>
-        <form onSubmit={this.handleSubmit} ref={el => this.formElement = el}>
+        <form onSubmit={this.handleSubmit} ref={el => (this.formElement = el!)}>
           <slot></slot>
         </form>
       </Host>

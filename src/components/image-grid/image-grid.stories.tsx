@@ -1,56 +1,83 @@
-import type { Meta, StoryObj } from '@storybook/html-vite';
+import type { Meta, StoryObj } from '@stencil/storybook-plugin';
+import { h } from '@stencil/core';
+import { PixobeImageGridElement } from './image-grid';
+
+window['wp'] = {
+
+}
 
 
-const meta: Meta<any> = {
-  title: 'Image Grid',
-  render: (args) => {
-    const el = document.createElement("image-grid");
-    Object.assign(el, args);
-
-    el.addEventListener("imageDelete", (e: any) => {
-      console.log("Image Deleted", e)
-    });
-
-    el.addEventListener("imageSelect", (e: any) => {
-      console.log("Image Selected", e)
-    });
-
-    return el;
+const meta = {
+  title: 'ImageGrid',
+  component: PixobeImageGridElement,
+  parameters: {
+    layout: 'centered',
   },
-  argTypes: {},
-};
+  argTypes: {
+  },
+  args: {},
+} satisfies Meta<PixobeImageGridElement>;
 
 export default meta;
-type Story = StoryObj<any>;
+type Story = StoryObj<PixobeImageGridElement>;
 
-
-export const Empty: Story = {
+export const Basic: Story = {
   args: {
-    value: []
   },
+  render: (props) => {
+    return <p-imagegrid {...props} />;
+  }
 };
 
 
-export const Gallery: Story = {
-  args: {
-    images: [
-      "/assets/images/monster-car.jpg",
-      "/assets/images/unicorn.jpg",
-      "/assets/images/windmill.jpg"
-    ].map(src => ({ src }))
-  },
-};
-
-export const ViewOnly: Story = {
+export const ExistingGallery: Story = {
   args: {
     images: [
-      "/assets/images/monster-car.jpg",
-      "/assets/images/unicorn.jpg",
-      "/assets/images/windmill.jpg"
-    ].map(src => ({ src })),
-    viewonly: true
+      { url: "/assets/images/unicorn.jpg" },
+      { url: "/assets/images/windmill.jpg" },
+      { url: "/assets/images/monster-car.jpg" },
+      { url: "/assets/images/unicorn.jpg" },
+      { url: "/assets/images/windmill.jpg" },
+      { url: "/assets/images/monster-car.jpg" },
+      { url: "/assets/images/unicorn.jpg" },
+      { url: "/assets/images/windmill.jpg" },
+      { url: "/assets/images/monster-car.jpg" },
+      { url: "/assets/images/unicorn.jpg" },
+      { url: "/assets/images/windmill.jpg" },
+      { url: "/assets/images/monster-car.jpg" },
+      { url: "/assets/images/unicorn.jpg" },
+      { url: "/assets/images/windmill.jpg" },
+      { url: "/assets/images/monster-car.jpg" },
+    ]
   },
+  render: (props) => {
+    return <p-imagegrid {...props} />;
+  }
 };
 
 
-
+export const CustomColumns: Story = {
+  args: {
+    cols: 4,
+    images: [
+      { url: "/assets/images/unicorn.jpg" },
+      { url: "/assets/images/windmill.jpg" },
+      { url: "/assets/images/monster-car.jpg" },
+      { url: "/assets/images/unicorn.jpg" },
+      { url: "/assets/images/windmill.jpg" },
+      { url: "/assets/images/monster-car.jpg" },
+      { url: "/assets/images/unicorn.jpg" },
+      { url: "/assets/images/windmill.jpg" },
+      { url: "/assets/images/monster-car.jpg" },
+      { url: "/assets/images/unicorn.jpg" },
+      { url: "/assets/images/windmill.jpg" },
+      { url: "/assets/images/monster-car.jpg" },
+      { url: "/assets/images/unicorn.jpg" },
+      { url: "/assets/images/windmill.jpg" },
+      { url: "/assets/images/monster-car.jpg" },
+    ]
+  },
+  render: (props) => {
+    return <p-imagegrid {...props} />;
+  }
+};

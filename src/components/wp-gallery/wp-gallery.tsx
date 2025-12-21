@@ -1,5 +1,6 @@
 import { Component, Host, h, State, Prop, Event, EventEmitter, AttachInternals } from '@stencil/core';
 import { GridImageProp } from '../image-grid/image-grid';
+import { PixobeTextFieldElement } from '../text-field/text-field';
 
 declare const wp: any;
 
@@ -10,12 +11,12 @@ interface Gallery {
 
 
 @Component({
-  tag: 'p-gallery',
-  styleUrl: 'image-gallery.scss',
+  tag: 'p-wpgallery',
+  styleUrl: 'wp-gallery.scss',
   shadow: true,
   formAssociated: true
 })
-export class ImageGallery {
+export class PixobeImageGalleryElement {
 
   @Prop({ reflect: true })
   name!: string;
@@ -38,6 +39,8 @@ export class ImageGallery {
   @AttachInternals()
   internals!: ElementInternals;
 
+  galleryNameRef: PixobeTextFieldElement;
+
   componentWillLoad() {
     this.internals.setFormValue(JSON.stringify(this.value));
   }
@@ -46,17 +49,14 @@ export class ImageGallery {
     this.internals.setFormValue(JSON.stringify(this.value));
   }
 
-  private handleNameInput(event: Event) {
-    const target = event.target as HTMLInputElement;
-    this.newGalleryName = target.value;
-  }
-
-  private addGallery() {
-    const name = this.newGalleryName.trim();
+  private onFormSubmit = (e) => {
+    const data = e.detail;
+    const name = data?.['galleryName']?.trim();
     if (!name) return;
     this.value = [{ name, images: [] }, ...this.value];
     this.newGalleryName = '';
     this.internals.setFormValue(JSON.stringify(this.value));
+    this.galleryNameRef.value = '';
   }
 
   private deleteGallery(galleryIndex: number) {
@@ -65,11 +65,6 @@ export class ImageGallery {
     this.internals.setFormValue(JSON.stringify(this.value));
   }
 
-  private handleKeyDown(event: KeyboardEvent) {
-    if (event.key === 'Enter') {
-      this.addGallery();
-    }
-  }
 
   private uploadImages(gallery: Gallery) {
     if (this.platform === 'wp') {
@@ -128,42 +123,51 @@ export class ImageGallery {
   render() {
     return (
       <Host class={{ "view-only": this.viewonly }}>
-        <div class="gallery-container">
-          <div class="gallery-input">
-            <input
-              type="text"
-              placeholder="Enter gallery name"
-              value={this.newGalleryName}
-              onInput={(e) => this.handleNameInput(e)}
-              onKeyDown={(e) => this.handleKeyDown(e)}
-            />
-            <button onClick={() => this.addGallery()}>Add Gallery</button>
+        <div class="gallery">
+          <div>
+            <p-form onFormSubmit={this.onFormSubmit}>
+              <div class="g-form">
+                <div>
+                  <p-textfield
+                    ref={(el: any) => this.galleryNameRef = el}
+                    type="text"
+                    name="galleryName"
+                    placeholder="Enter gallery name"
+                  ></p-textfield>
+                </div>
+                <div>
+                  <button class="btn-rounded btn-primary" type="submit"><icon-add></icon-add></button>
+                </div>
+              </div>
+            </p-form>
           </div>
 
-          <div class="gallery-list">
-            {this.value?.length === 0 ? (
-              <p class="empty-message">No galleries yet.</p>
-            ) : (
-              this.value?.map((gallery, index) => (
-                <div class="gallery-item" key={index}>
-                  <div class="gallery-header">
-                    <h3>{gallery.name}</h3>
-                    <div class="button-group button-actions">
-                      <button onClick={() => this.uploadImages(gallery)}>
-                        <icon-add-image></icon-add-image>
-                      </button>
-                      <button onClick={() => this.deleteGallery(index)}>
-                        <icon-trash></icon-trash>
-                      </button>
+          <p-section>
+            <div class="gallery-list">
+              {this.value?.length === 0 ? (
+                <p class="empty-message">No galleries yet.</p>
+              ) : (
+                this.value?.map((gallery, index) => (
+                  <div class="gallery-item" key={index}>
+                    <div class="gallery-header">
+                      <h3>{gallery.name}</h3>
+                      <div class="btn-action">
+                        <button onClick={() => this.uploadImages(gallery)}>
+                          <icon-add-image></icon-add-image>
+                        </button>
+                        <button onClick={() => this.deleteGallery(index)}>
+                          <icon-trash></icon-trash>
+                        </button>
+                      </div>
+                    </div>
+                    <div class="gallery-content">
+                      <p-imagegrid images={gallery.images} viewonly={this.viewonly} onImageDelete={(e) => this.deleteImage(index, e.detail)}></p-imagegrid>
                     </div>
                   </div>
-                  <div class="gallery-content">
-                    <image-grid images={gallery.images} viewonly={this.viewonly} onImageDelete={(e) => this.deleteImage(index, e.detail)}></image-grid>
-                  </div>
-                </div>
-              ))
-            )}
-          </div>
+                ))
+              )}
+            </div>
+          </p-section>
         </div>
       </Host>
     );

@@ -11,7 +11,7 @@ export class PixobeLineItemsElement {
   el: HTMLElement;
 
   @State()
-  items: number[] = [0];
+  items: number[] = [];
 
   @Prop({ reflect: true })
   name: string;
@@ -23,6 +23,7 @@ export class PixobeLineItemsElement {
   value: any[] = [];
 
   private internals: ElementInternals;
+  private initialValues: any[] | null = null;
 
   connectedCallback() {
     if ('attachInternals' in this.el) {
@@ -31,15 +32,14 @@ export class PixobeLineItemsElement {
   }
 
   private addItem() {
-    this.items = [...this.items, this.items.length];
+    const nextId = this.items.length === 0 ? 0 : Math.max(...this.items) + 1;
+    this.items = [...this.items, nextId];
     this.updateFormValue();
   }
 
-  private deleteItem(index: number) {
-    console.log("Item index", index);
+  private deleteItem(itemId: number) {
     if (this.items.length > 1) {
-      this.items.splice(index, 1);
-      this.value.splice(index, 1)
+      this.items = this.items.filter((item) => item !== itemId);
       this.updateFormValue();
     }
   }
@@ -52,8 +52,8 @@ export class PixobeLineItemsElement {
   private collectFormData() {
     const data: any[] = [];
 
-    this.items.forEach((_, index) => {
-      const slotElement = this.el.querySelector(`[slot="item-${index}"]`);
+    this.items.forEach((itemId) => {
+      const slotElement = this.el.querySelector(`[slot="item-${itemId}"]`);
       if (!slotElement) return;
       const formElements = slotElement.querySelectorAll('[name]');
       const itemData: any = {};
@@ -61,11 +61,24 @@ export class PixobeLineItemsElement {
       formElements.forEach((element: any) => {
         const name = element.getAttribute('name');
         if (name) {
+          if (element instanceof HTMLInputElement && (element.type === 'checkbox' || element.type === 'radio')) {
+            itemData[name] = element.checked ? element.value : '';
+            return;
+          }
+
           itemData[name] = element.value;
         }
       });
 
-      data.push(itemData);
+      const hasValue = Object.values(itemData).some((value) => {
+        if (value === null || value === undefined) return false;
+        if (typeof value === 'string') return value.trim() !== '';
+        return true;
+      });
+
+      if (hasValue) {
+        data.push(itemData);
+      }
     });
 
     return data;
@@ -91,6 +104,27 @@ export class PixobeLineItemsElement {
     }
   }
 
+  componentWillLoad() {
+    if (typeof this.value === 'string') {
+      try {
+        const parsedValue = JSON.parse(this.value);
+        if (parsedValue && typeof parsedValue === 'object') {
+          this.value = parsedValue;
+        }
+      } catch (error) {
+        console.warn("Failed to parse this.value as JSON. Keeping original string.", error);
+      }
+    }
+
+    const normalizedValue = Array.isArray(this.value) ? this.value : [];
+
+    if (normalizedValue.length > 0) {
+      this.items = normalizedValue.map((_, index) => index);
+      this.initialValues = normalizedValue;
+    } else {
+      this.items = [0];
+    }
+  }
 
   componentDidLoad() {
     this.renderTemplateInstances();
@@ -105,24 +139,82 @@ export class PixobeLineItemsElement {
   private renderTemplateInstances() {
     const template = this.getSlotTemplate();
     if (!template) return;
+    const shouldApplyValues = Array.isArray(this.initialValues) && this.initialValues.length > 0;
 
-    this.items.forEach((_, index) => {
-      const existingSlot = this.el.querySelector(`[slot="item-${index}"]`);
+    this.items.forEach((itemId, index) => {
+      const existingSlot = this.el.querySelector(`[slot="item-${itemId}"]`);
       if (!existingSlot) {
         const instance = template.cloneNode(true) as HTMLElement;
         instance.removeAttribute('slot');
-        instance.setAttribute('slot', `item-${index}`);
+        instance.setAttribute('slot', `item-${itemId}`);
+        if (shouldApplyValues) {
+          const itemValue = this.initialValues?.[index];
+          if (itemValue && typeof itemValue === 'object') {
+            this.applyTemplateValues(instance, itemValue);
+          }
+        }
         this.el.appendChild(instance);
       }
     });
 
+    if (shouldApplyValues) {
+      this.initialValues = null;
+    }
+
     // Clean up removed items
     const allSlots = this.el.querySelectorAll('[slot^="item-"]');
     allSlots.forEach((slot) => {
-      const slotIndex = parseInt(slot.getAttribute('slot')?.replace('item-', '') || '-1');
-      if (slotIndex >= this.items.length) {
+      const slotId = parseInt(slot.getAttribute('slot')?.replace('item-', '') || '-1', 10);
+      if (!this.items.includes(slotId)) {
         slot.remove();
       }
+    });
+  }
+
+  private applyTemplateValues(container: HTMLElement, itemValue: Record<string, any>) {
+    if (!itemValue || typeof itemValue !== 'object') return;
+    const formElements = container.querySelectorAll('[name]');
+    formElements.forEach((element) => {
+      const name = element.getAttribute('name');
+      if (!name || !(name in itemValue)) return;
+
+      const rawValue = itemValue[name];
+      if (rawValue === undefined) return;
+
+      if (element instanceof HTMLInputElement) {
+        if (element.type === 'checkbox') {
+          if (Array.isArray(rawValue)) {
+            element.checked = rawValue.map(String).includes(element.value);
+          } else if (typeof rawValue === 'boolean') {
+            element.checked = rawValue;
+          } else if (rawValue === null || rawValue === '') {
+            element.checked = false;
+          } else {
+            element.checked = String(rawValue) === element.value;
+          }
+          return;
+        }
+
+        if (element.type === 'radio') {
+          element.checked = String(rawValue) === element.value;
+          return;
+        }
+
+        element.value = rawValue === null ? '' : String(rawValue);
+        return;
+      }
+
+      if (element instanceof HTMLSelectElement || element instanceof HTMLTextAreaElement) {
+        element.value = rawValue === null ? '' : String(rawValue);
+        return;
+      }
+
+      if ('value' in element) {
+        (element as any).value = rawValue === null ? '' : rawValue;
+        return;
+      }
+
+      element.setAttribute('value', rawValue === null ? '' : String(rawValue));
     });
   }
 
@@ -145,14 +237,14 @@ export class PixobeLineItemsElement {
         {this.items.map((item, index) => (
           <div class="line-item" key={item}>
             <div class="line-item-content">
-              <slot name={`item-${index}`}></slot>
+              <slot name={`item-${item}`}></slot>
             </div>
 
             <div class="line-item-actions">
               {index === this.items.length - 1 ? (
                 <icon-add onClick={() => this.addItem()}></icon-add>
               ) : (
-                <icon-trash onClick={() => this.deleteItem(index)}></icon-trash>
+                <icon-trash onClick={() => this.deleteItem(item)}></icon-trash>
               )}
             </div>
           </div>
