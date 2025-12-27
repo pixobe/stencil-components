@@ -1,4 +1,5 @@
 import { Component, h, State, Element, Prop, Watch } from '@stencil/core';
+import { ensureJsonObject } from '../../utils/json-utils';
 
 @Component({
   tag: 'p-lineitems',
@@ -105,19 +106,8 @@ export class PixobeLineItemsElement {
   }
 
   componentWillLoad() {
-    if (typeof this.value === 'string') {
-      try {
-        const parsedValue = JSON.parse(this.value);
-        if (parsedValue && typeof parsedValue === 'object') {
-          this.value = parsedValue;
-        }
-      } catch (error) {
-        console.warn("Failed to parse this.value as JSON. Keeping original string.", error);
-      }
-    }
-
+    this.value = ensureJsonObject(this.value)
     const normalizedValue = Array.isArray(this.value) ? this.value : [];
-
     if (normalizedValue.length > 0) {
       this.items = normalizedValue.map((_, index) => index);
       this.initialValues = normalizedValue;

@@ -1,4 +1,5 @@
-import { Component, Host, h, Element, Prop, Event, EventEmitter } from '@stencil/core';
+import { Component, Host, h, Element, Prop, Event, EventEmitter, State, Watch } from '@stencil/core';
+import { ensureJsonObject } from '../../utils/json-utils';
 
 export type GridImageProp = { url: string }
 
@@ -21,6 +22,9 @@ export class PixobeImageGridElement {
   @Prop()
   viewonly: boolean;
 
+  @State()
+  private processedImages: Array<GridImageProp> = [];
+
   @Event({ eventName: "imageDelete" })
   imageDeleteEvent: EventEmitter<GridImageProp>;
 
@@ -30,7 +34,13 @@ export class PixobeImageGridElement {
   private observer: IntersectionObserver;
 
   componentWillLoad() {
+    this.processedImages = ensureJsonObject(this.images);
     this.initObserver();
+  }
+
+  @Watch('images')
+  handleImagesChange(newImages: Array<GridImageProp>) {
+    this.processedImages = ensureJsonObject(newImages);
   }
 
   componentDidRender() {
@@ -61,7 +71,7 @@ export class PixobeImageGridElement {
   }
 
   render() {
-    if (!this.images?.length) {
+    if (!this.processedImages?.length) {
       return <Host>Upload images to the gallery.</Host>
     }
     return (
@@ -70,7 +80,7 @@ export class PixobeImageGridElement {
           "--grid-cols": `${this.cols}`
         }}>
         <div class="grid">
-          {this.images.map((image, idx) => (
+          {this.processedImages.map((image, idx) => (
             <div class="grid-item" key={`${image.url}_${idx}`}>
               <button onClick={() => this.onImageSelectEvent(image)}>
                 <img class="gallery-image" data-src={image.url} alt={`image-${idx}`} />

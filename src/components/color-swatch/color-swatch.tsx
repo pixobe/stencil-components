@@ -77,29 +77,31 @@ export class PixobeColorSwatchesElement {
   render() {
     return (
       <Host>
-        <div class="color-swatch">
+        <div>
           {this.label && <label class="color-swatch__label">{this.label}</label>}
-          <div class="color-swatch__grid" role="list">
-            {this.selectedColors.length === 0 && (
-              <div class="color-swatch__placeholder" role="note">
-                Pick a color to add to your palette.
-              </div>
-            )}
-            {this.selectedColors.map((color, index) => (
-              <div class="color-swatch__item" role="listitem" key={`${color}-${index}`}>
-                <span class="color-swatch__chip" style={{ backgroundColor: color }} aria-label={color}></span>
-                <button
-                  type="button"
-                  class="color-swatch__remove"
-                  aria-label={`Remove ${color} from palette`}
-                  onPointerUp={() => this.removeColor(index)}
-                >
-                  &times;
-                </button>
-              </div>
-            ))}
+          <div class="color-swatch">
+            <div class="color-swatch__grid" role="list">
+              {this.selectedColors.length === 0 && (
+                <div class="color-swatch__placeholder" role="note">
+                  Pick a color to add to your palette.
+                </div>
+              )}
+              {this.selectedColors.map((color, index) => (
+                <div class="color-swatch__item" role="listitem" key={`${color}-${index}`}>
+                  <span class="color-swatch__chip" style={{ backgroundColor: color }} aria-label={color}></span>
+                  <button
+                    type="button"
+                    class="color-swatch__remove"
+                    aria-label={`Remove ${color} from palette`}
+                    onPointerUp={() => this.removeColor(index)}
+                  >
+                    &times;
+                  </button>
+                </div>
+              ))}
+            </div>
+            <p-colorpicker onColorChange={this.onColorSelect} name={this.name}></p-colorpicker>
           </div>
-          <p-colorpicker onColorChange={this.onColorSelect} name={this.name}></p-colorpicker>
         </div>
       </Host >
     );

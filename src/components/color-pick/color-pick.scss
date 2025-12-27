@@ -2,7 +2,7 @@
 @use 'src/styles/variables';
 
 :host {
-  display: block;
+  display: flex;
   max-width: 288px;
   width: 100%;
   aspect-ratio: 4 / 3;

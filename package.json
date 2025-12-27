@@ -1,6 +1,6 @@
 {
   "name": "@pixobe/stencil-components",
-  "version": "0.0.42-alpha4",
+  "version": "0.0.42-alpha5",
   "description": "Stencil Component Starter",
   "main": "dist/index.cjs.js",
   "module": "dist/index.js",

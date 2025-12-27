@@ -1,6 +1,7 @@
 import { Component, Host, h, State, Prop, Event, EventEmitter, AttachInternals } from '@stencil/core';
 import { GridImageProp } from '../image-grid/image-grid';
 import { PixobeTextFieldElement } from '../text-field/text-field';
+import { ensureJsonObject } from '../../utils/json-utils';
 
 declare const wp: any;
 
@@ -42,6 +43,7 @@ export class PixobeImageGalleryElement {
   galleryNameRef: PixobeTextFieldElement;
 
   componentWillLoad() {
+    this.value = ensureJsonObject(this.value);
     this.internals.setFormValue(JSON.stringify(this.value));
   }
 
@@ -49,9 +51,8 @@ export class PixobeImageGalleryElement {
     this.internals.setFormValue(JSON.stringify(this.value));
   }
 
-  private onFormSubmit = (e) => {
-    const data = e.detail;
-    const name = data?.['galleryName']?.trim();
+  private onFormSubmit = () => {
+    const name = this.galleryNameRef.value?.trim();
     if (!name) return;
     this.value = [{ name, images: [] }, ...this.value];
     this.newGalleryName = '';
@@ -112,7 +113,7 @@ export class PixobeImageGalleryElement {
       // Get media attachment details from the frame state
       const attachments = frame.state().get("selection").toJSON();
       if (attachments.length > 0) {
-        const images = attachments.map((attachment: any) => ({ src: attachment.url }));
+        const images = attachments.map((attachment: any) => ({ url: attachment.url }));
         gallery.images = [...gallery.images, ...images];
         this.value = [...this.value];
       }
@@ -125,7 +126,7 @@ export class PixobeImageGalleryElement {
       <Host class={{ "view-only": this.viewonly }}>
         <div class="gallery">
           <div>
-            <p-form onFormSubmit={this.onFormSubmit}>
+            <form>
               <div class="g-form">
                 <div>
                   <p-textfield
@@ -133,13 +134,14 @@ export class PixobeImageGalleryElement {
                     type="text"
                     name="galleryName"
                     placeholder="Enter gallery name"
+                    data-ignore
                   ></p-textfield>
                 </div>
                 <div>
-                  <button class="btn-rounded btn-primary" type="submit"><icon-add></icon-add></button>
+                  <button class="btn-rounded btn-primary" type="button" onClick={this.onFormSubmit}><icon-add></icon-add></button>
                 </div>
               </div>
-            </p-form>
+            </form>
           </div>
 
           <p-section>

@@ -1,38 +1,26 @@
-import type { Meta, StoryObj } from '@storybook/html-vite';
+import type { Meta, StoryObj } from '@stencil/storybook-plugin';
+import { h } from '@stencil/core';
+import { PixobeToastElement } from './pixobe-toast';
 
-
-const meta: Meta<any> = {
+const meta = {
   title: 'Toast',
-  render: (args) => {
-    const el = document.createElement("pixobe-toast");
-    Object.assign(el, args)
-    return el;
+  component: PixobeToastElement,
+  parameters: {
+    layout: 'centered',
   },
-  argTypes: {},
-};
+  argTypes: {
+  },
+  args: {},
+} satisfies Meta<PixobeToastElement>;
+
 export default meta;
-type Story = StoryObj<any>;
+type Story = StoryObj<PixobeToastElement>;
 
-
-export const Succes: Story = {
+export const Basic: Story = {
   args: {
-    message: "Product added to cart successfully.",
-    timeout: 60
+    message: "Settings saved."
   },
-};
-
-export const Error: Story = {
-  args: {
-    message: "Unable to add product.",
-    timeout: 60,
-    status: "error",
-  },
-};
-
-export const ShortTimeout: Story = {
-  args: {
-    message: "Unable to add product.",
-    status: "error",
-    timeout: 2
-  },
+  render: (props) => {
+    return <p-toast {...props} />;
+  }
 };

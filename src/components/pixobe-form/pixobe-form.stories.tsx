@@ -17,15 +17,26 @@ export default meta;
 type Story = StoryObj<PixobeFormElement>;
 
 export const Basic: Story = {
-  args: {
-  },
+  args: {},
   render: () => {
-
+    const gallery = [{
+      name: "Animals",
+      images: [
+        { url: "/assets/images/unicorn.jpg" },
+        { url: "/assets/images/windmill.jpg" }
+      ]
+    }, {
+      name: "Animals",
+      images: [
+        { url: "/assets/images/unicorn.jpg" },
+        { url: "/assets/images/windmill.jpg" }
+      ]
+    },]
     const onSubmit = (e) => {
       console.log("FormData::: ", e.detail)
     }
     return <p-form id="myForm" onFormSubmit={onSubmit}>
-      <p-textfield type="text" placeholder="First Name" name="firstname" />
+      <p-textfield type="text" placeholder="First Name" name="firstname" value="Sudharsan" />
       <div>
         <div>
           <p-textfield type="number" placeholder="Age" name="age" />
@@ -40,6 +51,9 @@ export const Basic: Story = {
             </div>
           </p-lineitems>
         </div>
+      </div>
+      <div>
+        <p-wpgallery name="gallery" value={gallery}></p-wpgallery>
       </div>
       <button type="submit">Submit</button>
     </p-form>;
