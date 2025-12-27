@@ -159,6 +159,7 @@ export namespace Components {
         "value": string;
     }
     interface PForm {
+        "getFormData": () => Promise<Record<string, any>>;
     }
     interface PIcontext {
         "icon": string;

@@ -1,18 +1,10 @@
 @use './mixins' as *;
 @use 'src/styles/variables' as *;
+@use './label';
 
 :host {
   .form-element {
     position: relative;
-    label {
-      display: block;
-      color: var(--text-primary);
-      font-size: 14px;
-      font-weight: 450;
-      margin-bottom: 4px;
-      font-family: system-ui, -apple-system;
-      text-align: left;
-    }
     textarea,
     input,
     select {
@@ -58,14 +50,6 @@
 
     textarea {
       height: auto;
-    }
-  }
-  .form-element.horizontal {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    label {
-      margin-bottom: 0px;
     }
   }
 }

@@ -23,6 +23,7 @@
   --p-border-radius: 4px;
   --p-element-gap: 4px;
   --p-section-background: oklch(1 0 0);
+  --checkbox-background: oklch(0.38 0 0);
 }
 @media (prefers-color-scheme: dark) {
   :host {

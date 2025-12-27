@@ -45,20 +45,25 @@ export class PixobeCheckBoxElement {
   render() {
     return (
       <Host>
-        <label htmlFor={this.name}>
+        <div class="checkbox-wrapper">
           <input
-            type="checkbox"
-            name={this.name}
+            class="inp-cbx"
             id={this.name}
+            type="checkbox"
             onInput={this.onInputFn}
             aria-label={this.label}
             checked={this.value === 'true'}
           />
-          <span>{this.label}</span>
-        </label>
-        <p>
-          {this.details}
-        </p>
+          <label class="cbx" htmlFor={this.name}><span>
+            <svg width="12px" height="10px">
+              <use xlinkHref="#check"></use>
+            </svg></span><span>{this.label}</span></label>
+          <svg class="inline-svg">
+            <symbol id="check" viewBox="0 0 12 10">
+              <polyline points="1.5 6 4.5 9 10.5 1"></polyline>
+            </symbol>
+          </svg>
+        </div>
       </Host>
     );
   }

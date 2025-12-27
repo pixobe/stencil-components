@@ -1,5 +1,5 @@
 // pixobe-form.tsx
-import { Component, Host, h, Event, EventEmitter, Element } from '@stencil/core';
+import { Component, Host, h, Event, EventEmitter, Element, Method } from '@stencil/core';
 
 @Component({
   tag: 'p-form',
@@ -13,6 +13,11 @@ export class PixobeFormElement {
   formSubmit: EventEmitter<Record<string, any>>;
 
   formElement: HTMLFormElement;
+
+  @Method()
+  async getFormData() {
+    return this.collectFormData()
+  }
 
   componentDidLoad() {
     const slot = this.getSlot();
@@ -57,16 +62,17 @@ export class PixobeFormElement {
   private handleButtonClick = (e: Event) => {
     e.preventDefault();
     e.stopPropagation();
-    this.collectAndEmitFormData();
+    this.collectFormData();
   };
 
   private handleSubmit = (e: Event) => {
     e.preventDefault();
     e.stopPropagation();
-    this.collectAndEmitFormData();
+    const formData = this.collectFormData();
+    this.formSubmit.emit(formData);
   };
 
-  private collectAndEmitFormData = () => {
+  private collectFormData = () => {
     const slot = this.getSlot();
     if (!slot) return;
 
@@ -136,7 +142,7 @@ export class PixobeFormElement {
     };
 
     collect(slot.assignedElements({ flatten: true }));
-    this.formSubmit.emit(formData);
+    return formData;
   };
 
 

@@ -1,21 +1,13 @@
 @use 'src/styles/slider';
 @use 'src/styles/variables';
+@use 'src/styles/label';
 
 :host {
   display: flex;
+  flex-direction: column;
   max-width: 288px;
   width: 100%;
   aspect-ratio: 4 / 3;
-
-  label {
-    display: block;
-    color: var(--text-primary);
-    font-size: 14px;
-    font-weight: 450;
-    margin-bottom: 4px;
-    font-family: system-ui, -apple-system;
-    text-align: left;
-  }
 
   .clr-picker {
     display: flex;
