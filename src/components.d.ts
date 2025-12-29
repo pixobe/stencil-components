@@ -235,6 +235,19 @@ export namespace Components {
         "header"?: string;
         "message"?: string;
     }
+    interface PSwitch {
+        "label"?: string;
+        "name": string;
+        "placeholder"?: string;
+        /**
+          * @default 'checkbox'
+         */
+        "type": string;
+        /**
+          * @default 'false'
+         */
+        "value": string;
+    }
     interface PTabs {
         /**
           * @default []
@@ -742,6 +755,12 @@ declare global {
         prototype: HTMLPSpinnerElement;
         new (): HTMLPSpinnerElement;
     };
+    interface HTMLPSwitchElement extends Components.PSwitch, HTMLStencilElement {
+    }
+    var HTMLPSwitchElement: {
+        prototype: HTMLPSwitchElement;
+        new (): HTMLPSwitchElement;
+    };
     interface HTMLPTabsElement extends Components.PTabs, HTMLStencilElement {
     }
     var HTMLPTabsElement: {
@@ -846,6 +865,7 @@ declare global {
         "p-section": HTMLPSectionElement;
         "p-select": HTMLPSelectElement;
         "p-spinner": HTMLPSpinnerElement;
+        "p-switch": HTMLPSwitchElement;
         "p-tabs": HTMLPTabsElement;
         "p-textarea": HTMLPTextareaElement;
         "p-textfield": HTMLPTextfieldElement;
@@ -1086,6 +1106,19 @@ declare namespace LocalJSX {
         "header"?: string;
         "message"?: string;
     }
+    interface PSwitch {
+        "label"?: string;
+        "name": string;
+        "placeholder"?: string;
+        /**
+          * @default 'checkbox'
+         */
+        "type"?: string;
+        /**
+          * @default 'false'
+         */
+        "value"?: string;
+    }
     interface PTabs {
         /**
           * @default []
@@ -1215,6 +1248,7 @@ declare namespace LocalJSX {
         "p-section": PSection;
         "p-select": PSelect;
         "p-spinner": PSpinner;
+        "p-switch": PSwitch;
         "p-tabs": PTabs;
         "p-textarea": PTextarea;
         "p-textfield": PTextfield;
@@ -1283,6 +1317,7 @@ declare module "@stencil/core" {
             "p-section": LocalJSX.PSection & JSXBase.HTMLAttributes<HTMLPSectionElement>;
             "p-select": LocalJSX.PSelect & JSXBase.HTMLAttributes<HTMLPSelectElement>;
             "p-spinner": LocalJSX.PSpinner & JSXBase.HTMLAttributes<HTMLPSpinnerElement>;
+            "p-switch": LocalJSX.PSwitch & JSXBase.HTMLAttributes<HTMLPSwitchElement>;
             "p-tabs": LocalJSX.PTabs & JSXBase.HTMLAttributes<HTMLPTabsElement>;
             "p-textarea": LocalJSX.PTextarea & JSXBase.HTMLAttributes<HTMLPTextareaElement>;
             "p-textfield": LocalJSX.PTextfield & JSXBase.HTMLAttributes<HTMLPTextfieldElement>;

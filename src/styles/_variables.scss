@@ -24,6 +24,7 @@
   --p-element-gap: 4px;
   --p-section-background: oklch(1 0 0);
   --checkbox-background: oklch(0.38 0 0);
+  --checkbox-color: oklch(0.98 0 0);
 }
 @media (prefers-color-scheme: dark) {
   :host {
@@ -38,6 +39,8 @@
     --placeholder: oklch(0.5 0 0);
     --background-transparent: rgba(30, 30, 30, 0.6);
     --p-section-background: oklch(0 0 0);
+    --checkbox-background: oklch(0.98 0 0);
+    --checkbox-color: oklch(0.38 0 0);
   }
 }
 :host {

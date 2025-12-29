@@ -16,7 +16,7 @@ const meta = {
 export default meta;
 type Story = StoryObj<PixobeFormElement>;
 
-export const Basic: Story = {
+export const Full: Story = {
   args: {},
   render: () => {
     const gallery = [{
@@ -57,5 +57,29 @@ export const Basic: Story = {
       </div>
       <button type="submit">Submit</button>
     </p-form>;
+  }
+};
+
+
+
+export const Minimal: Story = {
+  args: {},
+  render: () => {
+    const submitted = (e) => {
+      e.preventDefault();
+      const fd = new FormData(e.target);
+      const result = {};
+      for (const [k, v] of fd.entries()) result[k] = v;
+      console.log("Data submitted", result)
+    }
+
+    return <form onSubmit={submitted}>
+      <p-checkbox name="agree" label="Agree" value="true" />
+      <p-textfield name="firstname" label="First Name" value='Sudharsan' />
+      <p-switch name="background" label="Background" value='true' />
+      <p-textarea name="comments" label="Comments" />
+      <p-colorpicker name="swatch" label="Swatch" value="#FF7799" />
+      <button>Submit</button>
+    </form>;
   }
 };
