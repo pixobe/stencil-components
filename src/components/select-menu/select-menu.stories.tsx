@@ -1,62 +1,26 @@
-import type { Meta, StoryObj } from '@storybook/html-vite';
+import type { Meta, StoryObj } from '@stencil/storybook-plugin';
+import { h } from '@stencil/core';
+import { SelectMenuElement } from './select-menu';
 
-
-const meta: Meta<any> = {
-  title: 'SelectMneu',
-  render: (args: any) => {
-    const el = document.createElement("select-menu");
-    Object.assign(el, args)
-    return el;
+const meta = {
+  title: 'SelectMenuElement',
+  component: SelectMenuElement,
+  parameters: {
+    layout: 'centered',
   },
-  argTypes: {},
-};
+  argTypes: {
+  },
+  args: {},
+} satisfies Meta<SelectMenuElement>;
+
 export default meta;
-type Story = StoryObj<any>;
+type Story = StoryObj<SelectMenuElement>;
 
-
-export const NoValue: Story = {
+export const Basic: Story = {
   args: {
-    label: "Colors",
-    value: '',
-    name: "colors"
+    label: 'Brand palette'
   },
+  render: (props) => {
+    return <p-select {...props} />;
+  }
 };
-
-export const Default: Story = {
-  args: {
-    label: "Colors",
-    value: '',
-    name: "colors",
-    options: [
-      {
-        label: "Monday",
-        value: "Monday"
-      },
-      {
-        label: "Tuesday",
-        value: "Tuesday"
-      },
-      {
-        label: "Wednesday",
-        value: "Wednesday"
-      },
-      {
-        label: "Thursday",
-        value: "Thursday"
-      },
-      {
-        label: "Friday",
-        value: "Friday"
-      },
-      {
-        label: "Saturday",
-        value: "Saturday"
-      },
-      {
-        label: "Sunday",
-        value: "Sunday"
-      }
-    ]
-  },
-};
-

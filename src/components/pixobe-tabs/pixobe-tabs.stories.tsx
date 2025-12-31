@@ -1,27 +1,25 @@
-import type { Meta, StoryObj } from '@storybook/html-vite';
+import type { Meta, StoryObj } from '@stencil/storybook-plugin';
+import { h } from '@stencil/core';
+import { PixobeTabsElement } from './pixobe-tabs';
 
-const meta: Meta<any> = {
-    title: 'Pixobe Tabs',
-    render: () => {
-        const el = document.createElement("pixobe-tabs");
-
-        el.innerHTML = `
-          
-  <div slot="tab-0">Home content here</div>
-  <div slot="tab-1">Profile details</div>
-  <div slot="tab-2">Settings form</div>
-        `;
-
-        // el.tabs = ["Home", "Profile", "Settings"]
-        return el;
+const meta = {
+    title: 'PixobeTabsElement',
+    component: PixobeTabsElement,
+    parameters: {
+        layout: 'centered',
     },
-    argTypes: {},
-};
+    argTypes: {
+    },
+    args: {},
+} satisfies Meta<PixobeTabsElement>;
 
 export default meta;
-type Story = StoryObj<any>;
+type Story = StoryObj<PixobeTabsElement>;
 
-export const Primary: Story = {
-    args: {},
+export const Basic: Story = {
+    args: {
+    },
+    render: (props) => {
+        return <p-tabs {...props} />;
+    }
 };
-

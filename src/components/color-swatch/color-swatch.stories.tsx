@@ -1,20 +1,19 @@
-import type { Meta, StoryObj } from '@stencil/storybook-plugin';
+import type { StoryObj } from '@stencil/storybook-plugin';
 import { h } from '@stencil/core';
-import { PixobeColorSwatchesElement } from './color-swatch';
 
 const meta = {
-  title: 'Checkbox',
-  component: PixobeColorSwatchesElement,
+  title: 'PixobeColorSwatches',
+  component: "p-colorswatch",
   parameters: {
     layout: 'centered',
   },
   argTypes: {
   },
   args: {},
-} satisfies Meta<PixobeColorSwatchesElement>;
+};
 
 export default meta;
-type Story = StoryObj<PixobeColorSwatchesElement>;
+type Story = StoryObj<any>;
 
 export const Basic: Story = {
   args: {
@@ -22,6 +21,6 @@ export const Basic: Story = {
     name: "agreement"
   },
   render: (props) => {
-    return <p-checkbox {...props} />;
+    return <p-p-colorswatch {...props} />;
   }
 };

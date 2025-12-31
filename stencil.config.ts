@@ -10,6 +10,8 @@ export const config: Config = {
     },
     {
       type: 'dist-custom-elements',
+      customElementsExportBehavior: 'auto-define-custom-elements',
+      externalRuntime: true,
     },
     {
       type: 'www',

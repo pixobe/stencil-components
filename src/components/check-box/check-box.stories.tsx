@@ -3,24 +3,26 @@ import { h } from '@stencil/core';
 import { PixobeCheckBoxElement } from './check-box';
 
 const meta = {
-  title: 'ColorSwatches',
-  component: PixobeCheckBoxElement,
+  title: 'PixobeCheckBox',
+  component: 'p-checkbox',
   parameters: {
     layout: 'centered',
   },
   argTypes: {
+    label: { control: 'text' }
   },
   args: {},
 } satisfies Meta<PixobeCheckBoxElement>;
 
 export default meta;
-type Story = StoryObj<PixobeCheckBoxElement>;
+type Story = StoryObj;
 
 export const Basic: Story = {
   args: {
-    label: 'Brand palette'
+    name: "agreed",
+    label: 'Agree'
   },
-  render: (props) => {
-    return <p-colorswatch {...props} />;
+  render: (props: any) => {
+    return <p-checkbox {...props} />;
   }
 };

@@ -21,6 +21,7 @@ const icons = [
   "gallery",
   'add-image',
   'upload-image',
+  'noimage',
   'add',
   'edit',
   'fliph',

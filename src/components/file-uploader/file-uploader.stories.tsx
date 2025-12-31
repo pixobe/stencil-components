@@ -1,29 +1,26 @@
-import type { Meta, StoryObj } from '@storybook/html-vite';
+import type { Meta, StoryObj } from '@stencil/storybook-plugin';
+import { h } from '@stencil/core';
+import { FileUploader } from './file-uploader';
 
-
-const meta: Meta<any> = {
-  title: 'File/File Uploader',
-  render: (args) => {
-    const el = document.createElement("file-uploader");
-    Object.assign(el, args)
-    return el;
+const meta = {
+  title: 'FileUploader',
+  component: FileUploader,
+  parameters: {
+    layout: 'centered',
   },
-  argTypes: {},
-};
+  argTypes: {
+  },
+  args: {},
+} satisfies Meta<FileUploader>;
+
 export default meta;
-type Story = StoryObj<any>;
+type Story = StoryObj<FileUploader>;
 
-
-export const FileUploader: Story = {
+export const Basic: Story = {
   args: {
-    name: "image",
+    label: 'Brand palette'
   },
+  render: (props) => {
+    return <p-select {...props} />;
+  }
 };
-
-export const FileUpladerWithLabel: Story = {
-  args: {
-    name: "image",
-    label: "Upload jpg, svg, png for etching"
-  },
-};
-

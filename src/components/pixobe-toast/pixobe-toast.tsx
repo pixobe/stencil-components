@@ -5,52 +5,36 @@ import { Component, Host, h, Prop, Element, State } from '@stencil/core';
   styleUrl: 'pixobe-toast.scss',
   shadow: true,
 })
-
 export class PixobeToastElement {
   @Element() el: HTMLElement;
 
-  @Prop()
-  message: string;
+  @Prop() message: string;
+  @Prop() status: 'success' | 'error' = 'success';
+  @Prop() timeout: number = 5;
 
-  @Prop()
-  status: 'success' | 'error' = 'success';
+  @State() isClosing: boolean = false;
 
-  @Prop()
-  timeout: number = 5;
-
-  @State()
-  isClosing: boolean = false;
-
-  private fadeTimeout: any;
-  private removeTimeout: any;
+  private fadeTimeout: NodeJS.Timeout;
+  private removeTimeout: NodeJS.Timeout;
 
   componentDidLoad() {
     this.startTimeout();
-  }
-
-  componentWillUpdate() {
-    // Reset the closing state and timeout when props update
-    this.isClosing = false;
-    this.startTimeout();
-  }
-
-  startTimeout() {
-    // Clear any existing timeout before starting a new one
-    if (this.fadeTimeout) {
-      clearTimeout(this.fadeTimeout);
-    }
-
-    const timeout = this.timeout || 5;
-    this.fadeTimeout = setTimeout(() => {
-      this.closeToast();
-    }, timeout * 1000);
   }
 
   disconnectedCallback() {
     this.clearTimeouts();
   }
 
-  clearTimeouts() {
+  private startTimeout() {
+    this.clearTimeouts();
+
+    const timeoutMs = (this.timeout || 5) * 1000;
+    this.fadeTimeout = setTimeout(() => {
+      this.closeToast();
+    }, timeoutMs);
+  }
+
+  private clearTimeouts() {
     if (this.fadeTimeout) {
       clearTimeout(this.fadeTimeout);
       this.fadeTimeout = null;
@@ -61,25 +45,27 @@ export class PixobeToastElement {
     }
   }
 
-  closeToast() {
-    // Clear the auto-close timeout if closing manually
+  private closeToast = () => {
     this.clearTimeouts();
-
     this.isClosing = true;
 
-    // Remove element after fade-out animation completes
+    // Remove element after animation completes (300ms)
     this.removeTimeout = setTimeout(() => {
       this.el.remove();
     }, 300);
-  }
+  };
 
   render() {
     return (
-      <Host class="toast-container">
+      <Host>
         <div class={`toast ${this.status} ${this.isClosing ? 'fade-out' : ''}`}>
-          {this.status === 'success' ? <icon-tickcircle></icon-tickcircle> : <icon-error></icon-error>}
+          {this.status === 'success' ? (
+            <icon-tickcircle></icon-tickcircle>
+          ) : (
+            <icon-error></icon-error>
+          )}
           <div class="toast-message" innerHTML={this.message}></div>
-          <button class="close-button" onClick={() => this.closeToast()}>
+          <button class="close-button" onClick={this.closeToast} aria-label="Close notification">
             <icon-close></icon-close>
           </button>
         </div>

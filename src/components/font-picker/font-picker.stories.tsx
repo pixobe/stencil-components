@@ -1,63 +1,26 @@
-import type { Meta, StoryObj } from '@storybook/html-vite';
+import type { Meta, StoryObj } from '@stencil/storybook-plugin';
+import { h } from '@stencil/core';
+import { FontPicker } from './font-picker';
 
-
-const fonts = [
-  {
-    "name": "Arial",
-    url: ''
-  },
-  {
-    "name": "Roboto",
-    "url": "https://fonts.gstatic.com/s/roboto/v47/KFO7CnqEu92Fr1ME7kSn66aGLdTylUAMa3yUBHMdazQ.woff2"
-  },
-  {
-    "name": "Tagerine",
-    "url": "https://fonts.gstatic.com/s/tagesschrift/v2/pe0pMI6IOYlEuEZ7ZEA7ZKOqBP5vWVYgVw.woff2"
-  },
-  {
-    "name": "Frigole",
-    "url": "https://fonts.gstatic.com/s/frijole/v14/uU9PCBUR8oakM2BQ3xTR396EilM.woff2"
-  },
-  {
-    "name": "Apple Chancery",
-    "url": "Apple Chancery"
-  }
-];
-
-const meta: Meta<any> = {
+const meta = {
   title: 'FontPicker',
-  render: (args) => {
-    const el = document.createElement("font-picker");
-    Object.assign(el, args)
-    return el;
+  component: FontPicker,
+  parameters: {
+    layout: 'centered',
   },
-  argTypes: {},
-};
+  argTypes: {
+  },
+  args: {},
+} satisfies Meta<FontPicker>;
+
 export default meta;
-type Story = StoryObj<any>;
+type Story = StoryObj<FontPicker>;
 
-
-export const NoValue: Story = {
+export const Basic: Story = {
   args: {
-    label: "Fonts",
-    value: '',
-    name: "colors"
+    label: 'Brand palette'
   },
-};
-
-export const WithFonts: Story = {
-  args: {
-    label: "Fonts",
-    value: '',
-    name: "fonts",
-    fonts
-  },
-};
-export const WithValue: Story = {
-  args: {
-    label: "Fonts",
-    value: 'Frigole',
-    name: "fonts",
-    fonts
-  },
+  render: (props) => {
+    return <p-select {...props} />;
+  }
 };

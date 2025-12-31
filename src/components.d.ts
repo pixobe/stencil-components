@@ -64,6 +64,8 @@ export namespace Components {
     }
     interface IconMonogram {
     }
+    interface IconNoimage {
+    }
     interface IconPdf {
     }
     interface IconPixobe {
@@ -499,6 +501,12 @@ declare global {
         prototype: HTMLIconMonogramElement;
         new (): HTMLIconMonogramElement;
     };
+    interface HTMLIconNoimageElement extends Components.IconNoimage, HTMLStencilElement {
+    }
+    var HTMLIconNoimageElement: {
+        prototype: HTMLIconNoimageElement;
+        new (): HTMLIconNoimageElement;
+    };
     interface HTMLIconPdfElement extends Components.IconPdf, HTMLStencilElement {
     }
     var HTMLIconPdfElement: {
@@ -834,6 +842,7 @@ declare global {
         "icon-instagram": HTMLIconInstagramElement;
         "icon-magic": HTMLIconMagicElement;
         "icon-monogram": HTMLIconMonogramElement;
+        "icon-noimage": HTMLIconNoimageElement;
         "icon-pdf": HTMLIconPdfElement;
         "icon-pixobe": HTMLIconPixobeElement;
         "icon-preview": HTMLIconPreviewElement;
@@ -924,6 +933,8 @@ declare namespace LocalJSX {
     interface IconMagic {
     }
     interface IconMonogram {
+    }
+    interface IconNoimage {
     }
     interface IconPdf {
     }
@@ -1217,6 +1228,7 @@ declare namespace LocalJSX {
         "icon-instagram": IconInstagram;
         "icon-magic": IconMagic;
         "icon-monogram": IconMonogram;
+        "icon-noimage": IconNoimage;
         "icon-pdf": IconPdf;
         "icon-pixobe": IconPixobe;
         "icon-preview": IconPreview;
@@ -1286,6 +1298,7 @@ declare module "@stencil/core" {
             "icon-instagram": LocalJSX.IconInstagram & JSXBase.HTMLAttributes<HTMLIconInstagramElement>;
             "icon-magic": LocalJSX.IconMagic & JSXBase.HTMLAttributes<HTMLIconMagicElement>;
             "icon-monogram": LocalJSX.IconMonogram & JSXBase.HTMLAttributes<HTMLIconMonogramElement>;
+            "icon-noimage": LocalJSX.IconNoimage & JSXBase.HTMLAttributes<HTMLIconNoimageElement>;
             "icon-pdf": LocalJSX.IconPdf & JSXBase.HTMLAttributes<HTMLIconPdfElement>;
             "icon-pixobe": LocalJSX.IconPixobe & JSXBase.HTMLAttributes<HTMLIconPixobeElement>;
             "icon-preview": LocalJSX.IconPreview & JSXBase.HTMLAttributes<HTMLIconPreviewElement>;

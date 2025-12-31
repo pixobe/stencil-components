@@ -5,7 +5,7 @@ import { Component, h, Host } from '@stencil/core';
   tag: 'icon-preview',
   shadow: true,
 })
-export class IconPdf {
+export class IconPreview {
   render() {
     return (
       <Host>
