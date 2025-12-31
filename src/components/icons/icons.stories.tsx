@@ -43,8 +43,9 @@ const icons = [
   "tick-circle",
   "settings",
   "cog",
-  "download"
-].sort((a, b) => a.localeCompare(b));
+  "download",
+  "viewfill"
+];
 
 
 

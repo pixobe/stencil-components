@@ -94,6 +94,8 @@ export namespace Components {
     }
     interface IconUploadImage {
     }
+    interface IconViewfill {
+    }
     interface IconWhatsapp {
     }
     interface IconWrench {
@@ -591,6 +593,12 @@ declare global {
         prototype: HTMLIconUploadImageElement;
         new (): HTMLIconUploadImageElement;
     };
+    interface HTMLIconViewfillElement extends Components.IconViewfill, HTMLStencilElement {
+    }
+    var HTMLIconViewfillElement: {
+        prototype: HTMLIconViewfillElement;
+        new (): HTMLIconViewfillElement;
+    };
     interface HTMLIconWhatsappElement extends Components.IconWhatsapp, HTMLStencilElement {
     }
     var HTMLIconWhatsappElement: {
@@ -857,6 +865,7 @@ declare global {
         "icon-trash": HTMLIconTrashElement;
         "icon-upload": HTMLIconUploadElement;
         "icon-upload-image": HTMLIconUploadImageElement;
+        "icon-viewfill": HTMLIconViewfillElement;
         "icon-whatsapp": HTMLIconWhatsappElement;
         "icon-wrench": HTMLIconWrenchElement;
         "p-banner": HTMLPBannerElement;
@@ -963,6 +972,8 @@ declare namespace LocalJSX {
     interface IconUpload {
     }
     interface IconUploadImage {
+    }
+    interface IconViewfill {
     }
     interface IconWhatsapp {
     }
@@ -1243,6 +1254,7 @@ declare namespace LocalJSX {
         "icon-trash": IconTrash;
         "icon-upload": IconUpload;
         "icon-upload-image": IconUploadImage;
+        "icon-viewfill": IconViewfill;
         "icon-whatsapp": IconWhatsapp;
         "icon-wrench": IconWrench;
         "p-banner": PBanner;
@@ -1313,6 +1325,7 @@ declare module "@stencil/core" {
             "icon-trash": LocalJSX.IconTrash & JSXBase.HTMLAttributes<HTMLIconTrashElement>;
             "icon-upload": LocalJSX.IconUpload & JSXBase.HTMLAttributes<HTMLIconUploadElement>;
             "icon-upload-image": LocalJSX.IconUploadImage & JSXBase.HTMLAttributes<HTMLIconUploadImageElement>;
+            "icon-viewfill": LocalJSX.IconViewfill & JSXBase.HTMLAttributes<HTMLIconViewfillElement>;
             "icon-whatsapp": LocalJSX.IconWhatsapp & JSXBase.HTMLAttributes<HTMLIconWhatsappElement>;
             "icon-wrench": LocalJSX.IconWrench & JSXBase.HTMLAttributes<HTMLIconWrenchElement>;
             "p-banner": LocalJSX.PBanner & JSXBase.HTMLAttributes<HTMLPBannerElement>;

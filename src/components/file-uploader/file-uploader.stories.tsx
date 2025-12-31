@@ -4,7 +4,7 @@ import { FileUploader } from './file-uploader';
 
 const meta = {
   title: 'FileUploader',
-  component: FileUploader,
+  component: "p-fileuploader",
   parameters: {
     layout: 'centered',
   },
@@ -21,6 +21,6 @@ export const Basic: Story = {
     label: 'Brand palette'
   },
   render: (props) => {
-    return <p-select {...props} />;
+    return <p-fileuploader {...props} />;
   }
 };

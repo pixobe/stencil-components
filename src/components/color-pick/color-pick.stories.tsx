@@ -4,7 +4,7 @@ import { PixobeColorPickerElement } from './color-pick';
 
 const meta = {
     title: 'ColorPick',
-    component: PixobeColorPickerElement,
+    component: "p-colorpicker",
     parameters: {
         layout: 'centered',
     },
