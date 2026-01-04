@@ -194,6 +194,18 @@ export namespace Components {
          */
         "value": any[];
     }
+    interface PMediagallery {
+        /**
+          * Number of columns for the inner image grid
+          * @default 8
+         */
+        "cols": number;
+        /**
+          * Galleries to render
+          * @default []
+         */
+        "value": Gallery[];
+    }
     interface PMenuicon {
         "options"?: DropdownOption[];
         "value": any;
@@ -717,6 +729,12 @@ declare global {
         prototype: HTMLPLineitemsElement;
         new (): HTMLPLineitemsElement;
     };
+    interface HTMLPMediagalleryElement extends Components.PMediagallery, HTMLStencilElement {
+    }
+    var HTMLPMediagalleryElement: {
+        prototype: HTMLPMediagalleryElement;
+        new (): HTMLPMediagalleryElement;
+    };
     interface HTMLPMenuiconElementEventMap {
         "valueChanged": string;
     }
@@ -878,6 +896,7 @@ declare global {
         "p-icontext": HTMLPIcontextElement;
         "p-imagegrid": HTMLPImagegridElement;
         "p-lineitems": HTMLPLineitemsElement;
+        "p-mediagallery": HTMLPMediagalleryElement;
         "p-menuicon": HTMLPMenuiconElement;
         "p-modal": HTMLPModalElement;
         "p-section": HTMLPSectionElement;
@@ -1078,6 +1097,18 @@ declare namespace LocalJSX {
          */
         "value"?: any[];
     }
+    interface PMediagallery {
+        /**
+          * Number of columns for the inner image grid
+          * @default 8
+         */
+        "cols"?: number;
+        /**
+          * Galleries to render
+          * @default []
+         */
+        "value"?: Gallery[];
+    }
     interface PMenuicon {
         "onValueChanged"?: (event: PMenuiconCustomEvent<string>) => void;
         "options"?: DropdownOption[];
@@ -1267,6 +1298,7 @@ declare namespace LocalJSX {
         "p-icontext": PIcontext;
         "p-imagegrid": PImagegrid;
         "p-lineitems": PLineitems;
+        "p-mediagallery": PMediagallery;
         "p-menuicon": PMenuicon;
         "p-modal": PModal;
         "p-section": PSection;
@@ -1338,6 +1370,7 @@ declare module "@stencil/core" {
             "p-icontext": LocalJSX.PIcontext & JSXBase.HTMLAttributes<HTMLPIcontextElement>;
             "p-imagegrid": LocalJSX.PImagegrid & JSXBase.HTMLAttributes<HTMLPImagegridElement>;
             "p-lineitems": LocalJSX.PLineitems & JSXBase.HTMLAttributes<HTMLPLineitemsElement>;
+            "p-mediagallery": LocalJSX.PMediagallery & JSXBase.HTMLAttributes<HTMLPMediagalleryElement>;
             "p-menuicon": LocalJSX.PMenuicon & JSXBase.HTMLAttributes<HTMLPMenuiconElement>;
             "p-modal": LocalJSX.PModal & JSXBase.HTMLAttributes<HTMLPModalElement>;
             "p-section": LocalJSX.PSection & JSXBase.HTMLAttributes<HTMLPSectionElement>;

@@ -10,7 +10,6 @@ interface Gallery {
   images: GridImageProp[];
 }
 
-
 @Component({
   tag: 'p-wpgallery',
   styleUrl: 'wp-gallery.scss',
