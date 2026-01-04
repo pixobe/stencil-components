@@ -9,6 +9,12 @@ const meta = {
   argTypes: {
   },
   args: {},
+  render: (props: any) => {
+    const selected = (e) => {
+      console.log(e.detail)
+    }
+    return <p-mediagallery {...props} onImageSelect={(e) => selected(e)} />;
+  }
 } satisfies Meta<PixobeMediaGalleryElement>;
 
 export default meta;
@@ -59,9 +65,7 @@ export const Basic: Story = {
       }
     ]
   },
-  render: (props: any) => {
-    return <p-mediagallery {...props} />;
-  }
+
 };
 
 export const MixedGalleries: Story = {
@@ -97,7 +101,5 @@ export const MixedGalleries: Story = {
       }
     ]
   },
-  render: (props: any) => {
-    return <p-mediagallery {...props} />;
-  }
+
 };

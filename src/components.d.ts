@@ -7,10 +7,12 @@
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
 import { FontItem } from "@pixobe/ui-utils";
 import { GridImageProp } from "./components/image-grid/image-grid";
+import { GridImageProp as GridImageProp1 } from "./components/image-grid/image-grid";
 import { DropdownOption } from "./components/menu-icon/menu-icon";
 import { OptionItem } from "./components/select-menu/select-menu";
 export { FontItem } from "@pixobe/ui-utils";
 export { GridImageProp } from "./components/image-grid/image-grid";
+export { GridImageProp as GridImageProp1 } from "./components/image-grid/image-grid";
 export { DropdownOption } from "./components/menu-icon/menu-icon";
 export { OptionItem } from "./components/select-menu/select-menu";
 export namespace Components {
@@ -351,6 +353,10 @@ export interface PFormCustomEvent<T> extends CustomEvent<T> {
 export interface PImagegridCustomEvent<T> extends CustomEvent<T> {
     detail: T;
     target: HTMLPImagegridElement;
+}
+export interface PMediagalleryCustomEvent<T> extends CustomEvent<T> {
+    detail: T;
+    target: HTMLPMediagalleryElement;
 }
 export interface PMenuiconCustomEvent<T> extends CustomEvent<T> {
     detail: T;
@@ -729,7 +735,18 @@ declare global {
         prototype: HTMLPLineitemsElement;
         new (): HTMLPLineitemsElement;
     };
+    interface HTMLPMediagalleryElementEventMap {
+        "imageSelect": GridImageProp1;
+    }
     interface HTMLPMediagalleryElement extends Components.PMediagallery, HTMLStencilElement {
+        addEventListener<K extends keyof HTMLPMediagalleryElementEventMap>(type: K, listener: (this: HTMLPMediagalleryElement, ev: PMediagalleryCustomEvent<HTMLPMediagalleryElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLPMediagalleryElementEventMap>(type: K, listener: (this: HTMLPMediagalleryElement, ev: PMediagalleryCustomEvent<HTMLPMediagalleryElementEventMap[K]>) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
     }
     var HTMLPMediagalleryElement: {
         prototype: HTMLPMediagalleryElement;
@@ -1103,6 +1120,7 @@ declare namespace LocalJSX {
           * @default 8
          */
         "cols"?: number;
+        "onImageSelect"?: (event: PMediagalleryCustomEvent<GridImageProp1>) => void;
         /**
           * Galleries to render
           * @default []

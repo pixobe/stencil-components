@@ -1,12 +1,10 @@
-import { Component, Host, h, Prop, State, Watch } from '@stencil/core';
+import { Component, Host, h, Prop, State, Watch, Event, EventEmitter } from '@stencil/core';
 import { GridImageProp } from '../image-grid/image-grid';
 import { ensureJsonObject } from '../../utils/json-utils';
 
 interface Gallery {
   name: string;
   images?: GridImageProp[];
-  // Some callers use `items`; normalize it to images for rendering
-  items?: GridImageProp[];
 }
 
 @Component({
@@ -29,6 +27,9 @@ export class PixobeMediaGalleryElement {
   @State()
   private openIndexes: Set<number> = new Set();
 
+  @Event({ eventName: 'imageSelect' })
+  imageSelectEvent: EventEmitter<GridImageProp>;
+
   componentWillLoad() {
     this.normalizeValue(this.value);
   }
@@ -42,7 +43,7 @@ export class PixobeMediaGalleryElement {
     const parsed = ensureJsonObject(rawValue) || [];
     this.galleries = parsed.map((gallery: Gallery) => ({
       ...gallery,
-      images: gallery?.images ?? gallery?.items ?? []
+      images: gallery?.images ?? []
     }));
     // Reset the open panels so new data starts folded
     this.openIndexes = new Set();
@@ -65,6 +66,11 @@ export class PixobeMediaGalleryElement {
       </div>
     );
   }
+
+  private handleImageSelect = (event: CustomEvent<GridImageProp>) => {
+    event.stopPropagation();
+    this.imageSelectEvent.emit(event.detail);
+  };
 
   render() {
     if (!this.galleries?.length) {
@@ -105,7 +111,12 @@ export class PixobeMediaGalleryElement {
 
                 <div class="panel-body" id={bodyId} role="region" aria-labelledby={`${panelId}-trigger`} aria-hidden={!isOpen}>
                   <div class="grid-shell">
-                    <p-imagegrid images={gallery.images || []} cols={this.cols} viewonly={true}></p-imagegrid>
+                    <p-imagegrid
+                      images={gallery.images || []}
+                      cols={this.cols}
+                      viewonly={true}
+                      onImageSelect={this.handleImageSelect}
+                    ></p-imagegrid>
                   </div>
                 </div>
               </article>
