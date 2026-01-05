@@ -13,12 +13,12 @@ export class PixobeColorPickerElement {
   el: HTMLElement;
 
   @Prop({ reflect: true })
-  name!: string;
+  name: string;
 
-  @Prop()
+  @Prop({ reflect: true })
   label?: string;
 
-  @Prop({ mutable: true })
+  @Prop({ mutable: true, reflect: true })
   value: string;
 
   @Prop()
@@ -48,16 +48,14 @@ export class PixobeColorPickerElement {
       return;
     }
     const outputHex = this.alpha ? this.currentColor.hexa : this.currentColor.hex;
-
-    this.internals?.setFormValue(outputHex);
-
+    this.internals.setFormValue(outputHex);
     if (options.emitInput) {
       this.colorInputEvent.emit(outputHex);
     }
     if (options.emitChange) {
       this.colorChangeEvent.emit(outputHex);
     }
-
+    this.value = String(outputHex);
   }
 
   get matrixColor(): string {
@@ -73,7 +71,6 @@ export class PixobeColorPickerElement {
 
   componentDidLoad() {
     this.updateMarkerPositionFromColor();
-    this.propagateColor();
   }
 
   onHueChange(e: Event) {
@@ -226,7 +223,6 @@ export class PixobeColorPickerElement {
                 type="text"
                 aria-label="Color value field"
                 value={this.currentColor.hex}
-                name="hex"
                 onKeyDown={(e) => this.handleHexKeyDown(e)}
                 onPointerUp={(e) => e.stopImmediatePropagation()}
                 autocomplete="off"

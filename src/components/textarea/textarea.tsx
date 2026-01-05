@@ -52,7 +52,6 @@ export class PixobeTextAreaElement {
             {this.label}
           </label>
           <textarea
-            name={this.name}
             onInput={this.onInputFn}
             id={this.name}
             value={this.value}

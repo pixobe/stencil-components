@@ -16,11 +16,9 @@ const icons = [
   'text',
   'close',
   'info',
-  'upload',
   'image',
   "gallery",
   'add-image',
-  'upload-image',
   'noimage',
   'add',
   'edit',
@@ -43,8 +41,11 @@ const icons = [
   "tick-circle",
   "settings",
   "cog",
+  'upload',
   "download",
-  "viewfill"
+  "viewfill",
+  "emoji",
+  "save"
 ];
 
 

@@ -52,7 +52,7 @@ export class PixobeTextFieldElement {
             {this.label}
           </label>
           <div>
-            <input type={this.type} name={this.name} onInput={this.onInputFn} id={this.name} value={this.value} required={this.required} placeholder={this.placeholder} />
+            <input type={this.type} onInput={this.onInputFn} id={this.name} value={this.value} required={this.required} placeholder={this.placeholder} />
           </div>
         </div>
       </Host>

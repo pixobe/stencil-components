@@ -4,7 +4,7 @@ import { PixobeFormElement } from './pixobe-form';
 
 const meta = {
   title: 'Form',
-  component: PixobeFormElement,
+  component: 'p-form',
   parameters: {
     layout: 'centered',
   },
@@ -65,21 +65,19 @@ export const Full: Story = {
 export const Minimal: Story = {
   args: {},
   render: () => {
-    const submitted = (e) => {
+    let ref;
+    const submitted = async (e) => {
       e.preventDefault();
-      const fd = new FormData(e.target);
-      const result = {};
-      for (const [k, v] of fd.entries()) result[k] = v;
-      console.log("Data submitted", result)
+      console.log("Data submitted", await ref.getFormData())
     }
 
-    return <form onSubmit={submitted}>
+    return <p-form ref={(el) => ref = el}>
       <p-checkbox name="agree" label="Agree" value="true" />
       <p-textfield name="firstname" label="First Name" value='Sudharsan' />
       <p-switch name="background" label="Background" value='true' />
       <p-textarea name="comments" label="Comments" />
-      <p-colorpicker name="swatch" label="Swatch" value="#FF7799" />
-      <button>Submit</button>
-    </form>;
+      <p-colorpicker name="swatch" label="Swatch" />
+      <button onClick={submitted}>Submit</button>
+    </p-form>;
   }
 };

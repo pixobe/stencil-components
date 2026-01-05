@@ -18,9 +18,9 @@ type Story = StoryObj<any>;
 export const Basic: Story = {
   args: {
     label: 'Brand palette',
-    name: "agreement"
+    name: "palette"
   },
   render: (props) => {
-    return <p-p-colorswatch {...props} />;
+    return <p-colorswatch {...props} />;
   }
 };

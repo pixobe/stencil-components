@@ -46,7 +46,6 @@ export class PixobeSwitchFieldElement {
           <input
             class="switch-input"
             id={this.name}
-            name={this.name}
             type={this.type}
             onInput={this.onInputFn}
             aria-label={this.label}

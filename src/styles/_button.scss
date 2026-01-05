@@ -6,7 +6,7 @@
     border: none;
     outline: none;
     margin: 0;
-    padding: 4px;
+    padding: 4px 8px;
     background-color: transparent;
     border-radius: 4px;
     font-size: 13px;
@@ -24,6 +24,7 @@
     color: var(--button-text-primary);
     &:hover {
       box-shadow: 0 0 2px var(--box-shadow);
+      background-color: color-mix(in oklch, var(--button-primary), var(--button-text-primary) 15%);
     }
   }
   button.btn-secondary {
@@ -31,6 +32,7 @@
     color: var(--button-text-secondary);
     &:hover {
       box-shadow: 0 0 2px var(--box-shadow);
+      background-color: color-mix(in oklch, var(--button-secondary), var(--button-text-secondary) 15%);
     }
   }
 

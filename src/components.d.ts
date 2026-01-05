@@ -7,11 +7,13 @@
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
 import { FontItem } from "@pixobe/ui-utils";
 import { GridImageProp } from "./components/image-grid/image-grid";
+import { Gallery } from "./components/media-gallery/media-gallery";
 import { GridImageProp as GridImageProp1 } from "./components/image-grid/image-grid";
 import { DropdownOption } from "./components/menu-icon/menu-icon";
 import { OptionItem } from "./components/select-menu/select-menu";
 export { FontItem } from "@pixobe/ui-utils";
 export { GridImageProp } from "./components/image-grid/image-grid";
+export { Gallery } from "./components/media-gallery/media-gallery";
 export { GridImageProp as GridImageProp1 } from "./components/image-grid/image-grid";
 export { DropdownOption } from "./components/menu-icon/menu-icon";
 export { OptionItem } from "./components/select-menu/select-menu";
@@ -43,6 +45,8 @@ export namespace Components {
     interface IconDownload {
     }
     interface IconEdit {
+    }
+    interface IconEmoji {
     }
     interface IconEnvelope {
     }
@@ -78,6 +82,8 @@ export namespace Components {
     }
     interface IconRotate {
     }
+    interface IconSave {
+    }
     interface IconSettings {
     }
     interface IconSpinner {
@@ -93,8 +99,6 @@ export namespace Components {
     interface IconTrash {
     }
     interface IconUpload {
-    }
-    interface IconUploadImage {
     }
     interface IconViewfill {
     }
@@ -455,6 +459,12 @@ declare global {
         prototype: HTMLIconEditElement;
         new (): HTMLIconEditElement;
     };
+    interface HTMLIconEmojiElement extends Components.IconEmoji, HTMLStencilElement {
+    }
+    var HTMLIconEmojiElement: {
+        prototype: HTMLIconEmojiElement;
+        new (): HTMLIconEmojiElement;
+    };
     interface HTMLIconEnvelopeElement extends Components.IconEnvelope, HTMLStencilElement {
     }
     var HTMLIconEnvelopeElement: {
@@ -557,6 +567,12 @@ declare global {
         prototype: HTMLIconRotateElement;
         new (): HTMLIconRotateElement;
     };
+    interface HTMLIconSaveElement extends Components.IconSave, HTMLStencilElement {
+    }
+    var HTMLIconSaveElement: {
+        prototype: HTMLIconSaveElement;
+        new (): HTMLIconSaveElement;
+    };
     interface HTMLIconSettingsElement extends Components.IconSettings, HTMLStencilElement {
     }
     var HTMLIconSettingsElement: {
@@ -604,12 +620,6 @@ declare global {
     var HTMLIconUploadElement: {
         prototype: HTMLIconUploadElement;
         new (): HTMLIconUploadElement;
-    };
-    interface HTMLIconUploadImageElement extends Components.IconUploadImage, HTMLStencilElement {
-    }
-    var HTMLIconUploadImageElement: {
-        prototype: HTMLIconUploadImageElement;
-        new (): HTMLIconUploadImageElement;
     };
     interface HTMLIconViewfillElement extends Components.IconViewfill, HTMLStencilElement {
     }
@@ -874,6 +884,7 @@ declare global {
         "icon-done": HTMLIconDoneElement;
         "icon-download": HTMLIconDownloadElement;
         "icon-edit": HTMLIconEditElement;
+        "icon-emoji": HTMLIconEmojiElement;
         "icon-envelope": HTMLIconEnvelopeElement;
         "icon-error": HTMLIconErrorElement;
         "icon-facebook": HTMLIconFacebookElement;
@@ -891,6 +902,7 @@ declare global {
         "icon-preview": HTMLIconPreviewElement;
         "icon-redo": HTMLIconRedoElement;
         "icon-rotate": HTMLIconRotateElement;
+        "icon-save": HTMLIconSaveElement;
         "icon-settings": HTMLIconSettingsElement;
         "icon-spinner": HTMLIconSpinnerElement;
         "icon-support": HTMLIconSupportElement;
@@ -899,7 +911,6 @@ declare global {
         "icon-tick-circle": HTMLIconTickCircleElement;
         "icon-trash": HTMLIconTrashElement;
         "icon-upload": HTMLIconUploadElement;
-        "icon-upload-image": HTMLIconUploadImageElement;
         "icon-viewfill": HTMLIconViewfillElement;
         "icon-whatsapp": HTMLIconWhatsappElement;
         "icon-wrench": HTMLIconWrenchElement;
@@ -957,6 +968,8 @@ declare namespace LocalJSX {
     }
     interface IconEdit {
     }
+    interface IconEmoji {
+    }
     interface IconEnvelope {
     }
     interface IconError {
@@ -991,6 +1004,8 @@ declare namespace LocalJSX {
     }
     interface IconRotate {
     }
+    interface IconSave {
+    }
     interface IconSettings {
     }
     interface IconSpinner {
@@ -1006,8 +1021,6 @@ declare namespace LocalJSX {
     interface IconTrash {
     }
     interface IconUpload {
-    }
-    interface IconUploadImage {
     }
     interface IconViewfill {
     }
@@ -1040,7 +1053,7 @@ declare namespace LocalJSX {
          */
         "alpha"?: boolean;
         "label"?: string;
-        "name": string;
+        "name"?: string;
         "onColorChange"?: (event: PColorpickerCustomEvent<string>) => void;
         "onColorInput"?: (event: PColorpickerCustomEvent<string>) => void;
         "value"?: string;
@@ -1277,6 +1290,7 @@ declare namespace LocalJSX {
         "icon-done": IconDone;
         "icon-download": IconDownload;
         "icon-edit": IconEdit;
+        "icon-emoji": IconEmoji;
         "icon-envelope": IconEnvelope;
         "icon-error": IconError;
         "icon-facebook": IconFacebook;
@@ -1294,6 +1308,7 @@ declare namespace LocalJSX {
         "icon-preview": IconPreview;
         "icon-redo": IconRedo;
         "icon-rotate": IconRotate;
+        "icon-save": IconSave;
         "icon-settings": IconSettings;
         "icon-spinner": IconSpinner;
         "icon-support": IconSupport;
@@ -1302,7 +1317,6 @@ declare namespace LocalJSX {
         "icon-tick-circle": IconTickCircle;
         "icon-trash": IconTrash;
         "icon-upload": IconUpload;
-        "icon-upload-image": IconUploadImage;
         "icon-viewfill": IconViewfill;
         "icon-whatsapp": IconWhatsapp;
         "icon-wrench": IconWrench;
@@ -1349,6 +1363,7 @@ declare module "@stencil/core" {
             "icon-done": LocalJSX.IconDone & JSXBase.HTMLAttributes<HTMLIconDoneElement>;
             "icon-download": LocalJSX.IconDownload & JSXBase.HTMLAttributes<HTMLIconDownloadElement>;
             "icon-edit": LocalJSX.IconEdit & JSXBase.HTMLAttributes<HTMLIconEditElement>;
+            "icon-emoji": LocalJSX.IconEmoji & JSXBase.HTMLAttributes<HTMLIconEmojiElement>;
             "icon-envelope": LocalJSX.IconEnvelope & JSXBase.HTMLAttributes<HTMLIconEnvelopeElement>;
             "icon-error": LocalJSX.IconError & JSXBase.HTMLAttributes<HTMLIconErrorElement>;
             "icon-facebook": LocalJSX.IconFacebook & JSXBase.HTMLAttributes<HTMLIconFacebookElement>;
@@ -1366,6 +1381,7 @@ declare module "@stencil/core" {
             "icon-preview": LocalJSX.IconPreview & JSXBase.HTMLAttributes<HTMLIconPreviewElement>;
             "icon-redo": LocalJSX.IconRedo & JSXBase.HTMLAttributes<HTMLIconRedoElement>;
             "icon-rotate": LocalJSX.IconRotate & JSXBase.HTMLAttributes<HTMLIconRotateElement>;
+            "icon-save": LocalJSX.IconSave & JSXBase.HTMLAttributes<HTMLIconSaveElement>;
             "icon-settings": LocalJSX.IconSettings & JSXBase.HTMLAttributes<HTMLIconSettingsElement>;
             "icon-spinner": LocalJSX.IconSpinner & JSXBase.HTMLAttributes<HTMLIconSpinnerElement>;
             "icon-support": LocalJSX.IconSupport & JSXBase.HTMLAttributes<HTMLIconSupportElement>;
@@ -1374,7 +1390,6 @@ declare module "@stencil/core" {
             "icon-tick-circle": LocalJSX.IconTickCircle & JSXBase.HTMLAttributes<HTMLIconTickCircleElement>;
             "icon-trash": LocalJSX.IconTrash & JSXBase.HTMLAttributes<HTMLIconTrashElement>;
             "icon-upload": LocalJSX.IconUpload & JSXBase.HTMLAttributes<HTMLIconUploadElement>;
-            "icon-upload-image": LocalJSX.IconUploadImage & JSXBase.HTMLAttributes<HTMLIconUploadImageElement>;
             "icon-viewfill": LocalJSX.IconViewfill & JSXBase.HTMLAttributes<HTMLIconViewfillElement>;
             "icon-whatsapp": LocalJSX.IconWhatsapp & JSXBase.HTMLAttributes<HTMLIconWhatsappElement>;
             "icon-wrench": LocalJSX.IconWrench & JSXBase.HTMLAttributes<HTMLIconWrenchElement>;

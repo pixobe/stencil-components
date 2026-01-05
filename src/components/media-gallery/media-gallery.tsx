@@ -2,9 +2,9 @@ import { Component, Host, h, Prop, State, Watch, Event, EventEmitter } from '@st
 import { GridImageProp } from '../image-grid/image-grid';
 import { ensureJsonObject } from '../../utils/json-utils';
 
-interface Gallery {
+export type Gallery = {
   name: string;
-  images?: GridImageProp[];
+  images: GridImageProp[];
 }
 
 @Component({
